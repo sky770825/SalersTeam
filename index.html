@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f1419, #1a2332, #2d3748, #4a5568);
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #2d2d2d, #3a3a3a);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             min-height: 100vh;
@@ -34,9 +34,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 80%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(40, 40, 40, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(80, 80, 80, 0.2) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
         }
@@ -64,7 +64,7 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(200, 200, 200, 0.4);
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
@@ -1766,12 +1766,12 @@
             }
             
             .particle:nth-child(odd) {
-                background: linear-gradient(45deg, rgba(248, 249, 250, 0.6), rgba(233, 236, 239, 0.4));
+                background: linear-gradient(45deg, rgba(180, 180, 180, 0.4), rgba(160, 160, 160, 0.3));
                 animation: float 8s ease-in-out infinite;
             }
 
             .particle:nth-child(even) {
-                background: rgba(248, 249, 250, 0.3);
+                background: rgba(200, 200, 200, 0.2);
                 border-radius: 2px;
                 animation: float 10s ease-in-out infinite reverse;
             }
