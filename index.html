@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f1419, #1a2332, #2d3748, #4a5568);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 動態背景粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.7; }
+        }
+
+        /* 主標題區 */
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 30;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 25px;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5),
+                         0 0 20px rgba(255,255,255,0.3);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            position: relative;
+            z-index: 30;
+        }
+
+        .hero h1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+            z-index: -1;
+        }
+
+        @keyframes titleShine {
+            0%, 100% { 
+                background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #cbd5e1 50%, #ffffff 75%);
+            }
+            50% { 
+                background: linear-gradient(135deg, #f8fafc 0%, #ffffff 25%, #f1f5f9 50%, #e2e8f0 75%);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.3rem, 2.8vw, 2.2rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+            letter-spacing: 0.01em;
+            position: relative;
+            z-index: 30;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 30;
+        }
+
+        /* 括號固定白字 */
+        .brackets {
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            font-weight: 900;
+        }
+
+        /* 限額參加特效文字 */
+        .fire-text {
+            display: inline-block;
+            background: linear-gradient(135deg, 
+                #DAA520 0%,    /* 深金色 */
+                #B8860B 20%,   /* 暗金色 */
+                #CD853F 40%,   /* 深橙棕色 */
+                #DAA520 60%,   /* 深金色 */
+                #F0E68C 80%,   /* 淺卡其色 */
+                #DAA520 100%   /* 回到深金色 */
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: softGlow 8s ease-in-out infinite, gentleFloat 6s ease-in-out infinite;
+            text-shadow: 0 0 8px rgba(218, 165, 32, 0.3),
+                         0 0 15px rgba(218, 165, 32, 0.2);
+            filter: drop-shadow(0 1px 4px rgba(218, 165, 32, 0.2));
+            position: relative;
+        }
+
+        /* 柔和光芒動畫 */
+        @keyframes softGlow {
+            0% { 
+                background-position: 0% 50%; 
+                filter: drop-shadow(0 1px 4px rgba(218, 165, 32, 0.2)) brightness(0.9);
+            }
+            50% { 
+                background-position: 100% 50%; 
+                filter: drop-shadow(0 1px 6px rgba(218, 165, 32, 0.3)) brightness(1);
+            }
+            100% { 
+                background-position: 0% 50%; 
+                filter: drop-shadow(0 1px 4px rgba(218, 165, 32, 0.2)) brightness(0.9);
+            }
+        }
+
+        /* 輕柔飄動效果 */
+        @keyframes gentleFloat {
+            0%, 100% { 
+                transform: translateY(0px) scale(1); 
+            }
+            50% { 
+                transform: translateY(-1px) scale(1.01); 
+            }
+        }
+
+        /* 淡淡光環效果 */
+        .fire-text::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: radial-gradient(ellipse, 
+                rgba(218, 165, 32, 0.08) 0%, 
+                rgba(184, 134, 11, 0.05) 40%, 
+                transparent 70%);
+            border-radius: 50%;
+            animation: subtleGlow 10s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes subtleGlow {
+            0% { 
+                transform: scale(0.95); 
+                opacity: 0.2; 
+            }
+            100% { 
+                transform: scale(1.05); 
+                opacity: 0.05; 
+            }
+        }
+
+        /* 簡約星星裝飾 */
+        .fire-text::after {
+            content: '⭐';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.3em;
+            opacity: 0.4;
+            animation: quietTwinkle 12s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes quietTwinkle {
+            0%, 100% { 
+                transform: translateX(-50%) translateY(0px); 
+                opacity: 0.2; 
+            }
+            50% { 
+                transform: translateX(-50%) translateY(-3px); 
+                opacity: 0.4; 
+            }
+        }
+
+        /* 響應式優化 */
+        @media (max-width: 768px) {
+            .fire-text {
+                animation: softGlow 10s ease-in-out infinite, gentleFloat 8s ease-in-out infinite;
+            }
+        }
+
+        /* 特色卡片 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                        0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                transparent 25%, 
+                transparent 75%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 35px 70px rgba(0,0,0,0.25),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                        0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .feature-card h3 {
+            color: #f8f9fa;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            text-align: center;
+            letter-spacing: 0.01em;
+            opacity: 0.95;
+        }
+
+        .feature-card p {
+            color: #e9ecef;
+            line-height: 1.7;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.88;
+        }
+
+        /* 主要內容區 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 32px;
+            padding: 50px;
+            margin: 50px 0;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%);
+        }
+
+        .main-content h2 {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            letter-spacing: -0.01em;
+        }
+
+        .main-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.6) 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            border-radius: 1px;
+        }
+
+        .highlight-text {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.15em;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .main-content p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+        }
+
+        .main-content strong {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* 時間軸區域 */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            padding: 45px;
+            margin: 40px 0;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .timeline-section h3 {
+            color: #f8f9fa;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0.96;
+            letter-spacing: -0.01em;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                rgba(248, 249, 250, 0.1) 0%, 
+                rgba(248, 249, 250, 0.3) 50%, 
+                rgba(248, 249, 250, 0.1) 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-time {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(233, 236, 239, 0.08) 100%);
+            color: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            min-width: 100px;
+            text-align: center;
+            border: 1px solid rgba(248, 249, 250, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-time:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            transform: scale(1.1);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px 30px;
+            border-radius: 20px;
+            margin: 0 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .timeline-content h4 {
+            color: #f8f9fa;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            opacity: 0.95;
+        }
+
+        .timeline-content p {
+            color: #e9ecef;
+            font-size: 1.1rem;
+            opacity: 0.85;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* 獎品區域 */
+        .prize-section {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.15) 0%, 
+                rgba(255, 193, 7, 0.12) 25%,
+                rgba(255, 165, 0, 0.1) 50%,
+                rgba(255, 140, 0, 0.08) 75%,
+                rgba(255, 215, 0, 0.12) 100%);
+            background-size: 300% 300%;
+            animation: prizeGradientShift 4s ease infinite;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 35px;
+            padding: 45px 40px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(255, 165, 0, 0.2),
+                        0 10px 30px rgba(255, 215, 0, 0.15),
+                        inset 0 2px 0 rgba(255, 255, 255, 0.15),
+                        inset 0 -2px 0 rgba(255, 215, 0, 0.1),
+                        0 0 0 1px rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes prizeGradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 裝飾性邊框動畫 */
+        .prize-section::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #FFD700 0%, 
+                #FFA500 25%, 
+                #FF8C00 50%, 
+                #FFD700 75%, 
+                #FFA500 100%);
+            background-size: 400% 400%;
+            border-radius: 38px;
+            z-index: -2;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 浮動獎品圖標 */
+        .prize-section::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 60px;
+            height: 60px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50" font-size="45">🎁</text></svg>');
+            background-size: contain;
+            animation: prizeFloat 3s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes prizeFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+                opacity: 0.3; 
+            }
+            50% { 
+                transform: translateY(-10px) rotate(10deg) scale(1.1); 
+                opacity: 0.5; 
+            }
+        }
+
+        .prize-section h3 {
+            color: #f8f9fa;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+            text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.5),
+                         0 0 15px rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 20;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                color: #f8f9fa;
+                text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.5);
+            }
+            100% { 
+                color: #FFD700;
+                text-shadow: 2px 2px 12px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        .prize-section p {
+            color: #f8f9fa;
+            font-weight: 600;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 20;
+            margin-bottom: 15px;
+        }
+
+        /* 閃爍星星裝飾 */
+        .prize-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .star {
+            position: absolute;
+            color: #FFD700;
+            font-size: 1.5rem;
+            animation: starTwinkle 2s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0) rotate(0deg); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1) rotate(180deg); 
+            }
+        }
+
+        .star:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .star:nth-child(2) { top: 15%; right: 15%; animation-delay: 0.5s; }
+        .star:nth-child(3) { bottom: 25%; left: 8%; animation-delay: 1s; }
+        .star:nth-child(4) { bottom: 20%; right: 12%; animation-delay: 1.5s; }
+        .star:nth-child(5) { top: 35%; left: 15%; animation-delay: 0.3s; }
+        .star:nth-child(6) { top: 40%; right: 20%; animation-delay: 0.8s; }
+
+        /* 獎品價值標籤 */
+        .prize-value {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-top: 15px;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4),
+                        0 5px 15px rgba(76, 205, 196, 0.3);
+            animation: valueBounce 2s ease-in-out infinite;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            letter-spacing: 0.02em;
+        }
+
+        @keyframes valueBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.05); }
+        }
+
+        /* CTA 按鈕區 */
+        .cta-section {
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, 
+                #FF6B6B 0%, 
+                #4ECDC4 25%, 
+                #45B7D1 50%, 
+                #96CEB4 75%, 
+                #FECA57 100%);
+            background-size: 300% 300%;
+            animation: gradientFlow 3s ease infinite;
+            color: white;
+            padding: 25px 50px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
+                        0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            margin: 15px;
+            border: none;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                        0 10px 30px rgba(255, 107, 107, 0.6),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: gradientFlow 1.5s ease infinite, buttonPulse 2s ease infinite;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { 
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                           0 10px 30px rgba(255, 107, 107, 0.6),
+                           0 0 0 0 rgba(255, 107, 107, 0.7);
+            }
+            50% { 
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                           0 10px 30px rgba(255, 107, 107, 0.6),
+                           0 0 0 20px rgba(255, 107, 107, 0);
+            }
+        }
+
+        .instagram-link {
+            display: inline-block;
+            margin: 15px;
+            padding: 20px 40px;
+            background: linear-gradient(45deg, 
+                #405DE6, 
+                #5851DB, 
+                #833AB4, 
+                #C13584, 
+                #E1306C, 
+                #FD1D1D, 
+                #F56040, 
+                #F77737, 
+                #FCAF45, 
+                #FFDC80);
+            background-size: 300% 300%;
+            animation: instagramGradient 4s ease infinite;
+            color: white;
+            text-decoration: none;
+            border-radius: 35px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(225, 48, 108, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        @keyframes instagramGradient {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .instagram-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transition: left 0.7s ease;
+        }
+
+        .instagram-link:hover {
+            transform: translateY(-6px) scale(1.03) rotateZ(2deg);
+            box-shadow: 0 20px 40px rgba(225, 48, 108, 0.4),
+                        0 0 30px rgba(225, 48, 108, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: instagramGradient 2s ease infinite, instagramBounce 1s ease infinite;
+        }
+
+        .instagram-link:hover::before {
+            left: 100%;
+        }
+
+        @keyframes instagramBounce {
+            0%, 100% { transform: translateY(-6px) scale(1.03) rotateZ(2deg); }
+            50% { transform: translateY(-8px) scale(1.05) rotateZ(-1deg); }
+        }
+
+        /* 按鈕容器動畫 */
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: backgroundPulse 3s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { 
+                width: 200px; 
+                height: 200px; 
+                opacity: 0.3; 
+            }
+            50% { 
+                width: 400px; 
+                height: 400px; 
+                opacity: 0.1; 
+            }
+        }
+
+        /* 浮動圖標動畫 */
+        .floating-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: floatIcon 8s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.1; 
+            }
+            25% { 
+                transform: translateY(-20px) rotate(90deg); 
+                opacity: 0.3; 
+            }
+            50% { 
+                transform: translateY(-10px) rotate(180deg); 
+                opacity: 0.2; 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(270deg); 
+                opacity: 0.25; 
+            }
+        }
+
+        /* 倒數計時器 */
+        .countdown-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            border-radius: 28px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .countdown-title {
+            color: #f8f9fa;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px 20px;
+            min-width: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .time-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FFD700;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+                margin: 25px 0;
+            }
+            
+            .cta-button {
+                padding: 18px 35px;
+                font-size: 1.1rem;
+                margin: 10px 5px;
+                display: block;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .instagram-link {
+                padding: 15px 25px;
+                margin: 10px 5px;
+                font-size: 0.95rem;
+                display: block;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .feature-card {
+                padding: 25px 20px;
+            }
+            
+            .prize-section {
+                padding: 25px 20px;
+                margin: 25px 0;
+            }
+            
+            .hero h1 {
+                font-size: clamp(1.5rem, 6vw, 2.5rem);
+                margin-bottom: 20px;
+            }
+            
+            .hero .subtitle {
+                font-size: clamp(1rem, 4vw, 1.5rem);
+                margin-bottom: 25px;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+            }
+            
+            .timeline-item:nth-child(even) {
+                flex-direction: row !important;
+            }
+            
+            .timeline-time {
+                min-width: 80px;
+                font-size: 1rem;
+                padding: 12px 18px;
+            }
+            
+            .timeline-content {
+                margin: 0 0 0 20px;
+                padding: 20px 25px;
+            }
+            
+            .timeline-content h4 {
+                font-size: 1.2rem;
+            }
+            
+            .timeline-content p {
+                font-size: 1rem;
+            }
+            
+            .timeline-section {
+                padding: 30px 20px;
+            }
+            
+            .countdown-timer {
+                gap: 10px;
+            }
+            
+            .time-unit {
+                padding: 10px 15px;
+                min-width: 60px;
+            }
+            
+            .time-number {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 滾動動畫 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 滾動進度條 */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #FFD700, #FF6B35);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* 浮動返回頂部按鈕 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="hero fade-in">
+            <h1><span class="brackets">【</span><span class="fire-text">限額參加</span><span class="brackets">】</span>蔣哥房產真經話 房地產說明會</h1>
+            <div class="subtitle">新青安政策猶如打開房市水龍頭，帶動買賣熱潮</div>
+            <div class="hero-description">
+                這波機會中，投資選擇更需要專業知識的指引。<br>
+                2025-2026的投資策略詭譎多變，來聽聽蔣哥的分析吧！
+            </div>
+        </div>
+
+        <div class="countdown-section fade-in">
+            <div class="countdown-title">📅 說明會時間：2025/10/5（日）下午2:00 準時開始</div>
+            <div class="countdown-timer" id="countdown">
+                <div class="time-unit">
+                    <span class="time-number" id="days">00</span>
+                    <div class="time-label">天</div>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="hours">00</span>
+                    <div class="time-label">小時</div>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="minutes">00</span>
+                    <div class="time-label">分鐘</div>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="seconds">00</span>
+                    <div class="time-label">秒</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🎯</div>
+                <h3>最犀利的Q&A現場互動</h3>
+                <p>現場直接解答您的房產投資疑惑，零距離專業諮詢</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">✨</div>
+                <h3>20年真槍實彈操作指南</h3>
+                <p>蔣哥20年房地產實戰經驗，毫無保留分享投資心法與操作策略</p>
+            </div>
+        </div>
+
+        <div class="main-content fade-in">
+            <h2>🏠 活動內容豐富精彩</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8; text-align: center; margin-bottom: 30px;">
+                <span class="highlight-text">✨ 現場提供精美茶點</span><br>
+                <span class="highlight-text">🎁 抽獎活動（禮品價值超過兩萬元）</span><br>
+                <span style="color: #FFD700; font-size: 1.1em; font-weight: 600;">⚠️ 請配合實名入場</span>
+            </p>
+        </div>
+
+        <div class="prize-section fade-in">
+            <div class="prize-stars">
+                <div class="star">⭐</div>
+                <div class="star">✨</div>
+                <div class="star">🌟</div>
+                <div class="star">⭐</div>
+                <div class="star">✨</div>
+                <div class="star">🌟</div>
+            </div>
+            <h3>🎁 現場抽獎大放送</h3>
+            <p>精美大獎等您帶回家！</p>
+            <div class="prize-value">禮品價值超過兩萬元</div>
+        </div>
+
+        <div class="timeline-section fade-in">
+            <h3>📋 說明會流程</h3>
+            <div class="timeline">
+                <div class="timeline-item" style="animation-delay: 0.1s;">
+                    <div class="timeline-time">13:30</div>
+                    <div class="timeline-content">
+                        <h4>🎫 報到入場</h4>
+                        <p>簽到領取精美資料袋，享用迎賓茶點</p>
+                    </div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 0.2s;">
+                    <div class="timeline-time">14:00</div>
+                    <div class="timeline-content">
+                        <h4>📊 市場分析</h4>
+                        <p>2025-2028桃園房市趨勢深度解析</p>
+                    </div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 0.3s;">
+                    <div class="timeline-time">15:00</div>
+                    <div class="timeline-content">
+                        <h4>💡 投資策略</h4>
+                        <p>蔣哥20年實戰心法無私分享</p>
+                    </div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 0.4s;">
+                    <div class="timeline-time">16:00</div>
+                    <div class="timeline-content">
+                        <h4>🤝 Q&A互動</h4>
+                        <p>現場解答投資疑問，一對一諮詢</p>
+                    </div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 0.5s;">
+                    <div class="timeline-time">16:30</div>
+                    <div class="timeline-content">
+                        <h4>🎁 抽獎時間</h4>
+                        <p>精美大獎等您帶回家！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section fade-in">
+            <div class="floating-icons">
+                <div class="floating-icon" style="top: 10%; left: 15%; animation-delay: 0s;">🏠</div>
+                <div class="floating-icon" style="top: 20%; right: 10%; animation-delay: 1s;">💰</div>
+                <div class="floating-icon" style="bottom: 30%; left: 5%; animation-delay: 2s;">📈</div>
+                <div class="floating-icon" style="bottom: 15%; right: 20%; animation-delay: 3s;">🎯</div>
+                <div class="floating-icon" style="top: 50%; right: 8%; animation-delay: 5s;">🔥</div>
+            </div>
+            
+            <a href="https://forms.gle/UEyNLsrATT4vHzfKA" class="cta-button" target="_blank">
+                🚀 立即報名參加說明會
+            </a>
+            <br>
+            <a href="https://www.instagram.com/reel/DO-sa_LksJF/?igsh=MWNxZmdhdHd0dXprNw==" class="instagram-link" target="_blank">
+                📱 查看 Instagram 精彩內容
+            </a>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <span>↑</span>
+    </a>
+
+    <script>
+        // 創建動態背景粒子
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 50;
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 滾動進度條
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        }
+
+        // 滾動動畫效果
+        function handleScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // 返回頂部按鈕
+        function handleBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // 倒數計時器
+        function startCountdown() {
+            // 設定目標日期為2025年10月5日 14:00 (下午2:00)
+            const targetDate = new Date('2025-10-05T14:00:00+08:00').getTime(); // 加入台灣時區
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                
+                console.log('距離目標時間:', distance, 'ms'); // 調試用
+                
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                } else {
+                    // 活動已開始或已結束
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    
+                    // 可以在這裡添加活動已開始的訊息
+                    document.querySelector('.countdown-title').innerHTML = '🎉 活動進行中或已結束';
+                }
+            }
+            
+            // 立即執行一次
+            updateCountdown();
+            // 每秒更新一次
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            
+            // 保存interval ID以便後續清理（可選）
+            window.countdownInterval = countdownInterval;
+        }
+
+        // 滑鼠跟隨效果
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            particles.forEach((particle, index) => {
+                const speed = (index % 5 + 1) * 0.5;
+                const xOffset = (x - 0.5) * speed;
+                const yOffset = (y - 0.5) * speed;
+                
+                particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // 按鈕點擊動畫 (增強版)
+        document.querySelectorAll('.cta-button, .instagram-link').forEach(button => {
+            // 添加懸停時的特殊效果
+            button.addEventListener('mouseenter', function() {
+                // 創建火花效果
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        createSpark(this);
+                    }, i * 100);
+                }
+            });
+
+            button.addEventListener('click', function(e) {
+                // 創建更炫的漣漪效果
+                const ripple = document.createElement('div');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height) * 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255,255,255,0.8)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'superRipple 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.zIndex = '1000';
+                
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+                
+                // 創建爆炸效果
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => {
+                        createExplosionParticle(this, e.clientX - rect.left, e.clientY - rect.top);
+                    }, i * 50);
+                }
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 800);
+            });
+        });
+
+        // 創建火花效果
+        function createSpark(element) {
+            const spark = document.createElement('div');
+            const rect = element.getBoundingClientRect();
+            
+            spark.style.position = 'absolute';
+            spark.style.width = '4px';
+            spark.style.height = '4px';
+            spark.style.background = '#FFD700';
+            spark.style.borderRadius = '50%';
+            spark.style.left = (Math.random() * rect.width) + 'px';
+            spark.style.top = (Math.random() * rect.height) + 'px';
+            spark.style.pointerEvents = 'none';
+            spark.style.animation = 'sparkle 1s ease-out forwards';
+            spark.style.zIndex = '1001';
+            
+            element.appendChild(spark);
+            
+            setTimeout(() => {
+                spark.remove();
+            }, 1000);
+        }
+
+        // 創建爆炸粒子效果
+        function createExplosionParticle(element, x, y) {
+            const particle = document.createElement('div');
+            
+            particle.style.position = 'absolute';
+            particle.style.width = '6px';
+            particle.style.height = '6px';
+            particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            particle.style.borderRadius = '50%';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1002';
+            
+            const angle = (Math.PI * 2 * Math.random());
+            const velocity = 100 + Math.random() * 100;
+            const gravity = 300;
+            
+            particle.style.animation = `explode 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`;
+            particle.style.setProperty('--dx', Math.cos(angle) * velocity + 'px');
+            particle.style.setProperty('--dy', Math.sin(angle) * velocity + 'px');
+            
+            element.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 1500);
+        }
+
+        // 卡片懸停特效
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px) scale(1.03) rotateX(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
+            });
+        });
+
+        // 時間軸項目動畫
+        function animateTimelineItems() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        // 添加滾動事件監聽
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+        });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            handleScrollAnimations();
+            handleBackToTop();
+            startCountdown();
+            animateTimelineItems();
+        });
+
+        // CSS 動畫樣式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes superRipple {
+                0% {
+                    transform: scale(0);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes sparkle {
+                0% {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-20px) scale(0);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes explode {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--dx), var(--dy)) scale(0);
+                    opacity: 0;
+                }
+            }
+            
+            .particle:nth-child(odd) {
+                background: linear-gradient(45deg, rgba(248, 249, 250, 0.6), rgba(233, 236, 239, 0.4));
+                animation: float 8s ease-in-out infinite;
+            }
+
+            .particle:nth-child(even) {
+                background: rgba(248, 249, 250, 0.3);
+                border-radius: 2px;
+                animation: float 10s ease-in-out infinite reverse;
+            }
+            
+            /* 按鈕額外特效 */
+            .cta-button {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .cta-button:active {
+                transform: translateY(-4px) scale(0.98);
+            }
+            
+            .instagram-link:active {
+                transform: translateY(-2px) scale(0.98) rotateZ(1deg);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
