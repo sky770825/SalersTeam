@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #2d2d2d, #3a3a3a);
+            background: linear-gradient(135deg, #000000, #0d0d0d, #1a1a1a, #262626, #333333);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             min-height: 100vh;
@@ -34,11 +34,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(40, 40, 40, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(80, 80, 80, 0.2) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 80%, rgba(20, 20, 20, 0.6) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(10, 10, 10, 0.5) 0%, transparent 60%),
+                        radial-gradient(circle at 40% 40%, rgba(30, 30, 30, 0.4) 0%, transparent 60%),
+                        radial-gradient(circle at 60% 70%, rgba(15, 15, 15, 0.3) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 0, 0, 0.1) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(0, 0, 0, 0.05) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 2;
         }
 
         .container {
@@ -64,7 +79,7 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: rgba(200, 200, 200, 0.4);
+            background: rgba(120, 120, 120, 0.3);
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
@@ -1766,12 +1781,12 @@
             }
             
             .particle:nth-child(odd) {
-                background: linear-gradient(45deg, rgba(180, 180, 180, 0.4), rgba(160, 160, 160, 0.3));
+                background: linear-gradient(45deg, rgba(100, 100, 100, 0.3), rgba(80, 80, 80, 0.2));
                 animation: float 8s ease-in-out infinite;
             }
 
             .particle:nth-child(even) {
-                background: rgba(200, 200, 200, 0.2);
+                background: rgba(120, 120, 120, 0.15);
                 border-radius: 2px;
                 animation: float 10s ease-in-out infinite reverse;
             }
