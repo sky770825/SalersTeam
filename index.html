@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
+    
+    <!-- 2025年趨勢：SEO優化 -->
+    <meta name="description" content="蔣哥20年房地產實戰經驗分享，2025年房市趨勢分析，限額參加說明會，現場Q&A互動，精美獎品抽獎">
+    <meta name="keywords" content="房地產,房市分析,投資策略,蔣哥,說明會,2025年房市">
+    <meta name="author" content="房產擺渡人蔣哥">
+    
+    <!-- 2025年趨勢：Open Graph -->
+    <meta property="og:title" content="房產擺渡人蔣哥｜114年房產分析說明會">
+    <meta property="og:description" content="蔣哥20年房地產實戰經驗分享，2025年房市趨勢分析，限額參加說明會">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_TW">
+    
+    <!-- 2025年趨勢：性能優化 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,7 +31,7 @@
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #000000, #0d0d0d, #1a1a1a, #262626, #333333);
             background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
@@ -54,6 +70,89 @@
                 linear-gradient(-45deg, transparent 30%, rgba(0, 0, 0, 0.05) 50%, transparent 70%);
             pointer-events: none;
             z-index: 2;
+        }
+
+        /* 2025年趨勢：游標互動光暈效果 */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 2025年趨勢：動態玻璃質感 */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 2025年趨勢：流體動畫 */
+        .fluid-animation {
+            background: linear-gradient(-45deg, #000000, #1a1a1a, #2d2d2d, #000000);
+            background-size: 400% 400%;
+            animation: fluidMove 8s ease infinite;
+        }
+
+        @keyframes fluidMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 2025年趨勢：微互動效果 */
+        .micro-interaction {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .micro-interaction:hover {
+            transform: scale(1.02);
+        }
+
+        .micro-interaction:active {
+            transform: scale(0.98);
+        }
+
+        /* 2025年趨勢：觸覺反饋動畫 */
+        @keyframes hapticFeedback {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(0.95); }
+            75% { transform: scale(1.02); }
+        }
+
+        .haptic-feedback {
+            animation: hapticFeedback 0.3s ease;
+        }
+
+        /* 2025年趨勢：漸入動畫 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 2025年趨勢：磁性懸停效果 */
+        .magnetic-hover {
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .magnetic-hover:hover {
+            transform: translateY(-5px) scale(1.02);
         }
 
         .container {
@@ -109,6 +208,20 @@
             line-height: 1.1;
             position: relative;
             z-index: 30;
+            /* 2025年趨勢：創意字體動畫 */
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { 
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.5),
+                             0 0 20px rgba(255,255,255,0.3);
+            }
+            100% { 
+                text-shadow: 2px 2px 12px rgba(0,0,0,0.7),
+                             0 0 30px rgba(255,255,255,0.5),
+                             0 0 40px rgba(255,255,255,0.2);
+            }
         }
 
         .limited-text {
@@ -292,19 +405,27 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 28px;
             padding: 35px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                        0 0 0 1px rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                        0 0 0 1px rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             position: relative;
             overflow: hidden;
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+        }
+
+        /* 2025年趨勢：卡片懸停3D效果 */
+        .feature-card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                        0 0 0 1px rgba(255, 255, 255, 0.15);
         }
 
         .feature-card::before {
@@ -781,6 +902,34 @@
             margin: 15px;
             border: none;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* 2025年趨勢：按鈕液態效果 */
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            transition: left 0.6s ease;
+        }
+
+        /* 2025年趨勢：按鈕懸停3D效果 */
+        .cta-button:hover {
+            transform: translateY(-8px) scale(1.05) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                        0 10px 30px rgba(255, 107, 107, 0.6),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: gradientFlow 1.5s ease infinite, buttonPulse 2s ease infinite;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         @keyframes gradientFlow {
@@ -1310,6 +1459,53 @@
             transition: width 0.3s ease;
         }
 
+        /* 2025年趨勢：頁面載入動畫 */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 2025年趨勢：閱讀進度指示器 */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 0%;
+            background: linear-gradient(to bottom, #FFD700, #FF6B35);
+            z-index: 1000;
+            transition: height 0.3s ease;
+        }
+
         /* 浮動返回頂部按鈕 */
         .back-to-top {
             position: fixed;
@@ -1344,8 +1540,15 @@
     </style>
 </head>
 <body>
+    <!-- 2025年趨勢：頁面載入動畫 -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    
     <div class="progress-bar" id="progressBar"></div>
+    <div class="reading-progress" id="readingProgress"></div>
     <div class="particles" id="particles"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
     
     <div class="container">
         <div class="hero fade-in">
@@ -1383,12 +1586,12 @@
         </div>
 
         <div class="features">
-            <div class="feature-card fade-in">
+            <div class="feature-card fade-in micro-interaction magnetic-hover">
                 <div class="feature-icon">🎯</div>
                 <h3>最犀利的Q&A現場互動</h3>
                 <p>現場直接解答您的房產投資疑惑，零距離專業諮詢</p>
             </div>
-            <div class="feature-card fade-in">
+            <div class="feature-card fade-in micro-interaction magnetic-hover">
                 <div class="feature-icon">✨</div>
                 <h3>20年真槍實彈操作指南</h3>
                 <p>蔣哥20年房地產實戰經驗，毫無保留分享投資心法與操作策略</p>
@@ -1468,10 +1671,12 @@
                 <div class="floating-icon" style="top: 50%; right: 8%; animation-delay: 5s;">🔥</div>
             </div>
             
-            <a href="https://forms.gle/UEyNLsrATT4vHzfKA" class="cta-button" target="_blank">
+            <a href="https://forms.gle/UEyNLsrATT4vHzfKA" class="cta-button" target="_blank" 
+               aria-label="立即報名參加蔣哥房產說明會" role="button">
                 🚀 立即報名參加說明會
             </a>
-            <a href="https://www.instagram.com/reel/DO-sa_LksJF/?igsh=MWNxZmdhdHd0dXprNw==" class="instagram-link" target="_blank">
+            <a href="https://www.instagram.com/reel/DO-sa_LksJF/?igsh=MWNxZmdhdHd0dXprNw==" class="instagram-link" target="_blank"
+               aria-label="查看蔣哥Instagram精彩內容" role="button">
                 📱 查看 Instagram 精彩內容
             </a>
         </div>
@@ -1588,9 +1793,16 @@
             window.countdownInterval = countdownInterval;
         }
 
-        // 滑鼠跟隨效果
+        // 2025年趨勢：游標互動光暈效果
         document.addEventListener('mousemove', (e) => {
+            const cursorGlow = document.getElementById('cursorGlow');
             const particles = document.querySelectorAll('.particle');
+            
+            // 游標光暈跟隨
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+            
+            // 粒子互動效果
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
             
@@ -1600,6 +1812,17 @@
                 const yOffset = (y - 0.5) * speed;
                 
                 particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // 2025年趨勢：元素懸停3D效果
+        document.querySelectorAll('.feature-card, .cta-button, .instagram-link').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
             });
         });
 
@@ -1735,13 +1958,84 @@
             updateProgressBar();
         });
 
+        // 2025年趨勢：頁面載入動畫控制
+        function handleLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            // 模擬載入時間
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                // 載入完成後移除元素
+                setTimeout(() => {
+                    loadingScreen.remove();
+                }, 500);
+            }, 1500);
+        }
+
+        // 2025年趨勢：閱讀進度指示器
+        function updateReadingProgress() {
+            const readingProgress = document.getElementById('readingProgress');
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            readingProgress.style.height = scrolled + '%';
+        }
+
+        // 2025年趨勢：觸覺反饋效果
+        function addHapticFeedback(element) {
+            element.addEventListener('click', function() {
+                this.classList.add('haptic-feedback');
+                setTimeout(() => {
+                    this.classList.remove('haptic-feedback');
+                }, 300);
+            });
+        }
+
+        // 2025年趨勢：磁性懸停效果
+        function addMagneticEffect(element) {
+            element.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const distance = Math.sqrt(x * x + y * y);
+                const maxDistance = 50;
+                
+                if (distance < maxDistance) {
+                    const moveX = (x / maxDistance) * 10;
+                    const moveY = (y / maxDistance) * 10;
+                    
+                    this.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+                } else {
+                    this.style.transform = 'translate(0, 0) scale(1)';
+                }
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'translate(0, 0) scale(1)';
+            });
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
+            handleLoadingScreen();
             createParticles();
             handleScrollAnimations();
             handleBackToTop();
             startCountdown();
             animateTimelineItems();
+            
+            // 添加觸覺反饋到所有按鈕
+            document.querySelectorAll('.cta-button, .instagram-link, .feature-card').forEach(addHapticFeedback);
+            
+            // 添加磁性效果到特色卡片
+            document.querySelectorAll('.feature-card').forEach(addMagneticEffect);
+        });
+
+        // 添加滾動事件監聽
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            updateReadingProgress();
         });
 
         // CSS 動畫樣式
