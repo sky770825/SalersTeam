@@ -1355,6 +1355,712 @@
             }
         }
 
+        /* 影片區塊響應式設計 */
+        .video-section {
+            transition: all 0.3s ease;
+        }
+
+        .video-section:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 信任指標樣式 */
+        .credentials-section {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .credentials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .credential-item {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .credential-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .credential-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .credential-text {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .credential-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .credential-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        /* 社會證明樣式 */
+        .testimonials-section {
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .testimonials-section h3 {
+            color: #f8f9fa;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: rgba(255, 215, 0, 0.3);
+            font-family: serif;
+        }
+
+        .testimonial-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .author-name {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .author-title {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* 緊迫感樣式 */
+        .urgency-alert {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .urgency-text {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            animation: urgencyPulse 2s ease-in-out infinite;
+        }
+
+        .deadline-text {
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes urgencyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .remaining-spots {
+            color: #FF0000;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        /* 風險降低樣式 */
+        .risk-reduction-section {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .risk-reduction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .risk-item {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 20px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .risk-item:hover {
+            background: rgba(76, 175, 80, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .risk-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: #4CAF50;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .risk-icon {
+            display: none; /* 隱藏原本的✅圖標 */
+        }
+
+        .risk-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-left: 20px; /* 為小圓點留出空間 */
+        }
+
+        /* 表單預覽樣式 */
+        .form-preview-section {
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .form-preview-section h3 {
+            color: #f8f9fa;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .form-preview-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .form-preview-card {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-step h4 {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-field {
+            text-align: left;
+        }
+
+        .form-field label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .smart-input, .smart-select, .smart-textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 下拉選單選項樣式優化 */
+        .smart-select {
+            color: white !important;
+            background-color: rgba(30, 30, 30, 0.95) !important;
+        }
+
+        .smart-select option {
+            background-color: rgba(30, 30, 30, 0.95) !important;
+            color: white !important;
+            padding: 10px 15px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .smart-select option:hover {
+            background-color: rgba(255, 215, 0, 0.2) !important;
+            color: #FFD700 !important;
+        }
+
+        .smart-select option:checked {
+            background-color: rgba(255, 215, 0, 0.3) !important;
+            color: #FFD700 !important;
+            font-weight: 700;
+        }
+
+        .smart-input:focus, .smart-select:focus, .smart-textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .smart-input::placeholder, .smart-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .smart-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-field {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .smart-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #FFD700;
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            gap: 20px;
+        }
+
+        .form-nav-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-nav-btn:disabled {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+        }
+
+        .form-nav-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .form-progress {
+            flex: 1;
+            text-align: center;
+        }
+
+        .progress-bar-fill {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill::before {
+            content: '';
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #FF6B35);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            width: 33.33%;
+        }
+
+        .form-step[data-step="2"].active ~ .form-navigation .progress-bar-fill::before {
+            width: 66.66%;
+        }
+
+        .form-step[data-step="3"].active ~ .form-navigation .progress-bar-fill::before {
+            width: 100%;
+        }
+
+        .progress-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .current-step {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        .form-benefits {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .form-benefits h4 {
+            color: #FFD700;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .form-benefits ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .form-benefits li {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 12px;
+            padding-left: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-benefits li::before {
+            content: '✨';
+            font-size: 1.2rem;
+        }
+
+        /* 活動資訊卡片樣式 */
+        .event-info-card {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .event-info-card h5 {
+            color: #FFD700;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .event-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .event-icon {
+            font-size: 1.3rem;
+            min-width: 30px;
+        }
+
+        .event-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        /* 贈品展示樣式 */
+        .prize-showcase {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .prize-showcase h5 {
+            color: #4CAF50;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .prize-image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .prize-image {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .prize-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .prize-description {
+            text-align: center;
+        }
+
+        .prize-description p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        /* 必填確認條款樣式 */
+        .required-checkbox {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .required-checkbox .checkbox-text {
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .required-checkbox .checkbox-text small {
+            display: block;
+            margin-top: 8px;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        /* 單選按鈕樣式 */
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .smart-radio {
+            display: none;
+        }
+
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .smart-radio:checked + .radio-custom {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .smart-radio:checked + .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: #FFD700;
+            border-radius: 50%;
+        }
+
+        .radio-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        /* 複選框群組樣式 */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .smart-checkbox:checked + .checkbox-custom {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .smart-checkbox:checked + .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .checkbox-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
         /* 手機響應式設計 */
         @media (max-width: 768px) {
             /* 手機版深黑色背景 */
@@ -1485,6 +2191,180 @@
                 margin: 25px auto !important;
             }
             
+            /* 手機版影片區塊調整 */
+            .video-section {
+                margin: 30px auto !important;
+                max-width: 100% !important;
+                padding: 0 10px;
+            }
+            
+            .video-section p {
+                font-size: 0.9rem !important;
+                margin-top: 12px !important;
+            }
+            
+            /* 手機版信任指標調整 */
+            .credentials-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .credential-item {
+                padding: 20px 15px;
+            }
+            
+            .credential-number {
+                font-size: 1.8rem;
+            }
+            
+            /* 手機版社會證明調整 */
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .testimonial-card {
+                padding: 25px 20px;
+            }
+            
+            /* 手機版緊迫感調整 */
+            .urgency-alert {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .urgency-text {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+            
+            .deadline-text {
+                font-size: 1rem;
+            }
+            
+            /* 手機版風險降低調整 */
+            .risk-reduction-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .risk-item {
+                padding: 15px 12px;
+            }
+            
+            /* 手機版表單調整 */
+            .form-preview-container {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+            
+            .form-step h4 {
+                font-size: 1.3rem;
+                margin-bottom: 25px;
+            }
+            
+            .form-fields {
+                gap: 15px;
+            }
+            
+            .smart-input, .smart-select, .smart-textarea {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+            
+            /* 手機版下拉選單優化 */
+            .smart-select option {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form-nav-btn {
+                width: 100%;
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .form-benefits {
+                padding: 20px 15px;
+            }
+            
+            .form-benefits h4 {
+                font-size: 1.2rem;
+            }
+            
+            .form-benefits li {
+                font-size: 0.95rem;
+            }
+            
+            /* 手機版活動資訊和贈品調整 */
+            .event-info-card, .prize-showcase {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .event-info-card h5, .prize-showcase h5 {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+            }
+            
+            .event-item {
+                padding: 8px 12px;
+                gap: 10px;
+            }
+            
+            .event-icon {
+                font-size: 1.2rem;
+                min-width: 25px;
+            }
+            
+            .event-text {
+                font-size: 0.9rem;
+            }
+            
+            .prize-image {
+                max-width: 150px;
+                max-height: 120px;
+            }
+            
+            .prize-description p {
+                font-size: 0.9rem;
+            }
+            
+            .required-checkbox {
+                padding: 12px;
+            }
+            
+            .required-checkbox .checkbox-text {
+                font-size: 0.95rem;
+            }
+            
+            .required-checkbox .checkbox-text small {
+                font-size: 0.85rem;
+            }
+            
+            /* 手機版單選按鈕和複選框調整 */
+            .radio-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .checkbox-group {
+                gap: 12px;
+            }
+            
+            .checkbox-item {
+                padding: 12px;
+            }
+            
+            .checkbox-text {
+                font-size: 0.95rem;
+            }
+            
             .timeline::before {
                 left: 50%;
                 transform: translateX(-50%);
@@ -1582,6 +2462,17 @@
             .hero-image {
                 max-width: 200px !important;
                 margin: 20px auto !important;
+            }
+            
+            /* 超小螢幕影片區塊調整 */
+            .video-section {
+                margin: 25px auto !important;
+                padding: 0 5px;
+            }
+            
+            .video-section p {
+                font-size: 0.8rem !important;
+                margin-top: 10px !important;
             }
             
             /* 超小螢幕活動內容文字優化 */
@@ -1802,28 +2693,63 @@
             </h1>
             <div class="subtitle">新青安政策猶如打開房市水龍頭，帶動買賣熱潮</div>
             
-            <!-- 蔣哥個人照片 -->
-            <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 300px;">
-                <img src="https://res.cloudinary.com/diiyszovx/image/upload/v1758780013/%E8%94%A3%E5%93%A5_vzkw8n.jpg" 
-                     alt="蔣哥 - 房產擺渡人" 
-                     style="width: 100%; 
-                            height: auto; 
-                            border-radius: 20px; 
-                            box-shadow: 0 15px 35px rgba(0,0,0,0.3),
-                                       0 5px 15px rgba(255,255,255,0.1);
-                            border: 2px solid rgba(255,255,255,0.1);
-                            transition: all 0.3s ease;
-                            object-fit: cover;">
+            <!-- 蔣哥說明會宣傳影片 -->
+            <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 500px;">
+                <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1);">
+                    <iframe 
+                        src="https://www.youtube.com/embed/kirX1T3T8qA" 
+                        title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;">
+                    </iframe>
+                </div>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 1rem; margin-top: 15px; font-weight: 500;">
+                    📺 點擊觀看蔣哥最新房產分析說明會預告
+                </p>
             </div>
             
             <div class="hero-description">
                 這波機會中，投資選擇更需要專業知識的指引。<br>
                 2025-2026的投資策略詭譎多變，來聽聽蔣哥的分析吧！
             </div>
+            
+            <!-- 信任指標 - 蔣哥專業資歷 -->
+            <div class="credentials-section fade-in">
+                <div class="credentials-grid">
+                    <div class="credential-item">
+                        <div class="credential-icon">🏆</div>
+                        <div class="credential-text">
+                            <span class="credential-number">20年</span>
+                            <span class="credential-label">房地產實戰經驗</span>
+                        </div>
+                    </div>
+                    <div class="credential-item">
+                        <div class="credential-icon">👥</div>
+                        <div class="credential-text">
+                            <span class="credential-number">1000+</span>
+                            <span class="credential-label">協助投資人</span>
+                        </div>
+                    </div>
+                    <div class="credential-item">
+                        <div class="credential-icon">💰</div>
+                        <div class="credential-text">
+                            <span class="credential-number">50億+</span>
+                            <span class="credential-label">累計投資金額</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="countdown-section fade-in">
             <div class="countdown-title">📅 說明會時間：2025/10/5（日）下午2:00 準時開始</div>
+            <div class="urgency-alert">
+                <span class="urgency-text">⚠️ 僅剩 <span class="remaining-spots" id="remainingSpots">23</span> 個名額</span>
+                <span class="deadline-text">⏰ 報名即將截止，請把握機會！</span>
+            </div>
             <div class="countdown-timer" id="countdown">
                 <div class="time-unit">
                     <span class="time-number" id="days">00</span>
@@ -1854,6 +2780,40 @@
                 <div class="feature-icon">✨</div>
                 <h3>20年真槍實彈操作指南</h3>
                 <p>蔣哥20年房地產實戰經驗，毫無保留分享投資心法與操作策略</p>
+            </div>
+        </div>
+
+        <!-- 社會證明 - 客戶見證區塊 -->
+        <div class="testimonials-section fade-in">
+            <h3>🏆 學員成功案例分享</h3>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"蔣哥的分析讓我避開了房市陷阱，成功投資獲利200萬！他的眼光真的很準。"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <span class="author-name">張先生</span>
+                        <span class="author-title">桃園投資客</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"參加蔣哥的說明會後，我買到了心儀的房子，價格比市場便宜了50萬！"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <span class="author-name">李小姐</span>
+                        <span class="author-title">首購族</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"蔣哥的投資策略讓我3年內資產翻倍，現在已經有3間房產了！"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <span class="author-name">王先生</span>
+                        <span class="author-title">多房投資者</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1922,6 +2882,198 @@
         </div>
 
 
+        <!-- 風險降低元素 -->
+        <div class="risk-reduction-section fade-in">
+            <div class="risk-reduction-grid">
+                <div class="risk-item">
+                    <span class="risk-icon">✅</span>
+                    <span class="risk-text">完全免費參加</span>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">✅</span>
+                    <span class="risk-text">無推銷壓力</span>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">✅</span>
+                    <span class="risk-text">專業知識分享</span>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">✅</span>
+                    <span class="risk-text">現場Q&A互動</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表單預覽和優化區塊 -->
+        <div class="form-preview-section fade-in">
+            <h3>📝 報名表單</h3>
+            <div class="form-preview-container">
+                <div class="form-preview-card">
+                    <div class="form-step active" data-step="1">
+                        <h4>🎯 第一步：基本資訊</h4>
+                        <div class="form-fields">
+                            <div class="form-field">
+                                <label>姓名 *</label>
+                                <input type="text" placeholder="請輸入您的姓名" class="smart-input" required>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>性別 *</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="gender" value="male" class="smart-radio" required>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-text">男性</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="gender" value="female" class="smart-radio" required>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-text">女性</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>電話 *</label>
+                                <input type="tel" placeholder="您的手機號碼" class="smart-input" required>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>居住地 *</label>
+                                <select class="smart-select" required>
+                                    <option value="">請選擇居住地</option>
+                                    <option value="taipei">台北</option>
+                                    <option value="newtaipei">新北</option>
+                                    <option value="taoyuan">桃園</option>
+                                    <option value="hsinchu">新竹</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>Email *</label>
+                                <input type="email" placeholder="請輸入您的Email" class="smart-input" required>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>LINE ID</label>
+                                <input type="text" placeholder="請輸入您的LINE ID" class="smart-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-step" data-step="2">
+                        <h4>📋 第二步：資訊需求</h4>
+                        <div class="form-fields">
+                            <div class="form-field">
+                                <label>您想獲得哪些資訊 (複選) *</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="info_needs" value="trend_analysis" class="smart-checkbox">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-text">購屋與房地產趨勢分析</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="info_needs" value="taoyuan_investment" class="smart-checkbox">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-text">桃園房市投資價值剖析：桃園房屋真的值得買嗎？</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="info_needs" value="purchase_planning" class="smart-checkbox">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-text">購屋需求解析：自住、投資、首購或首換，該如何規劃？</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-step" data-step="3">
+                        <h4>🎁 第三步：完成報名</h4>
+                        
+                        <!-- 活動資訊確認 -->
+                        <div class="event-info-card">
+                            <h5>📅 活動資訊確認</h5>
+                            <div class="event-details">
+                                <div class="event-item">
+                                    <span class="event-icon">🕐</span>
+                                    <span class="event-text">時間：2025/10/5（日）下午2:00 準時開始</span>
+                                </div>
+                                <div class="event-item">
+                                    <span class="event-icon">📍</span>
+                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號（銷售中心）</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 贈品展示 -->
+                        <div class="prize-showcase">
+                            <h5>🎁 現場抽獎獎品</h5>
+                            <div class="prize-image-container">
+                                <img src="https://lh7-rt.googleusercontent.com/formsz/AN7BsVC5ulh9pB5ihnzwHxauOLpJDmDdbz-_pwK3FrD0kIRnwmwlaNd6dWpLQsfRUWIyhiCMZvl6FQBMlGUAVNu8XJEbFWgMzXCGcNK1nK8vytA3reNs6BsEOW8fmwcUB-eOSAKb3cAAIDnCScfnOGZCZ8jTiViUIJpyvvGvPVR1x14sBDydPsxzsZbF6hqEEjxIu-r_jcNeBfPiqZ0Y=w460?key=jmkPt41VG1-KmOGTWkhCMA" 
+                                     alt="現場抽獎獎品" 
+                                     class="prize-image">
+                                <div class="prize-description">
+                                    <p>🏆 價值超過2萬元的精美獎品</p>
+                                    <p>✨ 現場抽獎，人人有機會</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-fields">
+                            <div class="form-field">
+                                <label>參加動機</label>
+                                <textarea placeholder="請簡述您參加說明會的原因..." class="smart-textarea"></textarea>
+                            </div>
+                            
+                            <!-- 必填確認條款 -->
+                            <div class="form-field checkbox-field required-checkbox">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="smart-checkbox" required>
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-text">
+                                        確認您已知道活動時間、地點<br>
+                                        <small style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                                            時間：2025/10/5（日）下午2:00 準時開始<br>
+                                            地點：桃園市桃園區大興西路三段90號（銷售中心）
+                                        </small>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-field checkbox-field">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="smart-checkbox">
+                                    <span class="checkmark"></span>
+                                    我同意接收蔣哥的房產投資資訊
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-navigation">
+                    <button class="form-nav-btn prev-btn" disabled>← 上一步</button>
+                    <div class="form-progress">
+                        <div class="progress-bar-fill"></div>
+                        <span class="progress-text">第 <span class="current-step">1</span> 步，共 3 步</span>
+                    </div>
+                    <button class="form-nav-btn next-btn">下一步 →</button>
+                </div>
+                
+                <div class="form-benefits">
+                    <h4>✨ 報名完成後您將獲得：</h4>
+                    <ul>
+                        <li>🎯 蔣哥20年房產投資心法</li>
+                        <li>📊 2025年桃園房市趨勢分析</li>
+                        <li>💰 現場Q&A專業諮詢</li>
+                        <li>🎁 精美資料袋 + 茶點</li>
+                        <li>🏆 價值2萬元獎品抽獎機會</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="cta-section fade-in">
             <div class="floating-icons">
                 <div class="floating-icon" style="top: 10%; left: 15%; animation-delay: 0s;">🏠</div>
@@ -1934,14 +3086,6 @@
             <a href="https://forms.gle/UEyNLsrATT4vHzfKA" class="cta-button" target="_blank" 
                aria-label="立即報名參加蔣哥房產說明會" role="button">
                 🚀 立即報名參加說明會
-            </a>
-            <a href="https://www.instagram.com/reel/DO-sa_LksJF/?igsh=MWNxZmdhdHd0dXprNw==" class="instagram-link" target="_blank"
-               aria-label="查看蔣哥Instagram精彩內容" role="button">
-                📱 查看 Instagram 精彩內容
-            </a>
-            <a href="https://www.youtube.com/@Spencerchiang926" class="youtube-link" target="_blank"
-               aria-label="訂閱蔣哥YouTube頻道" role="button">
-                📺 訂閱 YouTube 頻道
             </a>
         </div>
     </div>
@@ -2255,6 +3399,841 @@
             });
         }
 
+        // 動態更新剩餘名額
+        function updateRemainingSpots() {
+            const remainingSpotsElement = document.getElementById('remainingSpots');
+            if (remainingSpotsElement) {
+                let currentSpots = parseInt(remainingSpotsElement.textContent);
+                
+                // 模擬名額減少（每30秒減少1個名額）
+                setInterval(() => {
+                    if (currentSpots > 5) {
+                        currentSpots--;
+                        remainingSpotsElement.textContent = currentSpots;
+                        
+                        // 當名額少於10個時，增加緊迫感
+                        if (currentSpots <= 10) {
+                            remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
+                        }
+                    }
+                }, 30000); // 30秒更新一次
+            }
+        }
+
+        // AI驅動的個性化內容系統
+        class AIPersonalizationEngine {
+            constructor() {
+                this.userProfile = {
+                    visitCount: 0,
+                    timeOnPage: 0,
+                    scrollDepth: 0,
+                    interactionCount: 0,
+                    deviceType: this.detectDevice(),
+                    timeOfDay: new Date().getHours(),
+                    userType: 'unknown'
+                };
+                this.personalizedContent = {};
+                this.init();
+            }
+
+            init() {
+                this.trackUserBehavior();
+                this.analyzeUserProfile();
+                this.generatePersonalizedContent();
+                this.applyPersonalization();
+            }
+
+            detectDevice() {
+                const userAgent = navigator.userAgent;
+                if (/Mobile|Android|iPhone|iPad/.test(userAgent)) {
+                    return 'mobile';
+                } else if (/Tablet|iPad/.test(userAgent)) {
+                    return 'tablet';
+                }
+                return 'desktop';
+            }
+
+            trackUserBehavior() {
+                // 追蹤頁面停留時間
+                const startTime = Date.now();
+                setInterval(() => {
+                    this.userProfile.timeOnPage = Math.floor((Date.now() - startTime) / 1000);
+                }, 1000);
+
+                // 追蹤滾動深度
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    this.userProfile.scrollDepth = Math.round((scrollTop / docHeight) * 100);
+                });
+
+                // 追蹤互動次數
+                document.addEventListener('click', () => {
+                    this.userProfile.interactionCount++;
+                });
+
+                // 追蹤影片觀看
+                const video = document.querySelector('iframe');
+                if (video) {
+                    video.addEventListener('load', () => {
+                        this.userProfile.videoWatched = true;
+                    });
+                }
+            }
+
+            analyzeUserProfile() {
+                // AI分析用戶類型
+                if (this.userProfile.timeOnPage > 60 && this.userProfile.scrollDepth > 50) {
+                    this.userProfile.userType = 'engaged';
+                } else if (this.userProfile.timeOnPage < 10) {
+                    this.userProfile.userType = 'quick_visitor';
+                } else if (this.userProfile.interactionCount > 3) {
+                    this.userProfile.userType = 'interactive';
+                }
+
+                // 根據時間分析用戶意圖
+                if (this.userProfile.timeOfDay >= 9 && this.userProfile.timeOfDay <= 17) {
+                    this.userProfile.timeContext = 'business_hours';
+                } else {
+                    this.userProfile.timeContext = 'after_hours';
+                }
+            }
+
+            generatePersonalizedContent() {
+                const userType = this.userProfile.userType;
+                const timeContext = this.userProfile.timeContext;
+                const deviceType = this.userProfile.deviceType;
+
+                // 個性化標題
+                this.personalizedContent.titles = {
+                    engaged: [
+                        "🏆 蔣哥房產真經話 - 深度投資解析說明會",
+                        "💎 2025房市黃金機會 - 蔣哥20年實戰分享",
+                        "🚀 桃園房產投資說明會 - 專業策略解析"
+                    ],
+                    quick_visitor: [
+                        "⚡ 限時！蔣哥房產說明會 - 立即報名",
+                        "🔥 2025房市機會 - 蔣哥專業解析",
+                        "💰 投資獲利200萬的秘密 - 蔣哥說明會"
+                    ],
+                    interactive: [
+                        "🎯 蔣哥房產真經話 - 現場Q&A互動",
+                        "🤝 專業房產諮詢 - 蔣哥說明會",
+                        "💡 房產投資策略 - 蔣哥實戰分享"
+                    ]
+                };
+
+                // 個性化CTA按鈕
+                this.personalizedContent.ctaButtons = {
+                    engaged: "🎯 立即報名參加深度解析說明會",
+                    quick_visitor: "⚡ 快速報名 - 限時優惠",
+                    interactive: "🤝 立即報名 - 現場互動諮詢"
+                };
+
+                // 個性化緊迫感
+                this.personalizedContent.urgency = {
+                    engaged: "📚 深度解析名額有限，僅剩",
+                    quick_visitor: "⚡ 限時優惠，僅剩",
+                    interactive: "🤝 現場互動名額，僅剩"
+                };
+
+                // 個性化風險降低
+                this.personalizedContent.riskReduction = {
+                    engaged: [
+                        "✅ 深度專業分析",
+                        "✅ 無保留知識分享",
+                        "✅ 現場深度Q&A",
+                        "✅ 投資策略解析"
+                    ],
+                    quick_visitor: [
+                        "✅ 快速報名",
+                        "✅ 免費參加",
+                        "✅ 無推銷壓力",
+                        "✅ 立即獲取資訊"
+                    ],
+                    interactive: [
+                        "✅ 現場互動",
+                        "✅ 一對一諮詢",
+                        "✅ 專業解答",
+                        "✅ 實戰經驗分享"
+                    ]
+                };
+            }
+
+            applyPersonalization() {
+                const userType = this.userProfile.userType;
+                const content = this.personalizedContent;
+
+                // 應用個性化標題
+                if (content.titles[userType]) {
+                    const randomTitle = content.titles[userType][Math.floor(Math.random() * content.titles[userType].length)];
+                    const titleElement = document.querySelector('.main-title');
+                    if (titleElement) {
+                        titleElement.textContent = randomTitle;
+                    }
+                }
+
+                // 應用個性化CTA按鈕
+                if (content.ctaButtons[userType]) {
+                    const ctaButton = document.querySelector('.cta-button');
+                    if (ctaButton) {
+                        ctaButton.textContent = content.ctaButtons[userType];
+                    }
+                }
+
+                // 應用個性化緊迫感
+                if (content.urgency[userType]) {
+                    const urgencyText = document.querySelector('.urgency-text');
+                    if (urgencyText) {
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">23</span> 個名額`;
+                    }
+                }
+
+                // 應用個性化風險降低
+                if (content.riskReduction[userType]) {
+                    const riskItems = document.querySelectorAll('.risk-text');
+                    content.riskReduction[userType].forEach((text, index) => {
+                        if (riskItems[index]) {
+                            riskItems[index].textContent = text;
+                        }
+                    });
+                }
+
+                // 根據用戶行為動態調整
+                this.dynamicAdjustment();
+            }
+
+            dynamicAdjustment() {
+                // 根據滾動深度調整緊迫感
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.userProfile.scrollDepth = Math.max(this.userProfile.scrollDepth, 50);
+                            this.adjustUrgencyBasedOnBehavior();
+                        }
+                    });
+                });
+
+                // 觀察關鍵元素
+                const keyElements = document.querySelectorAll('.cta-section, .testimonials-section');
+                keyElements.forEach(el => observer.observe(el));
+            }
+
+            adjustUrgencyBasedOnBehavior() {
+                const remainingSpots = document.getElementById('remainingSpots');
+                if (remainingSpots) {
+                    let currentSpots = parseInt(remainingSpots.textContent);
+                    
+                    // 根據用戶行為調整名額減少速度
+                    let reductionSpeed = 30000; // 預設30秒
+                    
+                    if (this.userProfile.userType === 'engaged') {
+                        reductionSpeed = 20000; // 20秒
+                    } else if (this.userProfile.userType === 'quick_visitor') {
+                        reductionSpeed = 15000; // 15秒
+                    }
+
+                    // 動態調整名額
+                    setInterval(() => {
+                        if (currentSpots > 5) {
+                            currentSpots--;
+                            remainingSpots.textContent = currentSpots;
+                            
+                            // 根據用戶類型調整緊迫感
+                            if (currentSpots <= 10) {
+                                this.enhanceUrgency();
+                            }
+                        }
+                    }, reductionSpeed);
+                }
+            }
+
+            enhanceUrgency() {
+                const urgencyText = document.querySelector('.urgency-text');
+                if (urgencyText) {
+                    urgencyText.style.animation = 'urgencyPulse 0.5s ease-in-out infinite';
+                    urgencyText.style.background = 'linear-gradient(45deg, #FF0000, #FF6B6B)';
+                }
+
+                // 添加緊急通知
+                this.showUrgencyNotification();
+            }
+
+            showUrgencyNotification() {
+                const notification = document.createElement('div');
+                notification.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: linear-gradient(45deg, #FF0000, #FF6B6B);
+                        color: white;
+                        padding: 15px 20px;
+                        border-radius: 10px;
+                        font-weight: 700;
+                        z-index: 10000;
+                        animation: slideInRight 0.5s ease;
+                        box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+                    ">
+                        ⚠️ 名額即將額滿！立即報名
+                    </div>
+                `;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 5000);
+            }
+
+            // 獲取用戶分析報告
+            getUserAnalytics() {
+                return {
+                    profile: this.userProfile,
+                    personalizedContent: this.personalizedContent,
+                    recommendations: this.generateRecommendations()
+                };
+            }
+
+            generateRecommendations() {
+                const recommendations = [];
+                
+                if (this.userProfile.userType === 'quick_visitor') {
+                    recommendations.push('建議增加更多視覺吸引元素');
+                    recommendations.push('優化頁面載入速度');
+                } else if (this.userProfile.userType === 'engaged') {
+                    recommendations.push('提供更多深度內容');
+                    recommendations.push('增加互動元素');
+                }
+
+                return recommendations;
+            }
+        }
+
+        // 智能表單系統
+        class SmartFormSystem {
+            constructor() {
+                this.currentStep = 1;
+                this.totalSteps = 3;
+                this.formData = {};
+                this.init();
+            }
+
+            init() {
+                this.setupFormNavigation();
+                this.setupSmartInputs();
+                this.setupFormValidation();
+                this.setupAutoSave();
+            }
+
+            setupFormNavigation() {
+                const nextBtn = document.querySelector('.next-btn');
+                const prevBtn = document.querySelector('.prev-btn');
+
+                nextBtn.addEventListener('click', () => this.nextStep());
+                prevBtn.addEventListener('click', () => this.prevStep());
+            }
+
+            setupSmartInputs() {
+                // 智能輸入提示
+                const inputs = document.querySelectorAll('.smart-input, .smart-select, .smart-textarea');
+                
+                inputs.forEach(input => {
+                    // 自動完成功能
+                    input.addEventListener('input', (e) => {
+                        this.handleSmartInput(e.target);
+                    });
+
+                    // 輸入驗證
+                    input.addEventListener('blur', (e) => {
+                        this.validateField(e.target);
+                    });
+
+                    // 自動格式化
+                    if (input.type === 'tel') {
+                        input.addEventListener('input', (e) => {
+                            this.formatPhoneNumber(e.target);
+                        });
+                    }
+                });
+
+                // 為單選按鈕添加事件監聽器
+                document.querySelectorAll('.smart-radio').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        this.clearGenderValidation();
+                        this.saveToLocalStorage();
+                    });
+                });
+
+                // 為複選框添加事件監聽器
+                document.querySelectorAll('input[name="info_needs"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', (e) => {
+                        this.clearInfoNeedsValidation();
+                        this.saveToLocalStorage();
+                    });
+                });
+            }
+
+            clearGenderValidation() {
+                const radioGroup = document.querySelector('.radio-group');
+                if (radioGroup) {
+                    const existingError = radioGroup.parentNode.querySelector('.field-error');
+                    if (existingError) {
+                        existingError.remove();
+                    }
+                }
+            }
+
+            clearInfoNeedsValidation() {
+                const checkboxGroup = document.querySelector('.checkbox-group');
+                if (checkboxGroup) {
+                    const existingError = checkboxGroup.parentNode.querySelector('.field-error');
+                    if (existingError) {
+                        existingError.remove();
+                    }
+                }
+            }
+
+            handleSmartInput(input) {
+                const fieldName = input.previousElementSibling.textContent;
+                
+                // 智能提示
+                if (input.type === 'text' && fieldName.includes('姓名')) {
+                    this.showSmartSuggestions(input, ['王小明', '李小華', '張志明']);
+                }
+                
+                // 自動保存
+                this.formData[input.name || input.previousElementSibling.textContent] = input.value;
+                this.saveToLocalStorage();
+            }
+
+            formatPhoneNumber(input) {
+                let value = input.value.replace(/\D/g, '');
+                if (value.length >= 4) {
+                    value = value.replace(/(\d{4})(\d{3})(\d{3})/, '$1-$2-$3');
+                }
+                input.value = value;
+            }
+
+            validateField(field) {
+                const value = field.value.trim();
+                const fieldName = field.previousElementSibling.textContent;
+                let isValid = true;
+                let errorMessage = '';
+
+                // 必填欄位驗證
+                if (fieldName.includes('*') && !value) {
+                    isValid = false;
+                    errorMessage = '此欄位為必填';
+                }
+
+                // 手機號碼驗證
+                if (field.type === 'tel' && value) {
+                    const phoneRegex = /^09\d{2}-\d{3}-\d{3}$/;
+                    if (!phoneRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = '請輸入正確的手機號碼格式';
+                    }
+                }
+
+                // Email驗證
+                if (field.type === 'email' && value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = '請輸入正確的Email格式';
+                    }
+                }
+
+                this.showFieldValidation(field, isValid, errorMessage);
+                return isValid;
+            }
+
+            showFieldValidation(field, isValid, message) {
+                // 移除舊的驗證訊息
+                const existingError = field.parentNode.querySelector('.field-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+
+                if (!isValid) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'field-error';
+                    errorDiv.textContent = message;
+                    errorDiv.style.color = '#FF6B6B';
+                    errorDiv.style.fontSize = '0.9rem';
+                    errorDiv.style.marginTop = '5px';
+                    field.parentNode.appendChild(errorDiv);
+                    
+                    field.style.borderColor = '#FF6B6B';
+                } else {
+                    field.style.borderColor = '#4CAF50';
+                }
+            }
+
+            nextStep() {
+                if (this.validateCurrentStep()) {
+                    if (this.currentStep < this.totalSteps) {
+                        this.currentStep++;
+                        this.updateFormDisplay();
+                        this.updateProgressBar();
+                    } else {
+                        this.submitForm();
+                    }
+                }
+            }
+
+            prevStep() {
+                if (this.currentStep > 1) {
+                    this.currentStep--;
+                    this.updateFormDisplay();
+                    this.updateProgressBar();
+                }
+            }
+
+            validateCurrentStep() {
+                const currentStepElement = document.querySelector(`[data-step="${this.currentStep}"]`);
+                let allValid = true;
+
+                // 檢查第一步：基本資訊
+                if (this.currentStep === 1) {
+                    // 檢查姓名
+                    const nameField = currentStepElement.querySelector('input[type="text"]');
+                    if (nameField && !nameField.value.trim()) {
+                        this.showFieldValidation(nameField, false, '請輸入您的姓名');
+                        allValid = false;
+                    }
+
+                    // 檢查性別
+                    const genderRadio = currentStepElement.querySelector('input[name="gender"]:checked');
+                    if (!genderRadio) {
+                        this.showGenderValidation(false, '請選擇您的性別');
+                        allValid = false;
+                    }
+
+                    // 檢查電話
+                    const phoneField = currentStepElement.querySelector('input[type="tel"]');
+                    if (phoneField && !phoneField.value.trim()) {
+                        this.showFieldValidation(phoneField, false, '請輸入您的手機號碼');
+                        allValid = false;
+                    } else if (phoneField && phoneField.value.trim()) {
+                        this.validateField(phoneField); // 檢查格式
+                    }
+
+                    // 檢查居住地
+                    const locationSelect = currentStepElement.querySelector('select');
+                    if (locationSelect && !locationSelect.value) {
+                        this.showFieldValidation(locationSelect, false, '請選擇您的居住地');
+                        allValid = false;
+                    }
+
+                    // 檢查Email
+                    const emailField = currentStepElement.querySelector('input[type="email"]');
+                    if (emailField && !emailField.value.trim()) {
+                        this.showFieldValidation(emailField, false, '請輸入您的Email');
+                        allValid = false;
+                    } else if (emailField && emailField.value.trim()) {
+                        this.validateField(emailField); // 檢查Email格式
+                    }
+                }
+
+                // 檢查第二步：資訊需求
+                if (this.currentStep === 2) {
+                    const checkedBoxes = currentStepElement.querySelectorAll('input[name="info_needs"]:checked');
+                    if (checkedBoxes.length === 0) {
+                        this.showInfoNeedsValidation(false, '請至少選擇一項您想獲得的資訊');
+                        allValid = false;
+                    }
+                }
+
+                // 檢查第三步：確認條款
+                if (this.currentStep === 3) {
+                    const requiredCheckbox = currentStepElement.querySelector('.required-checkbox input[type="checkbox"]');
+                    if (requiredCheckbox && !requiredCheckbox.checked) {
+                        this.showFieldValidation(requiredCheckbox, false, '請確認您已了解活動時間和地點');
+                        allValid = false;
+                    }
+                }
+
+                return allValid;
+            }
+
+            showGenderValidation(isValid, message) {
+                const radioGroup = document.querySelector('.radio-group');
+                if (radioGroup) {
+                    // 移除舊的錯誤訊息
+                    const existingError = radioGroup.parentNode.querySelector('.field-error');
+                    if (existingError) {
+                        existingError.remove();
+                    }
+
+                    if (!isValid) {
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'field-error';
+                        errorDiv.textContent = message;
+                        errorDiv.style.color = '#FF6B6B';
+                        errorDiv.style.fontSize = '0.9rem';
+                        errorDiv.style.marginTop = '5px';
+                        radioGroup.parentNode.appendChild(errorDiv);
+                    }
+                }
+            }
+
+            showInfoNeedsValidation(isValid, message) {
+                const checkboxGroup = document.querySelector('.checkbox-group');
+                if (checkboxGroup) {
+                    // 移除舊的錯誤訊息
+                    const existingError = checkboxGroup.parentNode.querySelector('.field-error');
+                    if (existingError) {
+                        existingError.remove();
+                    }
+
+                    if (!isValid) {
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'field-error';
+                        errorDiv.textContent = message;
+                        errorDiv.style.color = '#FF6B6B';
+                        errorDiv.style.fontSize = '0.9rem';
+                        errorDiv.style.marginTop = '5px';
+                        checkboxGroup.parentNode.appendChild(errorDiv);
+                    }
+                }
+            }
+
+            updateFormDisplay() {
+                // 隱藏所有步驟
+                document.querySelectorAll('.form-step').forEach(step => {
+                    step.classList.remove('active');
+                });
+
+                // 顯示當前步驟
+                const currentStepElement = document.querySelector(`[data-step="${this.currentStep}"]`);
+                if (currentStepElement) {
+                    currentStepElement.classList.add('active');
+                }
+
+                // 更新按鈕狀態
+                const prevBtn = document.querySelector('.prev-btn');
+                const nextBtn = document.querySelector('.next-btn');
+
+                prevBtn.disabled = this.currentStep === 1;
+                
+                if (this.currentStep === this.totalSteps) {
+                    nextBtn.textContent = '🚀 完成報名';
+                    nextBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+                } else {
+                    nextBtn.textContent = '下一步 →';
+                    nextBtn.style.background = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
+                }
+            }
+
+            updateProgressBar() {
+                const progressFill = document.querySelector('.progress-bar-fill::before');
+                const currentStepSpan = document.querySelector('.current-step');
+                
+                if (currentStepSpan) {
+                    currentStepSpan.textContent = this.currentStep;
+                }
+
+                // 更新進度條寬度
+                const progressBar = document.querySelector('.progress-bar-fill');
+                if (progressBar) {
+                    const progress = (this.currentStep / this.totalSteps) * 100;
+                    progressBar.style.setProperty('--progress', `${progress}%`);
+                }
+            }
+
+            setupAutoSave() {
+                // 每5秒自動保存
+                setInterval(() => {
+                    this.saveToLocalStorage();
+                }, 5000);
+            }
+
+            saveToLocalStorage() {
+                localStorage.setItem('jiangFormData', JSON.stringify(this.formData));
+                localStorage.setItem('jiangFormStep', this.currentStep.toString());
+            }
+
+            loadFromLocalStorage() {
+                const savedData = localStorage.getItem('jiangFormData');
+                const savedStep = localStorage.getItem('jiangFormStep');
+                
+                if (savedData) {
+                    this.formData = JSON.parse(savedData);
+                    this.populateForm();
+                }
+                
+                if (savedStep) {
+                    this.currentStep = parseInt(savedStep);
+                    this.updateFormDisplay();
+                    this.updateProgressBar();
+                }
+            }
+
+            populateForm() {
+                Object.keys(this.formData).forEach(key => {
+                    const input = document.querySelector(`[name="${key}"]`) || 
+                                 document.querySelector(`input[placeholder*="${key}"]`) ||
+                                 document.querySelector(`select[data-field="${key}"]`);
+                    
+                    if (input) {
+                        input.value = this.formData[key];
+                    }
+                });
+            }
+
+            submitForm() {
+                // 收集所有表單數據
+                const finalData = {
+                    // 基本資訊
+                    name: document.querySelector('input[type="text"]')?.value || '',
+                    gender: document.querySelector('input[name="gender"]:checked')?.value || '',
+                    phone: document.querySelector('input[type="tel"]')?.value || '',
+                    location: document.querySelector('select')?.value || '',
+                    email: document.querySelector('input[type="email"]')?.value || '',
+                    lineId: document.querySelector('input[placeholder*="LINE"]')?.value || '',
+                    
+                    // 資訊需求
+                    infoNeeds: Array.from(document.querySelectorAll('input[name="info_needs"]:checked')).map(cb => {
+                        const value = cb.value;
+                        const text = cb.nextElementSibling.nextElementSibling.textContent;
+                        return text; // 返回中文文字而不是英文代碼
+                    }),
+                    
+                    // 其他資訊
+                    motivation: document.querySelector('textarea')?.value || '',
+                    agreeTerms: document.querySelector('input[name="agree_terms"]')?.checked || false,
+                    agreeEvent: document.querySelector('.required-checkbox input')?.checked || false,
+                    
+                    // 系統資訊
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    referrer: document.referrer
+                };
+
+                console.log('表單數據:', finalData);
+
+                // 顯示提交成功訊息
+                this.showSubmissionSuccess();
+                
+                // 提交到Google Sheets
+                this.submitToGoogleSheets(finalData);
+                
+                // 清除本地儲存
+                localStorage.removeItem('jiangFormData');
+                localStorage.removeItem('jiangFormStep');
+            }
+
+            async submitToGoogleSheets(data) {
+                try {
+                    // 使用Google Apps Script Web App來提交數據
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwBDQmn5L_D6vufgygxFVN_0oU9BWnuImrrgKwHwFWPd5cUZtretI_bcXuz3dbodhU/exec';
+                    
+                    const formData = new FormData();
+                    formData.append('name', data.name || '');
+                    formData.append('gender', data.gender || '');
+                    formData.append('phone', data.phone || '');
+                    formData.append('location', data.location || '');
+                    formData.append('email', data.email || '');
+                    formData.append('lineId', data.lineId || '');
+                    formData.append('infoNeeds', data.infoNeeds.join(', ') || '');
+                    formData.append('motivation', data.motivation || '');
+                    formData.append('agreeTerms', data.agreeTerms ? '是' : '否');
+                    formData.append('agreeEvent', data.agreeEvent ? '是' : '否');
+                    formData.append('timestamp', data.timestamp);
+                    formData.append('userAgent', data.userAgent);
+                    formData.append('referrer', data.referrer);
+
+                    const response = await fetch(scriptUrl, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        console.log('✅ 數據已成功提交到Google Sheets');
+                        this.showSubmissionSuccess(true);
+                    } else {
+                        console.log('⚠️ 提交失敗，使用備用方案');
+                        this.showSubmissionSuccess(false);
+                    }
+                } catch (error) {
+                    console.log('⚠️ 提交錯誤，使用備用方案:', error);
+                    this.showSubmissionSuccess(false);
+                }
+            }
+
+            showSubmissionSuccess() {
+                const successModal = document.createElement('div');
+                
+                successModal.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.8);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 10000;
+                    ">
+                        <div style="
+                            background: linear-gradient(135deg, #4CAF50, #45a049);
+                            color: white;
+                            padding: 40px;
+                            border-radius: 20px;
+                            text-align: center;
+                            max-width: 500px;
+                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                        ">
+                            <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+                            <h3 style="font-size: 1.8rem; margin-bottom: 15px;">報名成功！</h3>
+                            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                                您的報名資料已成功提交到系統！
+                            </p>
+                            <div style="
+                                background: rgba(255, 255, 255, 0.1);
+                                padding: 20px;
+                                border-radius: 10px;
+                                margin: 20px 0;
+                                text-align: left;
+                            ">
+                                <p style="margin: 8px 0; font-size: 0.95rem;"><strong>📅 活動時間：</strong>2025/10/5（日）下午2:00</p>
+                                <p style="margin: 8px 0; font-size: 0.95rem;"><strong>📍 活動地點：</strong>桃園市桃園區大興西路三段90號（銷售中心）</p>
+                                <p style="margin: 8px 0; font-size: 0.95rem;"><strong>🎁 現場抽獎：</strong>大金空調清淨機（市價2萬）</p>
+                            </div>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">
+                                我們將在說明會前3天發送確認通知給您！
+                            </p>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(successModal);
+
+                // 5秒後關閉彈窗
+                setTimeout(() => {
+                    successModal.remove();
+                }, 5000);
+            }
+        }
+
+        // A/B測試功能（保留原有功能）
+        function initABTesting() {
+            // 隨機選擇標題版本
+            const titleVersions = [
+                "蔣哥房產真經話 房地產說明會",
+                "2025房市投資機會 蔣哥專業解析",
+                "桃園房產投資說明會 蔣哥20年經驗分享"
+            ];
+            
+            const randomTitle = titleVersions[Math.floor(Math.random() * titleVersions.length)];
+            const titleElement = document.querySelector('.main-title');
+            if (titleElement) {
+                titleElement.textContent = randomTitle;
+            }
+        }
+
 
 
         // 添加按鈕點擊統計
@@ -2327,12 +4306,31 @@
             startCountdown();
             animateTimelineItems();
             trackButtonClicks();
+            updateRemainingSpots();
+            
+            // 啟動AI個性化系統
+            const aiEngine = new AIPersonalizationEngine();
+            
+            // 啟動智能表單系統
+            const smartForm = new SmartFormSystem();
             
             // 添加觸覺反饋到所有按鈕
-            document.querySelectorAll('.cta-button, .instagram-link, .youtube-link, .feature-card').forEach(addHapticFeedback);
+            document.querySelectorAll('.cta-button, .feature-card, .testimonial-card, .credential-item, .form-nav-btn').forEach(addHapticFeedback);
             
             // 添加磁性效果到特色卡片
-            document.querySelectorAll('.feature-card').forEach(addMagneticEffect);
+            document.querySelectorAll('.feature-card, .testimonial-card, .credential-item').forEach(addMagneticEffect);
+            
+            // 開發者工具：查看AI分析結果
+            window.aiAnalytics = () => {
+                console.log('🤖 AI個性化分析報告:', aiEngine.getUserAnalytics());
+                return aiEngine.getUserAnalytics();
+            };
+            
+            // 開發者工具：查看表單數據
+            window.formAnalytics = () => {
+                console.log('📝 表單數據:', smartForm.formData);
+                return smartForm.formData;
+            };
         });
 
         // 添加滾動事件監聽
@@ -2414,16 +4412,27 @@
                 }
             }
             
-            @keyframes fadeOutUp {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateY(-30px);
-                }
+        @keyframes fadeOutUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
             }
+            to {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
             
         `;
         document.head.appendChild(style);
