@@ -1525,14 +1525,35 @@
         }
 
         .urgency-text {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            background: linear-gradient(45deg, #FF0000, #FF6B6B, #FF8E53);
+            background-size: 200% 200%;
             color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            animation: urgencyPulse 2s ease-in-out infinite;
+            padding: 16px 30px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: urgencyPulse 1.5s ease-in-out infinite, gradientShift 3s ease infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4), 
+                        0 0 20px rgba(255, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .urgency-text::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FF0000, #FF6B6B, #FF8E53, #FF0000);
+            background-size: 400% 400%;
+            border-radius: 32px;
+            z-index: -1;
+            animation: gradientShift 2s ease infinite;
         }
 
         .deadline-text {
@@ -1548,9 +1569,33 @@
         }
 
         .remaining-spots {
-            color: #FF0000;
+            color: #FFFFFF;
             font-weight: 900;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            font-size: 1.4em;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                         0 0 30px rgba(255, 0, 0, 0.6),
+                         2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: spotPulse 1s ease-in-out infinite;
+            display: inline-block;
+            padding: 2px 8px;
+            background: rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes spotPulse {
+            0%, 100% { 
+                transform: scale(1);
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                             0 0 30px rgba(255, 0, 0, 0.6),
+                             2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+            50% { 
+                transform: scale(1.1);
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1),
+                             0 0 40px rgba(255, 0, 0, 0.8),
+                             2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
         }
 
         /* 風險降低樣式 */
@@ -1983,24 +2028,51 @@
         .radio-label {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 8px;
             cursor: pointer;
             color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
-            font-weight: 500;
-            padding: 12px 20px;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            font-weight: 600;
+            padding: 16px 24px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .radio-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            transition: left 0.6s ease;
         }
 
         .radio-label:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15), 
+                rgba(255, 255, 255, 0.08));
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .radio-label:hover::before {
+            left: 100%;
         }
 
         .smart-radio {
@@ -2008,49 +2080,53 @@
         }
 
         .radio-custom {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.4);
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             position: relative;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
         }
 
-        .radio-custom::before {
+        .radio-custom::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
+            width: 8px;
+            height: 8px;
+            background: #FFD700;
             border-radius: 50%;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
         }
 
         .smart-radio:checked + .radio-custom {
             border-color: #FFD700;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
-            transform: scale(1.1);
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }
 
-        .smart-radio:checked + .radio-custom::before {
+        .smart-radio:checked + .radio-custom::after {
             transform: translate(-50%, -50%) scale(1);
         }
 
         .smart-radio:checked ~ .radio-text {
             color: #FFD700;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .smart-radio:checked + .radio-custom + .radio-text {
             color: #FFD700;
-            font-weight: 600;
+            font-weight: 700;
+        }
+
+        .smart-radio:checked + .radio-custom + .radio-text {
+            color: #FFD700;
+            font-weight: 700;
         }
 
         .radio-text {
@@ -2535,19 +2611,33 @@
                 scroll-snap-align: start;
             }
             
-            /* 手機版緊迫感調整 */
+            /* 手機版緊迫感調整 - Landing Page 設計標準 */
             .urgency-alert {
                 flex-direction: column;
-                gap: 8px;
+                gap: 12px;
             }
             
             .urgency-text {
-                font-size: 1.1rem;
-                padding: 10px 20px;
+                font-size: 1.5rem;
+                padding: 18px 28px;
+                font-weight: 800;
+                border-radius: 25px;
+            }
+            
+            .remaining-spots {
+                font-size: 1.5em;
+                padding: 3px 10px;
             }
             
             .deadline-text {
-                font-size: 1rem;
+                font-size: 1.2rem;
+                font-weight: 700;
+            }
+            
+            .countdown-title {
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin-bottom: 25px;
             }
             
             /* 手機版風險降低調整 - 改為2欄佈局 */
@@ -2665,19 +2755,20 @@
             
             .radio-label {
                 font-size: 0.9rem;
-                padding: 10px 16px;
-                gap: 10px;
+                padding: 14px 20px;
+                gap: 8px;
+                min-width: 100px;
             }
             
             .radio-custom {
-                width: 20px;
-                height: 20px;
+                width: 18px;
+                height: 18px;
                 border-width: 2px;
             }
             
-            .radio-custom::before {
-                width: 10px;
-                height: 10px;
+            .radio-custom::after {
+                width: 7px;
+                height: 7px;
             }
             
             .checkbox-group {
@@ -2721,16 +2812,22 @@
             }
             
             .countdown-timer {
-                gap: 10px;
+                gap: 12px;
             }
             
             .time-unit {
-                padding: 10px 15px;
-                min-width: 60px;
+                padding: 15px 20px;
+                min-width: 70px;
             }
             
             .time-number {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+                font-weight: 800;
+            }
+            
+            .time-label {
+                font-size: 1rem;
+                font-weight: 600;
             }
         }
 
@@ -2934,21 +3031,45 @@
                 font-size: 0.8rem;
             }
             
-            /* 超小螢幕倒數計時器優化 */
+            /* 超小螢幕倒數計時器優化 - Landing Page 設計標準 */
             .countdown-title {
-                font-size: 1rem;
-                margin-bottom: 15px;
+                font-size: 1.2rem;
+                margin-bottom: 20px;
                 text-align: center;
+                font-weight: 700;
             }
             
             .urgency-alert {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
                 text-align: center;
             }
             
-            .urgency-text, .deadline-text {
+            .urgency-text {
+                font-size: 1.3rem;
+                padding: 15px 22px;
+                font-weight: 800;
+                border-radius: 20px;
+            }
+            
+            .remaining-spots {
+                font-size: 1.4em;
+                padding: 2px 8px;
+            }
+            
+            .deadline-text {
+                font-size: 1.1rem;
+                font-weight: 700;
+            }
+            
+            .time-number {
+                font-size: 1.6rem;
+                font-weight: 800;
+            }
+            
+            .time-label {
                 font-size: 0.9rem;
+                font-weight: 600;
             }
         }
 
@@ -3170,7 +3291,7 @@
 
         <!-- 社會證明 - 客戶見證區塊 -->
         <div class="testimonials-section fade-in">
-            <h3>🏆 學員成功案例分享</h3>
+            <h3>🏆 粉絲成交案例分享</h3>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-content">
