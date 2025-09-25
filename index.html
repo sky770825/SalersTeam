@@ -2474,25 +2474,24 @@
                 padding: 0 5px;
             }
             
-            /* 手機版YouTube影片容器 - 使用指定尺寸 */
+            /* 手機版YouTube影片容器 - 自適應手機比例 */
             .hero-image[style*="max-width: 500px"] {
-                max-width: 387px !important;
+                max-width: 90% !important;
                 margin: 25px auto !important;
             }
             
-            /* 手機版YouTube影片 - 使用指定尺寸 */
+            /* 手機版YouTube影片 - 自適應手機比例 */
             .hero-image[style*="padding-bottom: 56.25%"] {
-                padding-bottom: 0 !important;
-                height: 688px !important;
+                padding-bottom: 177.78% !important; /* 9:16 手機比例 */
             }
             
-            /* 手機版iframe直接設定尺寸 */
+            /* 手機版iframe自適應 */
             .hero-image iframe {
-                width: 387px !important;
-                height: 688px !important;
-                position: relative !important;
+                position: absolute !important;
                 top: 0 !important;
                 left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
                 border-radius: 20px !important;
             }
             
@@ -2798,23 +2797,22 @@
                 padding: 0 5px;
             }
             
-            /* 超小螢幕YouTube影片 - 使用指定尺寸 */
+            /* 超小螢幕YouTube影片 - 自適應手機比例 */
             .hero-image[style*="padding-bottom: 56.25%"] {
-                padding-bottom: 0 !important;
-                height: 688px !important;
+                padding-bottom: 177.78% !important; /* 9:16 手機比例 */
             }
             
             .hero-image[style*="max-width: 500px"] {
-                max-width: 387px !important;
+                max-width: 95% !important;
             }
             
-            /* 超小螢幕iframe直接設定尺寸 */
+            /* 超小螢幕iframe自適應 */
             .hero-image iframe {
-                width: 387px !important;
-                height: 688px !important;
-                position: relative !important;
+                position: absolute !important;
                 top: 0 !important;
                 left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
                 border-radius: 20px !important;
             }
             
