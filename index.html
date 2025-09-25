@@ -155,6 +155,18 @@
             transform: translateY(-5px) scale(1.02);
         }
 
+        /* 蔣哥照片懸停效果 */
+        .hero-image img {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .hero-image img:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4),
+                       0 10px 30px rgba(255,255,255,0.2),
+                       0 0 0 3px rgba(255,215,0,0.3);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -919,6 +931,70 @@
             transition: left 0.6s ease;
         }
 
+        /* 增強版按鈕效果 */
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, 
+                #FF6B6B 0%, 
+                #4ECDC4 25%, 
+                #45B7D1 50%, 
+                #96CEB4 75%, 
+                #FECA57 100%);
+            background-size: 300% 300%;
+            animation: gradientFlow 3s ease infinite;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
+                        0 5px 15px rgba(255, 107, 107, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cta-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* 按鈕脈衝效果 */
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FECA57, #FF6B6B);
+            background-size: 400% 400%;
+            border-radius: 50px;
+            z-index: -1;
+            animation: borderPulse 2s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes borderPulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         /* 2025年趨勢：按鈕懸停3D效果 */
         .cta-button:hover {
             transform: translateY(-8px) scale(1.05) rotateX(5deg);
@@ -1063,6 +1139,74 @@
         @keyframes instagramBounce {
             0%, 100% { transform: translateY(-6px) scale(1.03) rotateZ(2deg); }
             50% { transform: translateY(-8px) scale(1.05) rotateZ(-1deg); }
+        }
+
+        /* YouTube按鈕樣式 */
+        .youtube-link {
+            display: inline-block;
+            margin: 15px;
+            padding: 20px 40px;
+            background: linear-gradient(45deg, 
+                #FF0000, 
+                #CC0000, 
+                #990000, 
+                #FF0000, 
+                #FF3333, 
+                #FF6666, 
+                #FF0000);
+            background-size: 300% 300%;
+            animation: youtubeGradient 4s ease infinite;
+            color: white;
+            text-decoration: none;
+            border-radius: 35px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        @keyframes youtubeGradient {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .youtube-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transition: left 0.7s ease;
+        }
+
+        .youtube-link:hover {
+            transform: translateY(-6px) scale(1.03) rotateZ(-2deg);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.4),
+                        0 0 30px rgba(255, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: youtubeGradient 2s ease infinite, youtubeBounce 1s ease infinite;
+        }
+
+        .youtube-link:hover::before {
+            left: 100%;
+        }
+
+        @keyframes youtubeBounce {
+            0%, 100% { transform: translateY(-6px) scale(1.03) rotateZ(-2deg); }
+            50% { transform: translateY(-8px) scale(1.05) rotateZ(1deg); }
         }
 
         /* 按鈕容器動畫 */
@@ -1283,6 +1427,31 @@
                 text-align: center;
             }
             
+            .youtube-link {
+                padding: 18px 35px;
+                margin: 0;
+                font-size: 1rem;
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+            
+            /* 手機版緊迫感元素調整 */
+            .urgency-section {
+                margin: 25px 0;
+            }
+            
+            .urgency-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .urgency-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
             .features {
                 grid-template-columns: 1fr;
                 gap: 25px;
@@ -1322,6 +1491,12 @@
             .hero .subtitle {
                 font-size: clamp(1.3rem, 4.5vw, 2rem);
                 margin-bottom: 25px;
+            }
+            
+            /* 手機版蔣哥照片調整 */
+            .hero-image {
+                max-width: 250px !important;
+                margin: 25px auto !important;
             }
             
             .timeline::before {
@@ -1417,6 +1592,12 @@
                 margin-bottom: 25px;
             }
             
+            /* 超小螢幕蔣哥照片調整 */
+            .hero-image {
+                max-width: 200px !important;
+                margin: 20px auto !important;
+            }
+            
             /* 超小螢幕活動內容文字優化 */
             .main-content p {
                 font-size: 0.9rem !important;
@@ -1479,6 +1660,41 @@
                 display: block;
                 width: 100%;
                 text-align: center;
+            }
+            
+            .youtube-link {
+                padding: 15px 25px;
+                font-size: 0.95rem;
+                margin: 0;
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+            
+            /* 超小螢幕緊迫感元素調整 */
+            .urgency-section {
+                margin: 20px 0;
+            }
+            
+            .urgency-card {
+                padding: 15px;
+            }
+            
+            .urgency-icon {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+            
+            .urgency-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .spots-number {
+                font-size: 2rem;
+            }
+            
+            .spots-text {
+                font-size: 1rem;
             }
             
             .countdown-timer {
@@ -1570,6 +1786,114 @@
             transition: height 0.3s ease;
         }
 
+        /* 緊迫感元素樣式 */
+        .urgency-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .urgency-card {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, 
+                rgba(255, 69, 0, 0.15) 0%, 
+                rgba(255, 140, 0, 0.12) 25%,
+                rgba(255, 215, 0, 0.1) 50%,
+                rgba(255, 69, 0, 0.12) 75%,
+                rgba(255, 140, 0, 0.15) 100%);
+            background-size: 300% 300%;
+            animation: urgencyGradient 3s ease infinite;
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 20px 30px;
+            border: 2px solid rgba(255, 69, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(255, 69, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes urgencyGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .urgency-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                #FF4500, #FF8C00, #FFD700, #FF4500);
+            background-size: 400% 400%;
+            border-radius: 27px;
+            z-index: -1;
+            animation: urgencyBorder 2s linear infinite;
+        }
+
+        @keyframes urgencyBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .urgency-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            animation: urgencyPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes urgencyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .urgency-content h3 {
+            color: #FF4500;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(255, 69, 0, 0.3);
+        }
+
+        .spots-remaining {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .spots-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #FF4500;
+            text-shadow: 0 2px 8px rgba(255, 69, 0, 0.5);
+            animation: numberBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes numberBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .spots-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .urgency-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+
         /* 浮動返回頂部按鈕 */
         .back-to-top {
             position: fixed;
@@ -1601,6 +1925,7 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
         }
+
     </style>
 </head>
 <body>
@@ -1621,6 +1946,21 @@
                 <div class="main-title">蔣哥房產真經話 房地產說明會</div>
             </h1>
             <div class="subtitle">新青安政策猶如打開房市水龍頭，帶動買賣熱潮</div>
+            
+            <!-- 蔣哥個人照片 -->
+            <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 300px;">
+                <img src="https://res.cloudinary.com/diiyszovx/image/upload/v1758780013/%E8%94%A3%E5%93%A5_vzkw8n.jpg" 
+                     alt="蔣哥 - 房產擺渡人" 
+                     style="width: 100%; 
+                            height: auto; 
+                            border-radius: 20px; 
+                            box-shadow: 0 15px 35px rgba(0,0,0,0.3),
+                                       0 5px 15px rgba(255,255,255,0.1);
+                            border: 2px solid rgba(255,255,255,0.1);
+                            transition: all 0.3s ease;
+                            object-fit: cover;">
+            </div>
+            
             <div class="hero-description">
                 這波機會中，投資選擇更需要專業知識的指引。<br>
                 2025-2026的投資策略詭譎多變，來聽聽蔣哥的分析吧！
@@ -1726,6 +2066,21 @@
             </div>
         </div>
 
+        <!-- 緊迫感元素 -->
+        <div class="urgency-section fade-in">
+            <div class="urgency-card">
+                <div class="urgency-icon">⚡</div>
+                <div class="urgency-content">
+                    <h3>🔥 限額報名中</h3>
+                    <div class="spots-remaining">
+                        <span class="spots-number" id="spotsLeft">限額</span>
+                        <span class="spots-text">參加</span>
+                    </div>
+                    <p>把握機會，立即報名！</p>
+                </div>
+            </div>
+        </div>
+
         <div class="cta-section fade-in">
             <div class="floating-icons">
                 <div class="floating-icon" style="top: 10%; left: 15%; animation-delay: 0s;">🏠</div>
@@ -1742,6 +2097,10 @@
             <a href="https://www.instagram.com/reel/DO-sa_LksJF/?igsh=MWNxZmdhdHd0dXprNw==" class="instagram-link" target="_blank"
                aria-label="查看蔣哥Instagram精彩內容" role="button">
                 📱 查看 Instagram 精彩內容
+            </a>
+            <a href="https://www.youtube.com/@Spencerchiang926" class="youtube-link" target="_blank"
+               aria-label="訂閱蔣哥YouTube頻道" role="button">
+                📺 訂閱 YouTube 頻道
             </a>
         </div>
     </div>
@@ -1880,7 +2239,7 @@
         });
 
         // 2025年趨勢：元素懸停3D效果
-        document.querySelectorAll('.feature-card, .cta-button, .instagram-link').forEach(element => {
+        document.querySelectorAll('.feature-card, .cta-button, .instagram-link, .youtube-link').forEach(element => {
             element.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02)';
             });
@@ -1891,7 +2250,7 @@
         });
 
         // 按鈕點擊動畫 (增強版)
-        document.querySelectorAll('.cta-button, .instagram-link').forEach(button => {
+        document.querySelectorAll('.cta-button, .instagram-link, .youtube-link').forEach(button => {
             // 添加懸停時的特殊效果
             button.addEventListener('mouseenter', function() {
                 // 創建火花效果
@@ -2055,6 +2414,59 @@
             });
         }
 
+        // 簡化的緊迫感元素
+        function initUrgencyElements() {
+            // 保持緊迫感元素的動畫效果，但不顯示具體數字
+            const urgencyCard = document.querySelector('.urgency-card');
+            if (urgencyCard) {
+                // 添加懸停效果
+                urgencyCard.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                urgencyCard.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            }
+        }
+
+
+        // 添加按鈕點擊統計
+        function trackButtonClicks() {
+            const ctaButton = document.querySelector('.cta-button');
+            let clickCount = 0;
+            
+            ctaButton.addEventListener('click', function() {
+                clickCount++;
+                
+                // 創建點擊反饋效果
+                const feedback = document.createElement('div');
+                feedback.textContent = '🔥 熱門報名中！';
+                feedback.style.position = 'fixed';
+                feedback.style.top = '50%';
+                feedback.style.left = '50%';
+                feedback.style.transform = 'translate(-50%, -50%)';
+                feedback.style.background = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
+                feedback.style.color = 'white';
+                feedback.style.padding = '15px 25px';
+                feedback.style.borderRadius = '25px';
+                feedback.style.fontWeight = '700';
+                feedback.style.fontSize = '1.2rem';
+                feedback.style.zIndex = '10000';
+                feedback.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                feedback.style.animation = 'fadeInUp 0.5s ease forwards';
+                
+                document.body.appendChild(feedback);
+                
+                setTimeout(() => {
+                    feedback.style.animation = 'fadeOutUp 0.5s ease forwards';
+                    setTimeout(() => {
+                        feedback.remove();
+                    }, 500);
+                }, 2000);
+            });
+        }
+
         // 2025年趨勢：磁性懸停效果
         function addMagneticEffect(element) {
             element.addEventListener('mousemove', function(e) {
@@ -2088,9 +2500,11 @@
             handleBackToTop();
             startCountdown();
             animateTimelineItems();
+            initUrgencyElements();
+            trackButtonClicks();
             
             // 添加觸覺反饋到所有按鈕
-            document.querySelectorAll('.cta-button, .instagram-link, .feature-card').forEach(addHapticFeedback);
+            document.querySelectorAll('.cta-button, .instagram-link, .youtube-link, .feature-card').forEach(addHapticFeedback);
             
             // 添加磁性效果到特色卡片
             document.querySelectorAll('.feature-card').forEach(addMagneticEffect);
@@ -2162,6 +2576,30 @@
             .instagram-link:active {
                 transform: translateY(-2px) scale(0.98) rotateZ(1deg);
             }
+            
+            /* 額外動畫效果 */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes fadeOutUp {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-30px);
+                }
+            }
+            
         `;
         document.head.appendChild(style);
     </script>
