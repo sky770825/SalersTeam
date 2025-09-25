@@ -1590,6 +1590,14 @@
             background: rgba(255, 0, 0, 0.3);
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remaining-spots:hover {
+            transform: scale(1.1);
+            background: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
         }
 
         @keyframes spotPulse {
@@ -2032,6 +2040,8 @@
             display: flex;
             gap: 20px;
             margin-top: 10px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
 
         .radio-label {
@@ -2756,17 +2766,24 @@
             }
             
             /* 手機版單選按鈕和複選框調整 - 保持同一行 */
-            .radio-group {
-                flex-direction: row;
-                gap: 20px;
-                justify-content: flex-start;
+            .form-field .radio-group {
+                flex-direction: row !important;
+                gap: 20px !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                display: flex !important;
             }
             
-            .radio-label {
-                font-size: 0.9rem;
-                padding: 14px 20px;
-                gap: 8px;
-                min-width: 100px;
+            .form-field .radio-group .radio-label {
+                font-size: 0.9rem !important;
+                padding: 18px 28px !important;
+                gap: 12px !important;
+                min-width: 140px !important;
+                flex: 1 !important;
+                width: auto !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
             
             .radio-custom {
@@ -4277,8 +4294,27 @@
                 const nextBtn = document.querySelector('.next-btn');
                 const prevBtn = document.querySelector('.prev-btn');
 
-                nextBtn.addEventListener('click', () => this.nextStep());
-                prevBtn.addEventListener('click', () => this.prevStep());
+                console.log('🔧 設置表單導航按鈕');
+                console.log('➡️ 下一步按鈕:', nextBtn);
+                console.log('⬅️ 上一步按鈕:', prevBtn);
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        console.log('🖱️ 下一步按鈕被點擊');
+                        this.nextStep();
+                    });
+                } else {
+                    console.error('❌ 找不到下一步按鈕');
+                }
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        console.log('🖱️ 上一步按鈕被點擊');
+                        this.prevStep();
+                    });
+                } else {
+                    console.error('❌ 找不到上一步按鈕');
+                }
             }
 
             setupSmartInputs() {
@@ -4426,15 +4462,22 @@
             }
 
             nextStep() {
-                if (this.validateCurrentStep()) {
+                console.log('🔄 點擊下一步，當前步驟:', this.currentStep);
+                const isValid = this.validateCurrentStep();
+                console.log('✅ 表單驗證結果:', isValid);
+                
+                if (isValid) {
                     if (this.currentStep < this.totalSteps) {
                         this.currentStep++;
+                        console.log('➡️ 進入下一步:', this.currentStep);
                         this.updateFormDisplay();
                         this.updateProgressBar();
                     } else {
+                        console.log('🚀 提交表單');
                         this.submitForm();
                     }
                 } else {
+                    console.log('❌ 表單驗證失敗，顯示彈窗');
                     // 顯示驗證失敗彈窗
                     this.showValidationModal();
                 }
@@ -4558,8 +4601,10 @@
             }
 
             showValidationModal() {
+                console.log('🚨 顯示驗證彈窗');
                 // 收集所有未填寫的欄位
                 const missingFields = this.getMissingFields();
+                console.log('📝 缺失的欄位:', missingFields);
                 
                 // 創建彈窗HTML
                 const modalHTML = `
@@ -4596,6 +4641,7 @@
                 const modal = document.getElementById('validationModal');
                 setTimeout(() => {
                     modal.classList.add('show');
+                    console.log('✅ 驗證彈窗已顯示');
                 }, 10);
                 
                 // 添加關閉功能
@@ -5023,30 +5069,41 @@
 
         // 初始化緊迫感按鈕點擊功能
         function initUrgencyClick() {
+            // 為整個緊迫感文字添加點擊事件
             const urgencyText = document.querySelector('.urgency-text');
             if (urgencyText) {
                 urgencyText.addEventListener('click', function() {
-                    // 滾動到報名表單
-                    const formSection = document.querySelector('.form-preview-section');
-                    if (formSection) {
-                        formSection.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
-                        });
-                        
-                        // 添加視覺反饋
-                        this.style.transform = 'scale(0.95)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 150);
-                        
-                        // 添加點擊統計
-                        console.log('🔥 緊迫感按鈕被點擊，跳轉到報名表單');
-                    }
+                    scrollToForm();
                 });
                 
                 // 添加提示文字
                 urgencyText.title = '點擊立即報名';
+            }
+            
+            // 為剩餘名額數字添加點擊事件
+            const remainingSpots = document.querySelector('.remaining-spots');
+            if (remainingSpots) {
+                remainingSpots.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 防止觸發父元素的點擊事件
+                    scrollToForm();
+                });
+                
+                // 添加提示文字
+                remainingSpots.title = '點擊立即報名';
+            }
+        }
+
+        // 滾動到報名表單的通用函數
+        function scrollToForm() {
+            const formSection = document.querySelector('.form-preview-section');
+            if (formSection) {
+                formSection.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+                
+                // 添加點擊統計
+                console.log('🔥 緊迫感按鈕被點擊，跳轉到報名表單');
             }
         }
 
