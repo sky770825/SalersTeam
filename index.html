@@ -2086,6 +2086,47 @@
                 padding: 15px;
             }
             
+            /* 手機版 Hero 區域優化 */
+            .hero {
+                margin-bottom: 30px;
+            }
+            
+            .hero-description {
+                margin-bottom: 20px;
+            }
+            
+            /* 手機版信任指標優化 */
+            .credentials-section {
+                margin: 25px 0;
+            }
+            
+            .credentials-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .credential-item {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .credential-icon {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+            
+            .credential-number {
+                font-size: 1.5rem;
+                display: block;
+                margin-bottom: 5px;
+            }
+            
+            .credential-label {
+                font-size: 0.9rem;
+            }
+            
             /* 手機版文字保持與桌面版一致的可讀性 */
             
             .main-content {
@@ -2114,6 +2155,12 @@
                 align-items: center;
                 justify-content: center;
                 gap: 15px;
+                margin: 40px 0;
+            }
+            
+            /* 手機版浮動圖標優化 */
+            .floating-icons {
+                display: none; /* 手機版隱藏浮動圖標避免干擾 */
             }
             
             .cta-button {
@@ -2123,6 +2170,7 @@
                 display: block;
                 width: 100%;
                 text-align: center;
+                order: 1; /* 主要 CTA 按鈕優先顯示 */
             }
             
             .instagram-link {
@@ -2132,6 +2180,7 @@
                 display: block;
                 width: 100%;
                 text-align: center;
+                order: 2;
             }
             
             .youtube-link {
@@ -2141,6 +2190,16 @@
                 display: block;
                 width: 100%;
                 text-align: center;
+                order: 3;
+            }
+            
+            /* 手機版社交媒體按鈕優化 */
+            .social-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                margin-top: 20px;
             }
             
             
@@ -2551,6 +2610,8 @@
             
             .countdown-timer {
                 gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .time-unit {
@@ -2564,6 +2625,23 @@
             
             .time-label {
                 font-size: 0.8rem;
+            }
+            
+            /* 超小螢幕倒數計時器優化 */
+            .countdown-title {
+                font-size: 1rem;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .urgency-alert {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .urgency-text, .deadline-text {
+                font-size: 0.9rem;
             }
         }
 
@@ -2914,7 +2992,7 @@
                         <div class="form-fields">
                             <div class="form-field">
                                 <label>姓名 *</label>
-                                <input type="text" placeholder="請輸入您的姓名" class="smart-input" required>
+                                <input type="text" name="name" placeholder="請輸入您的姓名" class="smart-input" required>
                             </div>
                             
                             <div class="form-field">
@@ -2935,12 +3013,12 @@
                             
                             <div class="form-field">
                                 <label>電話 *</label>
-                                <input type="tel" placeholder="您的手機號碼" class="smart-input" required>
+                                <input type="tel" name="phone" placeholder="您的手機號碼" class="smart-input" required>
                             </div>
                             
                             <div class="form-field">
                                 <label>居住地 *</label>
-                                <select class="smart-select" required>
+                                <select name="location" class="smart-select" required>
                                     <option value="">請選擇居住地</option>
                                     <option value="taipei">台北</option>
                                     <option value="newtaipei">新北</option>
@@ -2952,12 +3030,12 @@
                             
                             <div class="form-field">
                                 <label>Email *</label>
-                                <input type="email" placeholder="請輸入您的Email" class="smart-input" required>
+                                <input type="email" name="email" placeholder="請輸入您的Email" class="smart-input" required>
                             </div>
                             
                             <div class="form-field">
                                 <label>LINE ID</label>
-                                <input type="text" placeholder="請輸入您的LINE ID" class="smart-input">
+                                <input type="text" name="lineId" placeholder="請輸入您的LINE ID" class="smart-input">
                             </div>
                         </div>
                     </div>
@@ -3087,6 +3165,18 @@
                aria-label="立即報名參加蔣哥房產說明會" role="button">
                 🚀 立即報名參加說明會
             </a>
+            
+            <!-- 社交媒體連結 -->
+            <div class="social-buttons">
+                <a href="https://www.instagram.com/jiang_ge_real_estate/" class="instagram-link" target="_blank" 
+                   aria-label="追蹤蔣哥 Instagram" role="button">
+                    📸 追蹤蔣哥 Instagram
+                </a>
+                <a href="https://www.youtube.com/@jiang_ge_real_estate" class="youtube-link" target="_blank" 
+                   aria-label="訂閱蔣哥 YouTube 頻道" role="button">
+                    📺 訂閱蔣哥 YouTube 頻道
+                </a>
+            </div>
         </div>
     </div>
 
@@ -3802,7 +3892,14 @@
                 }
                 
                 // 自動保存
-                this.formData[input.name || input.previousElementSibling.textContent] = input.value;
+                const key = input.name || input.previousElementSibling.textContent;
+                this.formData[key] = input.value;
+                
+                // 調試：特別檢查email欄位的保存
+                if (input.name === 'email') {
+                    console.log('💾 保存Email到formData:', key, '=', input.value);
+                }
+                
                 this.saveToLocalStorage();
             }
 
@@ -3927,7 +4024,7 @@
                     }
 
                     // 檢查Email
-                    const emailField = currentStepElement.querySelector('input[type="email"]');
+                    const emailField = currentStepElement.querySelector('input[name="email"]');
                     if (emailField && !emailField.value.trim()) {
                         this.showFieldValidation(emailField, false, '請輸入您的Email');
                         allValid = false;
@@ -4083,15 +4180,39 @@
             }
 
             submitForm() {
+                // 調試：檢查DOM中的email欄位
+                const emailInput = document.querySelector('input[name="email"]');
+                console.log('🔍 DOM中的email欄位:', emailInput);
+                console.log('🔍 email欄位的值:', emailInput?.value);
+                console.log('🔍 email欄位是否可見:', emailInput?.offsetParent !== null);
+                console.log('🔍 email欄位的display樣式:', emailInput ? window.getComputedStyle(emailInput).display : 'N/A');
+                console.log('🔍 所有name="email"的欄位:', document.querySelectorAll('input[name="email"]'));
+                
+                // 檢查email欄位的父元素是否可見
+                if (emailInput) {
+                    const parentStep = emailInput.closest('.form-step');
+                    console.log('🔍 email欄位的父步驟:', parentStep);
+                    console.log('🔍 父步驟是否為active:', parentStep?.classList.contains('active'));
+                }
+                
+                // 調試：檢查所有輸入欄位的值
+                const allInputs = document.querySelectorAll('input, select, textarea');
+                console.log('🔍 所有表單欄位:');
+                allInputs.forEach(input => {
+                    if (input.name) {
+                        console.log(`  ${input.name}: "${input.value}"`);
+                    }
+                });
+                
                 // 收集所有表單數據
                 const finalData = {
                     // 基本資訊
-                    name: document.querySelector('input[type="text"]')?.value || '',
+                    name: document.querySelector('input[name="name"]')?.value || '',
                     gender: document.querySelector('input[name="gender"]:checked')?.value || '',
-                    phone: document.querySelector('input[type="tel"]')?.value || '',
-                    location: document.querySelector('select')?.value || '',
-                    email: document.querySelector('input[type="email"]')?.value || '',
-                    lineId: document.querySelector('input[placeholder*="LINE"]')?.value || '',
+                    phone: document.querySelector('input[name="phone"]')?.value || '',
+                    location: document.querySelector('select[name="location"]')?.value || '',
+                    email: document.querySelector('input[name="email"]')?.value || '',
+                    lineId: document.querySelector('input[name="lineId"]')?.value || '',
                     
                     // 資訊需求
                     infoNeeds: Array.from(document.querySelectorAll('input[name="info_needs"]:checked')).map(cb => {
@@ -4111,7 +4232,8 @@
                     referrer: document.referrer
                 };
 
-                console.log('表單數據:', finalData);
+                console.log('📧 Email數據:', finalData.email);
+                console.log('📋 完整表單數據:', finalData);
 
                 // 顯示提交成功訊息
                 this.showSubmissionSuccess();
@@ -4129,24 +4251,40 @@
                     // 使用Google Apps Script Web App來提交數據
                     const scriptUrl = 'https://script.google.com/macros/s/AKfycbwBDQmn5L_D6vufgygxFVN_0oU9BWnuImrrgKwHwFWPd5cUZtretI_bcXuz3dbodhU/exec';
                     
-                    const formData = new FormData();
-                    formData.append('name', data.name || '');
-                    formData.append('gender', data.gender || '');
-                    formData.append('phone', data.phone || '');
-                    formData.append('location', data.location || '');
-                    formData.append('email', data.email || '');
-                    formData.append('lineId', data.lineId || '');
-                    formData.append('infoNeeds', data.infoNeeds.join(', ') || '');
-                    formData.append('motivation', data.motivation || '');
-                    formData.append('agreeTerms', data.agreeTerms ? '是' : '否');
-                    formData.append('agreeEvent', data.agreeEvent ? '是' : '否');
-                    formData.append('timestamp', data.timestamp);
-                    formData.append('userAgent', data.userAgent);
-                    formData.append('referrer', data.referrer);
+                    // 創建URL編碼的表單數據
+                    const params = new URLSearchParams();
+                    params.append('name', data.name || '');
+                    params.append('gender', data.gender || '');
+                    params.append('phone', data.phone || '');
+                    params.append('location', data.location || '');
+                    params.append('email', data.email || '');
+                    params.append('lineId', data.lineId || '');
+                    
+                // 調試：檢查發送的email數據
+                console.log('🚀 發送到Google Sheets的Email:', data.email);
+                console.log('🚀 完整發送數據:', data);
+                
+                // 再次檢查email欄位
+                const emailCheck = document.querySelector('input[name="email"]');
+                console.log('🚀 提交前再次檢查email:', emailCheck?.value);
+                
+                // 測試：直接測試Google Apps Script URL
+                console.log('🧪 測試Google Apps Script URL:', scriptUrl);
+                
+                params.append('infoNeeds', data.infoNeeds.join(', ') || '');
+                    params.append('motivation', data.motivation || '');
+                    params.append('agreeTerms', data.agreeTerms ? '是' : '否');
+                    params.append('agreeEvent', data.agreeEvent ? '是' : '否');
+                    params.append('timestamp', data.timestamp);
+                    params.append('userAgent', data.userAgent);
+                    params.append('referrer', data.referrer);
 
                     const response = await fetch(scriptUrl, {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: params
                     });
 
                     if (response.ok) {
