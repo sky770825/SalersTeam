@@ -1540,6 +1540,15 @@
                         inset 0 1px 0 rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .urgency-text:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.5), 
+                        0 0 30px rgba(255, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .urgency-text::before {
@@ -5012,6 +5021,35 @@
 
 
 
+        // 初始化緊迫感按鈕點擊功能
+        function initUrgencyClick() {
+            const urgencyText = document.querySelector('.urgency-text');
+            if (urgencyText) {
+                urgencyText.addEventListener('click', function() {
+                    // 滾動到報名表單
+                    const formSection = document.querySelector('.form-preview-section');
+                    if (formSection) {
+                        formSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                        
+                        // 添加視覺反饋
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                        
+                        // 添加點擊統計
+                        console.log('🔥 緊迫感按鈕被點擊，跳轉到報名表單');
+                    }
+                });
+                
+                // 添加提示文字
+                urgencyText.title = '點擊立即報名';
+            }
+        }
+
         // 初始化學員案例滾動功能
         function initTestimonialsScroll() {
             const testimonialsGrid = document.querySelector('.testimonials-grid');
@@ -5177,6 +5215,9 @@
             
             // 初始化學員案例滾動功能
             initTestimonialsScroll();
+            
+            // 初始化緊迫感按鈕點擊功能
+            initUrgencyClick();
             
             // 添加磁性效果到特色卡片
             document.querySelectorAll('.feature-card, .testimonial-card, .credential-item').forEach(addMagneticEffect);
