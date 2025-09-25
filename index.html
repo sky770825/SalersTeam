@@ -1983,11 +1983,24 @@
         .radio-label {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
             color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
             font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .radio-label:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .smart-radio {
@@ -1995,35 +2008,199 @@
         }
 
         .radio-custom {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
             position: relative;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .smart-radio:checked + .radio-custom {
-            border-color: #FFD700;
-            background: rgba(255, 215, 0, 0.2);
-        }
-
-        .smart-radio:checked + .radio-custom::after {
+        .radio-custom::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            background: #FFD700;
+            transform: translate(-50%, -50%) scale(0);
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
             border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .smart-radio:checked + .radio-custom {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        .smart-radio:checked + .radio-custom::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .smart-radio:checked ~ .radio-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .smart-radio:checked + .radio-custom + .radio-text {
+            color: #FFD700;
+            font-weight: 600;
         }
 
         .radio-text {
             color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
+        }
+
+        /* 驗證彈窗樣式 */
+        .validation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .validation-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .validation-modal.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .modal-title {
+            color: #FF6B6B;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-message {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 120px;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .modal-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 手機版彈窗調整 */
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 30px 25px;
+                margin: 20px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-message {
+                font-size: 1rem;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .modal-btn {
+                width: 100%;
+                padding: 15px 20px;
+            }
         }
 
         /* 複選框群組樣式 */
@@ -2282,15 +2459,26 @@
                 padding: 0 5px;
             }
             
-            /* 手機版YouTube影片容器 - 直式比例 */
+            /* 手機版YouTube影片容器 - 使用指定尺寸 */
             .hero-image[style*="max-width: 500px"] {
-                max-width: 60% !important;
+                max-width: 387px !important;
                 margin: 25px auto !important;
             }
             
-            /* 手機版YouTube影片直式比例 */
+            /* 手機版YouTube影片 - 使用指定尺寸 */
             .hero-image[style*="padding-bottom: 56.25%"] {
-                padding-bottom: 177.78% !important; /* 9:16 直式比例 */
+                padding-bottom: 0 !important;
+                height: 688px !important;
+            }
+            
+            /* 手機版iframe直接設定尺寸 */
+            .hero-image iframe {
+                width: 387px !important;
+                height: 688px !important;
+                position: relative !important;
+                top: 0 !important;
+                left: 0 !important;
+                border-radius: 20px !important;
             }
             
             .video-section p {
@@ -2463,11 +2651,19 @@
             
             .radio-label {
                 font-size: 0.9rem;
+                padding: 10px 16px;
+                gap: 10px;
             }
             
             .radio-custom {
-                width: 18px;
-                height: 18px;
+                width: 20px;
+                height: 20px;
+                border-width: 2px;
+            }
+            
+            .radio-custom::before {
+                width: 10px;
+                height: 10px;
             }
             
             .checkbox-group {
@@ -2587,13 +2783,24 @@
                 padding: 0 5px;
             }
             
-            /* 超小螢幕YouTube影片直式比例 */
+            /* 超小螢幕YouTube影片 - 使用指定尺寸 */
             .hero-image[style*="padding-bottom: 56.25%"] {
-                padding-bottom: 177.78% !important; /* 9:16 直式比例 */
+                padding-bottom: 0 !important;
+                height: 688px !important;
             }
             
             .hero-image[style*="max-width: 500px"] {
-                max-width: 70% !important;
+                max-width: 387px !important;
+            }
+            
+            /* 超小螢幕iframe直接設定尺寸 */
+            .hero-image iframe {
+                width: 387px !important;
+                height: 688px !important;
+                position: relative !important;
+                top: 0 !important;
+                left: 0 !important;
+                border-radius: 20px !important;
             }
             
             .video-section p {
@@ -4064,6 +4271,9 @@
                     } else {
                         this.submitForm();
                     }
+                } else {
+                    // 顯示驗證失敗彈窗
+                    this.showValidationModal();
                 }
             }
 
@@ -4180,6 +4390,192 @@
                         errorDiv.style.fontSize = '0.9rem';
                         errorDiv.style.marginTop = '5px';
                         checkboxGroup.parentNode.appendChild(errorDiv);
+                    }
+                }
+            }
+
+            showValidationModal() {
+                // 收集所有未填寫的欄位
+                const missingFields = this.getMissingFields();
+                
+                // 創建彈窗HTML
+                const modalHTML = `
+                    <div class="validation-modal" id="validationModal">
+                        <div class="modal-content">
+                            <div class="modal-icon">⚠️</div>
+                            <h3 class="modal-title">請完善您的資料</h3>
+                            <p class="modal-message">
+                                為了確保您能順利參加說明會，請填寫以下必要資訊：<br>
+                                <strong>${missingFields.join('、')}</strong>
+                            </p>
+                            <div class="modal-actions">
+                                <button class="modal-btn modal-btn-primary" id="fillNowBtn">
+                                    立即填寫
+                                </button>
+                                <button class="modal-btn modal-btn-secondary" id="fillLaterBtn">
+                                    稍後填寫
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // 移除現有彈窗
+                const existingModal = document.getElementById('validationModal');
+                if (existingModal) {
+                    existingModal.remove();
+                }
+                
+                // 添加新彈窗
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                
+                // 顯示彈窗
+                const modal = document.getElementById('validationModal');
+                setTimeout(() => {
+                    modal.classList.add('show');
+                }, 10);
+                
+                // 添加關閉功能
+                window.closeModal = () => {
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.remove();
+                    }, 300);
+                };
+                
+                // 按鈕事件監聽器
+                const fillNowBtn = modal.querySelector('#fillNowBtn');
+                const fillLaterBtn = modal.querySelector('#fillLaterBtn');
+                
+                fillNowBtn.addEventListener('click', () => {
+                    window.closeModal();
+                    // 滾動到第一個未填寫的欄位
+                    this.scrollToFirstEmptyField();
+                });
+                
+                fillLaterBtn.addEventListener('click', () => {
+                    window.closeModal();
+                });
+                
+                // 點擊背景關閉
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        window.closeModal();
+                    }
+                });
+                
+                // ESC鍵關閉
+                const handleEsc = (e) => {
+                    if (e.key === 'Escape') {
+                        window.closeModal();
+                        document.removeEventListener('keydown', handleEsc);
+                    }
+                };
+                document.addEventListener('keydown', handleEsc);
+            }
+
+            getMissingFields() {
+                const currentStepElement = document.querySelector(`[data-step="${this.currentStep}"]`);
+                const missingFields = [];
+                
+                if (this.currentStep === 1) {
+                    // 檢查姓名
+                    const nameField = currentStepElement.querySelector('input[type="text"]');
+                    if (nameField && !nameField.value.trim()) {
+                        missingFields.push('姓名');
+                    }
+                    
+                    // 檢查性別
+                    const genderRadio = currentStepElement.querySelector('input[name="gender"]:checked');
+                    if (!genderRadio) {
+                        missingFields.push('性別');
+                    }
+                    
+                    // 檢查電話
+                    const phoneField = currentStepElement.querySelector('input[type="tel"]');
+                    if (phoneField && !phoneField.value.trim()) {
+                        missingFields.push('電話');
+                    }
+                    
+                    // 檢查居住地
+                    const locationSelect = currentStepElement.querySelector('select');
+                    if (locationSelect && !locationSelect.value) {
+                        missingFields.push('居住地');
+                    }
+                    
+                    // 檢查Email
+                    const emailField = currentStepElement.querySelector('input[name="email"]');
+                    if (emailField && !emailField.value.trim()) {
+                        missingFields.push('Email');
+                    }
+                } else if (this.currentStep === 2) {
+                    const checkedBoxes = currentStepElement.querySelectorAll('input[name="info_needs"]:checked');
+                    if (checkedBoxes.length === 0) {
+                        missingFields.push('想獲得的資訊');
+                    }
+                } else if (this.currentStep === 3) {
+                    const requiredCheckbox = currentStepElement.querySelector('.required-checkbox input[type="checkbox"]');
+                    if (requiredCheckbox && !requiredCheckbox.checked) {
+                        missingFields.push('活動條款確認');
+                    }
+                }
+                
+                return missingFields;
+            }
+
+            scrollToFirstEmptyField() {
+                const currentStepElement = document.querySelector(`[data-step="${this.currentStep}"]`);
+                let firstEmptyField = null;
+                
+                if (this.currentStep === 1) {
+                    // 按順序檢查欄位
+                    const nameField = currentStepElement.querySelector('input[type="text"]');
+                    if (nameField && !nameField.value.trim()) {
+                        firstEmptyField = nameField;
+                    } else {
+                        const genderRadio = currentStepElement.querySelector('input[name="gender"]:checked');
+                        if (!genderRadio) {
+                            firstEmptyField = currentStepElement.querySelector('.radio-group');
+                        } else {
+                            const phoneField = currentStepElement.querySelector('input[type="tel"]');
+                            if (phoneField && !phoneField.value.trim()) {
+                                firstEmptyField = phoneField;
+                            } else {
+                                const locationSelect = currentStepElement.querySelector('select');
+                                if (locationSelect && !locationSelect.value) {
+                                    firstEmptyField = locationSelect;
+                                } else {
+                                    const emailField = currentStepElement.querySelector('input[name="email"]');
+                                    if (emailField && !emailField.value.trim()) {
+                                        firstEmptyField = emailField;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if (this.currentStep === 2) {
+                    const checkedBoxes = currentStepElement.querySelectorAll('input[name="info_needs"]:checked');
+                    if (checkedBoxes.length === 0) {
+                        firstEmptyField = currentStepElement.querySelector('.checkbox-group');
+                    }
+                } else if (this.currentStep === 3) {
+                    const requiredCheckbox = currentStepElement.querySelector('.required-checkbox input[type="checkbox"]');
+                    if (requiredCheckbox && !requiredCheckbox.checked) {
+                        firstEmptyField = requiredCheckbox;
+                    }
+                }
+                
+                if (firstEmptyField) {
+                    firstEmptyField.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    
+                    // 如果是輸入框，聚焦
+                    if (firstEmptyField.tagName === 'INPUT' || firstEmptyField.tagName === 'SELECT') {
+                        setTimeout(() => {
+                            firstEmptyField.focus();
+                        }, 500);
                     }
                 }
             }
