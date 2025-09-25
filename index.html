@@ -1437,21 +1437,6 @@
                 text-align: center;
             }
             
-            /* 手機版緊迫感元素調整 */
-            .urgency-section {
-                margin: 25px 0;
-            }
-            
-            .urgency-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            
-            .urgency-icon {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
             
             .features {
                 grid-template-columns: 1fr;
@@ -1672,31 +1657,6 @@
                 text-align: center;
             }
             
-            /* 超小螢幕緊迫感元素調整 */
-            .urgency-section {
-                margin: 20px 0;
-            }
-            
-            .urgency-card {
-                padding: 15px;
-            }
-            
-            .urgency-icon {
-                font-size: 2rem;
-                margin-bottom: 10px;
-            }
-            
-            .urgency-content h3 {
-                font-size: 1.2rem;
-            }
-            
-            .spots-number {
-                font-size: 2rem;
-            }
-            
-            .spots-text {
-                font-size: 1rem;
-            }
             
             .countdown-timer {
                 gap: 8px;
@@ -1787,112 +1747,6 @@
             transition: height 0.3s ease;
         }
 
-        /* 緊迫感元素樣式 */
-        .urgency-section {
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .urgency-card {
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(135deg, 
-                rgba(255, 69, 0, 0.15) 0%, 
-                rgba(255, 140, 0, 0.12) 25%,
-                rgba(255, 215, 0, 0.1) 50%,
-                rgba(255, 69, 0, 0.12) 75%,
-                rgba(255, 140, 0, 0.15) 100%);
-            background-size: 300% 300%;
-            animation: urgencyGradient 3s ease infinite;
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 20px 30px;
-            border: 2px solid rgba(255, 69, 0, 0.3);
-            box-shadow: 0 15px 35px rgba(255, 69, 0, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes urgencyGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .urgency-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                #FF4500, #FF8C00, #FFD700, #FF4500);
-            background-size: 400% 400%;
-            border-radius: 27px;
-            z-index: -1;
-            animation: urgencyBorder 2s linear infinite;
-        }
-
-        @keyframes urgencyBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .urgency-icon {
-            font-size: 2.5rem;
-            margin-right: 20px;
-            animation: urgencyPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes urgencyPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .urgency-content h3 {
-            color: #FF4500;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-shadow: 0 2px 4px rgba(255, 69, 0, 0.3);
-        }
-
-        .spots-remaining {
-            display: flex;
-            align-items: baseline;
-            justify-content: center;
-            margin-bottom: 8px;
-        }
-
-        .spots-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #FF4500;
-            text-shadow: 0 2px 8px rgba(255, 69, 0, 0.5);
-            animation: numberBlink 2s ease-in-out infinite;
-        }
-
-        @keyframes numberBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .spots-text {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-left: 8px;
-            font-weight: 600;
-        }
-
-        .urgency-content p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
-            font-weight: 500;
-            margin: 0;
-        }
 
 
         /* 浮動返回頂部按鈕 */
@@ -2067,20 +1921,6 @@
             </div>
         </div>
 
-        <!-- 緊迫感元素 -->
-        <div class="urgency-section fade-in">
-            <div class="urgency-card">
-                <div class="urgency-icon">⚡</div>
-                <div class="urgency-content">
-                    <h3>🔥 限額報名中</h3>
-                    <div class="spots-remaining">
-                        <span class="spots-number" id="spotsLeft">限額</span>
-                        <span class="spots-text">參加</span>
-                    </div>
-                    <p>把握機會，立即報名！</p>
-                </div>
-            </div>
-        </div>
 
         <div class="cta-section fade-in">
             <div class="floating-icons">
@@ -2415,21 +2255,6 @@
             });
         }
 
-        // 簡化的緊迫感元素
-        function initUrgencyElements() {
-            // 保持緊迫感元素的動畫效果，但不顯示具體數字
-            const urgencyCard = document.querySelector('.urgency-card');
-            if (urgencyCard) {
-                // 添加懸停效果
-                urgencyCard.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.02)';
-                });
-                
-                urgencyCard.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            }
-        }
 
 
         // 添加按鈕點擊統計
@@ -2501,7 +2326,6 @@
             handleBackToTop();
             startCountdown();
             animateTimelineItems();
-            initUrgencyElements();
             trackButtonClicks();
             
             // 添加觸覺反饋到所有按鈕
