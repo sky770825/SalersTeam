@@ -2275,17 +2275,22 @@
                 margin: 25px auto !important;
             }
             
-            /* 手機版影片區塊調整 - 增大YouTube影片尺寸 */
+            /* 手機版影片區塊調整 - 改為直式YouTube影片 */
             .video-section {
                 margin: 30px auto !important;
                 max-width: 100% !important;
                 padding: 0 5px;
             }
             
-            /* 手機版YouTube影片容器增大 */
+            /* 手機版YouTube影片容器 - 直式比例 */
             .hero-image[style*="max-width: 500px"] {
-                max-width: 95% !important;
+                max-width: 60% !important;
                 margin: 25px auto !important;
+            }
+            
+            /* 手機版YouTube影片直式比例 */
+            .hero-image[style*="padding-bottom: 56.25%"] {
+                padding-bottom: 177.78% !important; /* 9:16 直式比例 */
             }
             
             .video-section p {
@@ -2576,10 +2581,19 @@
                 margin: 20px auto !important;
             }
             
-            /* 超小螢幕影片區塊調整 */
+            /* 超小螢幕影片區塊調整 - 直式YouTube影片 */
             .video-section {
                 margin: 25px auto !important;
                 padding: 0 5px;
+            }
+            
+            /* 超小螢幕YouTube影片直式比例 */
+            .hero-image[style*="padding-bottom: 56.25%"] {
+                padding-bottom: 177.78% !important; /* 9:16 直式比例 */
+            }
+            
+            .hero-image[style*="max-width: 500px"] {
+                max-width: 70% !important;
             }
             
             .video-section p {
