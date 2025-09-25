@@ -1432,10 +1432,32 @@
         }
 
         .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            display: flex;
+            gap: 20px;
             margin-top: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        }
+
+        .testimonials-grid::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .testimonials-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .testimonials-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .testimonials-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .testimonial-card {
@@ -1447,6 +1469,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            flex: 0 0 350px;
+            min-width: 350px;
         }
 
         .testimonial-card:hover {
@@ -2269,28 +2293,39 @@
                 margin-top: 12px !important;
             }
             
-            /* 手機版信任指標調整 */
+            /* 手機版信任指標調整 - 保持3欄佈局 */
             .credentials-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
             }
             
             .credential-item {
-                padding: 20px 15px;
+                padding: 12px 8px;
             }
             
             .credential-number {
-                font-size: 1.8rem;
+                font-size: 1.2rem;
             }
             
-            /* 手機版社會證明調整 */
+            .credential-label {
+                font-size: 0.8rem;
+                line-height: 1.2;
+            }
+            
+            /* 手機版社會證明調整 - 保持水平滾動 */
             .testimonials-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
+                display: flex;
+                gap: 15px;
+                overflow-x: auto;
+                padding: 15px 0;
+                scroll-snap-type: x mandatory;
             }
             
             .testimonial-card {
-                padding: 25px 20px;
+                flex: 0 0 280px;
+                min-width: 280px;
+                padding: 20px 15px;
+                scroll-snap-align: start;
             }
             
             /* 手機版緊迫感調整 */
@@ -2414,10 +2449,20 @@
                 font-size: 0.85rem;
             }
             
-            /* 手機版單選按鈕和複選框調整 */
+            /* 手機版單選按鈕和複選框調整 - 保持同一行 */
             .radio-group {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 20px;
+                justify-content: flex-start;
+            }
+            
+            .radio-label {
+                font-size: 0.9rem;
+            }
+            
+            .radio-custom {
+                width: 18px;
+                height: 18px;
             }
             
             .checkbox-group {
@@ -2900,6 +2945,42 @@
                         <span class="author-title">多房投資者</span>
                     </div>
                 </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"聽了蔣哥的建議，我成功避開了房市泡沫，現在房價已經漲了30%！"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <span class="author-name">陳小姐</span>
+                        <span class="author-title">自住客</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"蔣哥的區域分析太準了！我買的區域現在是桃園最熱門的投資標的。"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <span class="author-name">林先生</span>
+                        <span class="author-title">區域投資客</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"從完全不懂房產到現在有2間投資房，都是蔣哥教我的！"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <span class="author-name">黃小姐</span>
+                        <span class="author-title">新手投資者</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"蔣哥的時機判斷真的很厲害，我在最低點買入，現在已經獲利150萬！"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <span class="author-name">劉先生</span>
+                        <span class="author-title">時機投資者</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -3169,22 +3250,7 @@
                 <div class="floating-icon" style="top: 50%; right: 8%; animation-delay: 5s;">🔥</div>
             </div>
             
-            <a href="https://forms.gle/UEyNLsrATT4vHzfKA" class="cta-button" target="_blank" 
-               aria-label="立即報名參加蔣哥房產說明會" role="button">
-                🚀 立即報名參加說明會
-            </a>
             
-            <!-- 社交媒體連結 -->
-            <div class="social-buttons">
-                <a href="https://www.instagram.com/jiang_ge_real_estate/" class="instagram-link" target="_blank" 
-                   aria-label="追蹤蔣哥 Instagram" role="button">
-                    📸 追蹤蔣哥 Instagram
-                </a>
-                <a href="https://www.youtube.com/@jiang_ge_real_estate" class="youtube-link" target="_blank" 
-                   aria-label="訂閱蔣哥 YouTube 頻道" role="button">
-                    📺 訂閱蔣哥 YouTube 頻道
-                </a>
-            </div>
         </div>
     </div>
 
@@ -4382,6 +4448,88 @@
 
 
 
+        // 初始化學員案例滾動功能
+        function initTestimonialsScroll() {
+            const testimonialsGrid = document.querySelector('.testimonials-grid');
+            if (!testimonialsGrid) return;
+            
+            let isScrolling = false;
+            let scrollDirection = 1;
+            let autoScrollInterval;
+            
+            // 自動滾動功能
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(() => {
+                    if (!isScrolling) {
+                        const scrollAmount = 370; // 每次滾動一個卡片的寬度
+                        const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+                        
+                        if (testimonialsGrid.scrollLeft >= maxScroll - 10) {
+                            scrollDirection = -1;
+                        } else if (testimonialsGrid.scrollLeft <= 10) {
+                            scrollDirection = 1;
+                        }
+                        
+                        testimonialsGrid.scrollLeft += scrollDirection * 1;
+                    }
+                }, 50);
+            }
+            
+            // 停止自動滾動
+            function stopAutoScroll() {
+                clearInterval(autoScrollInterval);
+            }
+            
+            // 用戶交互時暫停自動滾動
+            testimonialsGrid.addEventListener('mouseenter', stopAutoScroll);
+            testimonialsGrid.addEventListener('mouseleave', startAutoScroll);
+            testimonialsGrid.addEventListener('touchstart', stopAutoScroll);
+            testimonialsGrid.addEventListener('touchend', () => {
+                setTimeout(startAutoScroll, 3000); // 3秒後恢復自動滾動
+            });
+            
+            // 滾動事件處理
+            testimonialsGrid.addEventListener('scroll', () => {
+                isScrolling = true;
+                clearTimeout(testimonialsGrid.scrollTimeout);
+                testimonialsGrid.scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                }, 150);
+            });
+            
+            // 啟動自動滾動
+            startAutoScroll();
+            
+            // 添加滾動指示器
+            const scrollIndicator = document.createElement('div');
+            scrollIndicator.style.cssText = `
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                z-index: 10;
+            `;
+            scrollIndicator.innerHTML = '→';
+            scrollIndicator.addEventListener('click', () => {
+                testimonialsGrid.scrollLeft += 370;
+            });
+            
+            const testimonialsSection = document.querySelector('.testimonials-section');
+            if (testimonialsSection) {
+                testimonialsSection.style.position = 'relative';
+                testimonialsSection.appendChild(scrollIndicator);
+            }
+        }
+
         // 添加按鈕點擊統計
         function trackButtonClicks() {
             const ctaButton = document.querySelector('.cta-button');
@@ -4462,6 +4610,9 @@
             
             // 添加觸覺反饋到所有按鈕
             document.querySelectorAll('.cta-button, .feature-card, .testimonial-card, .credential-item, .form-nav-btn').forEach(addHapticFeedback);
+            
+            // 初始化學員案例滾動功能
+            initTestimonialsScroll();
             
             // 添加磁性效果到特色卡片
             document.querySelectorAll('.feature-card, .testimonial-card, .credential-item').forEach(addMagneticEffect);
