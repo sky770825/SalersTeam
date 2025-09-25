@@ -3481,20 +3481,20 @@
                         <h4>🎯 第一步：基本資訊</h4>
                         <div class="form-fields">
                             <div class="form-field">
-                                <label>姓名 *</label>
-                                <input type="text" name="name" placeholder="請輸入您的姓名" class="smart-input" required>
+                                <label>姓名</label>
+                                <input type="text" name="name" placeholder="請輸入您的姓名" class="smart-input">
                             </div>
                             
                             <div class="form-field">
-                                <label>性別 *</label>
+                                <label>性別</label>
                                 <div class="radio-group">
                                     <label class="radio-label">
-                                        <input type="radio" name="gender" value="male" class="smart-radio" required>
+                                        <input type="radio" name="gender" value="male" class="smart-radio">
                                         <span class="radio-custom"></span>
                                         <span class="radio-text">男性</span>
                                     </label>
                                     <label class="radio-label">
-                                        <input type="radio" name="gender" value="female" class="smart-radio" required>
+                                        <input type="radio" name="gender" value="female" class="smart-radio">
                                         <span class="radio-custom"></span>
                                         <span class="radio-text">女性</span>
                                     </label>
@@ -3502,13 +3502,13 @@
                             </div>
                             
                             <div class="form-field">
-                                <label>電話 *</label>
-                                <input type="tel" name="phone" placeholder="您的手機號碼" class="smart-input" required>
+                                <label>電話</label>
+                                <input type="tel" name="phone" placeholder="您的手機號碼" class="smart-input">
                             </div>
                             
                             <div class="form-field">
-                                <label>居住地 *</label>
-                                <select name="location" class="smart-select" required>
+                                <label>居住地</label>
+                                <select name="location" class="smart-select">
                                     <option value="">請選擇居住地</option>
                                     <option value="taipei">台北</option>
                                     <option value="newtaipei">新北</option>
@@ -3519,8 +3519,8 @@
                             </div>
                             
                             <div class="form-field">
-                                <label>Email *</label>
-                                <input type="email" name="email" placeholder="請輸入您的Email" class="smart-input" required>
+                                <label>Email</label>
+                                <input type="email" name="email" placeholder="請輸入您的Email" class="smart-input">
                             </div>
                             
                             <div class="form-field">
@@ -3597,7 +3597,7 @@
                             <!-- 必填確認條款 -->
                             <div class="form-field checkbox-field required-checkbox">
                                 <label class="checkbox-label">
-                                    <input type="checkbox" class="smart-checkbox" required>
+                                    <input type="checkbox" class="smart-checkbox">
                                     <span class="checkmark"></span>
                                     <span class="checkbox-text">
                                         確認您已知道活動時間、地點<br>
@@ -4463,23 +4463,15 @@
 
             nextStep() {
                 console.log('🔄 點擊下一步，當前步驟:', this.currentStep);
-                const isValid = this.validateCurrentStep();
-                console.log('✅ 表單驗證結果:', isValid);
                 
-                if (isValid) {
-                    if (this.currentStep < this.totalSteps) {
-                        this.currentStep++;
-                        console.log('➡️ 進入下一步:', this.currentStep);
-                        this.updateFormDisplay();
-                        this.updateProgressBar();
-                    } else {
-                        console.log('🚀 提交表單');
-                        this.submitForm();
-                    }
+                if (this.currentStep < this.totalSteps) {
+                    this.currentStep++;
+                    console.log('➡️ 進入下一步:', this.currentStep);
+                    this.updateFormDisplay();
+                    this.updateProgressBar();
                 } else {
-                    console.log('❌ 表單驗證失敗，顯示彈窗');
-                    // 顯示驗證失敗彈窗
-                    this.showValidationModal();
+                    console.log('🚀 提交表單');
+                    this.submitForm();
                 }
             }
 
