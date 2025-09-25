@@ -2101,30 +2101,31 @@
             }
             
             .credentials-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                max-width: 300px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                max-width: 100%;
                 margin: 0 auto;
             }
             
             .credential-item {
-                padding: 15px;
+                padding: 12px 8px;
                 text-align: center;
             }
             
             .credential-icon {
-                font-size: 2rem;
-                margin-bottom: 8px;
+                font-size: 1.5rem;
+                margin-bottom: 6px;
             }
             
             .credential-number {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
                 display: block;
-                margin-bottom: 5px;
+                margin-bottom: 3px;
             }
             
             .credential-label {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                line-height: 1.2;
             }
             
             /* 手機版文字保持與桌面版一致的可讀性 */
@@ -2174,9 +2175,9 @@
             }
             
             .instagram-link {
-                padding: 18px 35px;
+                padding: 15px 20px;
                 margin: 0;
-                font-size: 1rem;
+                font-size: 0.9rem;
                 display: block;
                 width: 100%;
                 text-align: center;
@@ -2184,22 +2185,22 @@
             }
             
             .youtube-link {
-                padding: 18px 35px;
+                padding: 15px 20px;
                 margin: 0;
-                font-size: 1rem;
+                font-size: 0.9rem;
                 display: block;
                 width: 100%;
                 text-align: center;
                 order: 3;
             }
             
-            /* 手機版社交媒體按鈕優化 */
+            /* 手機版社交媒體按鈕優化 - 改為2欄佈局 */
             .social-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
                 width: 100%;
-                margin-top: 20px;
+                margin-top: 15px;
             }
             
             
@@ -2250,11 +2251,17 @@
                 margin: 25px auto !important;
             }
             
-            /* 手機版影片區塊調整 */
+            /* 手機版影片區塊調整 - 增大YouTube影片尺寸 */
             .video-section {
                 margin: 30px auto !important;
                 max-width: 100% !important;
-                padding: 0 10px;
+                padding: 0 5px;
+            }
+            
+            /* 手機版YouTube影片容器增大 */
+            .hero-image[style*="max-width: 500px"] {
+                max-width: 95% !important;
+                margin: 25px auto !important;
             }
             
             .video-section p {
@@ -2301,14 +2308,15 @@
                 font-size: 1rem;
             }
             
-            /* 手機版風險降低調整 */
+            /* 手機版風險降低調整 - 改為2欄佈局 */
             .risk-reduction-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
             
             .risk-item {
-                padding: 15px 12px;
+                padding: 12px 8px;
+                font-size: 0.9rem;
             }
             
             /* 手機版表單調整 */
