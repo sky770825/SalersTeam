@@ -3,6 +3,35 @@
  * 用於接收網頁表單數據並寫入Google Sheets
  */
 
+/**
+ * 處理 GET 請求 - 用於測試和健康檢查
+ */
+function doGet(e) {
+  try {
+    console.log('收到 GET 請求:', e);
+    
+    // 返回簡單的狀態訊息
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: true,
+        message: 'Google Apps Script 運行正常',
+        timestamp: new Date().toISOString(),
+        method: 'GET'
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    console.error('GET 請求處理錯誤:', error);
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: false,
+        error: error.toString(),
+        message: 'GET 請求處理失敗'
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
 function doPost(e) {
   try {
     // 調試：檢查接收到的參數
@@ -40,7 +69,32 @@ function doPost(e) {
     const location = e.parameter.location || '';
     const email = e.parameter.email || '';
     const lineId = e.parameter.lineId || '';
+    const referrerType = e.parameter.referrerType || '';
+    const referrerName = e.parameter.referrerName || '';
     const infoNeeds = e.parameter.infoNeeds || '';
+    
+    // 處理介紹人資訊
+    let referrer = '';
+    if (referrerType) {
+      if (referrerType === '華地產介紹' || referrerType === '朋友介紹') {
+        referrer = referrerName ? `${referrerType}${referrerName}` : referrerType;
+      } else {
+        referrer = referrerType;
+      }
+    }
+    
+    // 詳細調試：記錄所有接收到的參數
+    console.log('📋 接收到的所有參數:');
+    console.log('  name:', name);
+    console.log('  gender:', gender);
+    console.log('  phone:', phone);
+    console.log('  location:', location);
+    console.log('  email:', email);
+    console.log('  lineId:', lineId);
+    console.log('  referrerType:', referrerType);
+    console.log('  referrerName:', referrerName);
+    console.log('  referrer (合併後):', referrer);
+    console.log('  infoNeeds:', infoNeeds);
     
     // 記錄詳細的資訊需求數據
     console.log('接收到的資訊需求:', infoNeeds);
@@ -50,7 +104,6 @@ function doPost(e) {
     const agreeEvent = e.parameter.agreeEvent || '';
     const timestamp = e.parameter.timestamp || '';
     const userAgent = e.parameter.userAgent || '';
-    const referrer = e.parameter.referrer || '';
 
     // 打開Google Sheets
     const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
@@ -58,12 +111,12 @@ function doPost(e) {
     // 如果是第一次運行，添加標題行
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
-        '時間戳記', '姓名', '性別', '電話', '居住地', 'Email', 'LINE ID', 
+        '時間戳記', '姓名', '性別', '電話', '居住地', 'Email', 'LINE ID', '介紹人',
         '資訊需求', '參加動機', '同意條款', '確認活動', '瀏覽器', '來源'
       ]);
       
       // 設置標題行格式
-      const headerRange = sheet.getRange(1, 1, 1, 13);
+      const headerRange = sheet.getRange(1, 1, 1, 14);
       headerRange.setBackground('#4285F4');
       headerRange.setFontColor('white');
       headerRange.setFontWeight('bold');
@@ -79,23 +132,24 @@ function doPost(e) {
       location, 
       email,
       lineId,
+      referrer, // 介紹人欄位
       infoNeeds, 
       motivation, 
       agreeTerms, 
       agreeEvent, 
       userAgent, 
-      referrer
+      referrer // 來源欄位（重複使用介紹人資訊）
     ];
     
     sheet.appendRow(newRow);
     
     // 設置新行的格式
     const lastRow = sheet.getLastRow();
-    const dataRange = sheet.getRange(lastRow, 1, 1, 13);
+    const dataRange = sheet.getRange(lastRow, 1, 1, 14);
     dataRange.setBorder(true, true, true, true, true, true);
     
     // 自動調整列寬
-    sheet.autoResizeColumns(1, 13);
+    sheet.autoResizeColumns(1, 14);
     
     // 記錄成功日誌
     console.log('成功提交表單數據:', {
@@ -106,7 +160,7 @@ function doPost(e) {
     
     // 發送確認信件
     try {
-      sendConfirmationEmail(name, phone, email, lineId);
+      sendConfirmationEmail(name, phone, email, lineId, referrer);
       console.log('確認信件已發送');
     } catch (emailError) {
       console.error('發送確認信件失敗:', emailError);
@@ -137,42 +191,56 @@ function doPost(e) {
 /**
  * 發送確認信件函數
  */
-function sendConfirmationEmail(name, phone, email, lineId) {
+function sendConfirmationEmail(name, phone, email, lineId, referrer) {
   try {
     // 檢查是否有Email地址（這裡需要從表單中獲取Email）
     // 如果沒有Email，可以發送到LINE或使用其他通知方式
     
+    // 活動資訊設定（可輕鬆修改）
+    const eventInfo = {
+      title: '蔣哥房產分析說明會',
+      date: '2025年10月5日（日）',
+      time: '下午2:00 準時開始',
+      location: '桃園市桃園區大興西路三段90號（銷售中心）',
+      prize: '大金空調清淨機（市價2萬元）',
+      contactPhone: '03-123-4567', // 可以設定固定聯絡電話
+      teamName: 'BNI華地產房產行銷組團隊',
+      referrer: '蔣哥房產分析團隊' // 介紹人/推薦人
+    };
+    
+    // Email 發送設定
+    const emailConfig = {
+      senderName: '蔣哥房產分析團隊', // 發送者名稱
+      replyTo: '', // 回覆地址（可選，留空則使用預設）
+      // 注意：實際發送帳號是 Google Apps Script 專案的擁有者帳號
+    };
+    
     // 信件內容
-    const subject = '🎉 蔣哥房產分析說明會 - 報名確認信';
+    const subject = `報名確認信 - ${eventInfo.title}`;
     const body = `
 親愛的 ${name} 您好，
 
-感謝您報名參加「蔣哥房產分析說明會」！
+感謝您報名參加「${eventInfo.title}」！
 
-📅 活動資訊：
-• 時間：2025年10月5日（日）下午2:00 準時開始
-• 地點：桃園市桃園區大興西路三段90號（銷售中心）
-• 聯絡電話：${phone}
+1、 活動資訊：
+• 時間：${eventInfo.date} ${eventInfo.time}
+• 地點：${eventInfo.location}
 
-🎁 現場抽獎：
-大金空調清淨機（市價2萬元）
+2、現場抽獎：
+${eventInfo.prize}
 
-📋 注意事項：
+3.注意事項：
 1. 請提前15分鐘到達會場
 2. 請攜帶身分證件
 3. 現場提供茶水點心
 4. 活動全程免費，無推銷壓力
 
-📞 如有任何問題，請聯繫：
-• 蔣哥房產分析團隊
-• 電話：${phone}
-• LINE ID：${lineId || '請提供您的LINE ID'}
+4.如有任何問題，請聯繫：
+介紹人：${referrer || '無'}
 
-我們將在活動前3天再次發送提醒通知給您。
+感謝您的報名，期待與您相見！
 
-期待與您相見！
-
-蔣哥房產分析團隊
+${eventInfo.teamName}
 ${new Date().toLocaleDateString('zh-TW')}
     `;
     
@@ -251,6 +319,39 @@ function testFunction() {
   const result = doPost(testData);
   console.log('🧪 測試結果:', result.getContent());
   return result;
+}
+
+/**
+ * 測試參數接收函數
+ */
+function testParameterReceiving() {
+  console.log('🧪 測試參數接收...');
+  
+  // 模擬從網頁表單接收的數據
+  const mockEvent = {
+    parameter: {
+      name: '張三',
+      gender: 'male',
+      phone: '0912-345-678',
+      location: 'taipei',
+      email: 'zhang@example.com',
+      lineId: 'zhang123',
+      infoNeeds: '購屋與房地產趨勢分析, 桃園房市投資價值剖析：桃園房屋真的值得買嗎？',
+      motivation: '想要了解房產投資',
+      agreeTerms: '是',
+      agreeEvent: '是',
+      timestamp: new Date().toISOString(),
+      userAgent: 'Mozilla/5.0...',
+      referrer: 'https://example.com'
+    }
+  };
+  
+  console.log('🧪 模擬接收到的參數:');
+  Object.keys(mockEvent.parameter).forEach(key => {
+    console.log(`  ${key}: ${mockEvent.parameter[key]}`);
+  });
+  
+  return '參數接收測試完成';
 }
 
 /**

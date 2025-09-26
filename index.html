@@ -1831,22 +1831,36 @@
         }
 
         /* 下拉選單選項樣式優化 */
-        .smart-select {
+        .smart-select, select.smart-input {
             color: white !important;
             background-color: rgba(30, 30, 30, 0.95) !important;
         }
 
-        .smart-select option {
-            background-color: rgba(30, 30, 30, 0.95) !important;
+        .smart-select option, select.smart-input option {
+            background-color: #2c3e50 !important;
             color: white !important;
             padding: 10px 15px;
             font-size: 1rem;
             font-weight: 500;
+            border: none;
         }
-
-        .smart-select option:hover {
-            background-color: rgba(255, 215, 0, 0.2) !important;
+        
+        /* 下拉選單懸停效果 */
+        .smart-select option:hover, select.smart-input option:hover {
+            background-color: #34495e !important;
             color: #FFD700 !important;
+        }
+        
+        /* 確保下拉選單文字在各種瀏覽器中都清晰可見 */
+        select.smart-input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            padding-right: 50px;
         }
 
         .smart-select option:checked {
@@ -3757,6 +3771,22 @@
                                 <label>LINE ID</label>
                                 <input type="text" name="lineId" placeholder="請輸入您的LINE ID" class="smart-input">
                             </div>
+                            
+                            <div class="form-field">
+                                <label>介紹人 *</label>
+                                <select name="referrerType" class="smart-input" required>
+                                    <option value="">請選擇介紹人</option>
+                                    <option value="華地產介紹">華地產介紹</option>
+                                    <option value="朋友介紹">朋友介紹</option>
+                                    <option value="網路搜尋">網路搜尋</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-field" id="referrerNameField" style="display: none;">
+                                <label>介紹人姓名</label>
+                                <input type="text" name="referrerName" placeholder="請輸入介紹人姓名" class="smart-input">
+                            </div>
                         </div>
                     </div>
                     
@@ -4545,6 +4575,25 @@
                         this.saveToLocalStorage();
                     });
                 });
+
+                // 為介紹人下拉選單添加事件監聽器
+                const referrerSelect = document.querySelector('select[name="referrerType"]');
+                const referrerNameField = document.getElementById('referrerNameField');
+                
+                if (referrerSelect && referrerNameField) {
+                    referrerSelect.addEventListener('change', (e) => {
+                        const selectedValue = e.target.value;
+                        if (selectedValue === '華地產介紹' || selectedValue === '朋友介紹') {
+                            referrerNameField.style.display = 'block';
+                            referrerNameField.querySelector('input').required = true;
+                        } else {
+                            referrerNameField.style.display = 'none';
+                            referrerNameField.querySelector('input').required = false;
+                            referrerNameField.querySelector('input').value = '';
+                        }
+                        this.saveToLocalStorage();
+                    });
+                }
             }
 
             clearGenderValidation() {
@@ -4714,6 +4763,23 @@
                         allValid = false;
                     } else if (emailField && emailField.value.trim()) {
                         this.validateField(emailField); // 檢查Email格式
+                    }
+
+                    // 檢查介紹人
+                    const referrerSelect = currentStepElement.querySelector('select[name="referrerType"]');
+                    if (referrerSelect && !referrerSelect.value) {
+                        this.showFieldValidation(referrerSelect, false, '請選擇介紹人');
+                        allValid = false;
+                    }
+
+                    // 檢查介紹人姓名（如果選擇了需要姓名的選項）
+                    const referrerNameField = currentStepElement.querySelector('input[name="referrerName"]');
+                    if (referrerSelect && referrerSelect.value && 
+                        (referrerSelect.value === '華地產介紹' || referrerSelect.value === '朋友介紹')) {
+                        if (!referrerNameField || !referrerNameField.value.trim()) {
+                            this.showFieldValidation(referrerNameField, false, '請輸入介紹人姓名');
+                            allValid = false;
+                        }
                     }
                 }
 
@@ -4897,6 +4963,8 @@
                     location: document.querySelector('select[name="location"]')?.value || '',
                     email: document.querySelector('input[name="email"]')?.value || '',
                     lineId: document.querySelector('input[name="lineId"]')?.value || '',
+                    referrerType: document.querySelector('select[name="referrerType"]')?.value || '',
+                    referrerName: document.querySelector('input[name="referrerName"]')?.value || '',
                     
                     // 資訊需求
                     infoNeeds: Array.from(document.querySelectorAll('input[name="infoNeeds"]:checked')).map(cb => {
@@ -4933,7 +5001,7 @@
             async submitToGoogleSheets(data) {
                 try {
                     // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzzPyzw8P_Nl4yT7if8rgA6p8kILDf-Sf-3Z4MUenbK_MpxbQ-qxQViJTAx9U-thtan/exec';
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwDTUO-hfWGSQOBMJixUm4WoOXvlzr_j2DBNop5hfH6u1RjdVzQp3lz2nZ2TDw53II/exec';
                     
                     // 創建URL編碼的表單數據
                     const params = new URLSearchParams();
@@ -4943,6 +5011,8 @@
                     params.append('location', data.location || '');
                     params.append('email', data.email || '');
                     params.append('lineId', data.lineId || '');
+                    params.append('referrerType', data.referrerType || '');
+                    params.append('referrerName', data.referrerName || '');
                     
                     // 調試：檢查每個參數的值
                     console.log('🔍 參數檢查:');
@@ -4952,6 +5022,8 @@
                     console.log('  location:', data.location);
                     console.log('  email:', data.email);
                     console.log('  lineId:', data.lineId);
+                    console.log('  referrerType:', data.referrerType);
+                    console.log('  referrerName:', data.referrerName);
                     
                 // 調試：檢查發送的email數據
                 console.log('🚀 發送到Google Sheets的Email:', data.email);
@@ -5039,6 +5111,16 @@
                     }
                 });
                 
+                // 重置介紹人姓名欄位顯示狀態
+                const referrerNameField = document.getElementById('referrerNameField');
+                if (referrerNameField) {
+                    referrerNameField.style.display = 'none';
+                    const referrerNameInput = referrerNameField.querySelector('input');
+                    if (referrerNameInput) {
+                        referrerNameInput.required = false;
+                    }
+                }
+                
                 // 重置表單顯示
                 this.updateFormDisplay();
                 this.updateProgressBar();
@@ -5094,19 +5176,8 @@
                             <p style="font-size: 1.1rem; margin-bottom: 20px;">
                                 您的報名資料已成功提交到系統！
                             </p>
-                            <div style="
-                                background: rgba(255, 255, 255, 0.1);
-                                padding: 20px;
-                                border-radius: 10px;
-                                margin: 20px 0;
-                                text-align: left;
-                            ">
-                                <p style="margin: 8px 0; font-size: 0.95rem;"><strong>📅 活動時間：</strong>2025/10/5（日）下午2:00</p>
-                                <p style="margin: 8px 0; font-size: 0.95rem;"><strong>📍 活動地點：</strong>桃園市桃園區大興西路三段90號（銷售中心）</p>
-                                <p style="margin: 8px 0; font-size: 0.95rem;"><strong>🎁 現場抽獎：</strong>大金空調清淨機（市價2萬）</p>
-                            </div>
                             <p style="font-size: 0.9rem; opacity: 0.8;">
-                                我們將在說明會前3天發送確認通知給您！
+                                感謝您的報名，期待與您相見！
                             </p>
                             <button onclick="this.closest('div').remove(); smartForm.resetForm();" style="
                                 background: rgba(255, 255, 255, 0.2);
@@ -5120,7 +5191,7 @@
                                 margin-top: 20px;
                                 transition: all 0.3s ease;
                             " onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.3)'">
-                                關閉並重新報名
+                                點擊關閉
                             </button>
                         </div>
                     </div>
