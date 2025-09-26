@@ -2026,6 +2026,36 @@
             color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
             font-weight: 500;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            min-width: 120px;
+        }
+
+        .radio-label:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .smart-radio:checked + .radio-custom + .radio-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .smart-radio:checked ~ .radio-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .radio-label:has(.smart-radio:checked) {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
         }
 
         .smart-radio {
@@ -2227,8 +2257,52 @@
             
             /* 手機版活動內容文字自適應調整 */
             .main-content p {
-                font-size: 1rem !important;
+                font-size: 1.1rem !important;
+                line-height: 1.7 !important;
+            }
+            
+            /* 手機版主標題優化 */
+            .main-content h2 {
+                font-size: 1.8rem !important;
+                font-weight: 800 !important;
+                margin-bottom: 25px !important;
+            }
+            
+            /* 手機版特色卡片標題優化 */
+            .feature-card h3 {
+                font-size: 1.3rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 15px !important;
+            }
+            
+            /* 手機版特色卡片內容優化 */
+            .feature-card p {
+                font-size: 1.05rem !important;
                 line-height: 1.6 !important;
+            }
+            
+            /* 手機版粉絲案例標題優化 */
+            .testimonials-section h3 {
+                font-size: 1.8rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 30px !important;
+            }
+            
+            /* 手機版粉絲案例內容優化 */
+            .testimonial-content p {
+                font-size: 1.05rem !important;
+                line-height: 1.6 !important;
+            }
+            
+            /* 手機版作者名稱優化 */
+            .author-name {
+                font-size: 1.05rem !important;
+                font-weight: 700 !important;
+            }
+            
+            /* 手機版作者職位優化 */
+            .author-title {
+                font-size: 0.95rem !important;
             }
             
             .main-content p span {
@@ -2446,20 +2520,22 @@
                 font-size: 1.8rem;
             }
             
-            /* 手機版粉絲成功案例佈局 - 完全獨立設定 */
+            /* 手機版粉絲成功案例佈局 - 水平滾動 */
             .testimonials-grid {
                 display: flex !important;
-                flex-direction: column !important;
-                max-height: 350px !important;
-                gap: 15px !important;
-                overflow-y: auto !important;
-                padding-right: 10px !important;
-                grid-template-columns: none !important;
+                flex-direction: row !important;
+                gap: 20px !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                padding: 0 0 15px 0 !important;
                 margin-top: 30px !important;
+                max-height: none !important;
+                grid-template-columns: none !important;
+                scroll-behavior: smooth;
             }
             
             .testimonials-grid::-webkit-scrollbar {
-                width: 6px;
+                height: 6px;
             }
             
             .testimonials-grid::-webkit-scrollbar-track {
@@ -2476,6 +2552,14 @@
                 background: rgba(255, 255, 255, 0.5);
             }
             
+            /* 手機版單個案例卡片樣式 */
+            .testimonial-card {
+                flex: 0 0 280px !important;
+                min-width: 280px !important;
+                max-width: 280px !important;
+                padding: 25px 20px !important;
+            }
+            
             .testimonial-card {
                 padding: 25px 20px;
             }
@@ -2487,12 +2571,41 @@
             }
             
             .urgency-text {
-                font-size: 1.1rem;
-                padding: 10px 20px;
+                font-size: 1.4rem !important;
+                padding: 15px 25px !important;
+                font-weight: 800 !important;
             }
             
             .deadline-text {
-                font-size: 1rem;
+                font-size: 1.2rem !important;
+                font-weight: 700 !important;
+            }
+            
+            /* 手機版名額數字特別強調 */
+            .remaining-spots {
+                font-size: 1.8rem !important;
+                font-weight: 900 !important;
+                color: #FF0000 !important;
+                text-shadow: 0 0 15px rgba(255, 0, 0, 0.8) !important;
+                animation: numberPulse 1.5s ease-in-out infinite !important;
+            }
+            
+            @keyframes numberPulse {
+                0%, 100% { 
+                    transform: scale(1); 
+                    text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+                }
+                50% { 
+                    transform: scale(1.1); 
+                    text-shadow: 0 0 25px rgba(255, 0, 0, 1);
+                }
+            }
+            
+            /* 手機版倒數計時標題放大 */
+            .countdown-title {
+                font-size: 1.3rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 25px !important;
             }
             
             
@@ -2597,8 +2710,42 @@
             
             /* 手機版單選按鈕和複選框調整 */
             .radio-group {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: 15px;
+            }
+            
+            /* 手機版性別選擇美化 */
+            .radio-label {
+                background: rgba(255, 255, 255, 0.05);
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                padding: 15px 10px;
+                text-align: center;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+            
+            .radio-label:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 215, 0, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            .smart-radio:checked + .radio-custom + .radio-text {
+                color: #FFD700;
+                font-weight: 600;
+            }
+            
+            .smart-radio:checked ~ .radio-text {
+                color: #FFD700;
+                font-weight: 600;
+            }
+            
+            .radio-label:has(.smart-radio:checked) {
+                background: rgba(255, 215, 0, 0.1);
+                border-color: #FFD700;
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
             }
             
             .checkbox-group {
@@ -2731,8 +2878,52 @@
             
             /* 超小螢幕活動內容文字優化 */
             .main-content p {
-                font-size: 0.9rem !important;
+                font-size: 1rem !important;
+                line-height: 1.6 !important;
+            }
+            
+            /* 超小螢幕主標題優化 */
+            .main-content h2 {
+                font-size: 1.6rem !important;
+                font-weight: 800 !important;
+                margin-bottom: 20px !important;
+            }
+            
+            /* 超小螢幕特色卡片標題優化 */
+            .feature-card h3 {
+                font-size: 1.2rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 12px !important;
+            }
+            
+            /* 超小螢幕特色卡片內容優化 */
+            .feature-card p {
+                font-size: 1rem !important;
                 line-height: 1.5 !important;
+            }
+            
+            /* 超小螢幕粉絲案例標題優化 */
+            .testimonials-section h3 {
+                font-size: 1.6rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 25px !important;
+            }
+            
+            /* 超小螢幕粉絲案例內容優化 */
+            .testimonial-content p {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* 超小螢幕作者名稱優化 */
+            .author-name {
+                font-size: 1rem !important;
+                font-weight: 700 !important;
+            }
+            
+            /* 超小螢幕作者職位優化 */
+            .author-title {
+                font-size: 0.9rem !important;
             }
             
             .main-content p span {
@@ -2824,32 +3015,71 @@
             
             /* 超小螢幕倒數計時器優化 */
             .countdown-title {
-                font-size: 1rem;
-                margin-bottom: 15px;
+                font-size: 1.2rem !important;
+                margin-bottom: 20px !important;
                 text-align: center;
+                font-weight: 700 !important;
             }
             
             .urgency-alert {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
                 text-align: center;
             }
             
-            .urgency-text, .deadline-text {
-                font-size: 0.9rem;
+            .urgency-text {
+                font-size: 1.2rem !important;
+                padding: 12px 20px !important;
+                font-weight: 800 !important;
+            }
+            
+            .deadline-text {
+                font-size: 1.1rem !important;
+                font-weight: 700 !important;
+            }
+            
+            /* 超小螢幕名額數字特別強調 */
+            .remaining-spots {
+                font-size: 1.6rem !important;
+                font-weight: 900 !important;
+                color: #FF0000 !important;
+                text-shadow: 0 0 15px rgba(255, 0, 0, 0.8) !important;
+                animation: numberPulse 1.5s ease-in-out infinite !important;
             }
             
             
-            /* 超小螢幕粉絲成功案例佈局 */
+            /* 超小螢幕粉絲成功案例佈局 - 水平滾動 */
             .testimonials-grid {
                 display: flex !important;
-                flex-direction: column !important;
-                max-height: 300px !important;
-                gap: 12px !important;
-                overflow-y: auto !important;
-                padding-right: 8px !important;
-                grid-template-columns: none !important;
+                flex-direction: row !important;
+                gap: 15px !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                padding: 0 0 12px 0 !important;
                 margin-top: 25px !important;
+                max-height: none !important;
+                grid-template-columns: none !important;
+                scroll-behavior: smooth;
+            }
+            
+            /* 超小螢幕單個案例卡片樣式 */
+            .testimonial-card {
+                flex: 0 0 250px !important;
+                min-width: 250px !important;
+                max-width: 250px !important;
+                padding: 20px 15px !important;
+            }
+            
+            /* 超小螢幕性別選擇調整 */
+            .radio-group {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .radio-label {
+                padding: 12px 8px;
+                font-size: 0.9rem;
             }
         }
 
