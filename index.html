@@ -1548,6 +1548,39 @@
             animation: urgencyPulse 2s ease-in-out infinite;
         }
 
+        /* 可點擊的緊迫感文字樣式 */
+        .clickable-urgency {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clickable-urgency::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .clickable-urgency:hover::before {
+            left: 100%;
+        }
+
+        .clickable-urgency:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            animation: none;
+        }
+
+        .clickable-urgency:active {
+            transform: scale(0.95);
+        }
+
         .deadline-text {
             color: #FFD700;
             font-weight: 600;
@@ -1558,6 +1591,12 @@
         @keyframes urgencyPulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
 
         .remaining-spots {
@@ -2617,6 +2656,12 @@
                 font-weight: 800 !important;
             }
             
+            /* 手機版可點擊緊迫感文字 */
+            .clickable-urgency:hover {
+                transform: scale(1.03) !important;
+                box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5) !important;
+            }
+            
             .deadline-text {
                 font-size: 1.2rem !important;
                 font-weight: 700 !important;
@@ -3373,7 +3418,7 @@
         <div class="countdown-section fade-in">
             <div class="countdown-title">📅 說明會時間：2025/10/5（日）下午2:00 準時開始</div>
             <div class="urgency-alert">
-                <span class="urgency-text">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
+                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
                 <span class="deadline-text">⏰ 報名即將截止，請把握機會！</span>
             </div>
             <div class="countdown-timer" id="countdown">
@@ -4949,6 +4994,36 @@
             });
         }
 
+        // 點擊免費名額跳轉到報名表單
+        function initUrgencyClickToForm() {
+            const clickableUrgency = document.querySelector('.clickable-urgency');
+            if (clickableUrgency) {
+                clickableUrgency.addEventListener('click', () => {
+                    const formSection = document.querySelector('.form-preview-section');
+                    if (formSection) {
+                        // 平滑滾動到表單區域
+                        formSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // 添加視覺反饋
+                        formSection.style.animation = 'pulse 0.6s ease';
+                        
+                        // 移除動畫類別
+                        setTimeout(() => {
+                            formSection.style.animation = '';
+                        }, 600);
+                        
+                        // 觸覺反饋（如果支援）
+                        if (navigator.vibrate) {
+                            navigator.vibrate(100);
+                        }
+                    }
+                });
+            }
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             handleLoadingScreen();
@@ -4960,6 +5035,7 @@
             animateTimelineItems();
             trackButtonClicks();
             updateRemainingSpots();
+            initUrgencyClickToForm(); // 初始化免費名額點擊跳轉
             
             // 啟動AI個性化系統
             const aiEngine = new AIPersonalizationEngine();
