@@ -2981,17 +2981,9 @@
             <div class="subtitle">新青安政策猶如打開房市水龍頭，帶動買賣熱潮</div>
             
             <!-- 蔣哥說明會宣傳影片 -->
-            <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 500px;">
+            <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 800px;">
                 <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1);">
-                    <iframe 
-                        src="https://www.youtube.com/embed/kirX1T3T8qA" 
-                        title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;">
-                    </iframe>
+                    <iframe src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;"></iframe>
                 </div>
                 <p style="color: rgba(255, 255, 255, 0.8); font-size: 1rem; margin-top: 15px; font-weight: 500;">
                     📺 點擊觀看蔣哥最新房產分析說明會預告
@@ -3035,7 +3027,7 @@
         <div class="countdown-section fade-in">
             <div class="countdown-title">📅 說明會時間：2025/10/5（日）下午2:00 準時開始</div>
             <div class="urgency-alert">
-                <span class="urgency-text">⚠️ 僅剩 <span class="remaining-spots" id="remainingSpots">23</span> 個名額</span>
+                <span class="urgency-text">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
                 <span class="deadline-text">⏰ 報名即將截止，請把握機會！</span>
             </div>
             <div class="countdown-timer" id="countdown">
@@ -3790,14 +3782,14 @@
                 // 個性化CTA按鈕
                 this.personalizedContent.ctaButtons = {
                     engaged: "🎯 立即報名參加深度解析說明會",
-                    quick_visitor: "⚡ 快速報名 - 限時優惠",
+                    quick_visitor: "⚡ 快速報名 - 免費參加",
                     interactive: "🤝 立即報名 - 現場互動諮詢"
                 };
 
                 // 個性化緊迫感
                 this.personalizedContent.urgency = {
                     engaged: "📚 深度解析名額有限，僅剩",
-                    quick_visitor: "⚡ 限時優惠，僅剩",
+                    quick_visitor: "⚡ 免費名額，僅剩",
                     interactive: "🤝 現場互動名額，僅剩"
                 };
 
@@ -3849,7 +3841,7 @@
                 if (content.urgency[userType]) {
                     const urgencyText = document.querySelector('.urgency-text');
                     if (urgencyText) {
-                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">23</span> 個名額`;
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">22</span> 個名額`;
                     }
                 }
 
