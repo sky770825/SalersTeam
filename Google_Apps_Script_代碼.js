@@ -106,7 +106,7 @@ function doPost(e) {
     const userAgent = e.parameter.userAgent || '';
 
     // 打開Google Sheets
-    const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
+    const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
     
     // 如果是第一次運行，添加標題行
     if (sheet.getLastRow() === 0) {
@@ -213,6 +213,7 @@ function sendConfirmationEmail(name, phone, email, lineId, referrer) {
       senderName: '蔣哥房產分析團隊', // 發送者名稱
       replyTo: '', // 回覆地址（可選，留空則使用預設）
       // 注意：實際發送帳號是 Google Apps Script 專案的擁有者帳號
+      // 要更換寄信帳號，請使用其他 Google 帳號建立新的 Google Apps Script 專案
     };
     
     // 信件內容
@@ -271,7 +272,7 @@ ${new Date().toLocaleDateString('zh-TW')}
       }
       
       // 記錄到Google Sheets的備註欄位
-      const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
+      const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
       const lastRow = sheet.getLastRow();
       sheet.getRange(lastRow, 14).setValue('確認信件已發送'); // 在N列添加備註
       
@@ -280,7 +281,7 @@ ${new Date().toLocaleDateString('zh-TW')}
       console.log('沒有Email地址，無法發送確認信件');
       
       // 記錄到Google Sheets的備註欄位
-      const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
+      const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
       const lastRow = sheet.getLastRow();
       sheet.getRange(lastRow, 14).setValue('無Email地址，未發送確認信'); // 在N列添加備註
     }
@@ -360,7 +361,7 @@ function testParameterReceiving() {
 function testSheetsConnection() {
   try {
     console.log('🧪 測試Google Sheets連接...');
-    const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
+    const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
     const lastRow = sheet.getLastRow();
     console.log('🧪 Sheets連接成功，最後一行:', lastRow);
     
@@ -426,7 +427,7 @@ function testEmailSending() {
  */
 function cleanupOldData() {
   try {
-    const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
+    const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
     const data = sheet.getDataRange().getValues();
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - 30); // 30天前

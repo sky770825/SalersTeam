@@ -4987,9 +4987,6 @@
                 console.log('📧 Email數據:', finalData.email);
                 console.log('📋 完整表單數據:', finalData);
 
-                // 顯示提交成功訊息
-                this.showSubmissionSuccess();
-                
                 // 提交到Google Sheets
                 this.submitToGoogleSheets(finalData);
                 
@@ -5001,7 +4998,7 @@
             async submitToGoogleSheets(data) {
                 try {
                     // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwDTUO-hfWGSQOBMJixUm4WoOXvlzr_j2DBNop5hfH6u1RjdVzQp3lz2nZ2TDw53II/exec';
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxm8n8-klFHYhw8MhUPXZ1s3HhS5Qx3G9qCQxbiKzH-mHK9xRwRXPLOpnThi-vVH1AY/exec';
                     
                     // 創建URL編碼的表單數據
                     const params = new URLSearchParams();
