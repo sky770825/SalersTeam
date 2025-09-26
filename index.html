@@ -412,7 +412,7 @@
         /* 特色卡片 */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin: 40px 0;
         }
@@ -1372,7 +1372,7 @@
 
         .credentials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             margin-top: 30px;
         }
@@ -1432,10 +1432,31 @@
         }
 
         .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             margin-top: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .testimonials-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .testimonials-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        .testimonials-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+        
+        .testimonials-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .testimonial-card {
@@ -2396,8 +2417,8 @@
             
             /* 手機版社會證明調整 */
             .testimonials-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
+                max-height: 350px;
+                gap: 15px;
             }
             
             .testimonial-card {
@@ -2987,7 +3008,7 @@
 
         <!-- 社會證明 - 客戶見證區塊 -->
         <div class="testimonials-section fade-in">
-            <h3>🏆 學員成功案例分享</h3>
+            <h3>🏆 粉絲成功案例分享</h3>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-content">
