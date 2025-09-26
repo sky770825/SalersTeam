@@ -4857,14 +4857,18 @@
                 if (currentStepElement) {
                     currentStepElement.classList.add('active');
                     
-                    // 自動滾動到當前步驟
+                    // 自動滾動到報名表單區域
                     setTimeout(() => {
-                        currentStepElement.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start',
-                            inline: 'nearest'
-                        });
-                    }, 100); // 稍微延遲確保動畫完成
+                        // 滾動到表單預覽區域的頂部
+                        const formSection = document.querySelector('.form-preview-section');
+                        if (formSection) {
+                            formSection.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'start',
+                                inline: 'nearest'
+                            });
+                        }
+                    }, 200); // 稍微延遲確保動畫完成
                 }
 
                 // 更新按鈕狀態
