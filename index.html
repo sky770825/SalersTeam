@@ -4479,14 +4479,18 @@
             nextStep() {
                 console.log('🔄 點擊下一步，當前步驟:', this.currentStep);
                 
-                if (this.currentStep < this.totalSteps) {
-                    this.currentStep++;
-                    console.log('➡️ 進入下一步:', this.currentStep);
-                    this.updateFormDisplay();
-                    this.updateProgressBar();
+                if (this.validateCurrentStep()) {
+                    if (this.currentStep < this.totalSteps) {
+                        this.currentStep++;
+                        console.log('➡️ 進入下一步:', this.currentStep);
+                        this.updateFormDisplay();
+                        this.updateProgressBar();
+                    } else {
+                        console.log('🚀 提交表單');
+                        this.submitForm();
+                    }
                 } else {
-                    console.log('🚀 提交表單');
-                    this.submitForm();
+                    console.log('❌ 表單驗證失敗，無法進入下一步');
                 }
             }
 
@@ -4505,7 +4509,7 @@
                 // 檢查第一步：基本資訊
                 if (this.currentStep === 1) {
                     // 檢查姓名
-                    const nameField = currentStepElement.querySelector('input[type="text"]');
+                    const nameField = currentStepElement.querySelector('input[name="name"]');
                     if (nameField && !nameField.value.trim()) {
                         this.showFieldValidation(nameField, false, '請輸入您的姓名');
                         allValid = false;
@@ -4519,7 +4523,7 @@
                     }
 
                     // 檢查電話
-                    const phoneField = currentStepElement.querySelector('input[type="tel"]');
+                    const phoneField = currentStepElement.querySelector('input[name="phone"]');
                     if (phoneField && !phoneField.value.trim()) {
                         this.showFieldValidation(phoneField, false, '請輸入您的手機號碼');
                         allValid = false;
@@ -4528,7 +4532,7 @@
                     }
 
                     // 檢查居住地
-                    const locationSelect = currentStepElement.querySelector('select');
+                    const locationSelect = currentStepElement.querySelector('select[name="location"]');
                     if (locationSelect && !locationSelect.value) {
                         this.showFieldValidation(locationSelect, false, '請選擇您的居住地');
                         allValid = false;
@@ -4824,19 +4828,14 @@
             }
 
             updateProgressBar() {
-                const progressFill = document.querySelector('.progress-bar-fill::before');
                 const currentStepSpan = document.querySelector('.current-step');
                 
                 if (currentStepSpan) {
                     currentStepSpan.textContent = this.currentStep;
                 }
 
-                // 更新進度條寬度
-                const progressBar = document.querySelector('.progress-bar-fill');
-                if (progressBar) {
-                    const progress = (this.currentStep / this.totalSteps) * 100;
-                    progressBar.style.setProperty('--progress', `${progress}%`);
-                }
+                // 進度條寬度由CSS控制，根據當前步驟自動調整
+                console.log(`📊 進度條更新: 第 ${this.currentStep} 步，共 ${this.totalSteps} 步`);
             }
 
             setupAutoSave() {
