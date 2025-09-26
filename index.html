@@ -3767,17 +3767,17 @@
                                 <label>您想獲得哪些資訊 (複選) *</label>
                                 <div class="checkbox-group">
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="info_needs" value="trend_analysis" class="smart-checkbox">
+                                        <input type="checkbox" name="infoNeeds" value="trend_analysis" class="smart-checkbox">
                                         <span class="checkbox-custom"></span>
                                         <span class="checkbox-text">購屋與房地產趨勢分析</span>
                                     </label>
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="info_needs" value="taoyuan_investment" class="smart-checkbox">
+                                        <input type="checkbox" name="infoNeeds" value="taoyuan_investment" class="smart-checkbox">
                                         <span class="checkbox-custom"></span>
                                         <span class="checkbox-text">桃園房市投資價值剖析：桃園房屋真的值得買嗎？</span>
                                     </label>
                                     <label class="checkbox-item">
-                                        <input type="checkbox" name="info_needs" value="purchase_planning" class="smart-checkbox">
+                                        <input type="checkbox" name="infoNeeds" value="purchase_planning" class="smart-checkbox">
                                         <span class="checkbox-custom"></span>
                                         <span class="checkbox-text">購屋需求解析：自住、投資、首購或首換，該如何規劃？</span>
                                     </label>
@@ -4539,7 +4539,7 @@
                 });
 
                 // 為複選框添加事件監聽器
-                document.querySelectorAll('input[name="info_needs"]').forEach(checkbox => {
+                document.querySelectorAll('input[name="infoNeeds"]').forEach(checkbox => {
                     checkbox.addEventListener('change', (e) => {
                         this.clearInfoNeedsValidation();
                         this.saveToLocalStorage();
@@ -4719,7 +4719,7 @@
 
                 // 檢查第二步：資訊需求
                 if (this.currentStep === 2) {
-                    const checkedBoxes = currentStepElement.querySelectorAll('input[name="info_needs"]:checked');
+                    const checkedBoxes = currentStepElement.querySelectorAll('input[name="infoNeeds"]:checked');
                     if (checkedBoxes.length === 0) {
                         this.showInfoNeedsValidation(false, '請至少選擇一項您想獲得的資訊');
                         allValid = false;
@@ -4899,7 +4899,7 @@
                     lineId: document.querySelector('input[name="lineId"]')?.value || '',
                     
                     // 資訊需求
-                    infoNeeds: Array.from(document.querySelectorAll('input[name="info_needs"]:checked')).map(cb => {
+                    infoNeeds: Array.from(document.querySelectorAll('input[name="infoNeeds"]:checked')).map(cb => {
                         const value = cb.value;
                         const text = cb.nextElementSibling.nextElementSibling.textContent;
                         return text; // 返回中文文字而不是英文代碼
@@ -4933,7 +4933,7 @@
             async submitToGoogleSheets(data) {
                 try {
                     // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwBDQmn5L_D6vufgygxFVN_0oU9BWnuImrrgKwHwFWPd5cUZtretI_bcXuz3dbodhU/exec';
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzzPyzw8P_Nl4yT7if8rgA6p8kILDf-Sf-3Z4MUenbK_MpxbQ-qxQViJTAx9U-thtan/exec';
                     
                     // 創建URL編碼的表單數據
                     const params = new URLSearchParams();
@@ -4943,6 +4943,15 @@
                     params.append('location', data.location || '');
                     params.append('email', data.email || '');
                     params.append('lineId', data.lineId || '');
+                    
+                    // 調試：檢查每個參數的值
+                    console.log('🔍 參數檢查:');
+                    console.log('  name:', data.name);
+                    console.log('  gender:', data.gender);
+                    console.log('  phone:', data.phone);
+                    console.log('  location:', data.location);
+                    console.log('  email:', data.email);
+                    console.log('  lineId:', data.lineId);
                     
                 // 調試：檢查發送的email數據
                 console.log('🚀 發送到Google Sheets的Email:', data.email);
