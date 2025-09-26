@@ -64,14 +64,31 @@ function doPost(e) {
     
     // 獲取表單數據
     const name = e.parameter.name || '';
-    const gender = e.parameter.gender || '';
+    const genderRaw = e.parameter.gender || '';
     const phone = e.parameter.phone || '';
-    const location = e.parameter.location || '';
+    const locationRaw = e.parameter.location || '';
     const email = e.parameter.email || '';
     const lineId = e.parameter.lineId || '';
     const referrerType = e.parameter.referrerType || '';
     const referrerName = e.parameter.referrerName || '';
     const infoNeeds = e.parameter.infoNeeds || '';
+    
+    // 轉換性別為中文
+    const genderMap = {
+      'male': '男性',
+      'female': '女性'
+    };
+    const gender = genderMap[genderRaw] || genderRaw;
+    
+    // 轉換居住地為中文
+    const locationMap = {
+      'taipei': '台北',
+      'newtaipei': '新北',
+      'taoyuan': '桃園',
+      'hsinchu': '新竹',
+      'other': '其他'
+    };
+    const location = locationMap[locationRaw] || locationRaw;
     
     // 處理介紹人資訊
     let referrer = '';
@@ -86,9 +103,9 @@ function doPost(e) {
     // 詳細調試：記錄所有接收到的參數
     console.log('📋 接收到的所有參數:');
     console.log('  name:', name);
-    console.log('  gender:', gender);
+    console.log('  gender (原始):', genderRaw, '→ (轉換後):', gender);
     console.log('  phone:', phone);
-    console.log('  location:', location);
+    console.log('  location (原始):', locationRaw, '→ (轉換後):', location);
     console.log('  email:', email);
     console.log('  lineId:', lineId);
     console.log('  referrerType:', referrerType);

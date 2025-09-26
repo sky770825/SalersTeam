@@ -4998,7 +4998,7 @@
             async submitToGoogleSheets(data) {
                 try {
                     // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxm8n8-klFHYhw8MhUPXZ1s3HhS5Qx3G9qCQxbiKzH-mHK9xRwRXPLOpnThi-vVH1AY/exec';
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzLBZWY808aI0T1HujHE4hYlvAI2VFfIPv8fwsfyxhABzoMAlh-4DrhO9OcBD_ZF3_j/exec';
                     
                     // 創建URL編碼的表單數據
                     const params = new URLSearchParams();
@@ -5143,7 +5143,7 @@
                 console.log('🔄 表單已重置');
             }
 
-            showSubmissionSuccess() {
+            showSubmissionSuccess(success = true) {
                 const successModal = document.createElement('div');
                 
                 successModal.innerHTML = `
@@ -5160,7 +5160,7 @@
                         z-index: 10000;
                     ">
                         <div style="
-                            background: linear-gradient(135deg, #4CAF50, #45a049);
+                            background: ${success ? 'linear-gradient(135deg, #4CAF50, #45a049)' : 'linear-gradient(135deg, #f44336, #d32f2f)'};
                             color: white;
                             padding: 40px;
                             border-radius: 20px;
@@ -5168,13 +5168,13 @@
                             max-width: 500px;
                             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
                         ">
-                            <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
-                            <h3 style="font-size: 1.8rem; margin-bottom: 15px;">報名成功！</h3>
+                            <div style="font-size: 4rem; margin-bottom: 20px;">${success ? '🎉' : '⚠️'}</div>
+                            <h3 style="font-size: 1.8rem; margin-bottom: 15px;">${success ? '報名成功！' : '提交失敗'}</h3>
                             <p style="font-size: 1.1rem; margin-bottom: 20px;">
-                                您的報名資料已成功提交到系統！
+                                ${success ? '您的報名資料已成功提交到系統！' : '提交過程中發生錯誤，請稍後再試。'}
                             </p>
                             <p style="font-size: 0.9rem; opacity: 0.8;">
-                                感謝您的報名，期待與您相見！
+                                ${success ? '感謝您的報名，期待與您相見！' : '如有問題請聯繫客服。'}
                             </p>
                             <button onclick="this.closest('div').remove(); smartForm.resetForm();" style="
                                 background: rgba(255, 255, 255, 0.2);
