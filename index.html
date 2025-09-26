@@ -1370,20 +1370,33 @@
             text-align: center;
         }
 
-        .credentials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        /* 確保桌面版信任指標固定為3欄 */
+        /* 桌面版信任指標佈局 */
         @media (min-width: 769px) {
             .credentials-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
-                display: grid !important;
-                max-width: none !important;
-                margin: 30px 0 !important;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                margin-top: 30px;
+            }
+        }
+        
+        /* 手機版信任指標佈局 */
+        @media (max-width: 768px) {
+            .credentials-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+                margin-top: 30px;
+            }
+        }
+        
+        /* 超小螢幕信任指標佈局 */
+        @media (max-width: 480px) {
+            .credentials-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-top: 25px;
             }
         }
 
@@ -2159,13 +2172,6 @@
                 margin: 25px 0;
             }
             
-            .credentials-grid {
-                grid-template-columns: 1fr !important;
-                gap: 15px;
-                max-width: 300px;
-                margin: 0 auto;
-                display: grid !important;
-            }
             
             .credential-item {
                 padding: 15px;
@@ -2405,12 +2411,6 @@
                 margin-top: 12px !important;
             }
             
-            /* 手機版信任指標調整 */
-            .credentials-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px;
-                display: grid !important;
-            }
             
             .credential-item {
                 padding: 20px 15px;
@@ -2817,6 +2817,7 @@
                 font-size: 0.9rem;
             }
             
+            
             /* 超小螢幕粉絲成功案例佈局 */
             .testimonials-grid {
                 display: flex !important;
@@ -2830,17 +2831,6 @@
             }
         }
 
-        /* 強制桌面版信任指標為3欄 - 最高優先級 */
-        @media (min-width: 769px) {
-            .credentials-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
-                display: grid !important;
-                max-width: none !important;
-                margin: 30px 0 !important;
-                gap: 30px !important;
-            }
-            
-        }
 
         /* 滾動動畫 */
         .fade-in {
