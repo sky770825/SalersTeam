@@ -3626,7 +3626,7 @@
                         <div class="progress-bar-fill"></div>
                         <span class="progress-text">第 <span class="current-step">1</span> 步，共 3 步</span>
                     </div>
-                    <button class="form-nav-btn next-btn">下一步 →</button>
+                    <button class="form-nav-btn next-btn" onclick="window.testNextStep()">下一步 →</button>
                 </div>
                 
                 <div class="form-benefits">
@@ -4291,30 +4291,45 @@
             }
 
             setupFormNavigation() {
-                const nextBtn = document.querySelector('.next-btn');
-                const prevBtn = document.querySelector('.prev-btn');
+                // 延遲執行，確保DOM完全加載
+                setTimeout(() => {
+                    const nextBtn = document.querySelector('.next-btn');
+                    const prevBtn = document.querySelector('.prev-btn');
 
-                console.log('🔧 設置表單導航按鈕');
-                console.log('➡️ 下一步按鈕:', nextBtn);
-                console.log('⬅️ 上一步按鈕:', prevBtn);
+                    console.log('🔧 設置表單導航按鈕');
+                    console.log('➡️ 下一步按鈕:', nextBtn);
+                    console.log('⬅️ 上一步按鈕:', prevBtn);
 
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        console.log('🖱️ 下一步按鈕被點擊');
-                        this.nextStep();
-                    });
-                } else {
-                    console.error('❌ 找不到下一步按鈕');
-                }
+                    if (nextBtn) {
+                        // 移除舊的事件監聽器（如果有的話）
+                        nextBtn.replaceWith(nextBtn.cloneNode(true));
+                        const newNextBtn = document.querySelector('.next-btn');
+                        
+                        newNextBtn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            console.log('🖱️ 下一步按鈕被點擊');
+                            this.nextStep();
+                        });
+                        console.log('✅ 下一步按鈕事件已綁定');
+                    } else {
+                        console.error('❌ 找不到下一步按鈕');
+                    }
 
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        console.log('🖱️ 上一步按鈕被點擊');
-                        this.prevStep();
-                    });
-                } else {
-                    console.error('❌ 找不到上一步按鈕');
-                }
+                    if (prevBtn) {
+                        // 移除舊的事件監聽器（如果有的話）
+                        prevBtn.replaceWith(prevBtn.cloneNode(true));
+                        const newPrevBtn = document.querySelector('.prev-btn');
+                        
+                        newPrevBtn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            console.log('🖱️ 上一步按鈕被點擊');
+                            this.prevStep();
+                        });
+                        console.log('✅ 上一步按鈕事件已綁定');
+                    } else {
+                        console.error('❌ 找不到上一步按鈕');
+                    }
+                }, 100);
             }
 
             setupSmartInputs() {
@@ -5242,6 +5257,16 @@
             });
         }
 
+        // 全局測試函數
+        window.testNextStep = function() {
+            console.log('🧪 測試下一步函數被調用');
+            if (window.smartFormInstance) {
+                window.smartFormInstance.nextStep();
+            } else {
+                console.error('❌ SmartFormSystem實例不存在');
+            }
+        };
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             handleLoadingScreen();
@@ -5258,6 +5283,7 @@
             
             // 啟動智能表單系統
             const smartForm = new SmartFormSystem();
+            window.smartFormInstance = smartForm; // 保存到全局變量
             
             // 添加觸覺反饋到所有按鈕
             document.querySelectorAll('.cta-button, .feature-card, .testimonial-card, .credential-item, .form-nav-btn').forEach(addHapticFeedback);
