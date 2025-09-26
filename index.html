@@ -4856,6 +4856,15 @@
                 const currentStepElement = document.querySelector(`[data-step="${this.currentStep}"]`);
                 if (currentStepElement) {
                     currentStepElement.classList.add('active');
+                    
+                    // 自動滾動到當前步驟
+                    setTimeout(() => {
+                        currentStepElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start',
+                            inline: 'nearest'
+                        });
+                    }, 100); // 稍微延遲確保動畫完成
                 }
 
                 // 更新按鈕狀態
