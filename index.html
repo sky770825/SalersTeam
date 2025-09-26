@@ -2228,6 +2228,11 @@
                 order: 3;
             }
             
+            /* 手機版YouTube影片調整 - 符合手機比例 */
+            .hero-image[style*="padding-bottom: 56.25%"] {
+                padding-bottom: 177.78% !important; /* 9:16 手機比例 (688/387 = 1.7778) */
+            }
+            
             /* 手機版社交媒體按鈕優化 */
             .social-buttons {
                 display: flex;
@@ -2576,6 +2581,11 @@
             
             .time-number {
                 font-size: 1.5rem;
+            }
+            
+            /* 超小螢幕YouTube影片調整 - 符合手機比例 */
+            .hero-image[style*="padding-bottom: 56.25%"] {
+                padding-bottom: 177.78% !important; /* 9:16 手機比例 (688/387 = 1.7778) */
             }
         }
 
