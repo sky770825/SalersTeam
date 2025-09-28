@@ -167,6 +167,39 @@
                        0 0 0 3px rgba(255,215,0,0.3);
         }
 
+        /* 影片播放優化 */
+        .hero-image iframe {
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* 影片容器優化 */
+        .hero-image > div {
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        /* 影片響應式設計 */
+        .hero-image iframe {
+            width: 100% !important;
+            height: auto !important;
+            aspect-ratio: 840/773;
+        }
+
+        @media (max-width: 840px) {
+            .hero-image {
+                max-width: 100% !important;
+                margin: 20px 15px !important;
+            }
+            
+            .hero-image iframe {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -2322,6 +2355,15 @@
                 font-weight: 600;
             }
             
+            /* 手機版圖片優化 */
+            .subtitle img {
+                max-width: 100% !important;
+                height: auto !important;
+                margin: 15px 0 !important;
+                border-radius: 8px !important;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
+            }
+            
             .hero-description {
                 margin-bottom: 20px;
                 font-size: 1.1rem;
@@ -2482,9 +2524,16 @@
                 order: 3;
             }
             
-            /* 手機版YouTube影片調整 - 符合手機比例 */
-            .hero-image[style*="padding-bottom: 56.25%"] {
-                padding-bottom: 177.78% !important; /* 9:16 手機比例 (688/387 = 1.7778) */
+            /* 手機版YouTube影片調整 - 確保全身可見 */
+            .hero-image {
+                max-width: 100% !important;
+                margin: 20px 10px !important;
+            }
+            
+            .hero-image iframe {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 840/773 !important;
             }
             
             /* 手機版社交媒體按鈕優化 */
@@ -3043,9 +3092,16 @@
                 font-size: 1.5rem;
             }
             
-            /* 超小螢幕YouTube影片調整 - 符合手機比例 */
-            .hero-image[style*="padding-bottom: 56.25%"] {
-                padding-bottom: 177.78% !important; /* 9:16 手機比例 (688/387 = 1.7778) */
+            /* 超小螢幕YouTube影片調整 - 確保全身可見 */
+            .hero-image {
+                max-width: 100% !important;
+                margin: 15px 5px !important;
+            }
+            
+            .hero-image iframe {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 840/773 !important;
             }
         }
 
@@ -3088,6 +3144,15 @@
             
             .main-title {
                 font-size: clamp(1.5rem, 5vw, 2.2rem);
+            }
+            
+            /* 超小螢幕圖片優化 */
+            .subtitle img {
+                max-width: 100% !important;
+                height: auto !important;
+                margin: 10px 0 !important;
+                border-radius: 6px !important;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.4) !important;
             }
             
             .hero .subtitle {
@@ -3531,12 +3596,14 @@
                 <div class="limited-text"><span class="brackets">【</span><span class="fire-text">限額參加</span><span class="brackets">】</span></div>
                 <div class="main-title">解密！富人區「沒有天花板」的房產投資術</div>
             </h1>
-            <div class="subtitle"><span style="color: #FFD700; font-weight: 700;">新青安</span>是給你<span style="color: #4ECDC4; font-weight: 600;">富人的工具</span>！<br>讓你<span style="color: #FF6B6B; font-weight: 700;">縮小貧富的差距</span>！<br><br>不能<span style="color: #FFD700; font-weight: 700;">槓桿</span>的房子<span style="color: #FF6B6B; font-weight: 700;">不值得擁有</span>！<br><span style="color: #4ECDC4; font-weight: 600;">超級新青安2.0</span>開啟房市<span style="color: #FFD700; font-weight: 700;">第一槍</span>！ <br><span style="color: #FF6B6B; font-weight: 700;">月付9000</span>居然能買到<span style="color: #4ECDC4; font-weight: 600;">豪宅</span>？</div>
+            <div class="subtitle" style="text-align: center;">
+                <img src="https://i.postimg.cc/rsq77g6P/S-175710215.jpg" alt="新青安是給你富人的工具~買到豪宅?" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            </div>
             
             <!-- 蔣哥說明會宣傳影片 -->
-            <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 800px;">
-                <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1);">
-                    <iframe src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;"></iframe>
+            <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 840px;">
+                <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1);">
+                    <iframe width="840" height="773" src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto;"></iframe>
                 </div>
                 <p style="color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-top: 15px; font-weight: 500;">
                     📺 點擊觀看蔣哥最新房產分析說明會預告
