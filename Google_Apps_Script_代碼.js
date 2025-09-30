@@ -3,32 +3,40 @@
  * 用於接收網頁表單數據並寫入Google Sheets
  */
 
-/**
- * 處理 GET 請求 - 用於測試和健康檢查
- */
+// 處理 OPTIONS 請求（CORS 預檢請求）
+function doOptions(e) {
+  return ContentService
+    .createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+    .setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+// 處理 GET 請求（用於測試）
 function doGet(e) {
   try {
-    console.log('收到 GET 請求:', e);
-    
-    // 返回簡單的狀態訊息
+    // 測試回應
     return ContentService
       .createTextOutput(JSON.stringify({
         success: true,
         message: 'Google Apps Script 運行正常',
-        timestamp: new Date().toISOString(),
-        method: 'GET'
+        timestamp: new Date().toISOString()
       }))
-      .setMimeType(ContentService.MimeType.JSON);
-      
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader('Access-Control-Allow-Origin', '*')
+      .setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+      .setHeader('Access-Control-Allow-Headers', 'Content-Type');
   } catch (error) {
-    console.error('GET 請求處理錯誤:', error);
     return ContentService
       .createTextOutput(JSON.stringify({
         success: false,
-        error: error.toString(),
-        message: 'GET 請求處理失敗'
+        error: error.toString()
       }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader('Access-Control-Allow-Origin', '*')
+      .setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+      .setHeader('Access-Control-Allow-Headers', 'Content-Type');
   }
 }
 
@@ -64,54 +72,12 @@ function doPost(e) {
     
     // 獲取表單數據
     const name = e.parameter.name || '';
-    const genderRaw = e.parameter.gender || '';
+    const gender = e.parameter.gender || '';
     const phone = e.parameter.phone || '';
-    const locationRaw = e.parameter.location || '';
+    const location = e.parameter.location || '';
     const email = e.parameter.email || '';
     const lineId = e.parameter.lineId || '';
-    const referrerType = e.parameter.referrerType || '';
-    const referrerName = e.parameter.referrerName || '';
     const infoNeeds = e.parameter.infoNeeds || '';
-    
-    // 轉換性別為中文
-    const genderMap = {
-      'male': '男性',
-      'female': '女性'
-    };
-    const gender = genderMap[genderRaw] || genderRaw;
-    
-    // 轉換居住地為中文
-    const locationMap = {
-      'taipei': '台北',
-      'newtaipei': '新北',
-      'taoyuan': '桃園',
-      'hsinchu': '新竹',
-      'other': '其他'
-    };
-    const location = locationMap[locationRaw] || locationRaw;
-    
-    // 處理介紹人資訊
-    let referrer = '';
-    if (referrerType) {
-      if (referrerType === '華地產介紹' || referrerType === '朋友介紹') {
-        referrer = referrerName ? `${referrerType}${referrerName}` : referrerType;
-      } else {
-        referrer = referrerType;
-      }
-    }
-    
-    // 詳細調試：記錄所有接收到的參數
-    console.log('📋 接收到的所有參數:');
-    console.log('  name:', name);
-    console.log('  gender (原始):', genderRaw, '→ (轉換後):', gender);
-    console.log('  phone:', phone);
-    console.log('  location (原始):', locationRaw, '→ (轉換後):', location);
-    console.log('  email:', email);
-    console.log('  lineId:', lineId);
-    console.log('  referrerType:', referrerType);
-    console.log('  referrerName:', referrerName);
-    console.log('  referrer (合併後):', referrer);
-    console.log('  infoNeeds:', infoNeeds);
     
     // 記錄詳細的資訊需求數據
     console.log('接收到的資訊需求:', infoNeeds);
@@ -121,19 +87,20 @@ function doPost(e) {
     const agreeEvent = e.parameter.agreeEvent || '';
     const timestamp = e.parameter.timestamp || '';
     const userAgent = e.parameter.userAgent || '';
+    const referrer = e.parameter.referrer || '';
 
     // 打開Google Sheets
-    const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
+    const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
     
     // 如果是第一次運行，添加標題行
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
-        '時間戳記', '姓名', '性別', '電話', '居住地', 'Email', 'LINE ID', '介紹人',
+        '時間戳記', '姓名', '性別', '電話', '居住地', 'Email', 'LINE ID', 
         '資訊需求', '參加動機', '同意條款', '確認活動', '瀏覽器', '來源'
       ]);
       
       // 設置標題行格式
-      const headerRange = sheet.getRange(1, 1, 1, 14);
+      const headerRange = sheet.getRange(1, 1, 1, 13);
       headerRange.setBackground('#4285F4');
       headerRange.setFontColor('white');
       headerRange.setFontWeight('bold');
@@ -149,24 +116,23 @@ function doPost(e) {
       location, 
       email,
       lineId,
-      referrer, // 介紹人欄位
       infoNeeds, 
       motivation, 
       agreeTerms, 
       agreeEvent, 
       userAgent, 
-      referrer // 來源欄位（重複使用介紹人資訊）
+      referrer
     ];
     
     sheet.appendRow(newRow);
     
     // 設置新行的格式
     const lastRow = sheet.getLastRow();
-    const dataRange = sheet.getRange(lastRow, 1, 1, 14);
+    const dataRange = sheet.getRange(lastRow, 1, 1, 13);
     dataRange.setBorder(true, true, true, true, true, true);
     
     // 自動調整列寬
-    sheet.autoResizeColumns(1, 14);
+    sheet.autoResizeColumns(1, 13);
     
     // 記錄成功日誌
     console.log('成功提交表單數據:', {
@@ -177,7 +143,7 @@ function doPost(e) {
     
     // 發送確認信件
     try {
-      sendConfirmationEmail(name, phone, email, lineId, referrer);
+      sendConfirmationEmail(name, phone, email, lineId);
       console.log('確認信件已發送');
     } catch (emailError) {
       console.error('發送確認信件失敗:', emailError);
@@ -189,7 +155,10 @@ function doPost(e) {
         message: '數據已成功提交到Google Sheets，確認信件已發送',
         row: lastRow
       }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader('Access-Control-Allow-Origin', '*')
+      .setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+      .setHeader('Access-Control-Allow-Headers', 'Content-Type');
       
   } catch (error) {
     // 記錄錯誤日誌
@@ -201,64 +170,52 @@ function doPost(e) {
         error: error.toString(),
         message: '提交失敗，請稍後再試'
       }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader('Access-Control-Allow-Origin', '*')
+      .setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+      .setHeader('Access-Control-Allow-Headers', 'Content-Type');
   }
 }
 
 /**
  * 發送確認信件函數
  */
-function sendConfirmationEmail(name, phone, email, lineId, referrer) {
+function sendConfirmationEmail(name, phone, email, lineId) {
   try {
     // 檢查是否有Email地址（這裡需要從表單中獲取Email）
     // 如果沒有Email，可以發送到LINE或使用其他通知方式
     
-    // 活動資訊設定（可輕鬆修改）
-    const eventInfo = {
-      title: '蔣哥房產分析說明會',
-      date: '2025年10月5日（日）',
-      time: '下午2:00 準時開始',
-      location: '桃園市桃園區大興西路三段90號（銷售中心）',
-      prize: '大金空調清淨機（市價2萬元）',
-      contactPhone: '03-123-4567', // 可以設定固定聯絡電話
-      teamName: 'BNI華地產房產行銷組團隊',
-      referrer: '蔣哥房產分析團隊' // 介紹人/推薦人
-    };
-    
-    // Email 發送設定
-    const emailConfig = {
-      senderName: '蔣哥房產分析團隊', // 發送者名稱
-      replyTo: '', // 回覆地址（可選，留空則使用預設）
-      // 注意：實際發送帳號是 Google Apps Script 專案的擁有者帳號
-      // 要更換寄信帳號，請使用其他 Google 帳號建立新的 Google Apps Script 專案
-    };
-    
     // 信件內容
-    const subject = `報名確認信 - ${eventInfo.title}`;
+    const subject = '🎉 蔣哥房產分析說明會 - 報名確認信';
     const body = `
 親愛的 ${name} 您好，
 
-感謝您報名參加「${eventInfo.title}」！
+感謝您報名參加「蔣哥房產分析說明會」！
 
-1、 活動資訊：
-• 時間：${eventInfo.date} ${eventInfo.time}
-• 地點：${eventInfo.location}
+📅 活動資訊：
+• 時間：2025年10月5日（日）下午2:00 準時開始
+• 地點：桃園市桃園區大興西路三段90號（銷售中心）
+• 聯絡電話：${phone}
 
-2、現場抽獎：
-${eventInfo.prize}
+🎁 現場抽獎：
+大金空調清淨機（市價2萬元）
 
-3.注意事項：
+📋 注意事項：
 1. 請提前15分鐘到達會場
 2. 請攜帶身分證件
 3. 現場提供茶水點心
 4. 活動全程免費，無推銷壓力
 
-4.如有任何問題，請聯繫：
-介紹人：${referrer || '無'}
+📞 如有任何問題，請聯繫：
+• 蔣哥房產分析團隊
+• 電話：${phone}
+• LINE ID：${lineId || '請提供您的LINE ID'}
 
-感謝您的報名，期待與您相見！
+我們將在活動前3天再次發送提醒通知給您。
 
-${eventInfo.teamName}
+期待與您相見！
+
+蔣哥房產分析團隊
 ${new Date().toLocaleDateString('zh-TW')}
     `;
     
@@ -289,7 +246,7 @@ ${new Date().toLocaleDateString('zh-TW')}
       }
       
       // 記錄到Google Sheets的備註欄位
-      const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
+      const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
       const lastRow = sheet.getLastRow();
       sheet.getRange(lastRow, 14).setValue('確認信件已發送'); // 在N列添加備註
       
@@ -298,7 +255,7 @@ ${new Date().toLocaleDateString('zh-TW')}
       console.log('沒有Email地址，無法發送確認信件');
       
       // 記錄到Google Sheets的備註欄位
-      const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
+      const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
       const lastRow = sheet.getLastRow();
       sheet.getRange(lastRow, 14).setValue('無Email地址，未發送確認信'); // 在N列添加備註
     }
@@ -340,45 +297,12 @@ function testFunction() {
 }
 
 /**
- * 測試參數接收函數
- */
-function testParameterReceiving() {
-  console.log('🧪 測試參數接收...');
-  
-  // 模擬從網頁表單接收的數據
-  const mockEvent = {
-    parameter: {
-      name: '張三',
-      gender: 'male',
-      phone: '0912-345-678',
-      location: 'taipei',
-      email: 'zhang@example.com',
-      lineId: 'zhang123',
-      infoNeeds: '購屋與房地產趨勢分析, 桃園房市投資價值剖析：桃園房屋真的值得買嗎？',
-      motivation: '想要了解房產投資',
-      agreeTerms: '是',
-      agreeEvent: '是',
-      timestamp: new Date().toISOString(),
-      userAgent: 'Mozilla/5.0...',
-      referrer: 'https://example.com'
-    }
-  };
-  
-  console.log('🧪 模擬接收到的參數:');
-  Object.keys(mockEvent.parameter).forEach(key => {
-    console.log(`  ${key}: ${mockEvent.parameter[key]}`);
-  });
-  
-  return '參數接收測試完成';
-}
-
-/**
  * 簡單測試函數 - 直接測試Sheets連接
  */
 function testSheetsConnection() {
   try {
     console.log('🧪 測試Google Sheets連接...');
-    const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
+    const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
     const lastRow = sheet.getLastRow();
     console.log('🧪 Sheets連接成功，最後一行:', lastRow);
     
@@ -444,7 +368,7 @@ function testEmailSending() {
  */
 function cleanupOldData() {
   try {
-    const sheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0').getActiveSheet();
+    const sheet = SpreadsheetApp.openById('1X8l3vEAecBEldAVoRB_iezN7szWLPgnf4ZovvqX2IIU').getActiveSheet();
     const data = sheet.getDataRange().getValues();
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - 30); // 30天前

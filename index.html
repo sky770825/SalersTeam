@@ -5243,7 +5243,9 @@
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
                         },
-                        body: params
+                        body: params,
+                        mode: 'cors', // 明確指定 CORS 模式
+                        credentials: 'omit' // 不發送認證信息
                     });
 
                     console.log('📡 回應狀態:', response.status);
@@ -5268,9 +5270,6 @@
                     console.error('❌ 提交錯誤:', error);
                     console.log('⚠️ 嘗試備用提交方案...');
                     
-                    // 顯示主要錯誤信息
-                    this.showSubmissionSuccess(false, `提交錯誤: ${error.message}`);
-                    
                     // 備用方案：嘗試使用 GET 方法
                     try {
                         const backupUrl = scriptUrl + '?' + params.toString();
@@ -5285,7 +5284,7 @@
                         this.showSubmissionSuccess(true);
                     } catch (backupError) {
                         console.error('❌ 備用方案也失敗:', backupError);
-                        this.showSubmissionSuccess(false, `備用方案也失敗: ${backupError.message}`);
+                        this.showSubmissionSuccess(false, `提交失敗: ${error.message}`);
                     }
                 }
             }
