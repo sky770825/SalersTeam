@@ -3,9 +3,18 @@
  * 用於接收網頁表單數據並寫入Google Sheets
  */
 
-// 處理 GET 請求（用於測試）
+// 處理 GET 請求（用於測試和獲取報名人數）
 function doGet(e) {
   try {
+    // 檢查是否為獲取報名人數的請求
+    if (e.parameter && e.parameter.action === 'getCount') {
+      const countData = getRegistrationCount();
+      return ContentService
+        .createTextOutput(JSON.stringify(countData))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // 預設測試響應
     return ContentService
       .createTextOutput(JSON.stringify({
         success: true,
@@ -47,6 +56,20 @@ function doPost(e) {
           success: false, 
           error: '參數格式錯誤',
           message: '表單數據格式不正確'
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 檢查報名人數是否已滿
+    const countData = getRegistrationCount();
+    if (countData.isFull) {
+      console.log('報名已額滿，拒絕新報名');
+      return ContentService
+        .createTextOutput(JSON.stringify({
+          success: false,
+          error: '報名已額滿',
+          message: '很抱歉，本次說明會的免費名額已全部額滿（30人）',
+          isFull: true
         }))
         .setMimeType(ContentService.MimeType.JSON);
     }
@@ -154,11 +177,16 @@ function doPost(e) {
       console.error('發送確認信件失敗:', emailError);
     }
     
+    // 準備返回的報名者姓名（遮罩格式）
+    const maskedName = name ? name.charAt(0) + '*'.repeat(name.length - 1) : '新用戶';
+    
     return ContentService
       .createTextOutput(JSON.stringify({
         success: true, 
         message: '數據已成功提交到Google Sheets，確認信件已發送',
-        row: lastRow
+        row: lastRow,
+        registrantName: maskedName,
+        registrationCount: lastRow - 1 // 扣除標題行
       }))
       .setMimeType(ContentService.MimeType.JSON);
       
@@ -981,6 +1009,9 @@ function testChineseConversion() {
       { input: 'newtaipei', expected: '新北' },
       { input: 'taoyuan', expected: '桃園' },
       { input: 'hsinchu', expected: '新竹' },
+      { input: 'taichung', expected: '台中' },
+      { input: 'tainan', expected: '台南' },
+      { input: 'kaohsiung', expected: '高雄' },
       { input: 'other', expected: '其他' }
     ];
     
@@ -990,6 +1021,9 @@ function testChineseConversion() {
                     test.input === 'newtaipei' ? '新北' : 
                     test.input === 'taoyuan' ? '桃園' : 
                     test.input === 'hsinchu' ? '新竹' : 
+                    test.input === 'taichung' ? '台中' : 
+                    test.input === 'tainan' ? '台南' : 
+                    test.input === 'kaohsiung' ? '高雄' : 
                     test.input === 'other' ? '其他' : test.input;
       const status = result === test.expected ? '✅' : '❌';
       console.log(`  ${status} ${test.input} -> ${result} (期望: ${test.expected})`);
@@ -1014,6 +1048,62 @@ function testChineseConversion() {
   } catch (error) {
     console.error('❌ 中文轉換測試失敗:', error);
     return { success: false, error: error.toString() };
+  }
+}
+
+/**
+ * 獲取報名人數的函數
+ */
+function getRegistrationCount() {
+  try {
+    console.log('📊 獲取報名人數...');
+    const spreadsheet = SpreadsheetApp.openById('1rxuODXlZpQ5PZ8Gm4lq5gxLimhcpaBHtZ2Q2z_xScz0');
+    const sheet = spreadsheet.getSheetByName('工作表1') || spreadsheet.getSheets()[0];
+    
+    // 獲取總行數（包含標題行）
+    const totalRows = sheet.getLastRow();
+    
+    // 計算實際報名人數（扣除標題行）
+    const registrationCount = Math.max(0, totalRows - 1);
+    
+    // 獲取最新報名者的姓名（用於顯示通知）
+    let latestRegistrant = '';
+    if (registrationCount > 0) {
+      try {
+        const nameColumn = 2; // 姓名在第2列
+        const latestName = sheet.getRange(totalRows, nameColumn).getValue();
+        if (latestName) {
+          // 將姓名轉換為遮罩格式，如：蔡**、李**
+          if (latestName.length >= 2) {
+            latestRegistrant = latestName.charAt(0) + '*'.repeat(latestName.length - 1);
+          } else {
+            latestRegistrant = latestName.charAt(0) + '*';
+          }
+        }
+      } catch (nameError) {
+        console.log('無法獲取最新報名者姓名:', nameError);
+      }
+    }
+    
+    console.log(`📊 總行數: ${totalRows}, 實際報名人數: ${registrationCount}, 最新報名者: ${latestRegistrant}`);
+    
+    return {
+      success: true,
+      totalRows: totalRows,
+      registrationCount: registrationCount,
+      latestRegistrant: latestRegistrant,
+      isFull: registrationCount >= 30
+    };
+    
+  } catch (error) {
+    console.error('❌ 獲取報名人數失敗:', error);
+    return {
+      success: false,
+      error: error.toString(),
+      registrationCount: 0,
+      latestRegistrant: '',
+      isFull: false
+    };
   }
 }
 
