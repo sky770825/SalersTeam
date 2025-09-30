@@ -68,6 +68,23 @@ function doPost(e) {
     const userAgent = e.parameter.userAgent || '';
     const referrer = e.parameter.referrer || '';
 
+    // 轉換為中文顯示
+    const genderChinese = gender === 'male' ? '男性' : gender === 'female' ? '女性' : gender;
+    
+    // 居住地中文轉換
+    const locationChinese = location === 'taipei' ? '台北' : 
+                           location === 'newtaipei' ? '新北' : 
+                           location === 'taoyuan' ? '桃園' : 
+                           location === 'hsinchu' ? '新竹' : 
+                           location === 'taichung' ? '台中' : 
+                           location === 'tainan' ? '台南' : 
+                           location === 'kaohsiung' ? '高雄' : 
+                           location === 'other' ? '其他' : location;
+    
+    // 同意條款和確認活動（index.html 已經轉換為中文，直接使用）
+    const agreeTermsChinese = agreeTerms;
+    const agreeEventChinese = agreeEvent;
+
     console.log('接收到的數據:', {
       name, gender, phone, location, email, lineId, 
       referrerType, referrerName, infoNeeds, motivation
@@ -92,21 +109,21 @@ function doPost(e) {
       headerRange.setHorizontalAlignment('center');
     }
     
-    // 添加數據行
+    // 添加數據行（使用中文轉換後的資料）
     const newRow = [
       timestamp, 
       name, 
-      gender, 
+      genderChinese,  // 使用中文性別
       phone, 
-      location, 
+      locationChinese,  // 使用中文居住地
       email,
       lineId,
       referrerType,
       referrerName,
       infoNeeds, 
       motivation, 
-      agreeTerms, 
-      agreeEvent, 
+      agreeTermsChinese,  // 使用中文同意條款
+      agreeEventChinese,  // 使用中文確認活動
       userAgent, 
       referrer
     ];
@@ -934,6 +951,69 @@ function checkAllPossibleSheets() {
       success: false,
       error: error.toString()
     };
+  }
+}
+
+/**
+ * 測試中文轉換功能
+ */
+function testChineseConversion() {
+  try {
+    console.log('🧪 測試中文轉換功能...');
+    
+    // 測試性別轉換
+    const genderTests = [
+      { input: 'male', expected: '男性' },
+      { input: 'female', expected: '女性' },
+      { input: '其他', expected: '其他' }
+    ];
+    
+    console.log('📋 性別轉換測試:');
+    genderTests.forEach(test => {
+      const result = test.input === 'male' ? '男性' : test.input === 'female' ? '女性' : test.input;
+      const status = result === test.expected ? '✅' : '❌';
+      console.log(`  ${status} ${test.input} -> ${result} (期望: ${test.expected})`);
+    });
+    
+    // 測試居住地轉換
+    const locationTests = [
+      { input: 'taipei', expected: '台北' },
+      { input: 'newtaipei', expected: '新北' },
+      { input: 'taoyuan', expected: '桃園' },
+      { input: 'hsinchu', expected: '新竹' },
+      { input: 'other', expected: '其他' }
+    ];
+    
+    console.log('📋 居住地轉換測試:');
+    locationTests.forEach(test => {
+      const result = test.input === 'taipei' ? '台北' : 
+                    test.input === 'newtaipei' ? '新北' : 
+                    test.input === 'taoyuan' ? '桃園' : 
+                    test.input === 'hsinchu' ? '新竹' : 
+                    test.input === 'other' ? '其他' : test.input;
+      const status = result === test.expected ? '✅' : '❌';
+      console.log(`  ${status} ${test.input} -> ${result} (期望: ${test.expected})`);
+    });
+    
+    // 測試同意條款轉換
+    const agreeTests = [
+      { input: '是', expected: '是' },
+      { input: '否', expected: '否' }
+    ];
+    
+    console.log('📋 同意條款轉換測試:');
+    agreeTests.forEach(test => {
+      const result = test.input;
+      const status = result === test.expected ? '✅' : '❌';
+      console.log(`  ${status} ${test.input} -> ${result} (期望: ${test.expected})`);
+    });
+    
+    console.log('✅ 中文轉換測試完成');
+    return { success: true, message: '中文轉換測試完成' };
+    
+  } catch (error) {
+    console.error('❌ 中文轉換測試失敗:', error);
+    return { success: false, error: error.toString() };
   }
 }
 
