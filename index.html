@@ -5181,7 +5181,13 @@
             async submitToGoogleSheets(data) {
                 try {
                     // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzLBZWY808aI0T1HujHE4hYlvAI2VFfIPv8fwsfyxhABzoMAlh-4DrhO9OcBD_ZF3_j/exec';
+                    // 更新為新的Google Apps Script URL
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyXqtTFu50HrARJyGSs5t9tydyAT_7IgxMRVkmYPS0rLcFuP0mJwg2i45p2WZhi8sng/exec';
+                    
+                    // 驗證必要數據
+                    if (!data.name || !data.phone || !data.email) {
+                        throw new Error('缺少必要欄位：姓名、電話或Email');
+                    }
                     
                     // 創建URL編碼的表單數據
                     const params = new URLSearchParams();
@@ -5229,6 +5235,9 @@
                     params.append('userAgent', data.userAgent);
                     params.append('referrer', data.referrer);
 
+                    console.log('🚀 準備發送請求到:', scriptUrl);
+                    console.log('🚀 請求參數:', params.toString());
+                    
                     const response = await fetch(scriptUrl, {
                         method: 'POST',
                         headers: {
@@ -5239,6 +5248,7 @@
 
                     console.log('📡 回應狀態:', response.status);
                     console.log('📡 回應狀態文字:', response.statusText);
+                    console.log('📡 回應標頭:', Object.fromEntries(response.headers.entries()));
                     
                     const responseText = await response.text();
                     console.log('📡 回應內容:', responseText);
@@ -5250,12 +5260,16 @@
                     } else {
                         console.error('❌ 提交失敗，狀態碼:', response.status);
                         console.error('❌ 錯誤詳情:', responseText);
-                        console.log('⚠️ 使用備用方案');
-                        this.showSubmissionSuccess(false);
+                        
+                        // 顯示更詳細的錯誤信息給用戶
+                        this.showSubmissionSuccess(false, `提交失敗 (${response.status}): ${responseText}`);
                     }
                 } catch (error) {
                     console.error('❌ 提交錯誤:', error);
                     console.log('⚠️ 嘗試備用提交方案...');
+                    
+                    // 顯示主要錯誤信息
+                    this.showSubmissionSuccess(false, `提交錯誤: ${error.message}`);
                     
                     // 備用方案：嘗試使用 GET 方法
                     try {
@@ -5271,7 +5285,7 @@
                         this.showSubmissionSuccess(true);
                     } catch (backupError) {
                         console.error('❌ 備用方案也失敗:', backupError);
-                        this.showSubmissionSuccess(false);
+                        this.showSubmissionSuccess(false, `備用方案也失敗: ${backupError.message}`);
                     }
                 }
             }
@@ -5326,7 +5340,7 @@
                 console.log('🔄 表單已重置');
             }
 
-            showSubmissionSuccess(success = true) {
+            showSubmissionSuccess(success = true, errorMessage = '') {
                 const successModal = document.createElement('div');
                 
                 successModal.innerHTML = `
@@ -5354,11 +5368,12 @@
                             <div style="font-size: 4rem; margin-bottom: 20px;">${success ? '🎉' : '⚠️'}</div>
                             <h3 style="font-size: 1.8rem; margin-bottom: 15px;">${success ? '報名成功！' : '提交失敗'}</h3>
                             <p style="font-size: 1.1rem; margin-bottom: 20px;">
-                                ${success ? '您的報名資料已成功提交到系統！' : '提交過程中發生錯誤，請稍後再試。'}
+                                ${success ? '您的報名資料已成功提交到系統！' : (errorMessage || '提交過程中發生錯誤，請稍後再試。')}
                             </p>
                             <p style="font-size: 0.9rem; opacity: 0.8;">
                                 ${success ? '感謝您的報名，期待與您相見！' : '如有問題請聯繫客服。'}
                             </p>
+                            ${!success && errorMessage ? `<p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">技術詳情: ${errorMessage}</p>` : ''}
                             <button onclick="this.closest('div').remove(); smartForm.resetForm();" style="
                                 background: rgba(255, 255, 255, 0.2);
                                 border: 2px solid rgba(255, 255, 255, 0.3);
