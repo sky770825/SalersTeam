@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes">
     <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
     
     <!-- 2025年趨勢：SEO優化 -->
@@ -29,7 +29,7 @@
 
         body {
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #000000, #0d0d0d, #1a1a1a, #262626, #1f1f1f);
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite;
             min-height: 100vh;
@@ -50,10 +50,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(20, 20, 20, 0.6) 0%, transparent 60%),
-                        radial-gradient(circle at 80% 20%, rgba(10, 10, 10, 0.5) 0%, transparent 60%),
-                        radial-gradient(circle at 40% 40%, rgba(30, 30, 30, 0.4) 0%, transparent 60%),
-                        radial-gradient(circle at 60% 70%, rgba(15, 15, 15, 0.3) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 80%, rgba(30, 58, 138, 0.4) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(15, 52, 96, 0.3) 0%, transparent 60%),
+                        radial-gradient(circle at 40% 40%, rgba(22, 33, 62, 0.3) 0%, transparent 60%),
+                        radial-gradient(circle at 60% 70%, rgba(26, 26, 46, 0.2) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
         }
@@ -96,7 +96,7 @@
 
         /* 2025年趨勢：流體動畫 */
         .fluid-animation {
-            background: linear-gradient(-45deg, #000000, #0a0a0a, #1a1a1a, #000000);
+            background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
             background-size: 400% 400%;
             animation: fluidMove 8s ease infinite;
         }
@@ -191,7 +191,7 @@
         @media (max-width: 840px) {
             .hero-image {
                 max-width: 100% !important;
-                margin: 20px 15px !important;
+                margin: clamp(15px, 3vw, 20px) clamp(10px, 2vw, 15px) !important;
             }
             
             .hero-image iframe {
@@ -203,7 +203,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: clamp(15px, 4vw, 30px);
             position: relative;
             z-index: 10;
         }
@@ -290,7 +290,6 @@
             bottom: 0;
             background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
             background-size: 200% 100%;
-            animation: shimmer 3s infinite;
             z-index: -1;
         }
 
@@ -303,10 +302,6 @@
             }
         }
 
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
 
         .hero .subtitle {
             font-size: clamp(1.3rem, 2.8vw, 2.2rem);
@@ -344,12 +339,12 @@
         .fire-text {
             display: inline-block;
             background: linear-gradient(135deg, 
-                #DAA520 0%,    /* 深金色 */
-                #B8860B 20%,   /* 暗金色 */
-                #CD853F 40%,   /* 深橙棕色 */
-                #DAA520 60%,   /* 深金色 */
-                #F0E68C 80%,   /* 淺卡其色 */
-                #DAA520 100%   /* 回到深金色 */
+                #3B82F6 0%,    /* 藍色 */
+                #1D4ED8 20%,   /* 深藍色 */
+                #FFD700 40%,   /* 金色 */
+                #F59E0B 60%,   /* 琥珀色 */
+                #EF4444 80%,   /* 紅色 */
+                #DC2626 100%   /* 深紅色 */
             );
             background-size: 200% 200%;
             -webkit-background-clip: text;
@@ -418,7 +413,7 @@
 
         /* 簡約星星裝飾 */
         .fire-text::after {
-            content: '⭐';
+            content: '';
             position: absolute;
             top: -20px;
             left: 50%;
@@ -455,7 +450,7 @@
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-radius: 28px;
-            padding: 35px;
+            padding: clamp(20px, 4vw, 35px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.2),
                         inset 0 1px 0 rgba(255, 255, 255, 0.15),
                         0 0 0 1px rgba(255, 255, 255, 0.08);
@@ -519,9 +514,9 @@
 
         .feature-card h3 {
             color: #f8f9fa;
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2.8vw, 1.6rem);
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: clamp(12px, 2vw, 18px);
             text-align: center;
             letter-spacing: 0.01em;
             opacity: 0.95;
@@ -531,7 +526,7 @@
             color: #e9ecef;
             line-height: 1.7;
             text-align: center;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             font-weight: 400;
             opacity: 0.88;
         }
@@ -542,8 +537,8 @@
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-radius: 32px;
-            padding: 50px;
-            margin: 50px 0;
+            padding: clamp(20px, 5vw, 50px);
+            margin: clamp(25px, 5vw, 50px) 0;
             box-shadow: 0 30px 60px rgba(0,0,0,0.2),
                         inset 0 1px 0 rgba(255, 255, 255, 0.1),
                         inset 0 -1px 0 rgba(255, 255, 255, 0.05);
@@ -616,8 +611,8 @@
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-radius: 28px;
-            padding: 45px;
-            margin: 40px 0;
+            padding: clamp(25px, 5vw, 45px);
+            margin: clamp(20px, 4vw, 40px) 0;
             box-shadow: 0 25px 50px rgba(0,0,0,0.15),
                         inset 0 1px 0 rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -625,10 +620,10 @@
 
         .timeline-section h3 {
             color: #f8f9fa;
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
             font-weight: 700;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: clamp(25px, 4vw, 40px);
             opacity: 0.96;
             letter-spacing: -0.01em;
         }
@@ -685,10 +680,10 @@
         .timeline-time {
             background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(233, 236, 239, 0.08) 100%);
             color: #f8f9fa;
-            padding: 15px 25px;
+            padding: clamp(12px, 2.5vw, 18px) clamp(20px, 4vw, 30px);
             border-radius: 25px;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
             min-width: 100px;
             text-align: center;
             border: 1px solid rgba(248, 249, 250, 0.1);
@@ -707,9 +702,9 @@
         .timeline-content {
             flex: 1;
             background: rgba(255, 255, 255, 0.03);
-            padding: 25px 30px;
+            padding: clamp(20px, 4vw, 30px) clamp(25px, 5vw, 35px);
             border-radius: 20px;
-            margin: 0 30px;
+            margin: 0 clamp(20px, 4vw, 30px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
@@ -722,15 +717,15 @@
 
         .timeline-content h4 {
             color: #f8f9fa;
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2.8vw, 1.6rem);
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: clamp(6px, 1vw, 10px);
             opacity: 0.95;
         }
 
         .timeline-content p {
             color: #e9ecef;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
             opacity: 0.85;
             line-height: 1.6;
             font-weight: 500;
@@ -749,8 +744,8 @@
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-radius: 35px;
-            padding: 45px 40px;
-            margin: 40px 0;
+            padding: clamp(25px, 5vw, 45px) clamp(20px, 4vw, 40px);
+            margin: clamp(20px, 4vw, 40px) 0;
             text-align: center;
             box-shadow: 0 25px 60px rgba(255, 165, 0, 0.2),
                         0 10px 30px rgba(255, 215, 0, 0.15),
@@ -804,7 +799,7 @@
             right: 15px;
             width: 60px;
             height: 60px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50" font-size="45">🎁</text></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"></svg>');
             background-size: contain;
             animation: prizeFloat 3s ease-in-out infinite;
             opacity: 0.3;
@@ -823,9 +818,9 @@
 
         .prize-section h3 {
             color: #f8f9fa;
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: clamp(15px, 3vw, 25px);
             letter-spacing: 0.02em;
             text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.5),
                          0 0 15px rgba(255, 215, 0, 0.3);
@@ -898,9 +893,9 @@
             display: inline-block;
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
             color: white;
-            padding: 12px 30px;
+            padding: clamp(10px, 2vw, 15px) clamp(25px, 5vw, 35px);
             border-radius: 30px;
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2.8vw, 1.5rem);
             font-weight: 800;
             margin-top: 15px;
             box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4),
@@ -925,15 +920,15 @@
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, 
-                #FF6B6B 0%, 
-                #4ECDC4 25%, 
-                #45B7D1 50%, 
-                #96CEB4 75%, 
-                #FECA57 100%);
+                #3B82F6 0%, 
+                #1D4ED8 25%, 
+                #7C3AED 50%, 
+                #DB2777 75%, 
+                #DC2626 100%);
             background-size: 300% 300%;
             animation: gradientFlow 3s ease infinite;
             color: white;
-            padding: 25px 50px;
+            padding: clamp(15px, 3vw, 25px) clamp(30px, 6vw, 50px);
             font-size: 1.4rem;
             font-weight: 700;
             text-decoration: none;
@@ -1108,7 +1103,7 @@
         .instagram-link {
             display: inline-block;
             margin: 15px;
-            padding: 20px 40px;
+            padding: clamp(15px, 3vw, 20px) clamp(25px, 5vw, 40px);
             background: linear-gradient(45deg, 
                 #405DE6, 
                 #5851DB, 
@@ -1179,7 +1174,7 @@
         .youtube-link {
             display: inline-block;
             margin: 15px;
-            padding: 20px 40px;
+            padding: clamp(15px, 3vw, 20px) clamp(25px, 5vw, 40px);
             background: linear-gradient(45deg, 
                 #FF0000, 
                 #CC0000, 
@@ -1286,9 +1281,9 @@
 
         .countdown-title {
             color: #f8f9fa;
-            font-size: 1.5rem;
+            font-size: clamp(1.3rem, 3vw, 1.7rem);
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: clamp(15px, 3vw, 25px);
         }
 
         .countdown-timer {
@@ -1301,20 +1296,20 @@
         .time-unit {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 15px 20px;
-            min-width: 80px;
+            padding: clamp(12px, 2.5vw, 18px) clamp(15px, 3vw, 25px);
+            min-width: clamp(70px, 15vw, 90px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .time-number {
             display: block;
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
             font-weight: 700;
             color: #FFD700;
         }
 
         .time-label {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.8vw, 1rem);
             color: rgba(255, 255, 255, 0.8);
             margin-top: 5px;
         }
@@ -1343,7 +1338,7 @@
             }
             
             .cta-button {
-                padding: 20px 40px;
+                padding: clamp(15px, 3vw, 20px) clamp(25px, 5vw, 40px);
                 font-size: 1.2rem;
             }
             
@@ -1446,7 +1441,7 @@
 
         .testimonials-section h3 {
             color: #f8f9fa;
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
             font-weight: 700;
             margin-bottom: 40px;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
@@ -1518,12 +1513,12 @@
         .author-name {
             color: #FFD700;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
         }
 
         .author-title {
             color: rgba(255, 255, 255, 0.65);
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.8vw, 1rem);
         }
 
         /* 緊迫感樣式 */
@@ -1744,6 +1739,43 @@
             display: flex;
             gap: 20px;
             margin-top: 10px;
+        }
+
+        /* 垂直排列的單選按鈕組 */
+        .form-field .radio-group.vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .form-field .radio-group.vertical .radio-label {
+            flex: none !important;
+            min-width: auto !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            font-size: 1rem !important;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+            border: 2px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 12px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        .form-field .radio-group.vertical .radio-label:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+            border-color: rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 15px rgba(255, 215, 0, 0.1);
+        }
+
+        .form-field .radio-group.vertical .radio-label:has(.smart-radio:checked) {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%);
+            border-color: #FFD700;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
         }
 
         .form-field .radio-label {
@@ -1978,6 +2010,114 @@
             font-weight: 700;
         }
 
+        /* 現場抽獎宣傳樣式 */
+        .lottery-promotion {
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 193, 7, 0.15) 100%);
+            border: 2px solid rgba(255, 107, 107, 0.4);
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lottery-promotion::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .lottery-promotion h3 {
+            color: #FF6B6B;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .lottery-promotion h4 {
+            color: #FFC107;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .lottery-value {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lottery-value .value-text {
+            color: #FFFFFF;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldShine 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes goldShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* 活動詳情樣式 */
+        .activity-details {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 10px 0;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .activity-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
         .form-benefits {
             margin-top: 30px;
             padding: 25px;
@@ -2060,13 +2200,30 @@
             font-size: 1rem;
         }
 
-        /* 贈品展示樣式 */
-        .prize-showcase {
-            background: rgba(76, 175, 80, 0.1);
-            border: 2px solid rgba(76, 175, 80, 0.3);
+        /* 地圖容器樣式 */
+        .map-container {
+            background: rgba(33, 150, 243, 0.1);
+            border: 2px solid rgba(33, 150, 243, 0.3);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 25px;
+        }
+
+        .map-container h5 {
+            color: #2196F3;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+        }
+
+        .map-wrapper {
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .prize-showcase h5 {
@@ -2316,16 +2473,35 @@
 
         /* 手機響應式設計 */
         @media (max-width: 768px) {
-            /* 手機版深黑色背景 */
+            /* 手機版深藍色背景 */
             body {
-                background: linear-gradient(135deg, #000000, #020202, #040404, #060606, #080808) !important;
+                background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af) !important;
                 background-size: 400% 400% !important;
                 animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite !important;
+                /* 優化文字顯示，防止不必要的換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
             }
             
             /* 確保手機版背景不被覆蓋 */
             html {
-                background: #000000 !important;
+                background: #1a1a2e !important;
+            }
+            
+            /* 手機版通用文字優化 - 防止不必要的換行 */
+            * {
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+            }
+            
+            /* 針對中文優化的文字對齊 */
+            p, div, span, h1, h2, h3, h4, h5, h6 {
+                text-align: justify;
+                text-justify: inter-ideograph;
             }
             
             body::before {
@@ -2337,6 +2513,12 @@
             
             .container {
                 padding: 5px;
+                /* 優化容器寬度，確保內容完整顯示 */
+                max-width: 100vw;
+                width: 100%;
+                box-sizing: border-box;
+                /* 防止水平滾動 */
+                overflow-x: hidden;
             }
             
             /* 2025年手機版 Hero 區域優化 */
@@ -2376,7 +2558,7 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+                background: linear-gradient(135deg, #3B82F6, #1D4ED8, #7C3AED, #DB2777, #DC2626);
                 padding: 15px 20px;
                 z-index: 1000;
                 box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
@@ -2427,52 +2609,109 @@
             
             /* 手機版活動內容文字自適應調整 */
             .main-content p {
-                font-size: 1.1rem !important;
-                line-height: 1.7 !important;
+                font-size: clamp(1.1rem, 4.2vw, 1.4rem) !important;
+                line-height: 1.5 !important;
+                /* 優化文字換行，避免單字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                white-space: nowrap;
+                text-align: left;
+                text-justify: none;
             }
             
             /* 手機版主標題優化 */
             .main-content h2 {
-                font-size: 1.8rem !important;
+                font-size: clamp(1.8rem, 5.5vw, 2.5rem) !important;
                 font-weight: 800 !important;
                 margin-bottom: 25px !important;
+                /* 優化標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                line-height: 1.2;
+                white-space: nowrap;
             }
             
             /* 手機版特色卡片標題優化 */
             .feature-card h3 {
-                font-size: 1.3rem !important;
+                font-size: clamp(1.3rem, 4.2vw, 1.6rem) !important;
                 font-weight: 700 !important;
                 margin-bottom: 15px !important;
+                /* 優化卡片標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                line-height: 1.2;
+                white-space: nowrap;
             }
             
             /* 手機版特色卡片內容優化 */
             .feature-card p {
-                font-size: 1.05rem !important;
-                line-height: 1.6 !important;
+                font-size: clamp(1rem, 3.8vw, 1.3rem) !important;
+                line-height: 1.5 !important;
+                /* 優化卡片內容文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                text-align: left;
+                text-justify: none;
+                white-space: nowrap;
             }
             
             /* 手機版粉絲案例標題優化 */
             .testimonials-section h3 {
-                font-size: 1.8rem !important;
+                font-size: clamp(1.8rem, 5.2vw, 2.2rem) !important;
                 font-weight: 700 !important;
                 margin-bottom: 30px !important;
+                /* 優化案例標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                line-height: 1.2;
+                white-space: nowrap;
             }
             
             /* 手機版粉絲案例內容優化 */
             .testimonial-content p {
-                font-size: 1.05rem !important;
-                line-height: 1.6 !important;
+                font-size: clamp(1rem, 3.8vw, 1.3rem) !important;
+                line-height: 1.5 !important;
+                /* 優化案例內容文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                text-align: left;
+                text-justify: none;
+                white-space: nowrap;
             }
             
             /* 手機版作者名稱優化 */
             .author-name {
-                font-size: 1.05rem !important;
+                font-size: clamp(1.1rem, 3.5vw, 1.3rem) !important;
                 font-weight: 700 !important;
+                /* 優化作者名稱文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                white-space: nowrap;
             }
             
             /* 手機版作者職位優化 */
             .author-title {
-                font-size: 0.95rem !important;
+                font-size: clamp(1rem, 3.2vw, 1.2rem) !important;
+                /* 優化作者職位文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                white-space: nowrap;
             }
             
             .main-content p span {
@@ -2495,7 +2734,7 @@
             
             
             .cta-button {
-                padding: 20px 40px;
+                padding: clamp(15px, 3vw, 20px) clamp(25px, 5vw, 40px);
                 font-size: 1.2rem;
                 margin: 0;
                 display: block;
@@ -2673,9 +2912,15 @@
             }
             
             .hero h1 {
-                font-size: clamp(2rem, 5vw, 3.5rem);
+                font-size: clamp(2rem, 5.5vw, 3.8rem);
                 margin-bottom: 20px;
-                line-height: 1.3;
+                line-height: 1.2;
+                /* 優化Hero標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                white-space: nowrap;
             }
             
             /* 手機版標題布局優化 */
@@ -2695,9 +2940,15 @@
             }
             
             .hero .subtitle {
-                font-size: clamp(1.3rem, 4.5vw, 2rem);
+                font-size: clamp(1.4rem, 4.5vw, 2rem);
                 margin-bottom: 25px;
-                line-height: 1.4;
+                line-height: 1.3;
+                /* 優化副標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                white-space: nowrap;
             }
             
             /* 手機版副標題彩色標記優化 */
@@ -2846,6 +3097,18 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 15px;
             }
+
+            /* 手機版垂直排列的單選按鈕組 */
+            .form-field .radio-group.vertical {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .form-field .radio-group.vertical .radio-label {
+                padding: 12px 15px !important;
+                font-size: 0.95rem !important;
+            }
             
             .form-field .radio-label {
                 padding: 15px 12px !important;
@@ -2900,6 +3163,44 @@
                 font-size: 1.1rem;
             }
             
+            /* 手機版現場抽獎宣傳調整 */
+            .lottery-promotion {
+                padding: 20px 15px;
+                margin: 20px 0;
+            }
+            
+            .lottery-promotion h3 {
+                font-size: 1.6rem;
+            }
+            
+            .lottery-promotion h4 {
+                font-size: 1.3rem;
+            }
+            
+            .lottery-value .value-text {
+                font-size: 1.4rem;
+            }
+
+            /* 手機版活動詳情調整 */
+            .activity-details {
+                padding: 15px;
+                margin-top: 20px;
+            }
+
+            .activity-item {
+                gap: 12px;
+                margin-bottom: 12px;
+            }
+
+            .activity-icon {
+                font-size: 1.3rem;
+                width: 25px;
+            }
+
+            .activity-text {
+                font-size: 1rem;
+            }
+
             .form-benefits {
                 padding: 20px 15px;
             }
@@ -2912,13 +3213,13 @@
                 font-size: 0.95rem;
             }
             
-            /* 手機版活動資訊和贈品調整 */
-            .event-info-card, .prize-showcase {
+            /* 手機版活動資訊和地圖調整 */
+            .event-info-card, .map-container {
                 padding: 15px;
                 margin-bottom: 20px;
             }
             
-            .event-info-card h5, .prize-showcase h5 {
+            .event-info-card h5, .map-container h5 {
                 font-size: 1.2rem;
                 margin-bottom: 12px;
             }
@@ -3052,19 +3353,33 @@
             }
             
             .timeline::before {
-                left: 50%;
-                transform: translateX(-50%);
+                left: 20px;
+                transform: none;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                align-items: flex-start;
             }
             
             .timeline-time {
-                min-width: 80px;
-                font-size: 1rem;
-                padding: 12px 18px;
+                min-width: auto;
+                font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+                padding: clamp(8px, 2vw, 12px) clamp(15px, 3vw, 20px);
+                margin-bottom: 10px;
+                align-self: flex-start;
             }
             
             .timeline-content {
-                margin: 0 20px;
-                padding: 20px 25px;
+                margin: 0 0 0 40px;
+                padding: clamp(15px, 3vw, 20px) clamp(20px, 4vw, 25px);
+                width: calc(100% - 40px);
             }
             
             .timeline-content h4 {
@@ -3117,6 +3432,20 @@
             /* 確保超小螢幕背景不被覆蓋 */
             html {
                 background: #000000 !important;
+            }
+            
+            /* 超小螢幕通用文字優化 - 防止不必要的換行 */
+            * {
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+            }
+            
+            /* 針對中文優化的文字對齊 */
+            p, div, span, h1, h2, h3, h4, h5, h6 {
+                text-align: justify;
+                text-justify: inter-ideograph;
             }
             
             body::before {
@@ -3203,41 +3532,86 @@
             
             /* 超小螢幕活動內容文字優化 */
             .main-content p {
-                font-size: 1rem !important;
-                line-height: 1.6 !important;
+                font-size: clamp(1rem, 4vw, 1.3rem) !important;
+                line-height: 1.5 !important;
+                /* 優化文字換行，避免單字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                white-space: nowrap;
+                text-align: left;
+                text-justify: none;
             }
             
             /* 超小螢幕主標題優化 */
             .main-content h2 {
-                font-size: 1.6rem !important;
+                font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
                 font-weight: 800 !important;
                 margin-bottom: 20px !important;
+                /* 優化標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                line-height: 1.2;
+                white-space: nowrap;
             }
             
             /* 超小螢幕特色卡片標題優化 */
             .feature-card h3 {
-                font-size: 1.2rem !important;
+                font-size: clamp(1.2rem, 4vw, 1.5rem) !important;
                 font-weight: 700 !important;
                 margin-bottom: 12px !important;
+                /* 優化卡片標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                line-height: 1.2;
+                white-space: nowrap;
             }
             
             /* 超小螢幕特色卡片內容優化 */
             .feature-card p {
-                font-size: 1rem !important;
+                font-size: clamp(1rem, 3.5vw, 1.2rem) !important;
                 line-height: 1.5 !important;
+                /* 優化卡片內容文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                text-align: left;
+                text-justify: none;
+                white-space: nowrap;
             }
             
             /* 超小螢幕粉絲案例標題優化 */
             .testimonials-section h3 {
-                font-size: 1.6rem !important;
+                font-size: clamp(1.6rem, 5vw, 2rem) !important;
                 font-weight: 700 !important;
                 margin-bottom: 25px !important;
+                /* 優化案例標題文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                line-height: 1.2;
+                white-space: nowrap;
             }
             
             /* 超小螢幕粉絲案例內容優化 */
             .testimonial-content p {
-                font-size: 1rem !important;
+                font-size: clamp(1rem, 3.5vw, 1.2rem) !important;
                 line-height: 1.5 !important;
+                /* 優化案例內容文字換行 */
+                word-wrap: break-word;
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                hyphens: none;
+                text-align: left;
+                text-justify: none;
+                white-space: nowrap;
             }
             
             /* 超小螢幕作者名稱優化 */
@@ -3279,8 +3653,9 @@
             }
             
             .timeline-content {
-                padding: 15px 20px;
-                margin: 0 0 0 15px;
+                padding: clamp(12px, 2.5vw, 15px) clamp(15px, 3vw, 20px);
+                margin: 0 0 0 30px;
+                width: calc(100% - 30px);
             }
             
             .cta-section {
@@ -3407,6 +3782,18 @@
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
+            }
+
+            /* 超小螢幕垂直排列的單選按鈕組 */
+            .form-field .radio-group.vertical {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-field .radio-group.vertical .radio-label {
+                padding: 10px 12px !important;
+                font-size: 0.9rem !important;
             }
             
             .form-field .radio-label {
@@ -3594,10 +3981,10 @@
         <div class="hero fade-in">
             <h1>
                 <div class="limited-text"><span class="brackets">【</span><span class="fire-text">限額參加</span><span class="brackets">】</span></div>
-                <div class="main-title">解密！富人區「沒有天花板」的房產投資術</div>
+                <div class="main-title">【錢進中路．藝文富人區｜桃園最大公園首排｜11/9加開場】</div>
             </h1>
             <div class="subtitle" style="text-align: center;">
-                <img src="https://i.postimg.cc/tJ0mH5KF/S-175710257.jpg" alt="新青安是給你富人的工具~買到豪宅?" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                <img src="https://i.postimg.cc/sD9TvRFf/line-oa-chat-251023-204607.jpg" alt="新青安是給你富人的工具~買到豪宅?" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
             </div>
             
             <!-- 蔣哥說明會宣傳影片 -->
@@ -3611,8 +3998,17 @@
             </div>
             
             <div class="hero-description" style="font-size: calc(1rem + 0.2rem);">
-                <span style="color: #FFD700; font-weight: 700;">富人區</span><span style="color: #4ECDC4; font-weight: 600;">公園第一排</span><span style="color: #FF6B6B; font-weight: 700;">精選房型</span>，<br>
-                <span style="color: #FFD700; font-weight: 700;">2025年</span>讓你<span style="color: #4ECDC4; font-weight: 600;">輕鬆上車</span>，不要<span style="color: #FF6B6B; font-weight: 700;">2030年追公車</span>！
+                <p style="margin-bottom: 20px; line-height: 1.6;">
+                    繼上個月《<span style="color: #FF6B6B; font-weight: 700;">投資富人區專場</span>》房產分享會後，<br>
+                    現場眾多置產族、多屋族都被顛覆了三觀！<br>
+                    許多網友留言：「<span style="color: #FFD700; font-weight: 700;">蔣哥</span>，那天<span style="color: #FF6B6B; font-weight: 700;">中秋連假我沒報到</span>！」
+                </p>
+                <p style="margin-bottom: 20px; line-height: 1.6;">
+                    這次，我主打一個——<span style="color: #FFD700; font-weight: 700;">寵粉安可場</span>！<br>
+                    別再錯過這次機會，<span style="color: #FF6B6B; font-weight: 700;">這絕對是最後一場</span>。<br>
+                    <span style="color: #FFD700; font-weight: 700;">限額開放</span>的【<span style="color: #4ECDC4; font-weight: 700;">桃園風禾公園第一排｜悅讀伊頓II</span>】<span style="color: #FF6B6B; font-weight: 700;">現場講座</span>，<br>
+                    👉 還會有一位「<span style="color: #FF6B6B; font-weight: 700;">神秘嘉賓</span>」登場。
+                </p>
             </div>
             
             
@@ -3644,10 +4040,34 @@
             </div>
         </div>
 
+        <!-- 五個關鍵問題 -->
+        <div class="questions-section fade-in" style="background: linear-gradient(135deg, rgba(255,107,107,0.1) 0%, rgba(78,205,196,0.1) 100%); padding: 40px 20px; margin: 30px 0; border-radius: 20px; border: 2px solid rgba(255,215,0,0.3);">
+            <h3 style="text-align: center; color: #FFD700; font-size: 1.8rem; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                🌪️ 在參加這場講座之前，請你先問自己，也問問你身邊那些自稱房產專家的朋友這五個問題：
+            </h3>
+            <div class="questions-list" style="max-width: 800px; margin: 0 auto;">
+                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #FFD700;">
+                    <h4 style="color: #4ECDC4; margin-bottom: 10px;">1️⃣ 台灣未來不會再缺房子，那我為什麼還要繼續學房地產？</h4>
+                </div>
+                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #4ECDC4;">
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">2️⃣ 哪些房子會越來越多？我們該如何避開那些不該投資、也不該持有的房子？</h4>
+                </div>
+                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #FF6B6B;">
+                    <h4 style="color: #FFD700; margin-bottom: 10px;">3️⃣ 「沒有賣不掉的房子，只有賣不掉的價格」——這句話十年後還成立嗎？</h4>
+                </div>
+                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #FFD700;">
+                    <h4 style="color: #4ECDC4; margin-bottom: 10px;">4️⃣ 你曾經獲利的房子，是賣給比你「沒財力」的人？還是比你更富的人？</h4>
+                </div>
+                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #4ECDC4;">
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">5️⃣ 少子化時代，房子真的會沒人買？那你快告訴我——哪裡的房子十年後會暴跌？你現在就能去買？</h4>
+                </div>
+            </div>
+        </div>
+
         <div class="countdown-section fade-in">
             <div class="countdown-title">
-                📅 說明會時間：<span style="color: #FFD700; font-weight: 700;">2025/10/5（日）</span><br>
-                <span style="color: #4ECDC4; font-weight: 600;">下午2:00 準時開始</span>
+                📅 說明會時間：<span style="color: #FFD700; font-weight: 700;">2025/11/9（日）</span><br>
+                <span style="color: #4ECDC4; font-weight: 600;">下午1:00 準時開始</span>
             </div>
             <div class="urgency-alert">
                 <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
@@ -3675,20 +4095,49 @@
 
         <div class="features">
             <div class="feature-card fade-in micro-interaction magnetic-hover">
-                <div class="feature-icon">🎯</div>
+                <div class="feature-icon"></div>
                 <h3>最犀利的Q&A現場互動</h3>
                 <p>現場直接解答您的房產投資疑惑，零距離專業諮詢</p>
             </div>
             <div class="feature-card fade-in micro-interaction magnetic-hover">
-                <div class="feature-icon">✨</div>
+                <div class="feature-icon"></div>
                 <h3>20年真槍實彈操作指南</h3>
                 <p>蔣哥20年房地產實戰經驗，毫無保留分享投資心法與操作策略</p>
             </div>
         </div>
 
+        <!-- 活動亮點 -->
+        <div class="highlights-section fade-in" style="background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(78,205,196,0.1) 100%); padding: 40px 20px; margin: 30px 0; border-radius: 20px; border: 2px solid rgba(255,107,107,0.3);">
+            <h3 style="text-align: center; color: #FFD700; font-size: 1.8rem; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                💡 如果你準備好了自備款，我會清楚地帶你看懂以下關鍵真相：
+            </h3>
+            <div class="highlights-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
+                <div class="highlight-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; border: 2px solid rgba(255,215,0,0.3);">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"></div>
+                    <h4 style="color: #4ECDC4; margin-bottom: 10px; font-size: 1.2rem;">為何要在<span style="color: #FF6B6B; font-weight: 700;">2029年前</span>搶進六都「<span style="color: #FFD700; font-weight: 700;">富人區</span>」？</h4>
+                </div>
+                <div class="highlight-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; border: 2px solid rgba(78,205,196,0.3);">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"></div>
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px; font-size: 1.2rem;"><span style="color: #4ECDC4; font-weight: 700;">換屋族</span>為何該避開那些「<span style="color: #FFD700; font-weight: 700;">老窮酸</span>」地段？</h4>
+                </div>
+                <div class="highlight-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; border: 2px solid rgba(255,107,107,0.3);">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"></div>
+                    <h4 style="color: #FFD700; margin-bottom: 10px; font-size: 1.2rem;"><span style="color: #4ECDC4; font-weight: 700;">首購族</span>又為何容易被「<span style="color: #FF6B6B; font-weight: 700;">建案渣男</span>」坑殺？</h4>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 2px solid rgba(255,215,0,0.5);">
+                <p style="font-size: 1.3rem; color: #FFD700; font-weight: 700; margin-bottom: 10px;">
+                    你可以不買房，但千萬別再買錯房。
+                </p>
+                <p style="font-size: 1.1rem; color: #4ECDC4; font-weight: 600;">
+                    參加完這場講座，你會省下幾十萬房產課程的冤枉錢，也會多看懂十年市場。
+                </p>
+            </div>
+        </div>
+
         <!-- 社會證明 - 客戶見證區塊 -->
         <div class="testimonials-section fade-in">
-            <h3>🏆 粉絲成功案例分享</h3>
+            <h3>粉絲成功案例分享</h3>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-content">
@@ -3720,15 +4169,6 @@
             </div>
         </div>
 
-        <div class="main-content fade-in">
-            <h2>🏠 活動內容豐富精彩</h2>
-            <p style="font-size: 1.2rem; line-height: 1.8; text-align: center; margin-bottom: 30px;">
-                <span class="highlight-text">✨ 現場提供精美茶點</span>
-                <span class="highlight-text">🎁 抽獎活動（禮品價值超過兩萬元）</span>
-                <span style="color: #FFD700; font-size: 1.1em; font-weight: 600;">⚠️ 請配合實名入場</span>
-            </p>
-        </div>
-
         <div class="prize-section fade-in">
             <div class="prize-stars">
                 <div class="star">⭐</div>
@@ -3739,8 +4179,9 @@
                 <div class="star">🌟</div>
             </div>
             <h3>🎁 現場抽獎大放送</h3>
-            <p>精美大獎等您帶回家！</p>
-            <div class="prize-value">禮品價值超過兩萬元</div>
+            <p>✨ 精美大獎等您帶回家！ ✨</p>
+            <div class="prize-value">禮品價值超過十萬元</div>
+            
         </div>
 
         <div class="timeline-section fade-in">
@@ -3789,19 +4230,19 @@
         <div class="risk-reduction-section fade-in">
             <div class="risk-reduction-grid">
                 <div class="risk-item">
-                    <span class="risk-icon">✅</span>
+                    <span class="risk-icon"></span>
                     <span class="risk-text">完全免費參加</span>
                 </div>
                 <div class="risk-item">
-                    <span class="risk-icon">✅</span>
+                    <span class="risk-icon"></span>
                     <span class="risk-text">無推銷壓力</span>
                 </div>
                 <div class="risk-item">
-                    <span class="risk-icon">✅</span>
+                    <span class="risk-icon"></span>
                     <span class="risk-text">專業知識分享</span>
                 </div>
                 <div class="risk-item">
-                    <span class="risk-icon">✅</span>
+                    <span class="risk-icon"></span>
                     <span class="risk-text">現場Q&A互動</span>
                 </div>
             </div>
@@ -3813,63 +4254,56 @@
             <div class="form-preview-container">
                 <div class="form-preview-card">
                     <div class="form-step active" data-step="1">
-                        <h4>🎯 第一步：基本資訊</h4>
+                        <h4>第一步：基本資訊</h4>
                         <div class="form-fields">
                             <div class="form-field">
-                                <label>姓名 *</label>
+                                <label>真實姓名 *</label>
                                 <input type="text" name="name" placeholder="請輸入您的姓名" class="smart-input" required>
                             </div>
                             
-                            <div class="form-field">
-                                <label>性別 *</label>
-                                <div class="radio-group">
-                                    <label class="radio-label">
-                                        <input type="radio" name="gender" value="male" class="smart-radio" required>
-                                        <span class="radio-custom"></span>
-                                        <span class="radio-text">男性</span>
-                                    </label>
-                                    <label class="radio-label">
-                                        <input type="radio" name="gender" value="female" class="smart-radio" required>
-                                        <span class="radio-custom"></span>
-                                        <span class="radio-text">女性</span>
-                                    </label>
-                                </div>
-                            </div>
                             
                             <div class="form-field">
-                                <label>電話 *</label>
+                                <label>手機 *</label>
                                 <input type="tel" name="phone" placeholder="您的手機號碼" class="smart-input" required>
                             </div>
                             
                             <div class="form-field">
-                                <label>居住地 *</label>
+                                <label>我從哪裡來？ *</label>
                                 <select name="location" class="smart-select" required>
-                                    <option value="">請選擇居住地</option>
-                                    <option value="taipei">台北</option>
-                                    <option value="newtaipei">新北</option>
-                                    <option value="taoyuan">桃園</option>
-                                    <option value="hsinchu">新竹</option>
-                                    <option value="taichung">台中</option>
-                                    <option value="tainan">台南</option>
-                                    <option value="kaohsiung">高雄</option>
-                                    <option value="other">其他</option>
+                                    <option value="">請選擇地區</option>
+                                    <option value="newtaipei">新北市</option>
+                                    <option value="taipei">台北市</option>
+                                    <option value="taoyuan">桃園市</option>
+                                    <option value="linkou">林口</option>
+                                    <option value="guishan">龜山</option>
+                                    <option value="qingpu">青埔</option>
+                                    <option value="other">其它</option>
                                 </select>
                             </div>
                             
+                            
                             <div class="form-field">
-                                <label>Email *</label>
-                                <input type="email" name="email" placeholder="請輸入您的Email" class="smart-input" required>
+                                <label>Line ID *</label>
+                                <input type="text" name="lineId" placeholder="請輸入您的LINE ID" class="smart-input" required>
                             </div>
                             
                             <div class="form-field">
-                                <label>LINE ID</label>
-                                <input type="text" name="lineId" placeholder="請輸入您的LINE ID" class="smart-input">
+                                <label>我的自備款 *</label>
+                                <select name="downPayment" class="smart-select" required>
+                                    <option value="">請選擇自備款金額</option>
+                                    <option value="under100">100萬以下</option>
+                                    <option value="100-200">100-200萬</option>
+                                    <option value="200-500">200-500萬</option>
+                                    <option value="over500">500萬以上</option>
+                                    <option value="special68">我只有68萬自備款，想要6%交屋</option>
+                                </select>
                             </div>
                             
                             <div class="form-field">
                                 <label>介紹人 *</label>
                                 <select name="referrerType" class="smart-input" required>
                                     <option value="">請選擇介紹人</option>
+                                    <option value="無">無</option>
                                     <option value="華地產介紹">華地產介紹</option>
                                     <option value="朋友介紹">朋友介紹</option>
                                     <option value="網路搜尋">網路搜尋</option>
@@ -3887,23 +4321,34 @@
                     <div class="form-step" data-step="2">
                         <h4>📋 第二步：資訊需求</h4>
                         <div class="form-fields">
+                            
                             <div class="form-field">
-                                <label>您想獲得哪些資訊 (複選) *</label>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="infoNeeds" value="trend_analysis" class="smart-checkbox">
-                                        <span class="checkbox-custom"></span>
-                                        <span class="checkbox-text">購屋與房地產趨勢分析</span>
+                                <label>會想報名的原因：（擇一） *</label>
+                                <div class="radio-group vertical">
+                                    <label class="radio-label">
+                                        <input type="radio" name="registrationReason" value="trend" class="smart-radio" required>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-text">我想知道房地產的投資趨勢</span>
                                     </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="infoNeeds" value="taoyuan_investment" class="smart-checkbox">
-                                        <span class="checkbox-custom"></span>
-                                        <span class="checkbox-text">桃園房市投資價值剖析：桃園房屋真的值得買嗎？</span>
+                                    <label class="radio-label">
+                                        <input type="radio" name="registrationReason" value="investment" class="smart-radio" required>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-text">我想知道為什麼一定要投資置產</span>
                                     </label>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="infoNeeds" value="purchase_planning" class="smart-checkbox">
-                                        <span class="checkbox-custom"></span>
-                                        <span class="checkbox-text">購屋需求解析：自住、投資、首購或首換，該如何規劃？</span>
+                                    <label class="radio-label">
+                                        <input type="radio" name="registrationReason" value="jiangge" class="smart-radio" required>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-text">我想要來看蔣哥</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="registrationReason" value="mystery_guest" class="smart-radio" required>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-text">我想要來看神秘嘉賓</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="registrationReason" value="2029_target" class="smart-radio" required>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-text">我本來就在找尋2029年的投資標的</span>
                                     </label>
                                 </div>
                             </div>
@@ -3911,42 +4356,39 @@
                     </div>
                     
                     <div class="form-step" data-step="3">
-                        <h4>🎁 第三步：完成報名</h4>
+                        <h4>第三步：完成報名</h4>
                         
                         <!-- 活動資訊確認 -->
                         <div class="event-info-card">
-                            <h5>📅 活動資訊確認</h5>
+                            <h5>活動資訊確認</h5>
                             <div class="event-details">
                                 <div class="event-item">
-                                    <span class="event-icon">🕐</span>
-                                    <span class="event-text">時間：2025/10/5（日）下午2:00 準時開始</span>
+                                    <span class="event-icon"></span>
+                                    <span class="event-text">時間：2025/11/9（日）下午1:00 準時開始</span>
                                 </div>
                                 <div class="event-item">
-                                    <span class="event-icon">📍</span>
-                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號（銷售中心）</span>
+                                    <span class="event-icon"></span>
+                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- 贈品展示 -->
-                        <div class="prize-showcase">
-                            <h5>🎁 現場抽獎獎品</h5>
-                            <div class="prize-image-container">
-                                <img src="https://lh7-rt.googleusercontent.com/formsz/AN7BsVC5ulh9pB5ihnzwHxauOLpJDmDdbz-_pwK3FrD0kIRnwmwlaNd6dWpLQsfRUWIyhiCMZvl6FQBMlGUAVNu8XJEbFWgMzXCGcNK1nK8vytA3reNs6BsEOW8fmwcUB-eOSAKb3cAAIDnCScfnOGZCZ8jTiViUIJpyvvGvPVR1x14sBDydPsxzsZbF6hqEEjxIu-r_jcNeBfPiqZ0Y=w460?key=jmkPt41VG1-KmOGTWkhCMA" 
-                                     alt="現場抽獎獎品" 
-                                     class="prize-image">
-                                <div class="prize-description">
-                                    <p>🏆 價值超過2萬元的精美獎品</p>
-                                    <p>✨ 現場抽獎，人人有機會</p>
-                                </div>
+                        <!-- 街景地圖 -->
+                        <div class="map-container">
+                            <h5>📍 活動地點街景</h5>
+                            <div class="map-wrapper">
+                                <iframe src="https://www.google.com/maps/embed?pb=!4v1761225123142!6m8!1m7!1scNm-amR_qzbvcKKWotoNJg!2m2!1d25.00559426782034!2d121.2907271118239!3f251.8507327225177!4f15.186818702577753!5f0.7820865974627469" 
+                                        width="100%" 
+                                        height="300" 
+                                        style="border:0; border-radius: 10px;" 
+                                        allowfullscreen="" 
+                                        loading="lazy" 
+                                        referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
                             </div>
                         </div>
                         
                         <div class="form-fields">
-                            <div class="form-field">
-                                <label>參加動機</label>
-                                <textarea placeholder="請簡述您參加說明會的原因..." class="smart-textarea"></textarea>
-                            </div>
                             
                             <!-- 必填確認條款 -->
                             <div class="form-field checkbox-field required-checkbox">
@@ -3956,20 +4398,13 @@
                                     <span class="checkbox-text">
                                         確認您已知道活動時間、地點<br>
                                         <small style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
-                                            時間：2025/10/5（日）下午2:00 準時開始<br>
-                                            地點：桃園市桃園區大興西路三段90號（銷售中心）
+                                            時間：2025/11/9（日）下午1:00 準時開始<br>
+                                            地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）
                                         </small>
                                     </span>
                                 </label>
                             </div>
                             
-                            <div class="form-field checkbox-field">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" class="smart-checkbox">
-                                    <span class="checkmark"></span>
-                                    我同意接收蔣哥的房產投資資訊
-                                </label>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -3984,13 +4419,13 @@
                 </div>
                 
                 <div class="form-benefits">
-                    <h4>✨ 報名完成後您將獲得：</h4>
+                    <h4>報名完成後您將獲得：</h4>
                     <ul>
-                        <li>🎯 蔣哥20年房產投資心法</li>
-                        <li>📊 2025年桃園房市趨勢分析</li>
-                        <li>💰 現場Q&A專業諮詢</li>
-                        <li>🎁 精美資料袋 + 茶點</li>
-                        <li>🏆 價值2萬元獎品抽獎機會</li>
+                        <li>蔣哥20年房產投資心法</li>
+                        <li>2025年桃園房市趨勢分析</li>
+                        <li>現場Q&A專業諮詢</li>
+                        <li>精美資料袋 + 茶點</li>
+                        <li>價值10萬元獎品抽獎機會</li>
                     </ul>
                 </div>
             </div>
@@ -4030,7 +4465,7 @@
                         border: 1px solid rgba(255, 255, 255, 0.1);
                         transition: all 0.3s ease;
                     " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🏢</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🏠</div>
                         <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">包租代管專家</h4>
                         <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">專業房源管理團隊</p>
                     </div>
@@ -4177,8 +4612,8 @@
 
         // 倒數計時器
         function startCountdown() {
-            // 設定目標日期為2025年10月5日 14:00 (下午2:00)
-            const targetDate = new Date('2025-10-05T14:00:00+08:00').getTime(); // 加入台灣時區
+            // 設定目標日期為2025年11月9日 13:00 (下午1:00)
+            const targetDate = new Date('2025-11-09T13:00:00+08:00').getTime(); // 加入台灣時區
             
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -4204,7 +4639,7 @@
                     document.getElementById('seconds').textContent = '00';
                     
                     // 可以在這裡添加活動已開始的訊息
-                    document.querySelector('.countdown-title').innerHTML = '🎉 活動進行中或已結束';
+                    document.querySelector('.countdown-title').innerHTML = '活動進行中或已結束';
                 }
             }
             
@@ -4480,23 +4915,23 @@
                 this.personalizedContent.titles = {
                     engaged: [
                         "解密！富人區「沒有天花板」的房產投資術",
-                        "🏆 蔣哥房產真經話 - 深度投資解析說明會",
-                        "💎 2025房市黃金機會 - 蔣哥20年實戰分享",
-                        "🚀 桃園房產投資說明會 - 專業策略解析"
+                        "蔣哥房產真經話 - 深度投資解析說明會",
+                        "2025房市黃金機會 - 蔣哥20年實戰分享",
+                        "桃園房產投資說明會 - 專業策略解析"
                     ],
                     quick_visitor: [
                         "解密！富人區「沒有天花板」的房產投資術",
-                        "⚡ 限時！蔣哥房產說明會 - 立即報名",
-                        "🔥 2025房市機會 - 蔣哥專業解析",
-                        "🏆 蔣哥-最真實的房產對談式-分享會",
-                        "💎 2025房市轉折點 - 蔣哥獨家分析",
-                        "🎯 蔣哥20年房產經驗 - 不藏私分享會"
+                        "限時！蔣哥房產說明會 - 立即報名",
+                        "2025房市機會 - 蔣哥專業解析",
+                        "蔣哥-最真實的房產對談式-分享會",
+                        "2025房市轉折點 - 蔣哥獨家分析",
+                        "蔣哥20年房產經驗 - 不藏私分享會"
                     ],
                     interactive: [
                         "解密！富人區「沒有天花板」的房產投資術",
-                        "🎯 蔣哥房產真經話 - 現場Q&A互動",
-                        "🤝 專業房產諮詢 - 蔣哥說明會",
-                        "💡 房產投資策略 - 蔣哥實戰分享"
+                        "蔣哥房產真經話 - 現場Q&A互動",
+                        "專業房產諮詢 - 蔣哥說明會",
+                        "房產投資策略 - 蔣哥實戰分享"
                     ]
                 };
 
@@ -4706,7 +5141,11 @@
                 const nextBtn = document.querySelector('.next-btn');
                 const prevBtn = document.querySelector('.prev-btn');
 
-                nextBtn.addEventListener('click', () => this.nextStep());
+                nextBtn.addEventListener('click', () => {
+                    // 防止重複提交
+                    if (nextBtn.disabled) return;
+                    this.nextStep();
+                });
                 prevBtn.addEventListener('click', () => this.prevStep());
             }
 
@@ -4900,21 +5339,14 @@
                 // 檢查第一步：基本資訊
                 if (this.currentStep === 1) {
                     // 檢查姓名
-                    const nameField = currentStepElement.querySelector('input[type="text"]');
+                    const nameField = currentStepElement.querySelector('input[name="name"]');
                     if (nameField && !nameField.value.trim()) {
                         this.showFieldValidation(nameField, false, '請輸入您的姓名');
                         allValid = false;
                     }
 
-                    // 檢查性別
-                    const genderRadio = currentStepElement.querySelector('input[name="gender"]:checked');
-                    if (!genderRadio) {
-                        this.showGenderValidation(false, '請選擇您的性別');
-                        allValid = false;
-                    }
-
                     // 檢查電話
-                    const phoneField = currentStepElement.querySelector('input[type="tel"]');
+                    const phoneField = currentStepElement.querySelector('input[name="phone"]');
                     if (phoneField && !phoneField.value.trim()) {
                         this.showFieldValidation(phoneField, false, '請輸入您的手機號碼');
                         allValid = false;
@@ -4923,19 +5355,24 @@
                     }
 
                     // 檢查居住地
-                    const locationSelect = currentStepElement.querySelector('select');
+                    const locationSelect = currentStepElement.querySelector('select[name="location"]');
                     if (locationSelect && !locationSelect.value) {
                         this.showFieldValidation(locationSelect, false, '請選擇您的居住地');
                         allValid = false;
                     }
 
-                    // 檢查Email
-                    const emailField = currentStepElement.querySelector('input[name="email"]');
-                    if (emailField && !emailField.value.trim()) {
-                        this.showFieldValidation(emailField, false, '請輸入您的Email');
+                    // 檢查自備款
+                    const downPaymentSelect = currentStepElement.querySelector('select[name="downPayment"]');
+                    if (downPaymentSelect && !downPaymentSelect.value) {
+                        this.showFieldValidation(downPaymentSelect, false, '請選擇您的自備款金額');
                         allValid = false;
-                    } else if (emailField && emailField.value.trim()) {
-                        this.validateField(emailField); // 檢查Email格式
+                    }
+
+                    // 檢查 LINE ID
+                    const lineIdInput = currentStepElement.querySelector('input[name="lineId"]');
+                    if (lineIdInput && !lineIdInput.value.trim()) {
+                        this.showFieldValidation(lineIdInput, false, '請輸入 LINE ID');
+                        allValid = false;
                     }
 
                     // 檢查介紹人
@@ -4958,15 +5395,17 @@
 
                 // 檢查第二步：資訊需求
                 if (this.currentStep === 2) {
-                    const checkedBoxes = currentStepElement.querySelectorAll('input[name="infoNeeds"]:checked');
-                    if (checkedBoxes.length === 0) {
-                        this.showInfoNeedsValidation(false, '請至少選擇一項您想獲得的資訊');
+                    // 檢查報名原因
+                    const registrationReasonRadio = currentStepElement.querySelector('input[name="registrationReason"]:checked');
+                    if (!registrationReasonRadio) {
+                        this.showFieldValidation(null, false, '請選擇您想報名的原因');
                         allValid = false;
                     }
                 }
 
                 // 檢查第三步：確認條款
                 if (this.currentStep === 3) {
+                    // 檢查必填確認條款
                     const requiredCheckbox = currentStepElement.querySelector('.required-checkbox input[type="checkbox"]');
                     if (requiredCheckbox && !requiredCheckbox.checked) {
                         this.showFieldValidation(requiredCheckbox, false, '請確認您已了解活動時間和地點');
@@ -5116,52 +5555,31 @@
             }
 
             submitForm() {
-                // 調試：檢查DOM中的email欄位
-                const emailInput = document.querySelector('input[name="email"]');
-                console.log('🔍 DOM中的email欄位:', emailInput);
-                console.log('🔍 email欄位的值:', emailInput?.value);
-                console.log('🔍 email欄位是否可見:', emailInput?.offsetParent !== null);
-                console.log('🔍 email欄位的display樣式:', emailInput ? window.getComputedStyle(emailInput).display : 'N/A');
-                console.log('🔍 所有name="email"的欄位:', document.querySelectorAll('input[name="email"]'));
+                console.log('🚀 開始提交表單...');
                 
-                // 檢查email欄位的父元素是否可見
-                if (emailInput) {
-                    const parentStep = emailInput.closest('.form-step');
-                    console.log('🔍 email欄位的父步驟:', parentStep);
-                    console.log('🔍 父步驟是否為active:', parentStep?.classList.contains('active'));
+                // 禁用提交按鈕防止重複提交
+                const submitBtn = document.querySelector('.next-btn');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '⏳ 提交中...';
+                    submitBtn.style.opacity = '0.7';
                 }
-                
-                // 調試：檢查所有輸入欄位的值
-                const allInputs = document.querySelectorAll('input, select, textarea');
-                console.log('🔍 所有表單欄位:');
-                allInputs.forEach(input => {
-                    if (input.name) {
-                        console.log(`  ${input.name}: "${input.value}"`);
-                    }
-                });
                 
                 // 收集所有表單數據
                 const finalData = {
                     // 基本資訊
                     name: document.querySelector('input[name="name"]')?.value || '',
-                    gender: document.querySelector('input[name="gender"]:checked')?.value || '',
                     phone: document.querySelector('input[name="phone"]')?.value || '',
                     location: document.querySelector('select[name="location"]')?.value || '',
-                    email: document.querySelector('input[name="email"]')?.value || '',
                     lineId: document.querySelector('input[name="lineId"]')?.value || '',
+                    downPayment: document.querySelector('select[name="downPayment"]')?.value || '',
                     referrerType: document.querySelector('select[name="referrerType"]')?.value || '',
                     referrerName: document.querySelector('input[name="referrerName"]')?.value || '',
                     
-                    // 資訊需求
-                    infoNeeds: Array.from(document.querySelectorAll('input[name="infoNeeds"]:checked')).map(cb => {
-                        const value = cb.value;
-                        const text = cb.nextElementSibling.nextElementSibling.textContent;
-                        return text; // 返回中文文字而不是英文代碼
-                    }),
+                    // 報名原因
+                    registrationReason: document.querySelector('input[name="registrationReason"]:checked')?.value || '',
                     
-                    // 其他資訊
-                    motivation: document.querySelector('textarea')?.value || '',
-                    agreeTerms: document.querySelector('input[name="agree_terms"]')?.checked || false,
+                    // 確認條款
                     agreeEvent: document.querySelector('.required-checkbox input')?.checked || false,
                     
                     // 系統資訊
@@ -5170,7 +5588,6 @@
                     referrer: document.referrer
                 };
 
-                console.log('📧 Email數據:', finalData.email);
                 console.log('📋 完整表單數據:', finalData);
 
                 // 提交到Google Sheets
@@ -5183,63 +5600,35 @@
 
             async submitToGoogleSheets(data) {
                 try {
+                    // 顯示載入狀態
+                    this.showLoadingState(true);
+                    
                     // 使用Google Apps Script Web App來提交數據
-                    // 更新為新的Google Apps Script URL
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyAPJ48w3fZ_wfO4P7LwMYIP7B4U72ff8Vj3pcr2_1t9toSG_A6XoNDY-JGduWuIGN0/exec';
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyl9EB0QjtXB4xjIQG19rkjrEarlkmv7ETlgBtfEQKmy62HrbF0fYEy440vOybrBi69/exec';
                     
                     // 驗證必要數據
-                    if (!data.name || !data.phone || !data.email) {
-                        throw new Error('缺少必要欄位：姓名、電話或Email');
+                    if (!data.name || !data.phone) {
+                        throw new Error('缺少必要欄位：姓名或電話');
                     }
                     
-                    // 創建URL編碼的表單數據
+                    // 創建URL編碼的表單數據 - 只包含必要欄位
                     const params = new URLSearchParams();
-                    params.append('name', data.name || '');
-                    params.append('gender', data.gender || '');
-                    params.append('phone', data.phone || '');
+                    params.append('name', data.name);
+                    params.append('phone', data.phone);
                     params.append('location', data.location || '');
-                    params.append('email', data.email || '');
                     params.append('lineId', data.lineId || '');
+                    params.append('downPayment', data.downPayment || '');
                     params.append('referrerType', data.referrerType || '');
                     params.append('referrerName', data.referrerName || '');
+                    params.append('registrationReason', data.registrationReason || '');
+                    params.append('agreeTerms', data.agreeTerms || '');
+                    params.append('agreeEvent', data.agreeEvent || '');
                     
-                    // 調試：檢查每個參數的值
-                    console.log('🔍 參數檢查:');
-                    console.log('  name:', data.name);
-                    console.log('  gender:', data.gender);
-                    console.log('  phone:', data.phone);
-                    console.log('  location:', data.location);
-                    console.log('  email:', data.email);
-                    console.log('  lineId:', data.lineId);
-                    console.log('  referrerType:', data.referrerType);
-                    console.log('  referrerName:', data.referrerName);
+                    console.log('🚀 提交表單數據到Google Sheets...');
                     
-                // 調試：檢查發送的email數據
-                console.log('🚀 發送到Google Sheets的Email:', data.email);
-                console.log('🚀 Email是否為空:', !data.email);
-                console.log('🚀 Email長度:', data.email?.length);
-                console.log('🚀 完整發送數據:', data);
-                
-                // 再次檢查email欄位
-                const emailCheck = document.querySelector('input[name="email"]');
-                console.log('🚀 提交前再次檢查email:', emailCheck?.value);
-                console.log('🚀 Email欄位是否存在:', !!emailCheck);
-                console.log('🚀 Email欄位類型:', emailCheck?.type);
-                console.log('🚀 Email欄位是否必填:', emailCheck?.required);
-                
-                // 測試：直接測試Google Apps Script URL
-                console.log('🧪 測試Google Apps Script URL:', scriptUrl);
-                
-                params.append('infoNeeds', data.infoNeeds.join(', ') || '');
-                    params.append('motivation', data.motivation || '');
-                    params.append('agreeTerms', data.agreeTerms ? '是' : '否');
-                    params.append('agreeEvent', data.agreeEvent ? '是' : '否');
-                    params.append('timestamp', data.timestamp);
-                    params.append('userAgent', data.userAgent);
-                    params.append('referrer', data.referrer);
-
-                    console.log('🚀 準備發送請求到:', scriptUrl);
-                    console.log('🚀 請求參數:', params.toString());
+                    // 設定超時時間
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超時
                     
                     const response = await fetch(scriptUrl, {
                         method: 'POST',
@@ -5247,31 +5636,30 @@
                             'Content-Type': 'application/x-www-form-urlencoded',
                         },
                         body: params,
-                        mode: 'cors', // 明確指定 CORS 模式
-                        credentials: 'omit' // 不發送認證信息
+                        mode: 'cors',
+                        credentials: 'omit',
+                        signal: controller.signal
                     });
-
-                    console.log('📡 回應狀態:', response.status);
-                    console.log('📡 回應狀態文字:', response.statusText);
-                    console.log('📡 回應標頭:', Object.fromEntries(response.headers.entries()));
                     
-                    const responseText = await response.text();
-                    console.log('📡 回應內容:', responseText);
-
+                    clearTimeout(timeoutId);
+                    
                     if (response.ok) {
                         console.log('✅ 數據已成功提交到Google Sheets');
-                        console.log('✅ 提交的Email:', data.email);
                         this.showSubmissionSuccess(true);
                     } else {
+                        const responseText = await response.text();
                         console.error('❌ 提交失敗，狀態碼:', response.status);
-                        console.error('❌ 錯誤詳情:', responseText);
-                        
-                        // 顯示更詳細的錯誤信息給用戶
-                        this.showSubmissionSuccess(false, `提交失敗 (${response.status}): ${responseText}`);
+                        this.showSubmissionSuccess(false, `提交失敗，請稍後再試`);
                     }
                 } catch (error) {
                     console.error('❌ 提交錯誤:', error);
-                    console.log('⚠️ 嘗試備用提交方案...');
+                    this.showLoadingState(false);
+                    
+                    if (error.name === 'AbortError') {
+                        this.showSubmissionSuccess(false, '提交超時，請檢查網路連線後重試');
+                    } else {
+                        this.showSubmissionSuccess(false, '提交失敗，請稍後再試');
+                    }
                     
                     // 備用方案：嘗試使用 GET 方法
                     try {
@@ -5342,7 +5730,80 @@
                 console.log('🔄 表單已重置');
             }
 
+            showLoadingState(show = true) {
+                let loadingModal = document.getElementById('loadingModal');
+                
+                if (show) {
+                    if (!loadingModal) {
+                        loadingModal = document.createElement('div');
+                        loadingModal.id = 'loadingModal';
+                        loadingModal.innerHTML = `
+                            <div style="
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background: rgba(0, 0, 0, 0.8);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                z-index: 10000;
+                                backdrop-filter: blur(5px);
+                            ">
+                                <div style="
+                                    background: linear-gradient(135deg, #1a1a2e, #16213e);
+                                    padding: 40px;
+                                    border-radius: 20px;
+                                    text-align: center;
+                                    border: 2px solid rgba(255, 255, 255, 0.1);
+                                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+                                ">
+                                    <div style="
+                                        width: 50px;
+                                        height: 50px;
+                                        border: 3px solid rgba(255, 255, 255, 0.3);
+                                        border-top: 3px solid #FFD700;
+                                        border-radius: 50%;
+                                        animation: spin 1s linear infinite;
+                                        margin: 0 auto 20px;
+                                    "></div>
+                                    <h3 style="color: #FFD700; margin-bottom: 10px; font-size: 1.3rem;">正在提交報名...</h3>
+                                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1rem;">請稍候，我們正在處理您的資料</p>
+                                </div>
+                            </div>
+                            <style>
+                                @keyframes spin {
+                                    0% { transform: rotate(0deg); }
+                                    100% { transform: rotate(360deg); }
+                                }
+                            </style>
+                        `;
+                        document.body.appendChild(loadingModal);
+                    }
+                    loadingModal.style.display = 'flex';
+                } else {
+                    if (loadingModal) {
+                        loadingModal.style.display = 'none';
+                    }
+                }
+            }
+
             showSubmissionSuccess(success = true, errorMessage = '') {
+                // 隱藏載入狀態
+                this.showLoadingState(false);
+                
+                // 恢復按鈕狀態
+                const submitBtn = document.querySelector('.next-btn');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    if (success) {
+                        submitBtn.textContent = '✅ 報名成功';
+                    } else {
+                        submitBtn.textContent = '🚀 完成報名';
+                    }
+                }
                 const successModal = document.createElement('div');
                 
                 successModal.innerHTML = `
