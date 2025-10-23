@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes, viewport-fit=cover">
     <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
     
     <!-- 2025年趨勢：SEO優化 -->
@@ -27,6 +27,13 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+
         body {
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af);
@@ -34,7 +41,10 @@
             animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite;
             min-height: 100vh;
             overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
         }
 
         @keyframes gradientShift {
@@ -2473,6 +2483,22 @@
 
         /* 手機響應式設計 */
         @media (max-width: 768px) {
+            /* 移動設備滾動優化 */
+            html, body {
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                touch-action: pan-y !important;
+                height: auto !important;
+                min-height: 100vh !important;
+            }
+            
+            /* 確保所有容器不會阻止滾動 */
+            .container, .main-content, .hero, .features, .timeline, .prize-section, .cta-section {
+                overflow: visible !important;
+                position: relative !important;
+            }
+            
             /* 手機版深藍色背景 */
             body {
                 background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af) !important;
@@ -3422,16 +3448,16 @@
 
         /* 超小螢幕響應式設計 */
         @media (max-width: 480px) {
-            /* 超小螢幕最深黑色背景 */
+            /* 超小螢幕保持藍色漸層背景 */
             body {
-                background: linear-gradient(135deg, #000000, #010101, #020202, #030303, #040404) !important;
+                background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af) !important;
                 background-size: 400% 400% !important;
                 animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite !important;
             }
             
             /* 確保超小螢幕背景不被覆蓋 */
             html {
-                background: #000000 !important;
+                background: #1a1a2e !important;
             }
             
             /* 超小螢幕通用文字優化 - 防止不必要的換行 */
@@ -3998,16 +4024,15 @@
             </div>
             
             <div class="hero-description" style="font-size: calc(1rem + 0.2rem);">
-                <p style="margin-bottom: 20px; line-height: 1.6;">
-                    繼上個月《<span style="color: #FF6B6B; font-weight: 700;">投資富人區專場</span>》房產分享會後，<br>
-                    現場眾多置產族、多屋族都被顛覆了三觀！<br>
+                <p style="margin-bottom: 15px; line-height: 1.5;">
+                    繼上個月《<span style="color: #FF6B6B; font-weight: 700;">投資富人區專場</span>》房產分享會後，現場眾多置產族、多屋族都被顛覆了三觀！<br>
                     許多網友留言：「<span style="color: #FFD700; font-weight: 700;">蔣哥</span>，那天<span style="color: #FF6B6B; font-weight: 700;">中秋連假我沒報到</span>！」
                 </p>
-                <p style="margin-bottom: 20px; line-height: 1.6;">
+                <p style="margin-bottom: 15px; line-height: 1.5;">
                     這次，我主打一個——<span style="color: #FFD700; font-weight: 700;">寵粉安可場</span>！<br>
-                    別再錯過這次機會，<span style="color: #FF6B6B; font-weight: 700;">這絕對是最後一場</span>。<br>
                     <span style="color: #FFD700; font-weight: 700;">限額開放</span>的【<span style="color: #4ECDC4; font-weight: 700;">桃園風禾公園第一排｜悅讀伊頓II</span>】<span style="color: #FF6B6B; font-weight: 700;">現場講座</span>，<br>
-                    👉 還會有一位「<span style="color: #FF6B6B; font-weight: 700;">神秘嘉賓</span>」登場。
+                    👉 還會有一位「<span style="color: #FF6B6B; font-weight: 700;">神秘嘉賓</span>」登場。<br>
+                    <span style="color: #FF6B6B; font-weight: 700; font-size: 1.1em;">別再錯過這次機會，這絕對是最後一場！</span>
                 </p>
             </div>
             
@@ -5927,8 +5952,35 @@
             }
         }
 
+        // 移動設備滾動修復
+        function fixMobileScrolling() {
+            // 確保移動設備上的滾動正常工作
+            if ('ontouchstart' in window) {
+                document.body.style.touchAction = 'pan-y';
+                document.body.style.webkitOverflowScrolling = 'touch';
+                document.documentElement.style.touchAction = 'pan-y';
+                
+                // 移除可能阻止滾動的事件監聽器
+                document.addEventListener('touchstart', function(e) {
+                    // 只在特定元素上阻止默認行為
+                    if (e.target.closest('.no-scroll')) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+                
+                // 確保滾動事件正常觸發
+                document.addEventListener('touchmove', function(e) {
+                    // 允許垂直滾動
+                    if (e.touches.length === 1) {
+                        e.stopPropagation();
+                    }
+                }, { passive: true });
+            }
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
+            fixMobileScrolling(); // 修復移動設備滾動
             handleLoadingScreen();
             createParticles();
             handleScrollAnimations();
