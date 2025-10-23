@@ -29,9 +29,17 @@
 
         html {
             overflow-x: hidden;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            touch-action: pan-y;
+        }
+        
+        /* 隱藏滾動條但保持滾動功能 */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        
+        html, body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         body {
@@ -39,12 +47,10 @@
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite;
-            min-height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
             position: relative;
-            -webkit-overflow-scrolling: touch;
-            touch-action: pan-y;
+            line-height: 1.3;
         }
 
         @keyframes gradientShift {
@@ -213,7 +219,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: clamp(15px, 4vw, 30px);
+            padding: clamp(10px, 3vw, 20px);
             position: relative;
             z-index: 10;
         }
@@ -253,9 +259,9 @@
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 4.5vw, 4rem);
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
             font-weight: 900;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             color: rgba(255, 255, 255, 0.92);
             text-shadow: 2px 2px 8px rgba(0,0,0,0.6),
                          0 0 20px rgba(255,255,255,0.2);
@@ -283,7 +289,7 @@
             display: block;
             margin-bottom: 15px;
             text-align: center;
-            font-size: calc(clamp(1.5rem, 4.5vw, 2.2rem) + 0.5rem);
+            font-size: calc(clamp(1.2rem, 3.5vw, 1.8rem) + 0.3rem);
         }
 
         .main-title {
@@ -314,9 +320,9 @@
 
 
         .hero .subtitle {
-            font-size: clamp(1.3rem, 2.8vw, 2.2rem);
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             color: rgba(255, 255, 255, 0.88);
             text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
             letter-spacing: 0.01em;
@@ -572,9 +578,9 @@
 
         .main-content h2 {
             color: rgba(255, 255, 255, 0.90);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
             text-align: center;
             position: relative;
             letter-spacing: -0.01em;
@@ -630,7 +636,7 @@
 
         .timeline-section h3 {
             color: #f8f9fa;
-            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-size: clamp(1.5rem, 3.2vw, 2rem);
             font-weight: 700;
             text-align: center;
             margin-bottom: clamp(25px, 4vw, 40px);
@@ -828,7 +834,7 @@
 
         .prize-section h3 {
             color: #f8f9fa;
-            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            font-size: clamp(1.6rem, 3.2vw, 2rem);
             font-weight: 800;
             margin-bottom: clamp(15px, 3vw, 25px);
             letter-spacing: 0.02em;
@@ -1327,7 +1333,12 @@
         /* 平板響應式設計 */
         @media (max-width: 1024px) and (min-width: 769px) {
             .container {
-                padding: 20px;
+                padding: 15px;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 20px !important;
             }
             
             .main-content {
@@ -1344,12 +1355,12 @@
             }
             
             .hero h1 {
-                font-size: clamp(2.5rem, 5vw, 3.5rem);
+                font-size: clamp(1.9rem, 4vw, 2.6rem);
             }
             
             .cta-button {
-                padding: clamp(15px, 3vw, 20px) clamp(25px, 5vw, 40px);
-                font-size: 1.2rem;
+                padding: clamp(12px, 2.5vw, 18px) clamp(20px, 4vw, 35px);
+                font-size: 1.1rem;
             }
             
             .instagram-link {
@@ -1451,9 +1462,9 @@
 
         .testimonials-section h3 {
             color: #f8f9fa;
-            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
             font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
 
@@ -1461,8 +1472,8 @@
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-top: 25px;
         }
         
         /* 確保桌面版佈局 */
@@ -1470,8 +1481,8 @@
             .testimonials-grid {
                 display: grid !important;
                 grid-template-columns: repeat(3, 1fr) !important;
-                gap: 30px !important;
-                margin-top: 30px !important;
+                gap: 25px !important;
+                margin-top: 25px !important;
                 max-height: none !important;
                 overflow-y: visible !important;
                 padding-right: 0 !important;
@@ -1695,9 +1706,9 @@
 
         .form-preview-section h3 {
             color: #f8f9fa;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
 
@@ -2487,10 +2498,7 @@
             html, body {
                 overflow-x: hidden !important;
                 overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                touch-action: pan-y !important;
                 height: auto !important;
-                min-height: 100vh !important;
             }
             
             /* 確保所有容器不會阻止滾動 */
@@ -2538,7 +2546,7 @@
             }
             
             .container {
-                padding: 5px;
+                padding: 8px;
                 /* 優化容器寬度，確保內容完整顯示 */
                 max-width: 100vw;
                 width: 100%;
@@ -2649,7 +2657,7 @@
             
             /* 手機版主標題優化 */
             .main-content h2 {
-                font-size: clamp(1.8rem, 5.5vw, 2.5rem) !important;
+                font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
                 font-weight: 800 !important;
                 margin-bottom: 25px !important;
                 /* 優化標題文字換行 */
@@ -2691,7 +2699,7 @@
             
             /* 手機版粉絲案例標題優化 */
             .testimonials-section h3 {
-                font-size: clamp(1.8rem, 5.2vw, 2.2rem) !important;
+                font-size: clamp(1.6rem, 4.5vw, 2rem) !important;
                 font-weight: 700 !important;
                 margin-bottom: 30px !important;
                 /* 優化案例標題文字換行 */
@@ -2938,8 +2946,8 @@
             }
             
             .hero h1 {
-                font-size: clamp(2rem, 5.5vw, 3.8rem);
-                margin-bottom: 20px;
+                font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+                margin-bottom: 18px;
                 line-height: 1.2;
                 /* 優化Hero標題文字換行 */
                 word-wrap: break-word;
@@ -2951,12 +2959,12 @@
             
             /* 手機版標題布局優化 */
             .limited-text {
-                font-size: calc(clamp(1.5rem, 4.5vw, 2.2rem) + 0.5rem);
-                margin-bottom: 12px;
+                font-size: calc(clamp(1.2rem, 3.5vw, 1.8rem) + 0.3rem);
+                margin-bottom: 10px;
             }
             
             .main-title {
-                font-size: clamp(1.8rem, 5.5vw, 2.8rem);
+                font-size: clamp(1.5rem, 4.5vw, 2.2rem);
                 line-height: 1.2;
             }
             
@@ -2966,8 +2974,8 @@
             }
             
             .hero .subtitle {
-                font-size: clamp(1.4rem, 4.5vw, 2rem);
-                margin-bottom: 25px;
+                font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+                margin-bottom: 20px;
                 line-height: 1.3;
                 /* 優化副標題文字換行 */
                 word-wrap: break-word;
@@ -3012,20 +3020,21 @@
                 font-size: 1.8rem;
             }
             
-            /* 手機版粉絲成功案例佈局 - 水平滾動 */
+            /* 手機版粉絲成功案例佈局 - 3欄水平滾動 */
             .testimonials-grid {
                 display: flex !important;
                 flex-direction: row !important;
-                gap: 20px !important;
+                gap: 15px !important;
                 overflow-x: auto !important;
                 overflow-y: hidden !important;
                 padding: 0 0 15px 0 !important;
                 margin-top: 30px !important;
                 max-height: none !important;
-                grid-template-columns: none !important;
                 scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
             }
             
+            /* 手機版滾動條樣式 */
             .testimonials-grid::-webkit-scrollbar {
                 height: 6px;
             }
@@ -3046,10 +3055,10 @@
             
             /* 手機版單個案例卡片樣式 */
             .testimonial-card {
-                flex: 0 0 280px !important;
-                min-width: 280px !important;
-                max-width: 280px !important;
-                padding: 25px 20px !important;
+                flex: 0 0 250px !important;
+                min-width: 250px !important;
+                max-width: 250px !important;
+                padding: 20px 15px !important;
             }
             
             .testimonial-card {
@@ -3774,26 +3783,26 @@
             }
             
             
-            /* 超小螢幕粉絲成功案例佈局 - 水平滾動 */
+            /* 超小螢幕粉絲成功案例佈局 - 3欄水平滾動 */
             .testimonials-grid {
                 display: flex !important;
                 flex-direction: row !important;
-                gap: 15px !important;
+                gap: 12px !important;
                 overflow-x: auto !important;
                 overflow-y: hidden !important;
                 padding: 0 0 12px 0 !important;
                 margin-top: 25px !important;
                 max-height: none !important;
-                grid-template-columns: none !important;
                 scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
             }
             
             /* 超小螢幕單個案例卡片樣式 */
             .testimonial-card {
-                flex: 0 0 250px !important;
-                min-width: 250px !important;
-                max-width: 250px !important;
-                padding: 20px 15px !important;
+                flex: 0 0 220px !important;
+                min-width: 220px !important;
+                max-width: 220px !important;
+                padding: 18px 12px !important;
             }
             
             /* 超小螢幕性別選擇調整 */
@@ -5956,10 +5965,6 @@
         function fixMobileScrolling() {
             // 確保移動設備上的滾動正常工作
             if ('ontouchstart' in window) {
-                document.body.style.touchAction = 'pan-y';
-                document.body.style.webkitOverflowScrolling = 'touch';
-                document.documentElement.style.touchAction = 'pan-y';
-                
                 // 移除可能阻止滾動的事件監聽器
                 document.addEventListener('touchstart', function(e) {
                     // 只在特定元素上阻止默認行為
@@ -5967,21 +5972,62 @@
                         e.preventDefault();
                     }
                 }, { passive: false });
-                
-                // 確保滾動事件正常觸發
-                document.addEventListener('touchmove', function(e) {
-                    // 允許垂直滾動
-                    if (e.touches.length === 1) {
-                        e.stopPropagation();
-                    }
-                }, { passive: true });
             }
+        }
+
+        // 粉絲成功案例自動滾動
+        function initTestimonialsAutoScroll() {
+            const testimonialsGrid = document.querySelector('.testimonials-grid');
+            if (!testimonialsGrid) return;
+
+            let scrollPosition = 0;
+            const scrollSpeed = 0.5; // 滾動速度 (px/frame)
+            const scrollDirection = 1; // 1 = 向右, -1 = 向左
+            let isScrolling = true;
+
+            function autoScroll() {
+                if (!isScrolling) return;
+
+                const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+                
+                if (scrollPosition >= maxScroll) {
+                    scrollPosition = 0; // 回到開始位置
+                } else {
+                    scrollPosition += scrollSpeed * scrollDirection;
+                }
+
+                testimonialsGrid.scrollLeft = scrollPosition;
+                requestAnimationFrame(autoScroll);
+            }
+
+            // 暫停自動滾動當用戶手動滾動時
+            testimonialsGrid.addEventListener('scroll', function() {
+                isScrolling = false;
+                setTimeout(() => {
+                    isScrolling = true;
+                    scrollPosition = testimonialsGrid.scrollLeft;
+                }, 3000); // 3秒後恢復自動滾動
+            });
+
+            // 暫停自動滾動當滑鼠懸停時
+            testimonialsGrid.addEventListener('mouseenter', function() {
+                isScrolling = false;
+            });
+
+            testimonialsGrid.addEventListener('mouseleave', function() {
+                isScrolling = true;
+                scrollPosition = testimonialsGrid.scrollLeft;
+            });
+
+            // 開始自動滾動
+            autoScroll();
         }
 
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             fixMobileScrolling(); // 修復移動設備滾動
             handleLoadingScreen();
+            initTestimonialsAutoScroll(); // 初始化粉絲成功案例自動滾動
             createParticles();
             handleScrollAnimations();
             handleBackToTop();
