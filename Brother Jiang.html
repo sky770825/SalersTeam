@@ -27,16 +27,78 @@
             box-sizing: border-box;
         }
 
-        /* 只隱藏容器的滾動條，保留頁面主滾動條 */
-        .container, .main-content, .testimonials-section, .form-preview-section, .prize-section, .testimonials-carousel, .testimonials-grid {
+        /* 完全隱藏所有容器的滾動條，只保留頁面主滾動條 */
+        * {
             scrollbar-width: none !important;
             -ms-overflow-style: none !important;
         }
 
-        .container::-webkit-scrollbar, .main-content::-webkit-scrollbar, .testimonials-section::-webkit-scrollbar, 
-        .form-preview-section::-webkit-scrollbar, .prize-section::-webkit-scrollbar, 
-        .testimonials-carousel::-webkit-scrollbar, .testimonials-grid::-webkit-scrollbar {
+        *::-webkit-scrollbar {
             display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* 特別針對可能產生滾動條的容器 */
+        .container, .testimonials-section, .form-preview-section, .prize-section, 
+        .testimonials-carousel, .testimonials-grid, .testimonials-carousel-container,
+        .credentials-section, .questions-section, .countdown-section, .highlights-section,
+        .hero, .features-grid, .cta-section {
+            overflow-x: hidden !important;
+            overflow-y: visible !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .container::-webkit-scrollbar, .testimonials-section::-webkit-scrollbar, 
+        .form-preview-section::-webkit-scrollbar, .prize-section::-webkit-scrollbar, 
+        .testimonials-carousel::-webkit-scrollbar, .testimonials-grid::-webkit-scrollbar,
+        .testimonials-carousel-container::-webkit-scrollbar, .credentials-section::-webkit-scrollbar,
+        .questions-section::-webkit-scrollbar, .countdown-section::-webkit-scrollbar,
+        .highlights-section::-webkit-scrollbar, .hero::-webkit-scrollbar, .features-grid::-webkit-scrollbar,
+        .cta-section::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* 強制隱藏所有可能的滾動條，包括內聯樣式 */
+        div[style*="overflow"], iframe, video, embed, object {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        div[style*="overflow"]::-webkit-scrollbar, iframe::-webkit-scrollbar, 
+        video::-webkit-scrollbar, embed::-webkit-scrollbar, object::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* 只保留html和body的滾動條 */
+        html, body {
+            scrollbar-width: thin !important;
+            scrollbar-color: #4ECDC4 rgba(255, 255, 255, 0.1) !important;
+        }
+
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            display: block !important;
+            width: 8px !important;
+        }
+
+        html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 4px !important;
+        }
+
+        html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #FF5252, #26A69A) !important;
         }
 
         /* 手機版滾動修復 */
@@ -60,7 +122,7 @@
             }
             
             /* 確保主要內容區域可以滾動 */
-            .main-content, .container {
+            .container {
                 overflow-x: hidden !important;
                 overflow-y: visible !important;
                 height: 100% !important;
@@ -68,49 +130,6 @@
             }
         }
 
-        /* 頁面主滾動條樣式 */
-        html {
-            scrollbar-width: thin;
-            scrollbar-color: #4ECDC4 rgba(255, 255, 255, 0.1);
-        }
-
-        html::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        html::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-
-        html::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        html::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #FF5252, #26A69A);
-        }
-
-        body::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        body::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-
-        body::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        body::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #FF5252, #26A69A);
-        }
 
         body {
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -131,13 +150,24 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             /* 防止手機版底部跳動 */
-            padding-bottom: env(safe-area-inset-bottom);
+            padding-bottom: 0;
             -webkit-overflow-scrolling: touch;
-            /* 確保body有滾動條 */
-            scrollbar-width: thin;
-            scrollbar-color: #4ECDC4 rgba(255, 255, 255, 0.1);
         }
 
+
+        /* Footer 樣式 */
+        .footer {
+            text-align: center;
+            padding: 20px 0 10px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer p {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
 
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
@@ -1980,7 +2010,7 @@
 
         /* 表單預覽樣式 */
         .form-preview-section {
-            margin: 50px 0;
+            margin: 20px 0;
             text-align: center;
         }
 
@@ -2005,7 +2035,7 @@
 
         .form-preview-card {
             position: relative;
-            min-height: 400px;
+            min-height: 300px;
         }
 
         .form-step {
@@ -3164,39 +3194,28 @@
                 overflow: hidden;
             }
             
-            /* 手機版協作品牌廣告區優化 */
-            .partner-brands-section {
-                margin: 15px 0 0px 0 !important;
-                padding: 20px 15px !important;
-            }
             
-            .partner-brands-section h3 {
-                font-size: 1.5rem !important;
-                margin-bottom: 25px !important;
-            }
-            
-            .brands-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 15px !important;
-            }
-            
-            .brand-card {
-                padding: 15px !important;
-            }
-            
-            .brand-card h4 {
-                font-size: 1rem !important;
-            }
-            
-            .brand-card p {
+            /* 手機版Footer緊湊化 */
+            .footer {
+                padding: 10px 0 5px !important;
                 font-size: 0.8rem !important;
             }
             
-            /* 手機版底部卡片間距優化 */
-            footer {
-                margin-top: 0px !important;
-                padding: 20px 15px !important;
+            /* 手機版移除多餘的底部間距 */
+            body {
+                padding-bottom: 0 !important;
+                margin-bottom: 0 !important;
             }
+            
+            /* 手機版縮小所有區塊的底部間距 */
+            .hero, .questions-section, .highlights-section, .testimonials-section, .form-preview-section, .prize-section {
+                margin-bottom: 15px !important;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                margin-bottom: 15px !important;
+            }
+            
             
             .mobile-call-button::before, .mobile-whatsapp-button::before {
                 content: '';
@@ -3323,15 +3342,17 @@
                 font-size: 1.8rem;
             }
             
-            /* 手機版輪播樣式 - 移除滾動條 */
+            /* 手機版輪播樣式 - 使用JavaScript控制 */
             .testimonials-carousel {
                 flex-direction: row !important;
-                overflow-x: hidden !important;
-                overflow-y: hidden !important;
+                overflow: hidden !important;
                 scroll-behavior: smooth !important;
                 /* 移除滾動條 */
                 scrollbar-width: none !important;
                 -ms-overflow-style: none !important;
+                /* 觸摸滑動 */
+                touch-action: pan-x !important;
+                -webkit-overflow-scrolling: touch !important;
             }
 
             .testimonials-carousel::-webkit-scrollbar {
@@ -3339,14 +3360,16 @@
             }
 
             .testimonials-carousel .testimonial-card {
-                flex: 0 0 min(280px, 85vw) !important;
-                min-width: min(280px, 85vw) !important;
-                max-width: min(280px, 85vw) !important;
+                flex: 0 0 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                width: 100% !important;
             }
 
             .carousel-controls {
                 display: none !important; /* 手機版隱藏控制按鈕 */
             }
+            
 
             .carousel-dots {
                 margin-top: 15px !important;
@@ -3380,9 +3403,10 @@
             
             /* 手機版單個案例卡片樣式 */
             .testimonial-card {
-                flex: 0 0 min(280px, 85vw) !important;
-                min-width: min(280px, 85vw) !important;
-                max-width: min(280px, 85vw) !important;
+                flex: 0 0 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                width: 100% !important;
                 padding: 25px 20px !important;
             }
             
@@ -3447,8 +3471,12 @@
             
             /* 手機版表單調整 */
             .form-preview-container {
-                padding: 25px 20px;
+                padding: 20px 15px;
                 margin: 0 10px;
+            }
+            
+            .form-preview-card {
+                min-height: 250px !important;
             }
             
             /* 手機版表單內性別選擇按鈕 */
@@ -3826,6 +3854,7 @@
                 padding: 10px;
             }
             
+            
             /* 超小螢幕文字保持與桌面版一致的可讀性 */
             
             .hero h1 {
@@ -4155,9 +4184,10 @@
             
             /* 超小螢幕單個案例卡片樣式 */
             .testimonial-card {
-                flex: 0 0 min(250px, 80vw) !important;
-                min-width: min(250px, 80vw) !important;
-                max-width: min(250px, 80vw) !important;
+                flex: 0 0 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                width: 100% !important;
                 padding: 20px 15px !important;
             }
             
@@ -4395,7 +4425,7 @@
             
             <!-- 蔣哥說明會宣傳影片 -->
             <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 840px;">
-                <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1);">
+                <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1); scrollbar-width: none; -ms-overflow-style: none;">
                     <iframe width="840" height="773" src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
                 </div>
                 <p style="color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-top: 15px; font-weight: 500;">
@@ -4855,89 +4885,6 @@
             </div>
         </div>
 
-        <!-- 協作品牌廣告區 -->
-        <div class="partner-brands-section fade-in" style="
-            margin: 30px 0 5px 0;
-            padding: 20px 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        ">
-            <div class="container">
-                <h3 style="
-                    text-align: center;
-                    color: #FFD700;
-                    font-size: 1.8rem;
-                    font-weight: 700;
-                    margin-bottom: 30px;
-                    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-                ">
-                    🤝 協作品牌夥伴
-                </h3>
-                
-                <div class="brands-grid" style="
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 20px;
-                    margin-bottom: 30px;
-                    justify-items: center;
-                    align-items: center;
-                ">
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🏠</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">包租代管專家</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">專業房源管理團隊</p>
-                    </div>
-                    
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🔧</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">裝修工程團隊</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">室內設計與施工</p>
-                    </div>
-                    
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">💰</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">金融投資顧問</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">房貸與理財規劃</p>
-                    </div>
-                    
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">⚖️</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">法律建築團隊</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">專業法務支援</p>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
 
         <div class="cta-section fade-in">
             
@@ -6414,6 +6361,8 @@
             // 根據螢幕大小決定顯示數量
             if (window.innerWidth <= 768) {
                 slidesToShow = 1;
+                // 手機版添加觸摸滑動功能
+                addTouchSwipe(carousel);
             } else if (window.innerWidth <= 1024) {
                 slidesToShow = 2;
             } else {
@@ -6432,6 +6381,51 @@
                     moveCarousel(1);
                 }
             }, 5000);
+        }
+
+        // 手機版觸摸滑動功能
+        function addTouchSwipe(carousel) {
+            let startX = 0;
+            let startY = 0;
+            let isScrolling = false;
+
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                isScrolling = false;
+            }, { passive: true });
+
+            carousel.addEventListener('touchmove', (e) => {
+                if (!startX || !startY) return;
+                
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                const diffX = Math.abs(currentX - startX);
+                const diffY = Math.abs(currentY - startY);
+                
+                if (diffX > diffY) {
+                    isScrolling = true;
+                }
+            }, { passive: true });
+
+            carousel.addEventListener('touchend', (e) => {
+                if (!startX || !startY || !isScrolling) return;
+                
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+                
+                if (Math.abs(diffX) > 50) { // 滑動距離超過50px才觸發
+                    if (diffX > 0) {
+                        moveCarousel(1); // 向左滑動，顯示下一張
+                    } else {
+                        moveCarousel(-1); // 向右滑動，顯示上一張
+                    }
+                }
+                
+                startX = 0;
+                startY = 0;
+                isScrolling = false;
+            }, { passive: true });
         }
 
         function createDots() {
@@ -6528,6 +6522,15 @@
             
             // 初始化輪播功能
             initTestimonialsCarousel();
+            
+            // 調試：檢查輪播狀態
+            setTimeout(() => {
+                const carousel = document.getElementById('testimonialsCarousel');
+                const cards = carousel ? carousel.querySelectorAll('.testimonial-card') : [];
+                console.log('輪播卡片數量:', cards.length);
+                console.log('當前顯示數量:', slidesToShow);
+                console.log('總頁數:', Math.ceil(cards.length / slidesToShow));
+            }, 1000);
             
             // 開發者工具：查看AI分析結果
             window.aiAnalytics = () => {
@@ -6641,24 +6644,9 @@
         document.head.appendChild(style);
     </script>
 
+<footer class="footer">
+  <p>© 2025 房產擺渡人 YT「蔣哥」</p>
+</footer>
 
-    <!-- 版權資訊 -->
-    <footer style="
-        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-        padding: 20px 15px;
-        text-align: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    ">
-        <div class="container">
-            <div style="
-                color: rgba(255, 255, 255, 0.6);
-                font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            ">
-                <p style="margin: 0;">
-                    © 2025 房產擺渡人 YT「蔣哥」
-                </p>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>
