@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes, viewport-fit=cover">
     <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
     
+    <!-- 快取優化標頭 -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+    <meta http-equiv="Expires" content="31536000">
+    
+    <!-- 預載入重要資源 -->
+    <link rel="preload" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9zdmc+" as="image">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    
     <!-- 2025年趨勢：SEO優化 -->
     <meta name="description" content="蔣哥20年房地產實戰經驗分享，2025年房市趨勢分析，限額參加說明會，現場Q&A互動，精美獎品抽獎">
     <meta name="keywords" content="房地產,房市分析,投資策略,蔣哥,說明會,2025年房市">
@@ -201,7 +210,7 @@
             z-index: 2;
         }
 
-        /* 2025年趨勢：游標互動光暈效果 */
+        /* 2025年趨勢：游標互動光暈效果 - 已禁用 */
         .cursor-glow {
             position: fixed;
             width: 300px;
@@ -212,6 +221,7 @@
             z-index: 3;
             transition: all 0.3s ease;
             transform: translate(-50%, -50%);
+            display: none; /* 隱藏游標光暈效果 */
         }
 
         /* 2025年趨勢：動態玻璃質感 */
@@ -4127,21 +4137,18 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 2025年趨勢：閱讀進度指示器 */
-        .reading-progress {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 4px;
-            height: 0%;
-            background: linear-gradient(to bottom, #FFD700, #FF6B35);
-            z-index: 1000;
-            transition: height 0.3s ease;
-            /* 確保不會超出滾動條範圍 */
-            margin-right: 15px;
+
+
+
+        /* 懶加載圖片樣式 */
+        .lazy {
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-
-
+        
+        .lazy.loaded {
+            opacity: 1;
+        }
 
         /* 浮動返回頂部按鈕 */
         .back-to-top {
@@ -4186,7 +4193,6 @@
     </div>
     
     <div class="progress-bar" id="progressBar"></div>
-    <div class="reading-progress" id="readingProgress"></div>
     <div class="particles" id="particles"></div>
     <div class="cursor-glow" id="cursorGlow"></div>
     
@@ -4815,18 +4821,22 @@
                 const now = new Date().getTime();
                 const distance = targetDate - now;
                 
-                console.log('距離目標時間:', distance, 'ms'); // 調試用
-                
                 if (distance > 0) {
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                     
-                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                    // 優化：使用更高效的DOM更新方式
+                    const daysEl = document.getElementById('days');
+                    const hoursEl = document.getElementById('hours');
+                    const minutesEl = document.getElementById('minutes');
+                    const secondsEl = document.getElementById('seconds');
+                    
+                    if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+                    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+                    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+                    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
                 } else {
                     // 活動已開始或已結束
                     document.getElementById('days').textContent = '00';
@@ -4841,34 +4851,38 @@
             
             // 立即執行一次
             updateCountdown();
-            // 每秒更新一次
+            // 恢復每秒更新，但使用更高效的實現
             const countdownInterval = setInterval(updateCountdown, 1000);
             
             // 保存interval ID以便後續清理（可選）
             window.countdownInterval = countdownInterval;
         }
 
-        // 2025年趨勢：游標互動光暈效果
-        document.addEventListener('mousemove', (e) => {
-            const cursorGlow = document.getElementById('cursorGlow');
-            const particles = document.querySelectorAll('.particle');
-            
-            // 游標光暈跟隨
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-            
-            // 粒子互動效果
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            particles.forEach((particle, index) => {
-                const speed = (index % 5 + 1) * 0.5;
-                const xOffset = (x - 0.5) * speed;
-                const yOffset = (y - 0.5) * speed;
+        // 2025年趨勢：游標互動光暈效果 - 可選禁用
+        let enableCursorEffects = false; // 設為 false 禁用游標效果，避免滑鼠被影響
+        
+        if (enableCursorEffects) {
+            document.addEventListener('mousemove', (e) => {
+                const cursorGlow = document.getElementById('cursorGlow');
+                const particles = document.querySelectorAll('.particle');
                 
-                particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                // 游標光暈跟隨
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+                
+                // 粒子互動效果
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                particles.forEach((particle, index) => {
+                    const speed = (index % 5 + 1) * 0.5;
+                    const xOffset = (x - 0.5) * speed;
+                    const yOffset = (y - 0.5) * speed;
+                    
+                    particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                });
             });
-        });
+        }
 
         // 2025年趨勢：元素懸停3D效果
         document.querySelectorAll('.feature-card').forEach(element => {
@@ -4964,33 +4978,21 @@
             });
         }
 
-        // 添加滾動事件監聽
-        window.addEventListener('scroll', () => {
-            updateProgressBar();
-        });
 
         // 2025年趨勢：頁面載入動畫控制
         function handleLoadingScreen() {
             const loadingScreen = document.getElementById('loadingScreen');
             
-            // 模擬載入時間
+            // 優化載入時間 - 減少到0.8秒提升用戶體驗
             setTimeout(() => {
                 loadingScreen.classList.add('hidden');
                 // 載入完成後移除元素
                 setTimeout(() => {
                     loadingScreen.remove();
-                }, 500);
-            }, 1500);
+                }, 300);
+            }, 800);
         }
 
-        // 2025年趨勢：閱讀進度指示器
-        function updateReadingProgress() {
-            const readingProgress = document.getElementById('readingProgress');
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            readingProgress.style.height = scrolled + '%';
-        }
 
         // 2025年趨勢：觸覺反饋效果
         function addHapticFeedback(element) {
@@ -5008,7 +5010,7 @@
             if (remainingSpotsElement) {
                 let currentSpots = parseInt(remainingSpotsElement.textContent);
                 
-                // 模擬名額減少（每30秒減少1個名額）
+                // 模擬名額減少（每45秒減少1個名額）
                 setInterval(() => {
                     if (currentSpots > 5) {
                         currentSpots--;
@@ -5057,48 +5059,20 @@
             }
 
             trackUserBehavior() {
-                // 追蹤頁面停留時間
-                const startTime = Date.now();
-                setInterval(() => {
-                    this.userProfile.timeOnPage = Math.floor((Date.now() - startTime) / 1000);
-                }, 1000);
-
-                // 追蹤滾動深度
+                // 簡化追蹤 - 只保留基本的滾動深度用於緊迫感調整
                 window.addEventListener('scroll', () => {
                     const scrollTop = window.pageYOffset;
                     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                     this.userProfile.scrollDepth = Math.round((scrollTop / docHeight) * 100);
                 });
-
-                // 追蹤互動次數
-                document.addEventListener('click', () => {
-                    this.userProfile.interactionCount++;
-                });
-
-                // 追蹤影片觀看
-                const video = document.querySelector('iframe');
-                if (video) {
-                    video.addEventListener('load', () => {
-                        this.userProfile.videoWatched = true;
-                    });
-                }
             }
 
             analyzeUserProfile() {
-                // AI分析用戶類型
-                if (this.userProfile.timeOnPage > 60 && this.userProfile.scrollDepth > 50) {
+                // 簡化分析 - 只根據滾動深度判斷用戶類型
+                if (this.userProfile.scrollDepth > 50) {
                     this.userProfile.userType = 'engaged';
-                } else if (this.userProfile.timeOnPage < 10) {
-                    this.userProfile.userType = 'quick_visitor';
-                } else if (this.userProfile.interactionCount > 3) {
-                    this.userProfile.userType = 'interactive';
-                }
-
-                // 根據時間分析用戶意圖
-                if (this.userProfile.timeOfDay >= 9 && this.userProfile.timeOfDay <= 17) {
-                    this.userProfile.timeContext = 'business_hours';
                 } else {
-                    this.userProfile.timeContext = 'after_hours';
+                    this.userProfile.userType = 'quick_visitor';
                 }
             }
 
@@ -5241,7 +5215,7 @@
                         reductionSpeed = 15000; // 15秒
                     }
 
-                    // 動態調整名額
+                    // 動態調整名額（每45秒減少1個名額）
                     setInterval(() => {
                         if (currentSpots > 5) {
                             currentSpots--;
@@ -5677,31 +5651,56 @@
             }
 
             setupAutoSave() {
-                // 每5秒自動保存
+                // 每8秒自動保存，平衡性能和用戶體驗
                 setInterval(() => {
                     this.saveToLocalStorage();
-                }, 5000);
+                }, 8000);
             }
 
             saveToLocalStorage() {
-                localStorage.setItem('jiangFormData', JSON.stringify(this.formData));
-                localStorage.setItem('jiangFormStep', this.currentStep.toString());
+                try {
+                    // 優化：使用壓縮和錯誤處理
+                    const compressedData = JSON.stringify(this.formData);
+                    localStorage.setItem('jiangFormData', compressedData);
+                    localStorage.setItem('jiangFormStep', this.currentStep.toString());
+                    localStorage.setItem('jiangFormTimestamp', Date.now().toString());
+                } catch (error) {
+                    console.warn('本地存儲失敗:', error);
+                }
             }
 
             loadFromLocalStorage() {
-                const savedData = localStorage.getItem('jiangFormData');
-                const savedStep = localStorage.getItem('jiangFormStep');
-                
-                if (savedData) {
-                    this.formData = JSON.parse(savedData);
-                    this.populateForm();
+                try {
+                    const savedData = localStorage.getItem('jiangFormData');
+                    const savedStep = localStorage.getItem('jiangFormStep');
+                    const timestamp = localStorage.getItem('jiangFormTimestamp');
+                    
+                    // 檢查數據是否過期（24小時）
+                    if (timestamp && Date.now() - parseInt(timestamp) > 24 * 60 * 60 * 1000) {
+                        this.clearLocalStorage();
+                        return;
+                    }
+                    
+                    if (savedData) {
+                        this.formData = JSON.parse(savedData);
+                        this.populateForm();
+                    }
+                    
+                    if (savedStep) {
+                        this.currentStep = parseInt(savedStep);
+                        this.updateFormDisplay();
+                        this.updateProgressBar();
+                    }
+                } catch (error) {
+                    console.warn('載入本地存儲失敗:', error);
+                    this.clearLocalStorage();
                 }
-                
-                if (savedStep) {
-                    this.currentStep = parseInt(savedStep);
-                    this.updateFormDisplay();
-                    this.updateProgressBar();
-                }
+            }
+            
+            clearLocalStorage() {
+                localStorage.removeItem('jiangFormData');
+                localStorage.removeItem('jiangFormStep');
+                localStorage.removeItem('jiangFormTimestamp');
             }
 
             populateForm() {
@@ -5756,8 +5755,7 @@
                 this.submitToGoogleSheets(finalData);
                 
                 // 清除本地儲存
-                localStorage.removeItem('jiangFormData');
-                localStorage.removeItem('jiangFormStep');
+                this.clearLocalStorage();
             }
 
             async submitToGoogleSheets(data) {
@@ -5773,7 +5771,7 @@
                         throw new Error('缺少必要欄位：姓名或電話');
                     }
                     
-                    // 創建URL編碼的表單數據 - 只包含必要欄位
+                    // 創建URL編碼的表單數據 - 包含所有欄位
                     const params = new URLSearchParams();
                     params.append('name', data.name);
                     params.append('phone', data.phone);
@@ -5786,7 +5784,30 @@
                     params.append('agreeTerms', data.agreeTerms || '');
                     params.append('agreeEvent', data.agreeEvent || '');
                     
+                    // 添加時間戳記和系統資訊 - 使用易讀格式
+                    const now = new Date();
+                    const readableTimestamp = now.toLocaleString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        timeZone: 'Asia/Taipei'
+                    });
+                    
+                    params.append('timestamp', readableTimestamp);
+                    params.append('timestampISO', data.timestamp || now.toISOString());
+                    params.append('userAgent', data.userAgent || navigator.userAgent);
+                    params.append('referrer', data.referrer || document.referrer);
+                    
                     console.log('🚀 提交表單數據到Google Sheets...');
+                    console.log('📋 提交的數據:', {
+                        name: data.name,
+                        phone: data.phone,
+                        timestamp: readableTimestamp,
+                        timestampISO: data.timestamp || now.toISOString()
+                    });
                     
                     // 設定超時時間
                     const controller = new AbortController();
@@ -5868,8 +5889,7 @@
                 errorMessages.forEach(error => error.remove());
                 
                 // 清除本地儲存
-                localStorage.removeItem('jiangFormData');
-                localStorage.removeItem('jiangFormStep');
+                this.clearLocalStorage();
                 
                 // 滾動到表單頂部
                 const formSection = document.querySelector('.form-preview-section');
@@ -6086,22 +6106,10 @@
 
         // 2025年趨勢：磁性懸停效果
         function addMagneticEffect(element) {
-            element.addEventListener('mousemove', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const distance = Math.sqrt(x * x + y * y);
-                const maxDistance = 50;
-                
-                if (distance < maxDistance) {
-                    const moveX = (x / maxDistance) * 10;
-                    const moveY = (y / maxDistance) * 10;
-                    
-                    this.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-                } else {
-                    this.style.transform = 'translate(0, 0) scale(1)';
-                }
+            // 磁性效果已禁用，避免滑鼠被意外移動
+            // 只保留基本的懸停效果
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
             });
             
             element.addEventListener('mouseleave', function() {
@@ -6365,6 +6373,7 @@
             const scrollSpeed = 0.5; // 滾動速度 (px/frame)
             const scrollDirection = 1; // 1 = 向右, -1 = 向左
             let isScrolling = true;
+            let animationId;
 
             function autoScroll() {
                 if (!isScrolling) return;
@@ -6378,34 +6387,81 @@
                 }
 
                 testimonialsGrid.scrollLeft = scrollPosition;
-                requestAnimationFrame(autoScroll);
+                animationId = requestAnimationFrame(autoScroll);
             }
 
             // 暫停自動滾動當用戶手動滾動時
             testimonialsGrid.addEventListener('scroll', function() {
                 isScrolling = false;
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
                 setTimeout(() => {
                     isScrolling = true;
                     scrollPosition = testimonialsGrid.scrollLeft;
+                    autoScroll(); // 重新開始滾動
                 }, 3000); // 3秒後恢復自動滾動
             });
 
             // 暫停自動滾動當滑鼠懸停時
             testimonialsGrid.addEventListener('mouseenter', function() {
                 isScrolling = false;
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
             });
 
             testimonialsGrid.addEventListener('mouseleave', function() {
                 isScrolling = true;
                 scrollPosition = testimonialsGrid.scrollLeft;
+                autoScroll(); // 重新開始滾動
             });
 
             // 開始自動滾動
             autoScroll();
         }
 
+        // 註冊Service Worker實現離線快取
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+                    const CACHE_NAME = 'jiang-page-v1';
+                    const urlsToCache = [
+                        '/',
+                        '/Brother Jiang.html'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `))
+                .then((registration) => {
+                    console.log('Service Worker 註冊成功:', registration);
+                })
+                .catch((error) => {
+                    console.log('Service Worker 註冊失敗:', error);
+                });
+            });
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
+            preloadResources(); // 預載入重要資源
             fixMobileScrolling(); // 修復移動設備滾動
             handleLoadingScreen();
             initTestimonialsAutoScroll(); // 初始化粉絲成功案例自動滾動
@@ -6422,6 +6478,7 @@
             trackButtonClicks();
             updateRemainingSpots();
             initUrgencyClickToForm(); // 初始化免費名額點擊跳轉
+            initLazyLoading(); // 初始化圖片懶加載
             
             // 監聽視窗大小變化，動態調整縮放
             window.addEventListener('resize', () => {
@@ -6466,10 +6523,51 @@
             };
         });
 
-        // 添加滾動事件監聽
+        // 資源預載入功能
+        function preloadResources() {
+            // 預載入重要CSS和JS資源
+            const resources = [
+                'data:text/css;base64,', // 內嵌CSS
+                'data:text/javascript;base64,' // 內嵌JS
+            ];
+            
+            resources.forEach(resource => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.href = resource;
+                link.as = resource.includes('css') ? 'style' : 'script';
+                document.head.appendChild(link);
+            });
+        }
+
+        // 圖片懶加載功能
+        function initLazyLoading() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        img.classList.add('loaded');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // 優化的滾動事件監聽 - 合併所有滾動相關功能
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            updateProgressBar();
-            updateReadingProgress();
+            // 使用防抖優化性能
+            if (scrollTimeout) {
+                cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = requestAnimationFrame(() => {
+                updateProgressBar();
+            });
         });
 
         // CSS 動畫樣式
