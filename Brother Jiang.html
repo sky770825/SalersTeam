@@ -39,6 +39,34 @@
             display: none !important;
         }
 
+        /* 手機版滾動修復 */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                height: auto !important;
+                min-height: 100vh !important;
+                touch-action: pan-y !important;
+                overscroll-behavior: contain !important;
+            }
+            
+            /* 確保所有固定元素不會干擾滾動 */
+            .mobile-cta-sticky, .back-to-top, .progress-bar, .reading-progress {
+                transform: translateZ(0) !important;
+                -webkit-transform: translateZ(0) !important;
+                will-change: transform !important;
+                touch-action: manipulation !important;
+            }
+            
+            /* 確保主要內容區域可以滾動 */
+            .main-content, .container {
+                overflow: visible !important;
+                height: auto !important;
+                min-height: auto !important;
+            }
+        }
+
         /* 頁面主滾動條樣式 */
         html {
             scrollbar-width: thin;
@@ -91,7 +119,7 @@
             /* animation: gradientShift 30s ease infinite; */
             min-height: 100vh;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: scroll;
             position: relative;
             /* 優化動畫性能 */
             will-change: background-position;
