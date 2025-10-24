@@ -210,7 +210,7 @@
             z-index: 2;
         }
 
-        /* 2025年趨勢：游標互動光暈效果 */
+        /* 2025年趨勢：游標互動光暈效果 - 已禁用 */
         .cursor-glow {
             position: fixed;
             width: 300px;
@@ -221,6 +221,7 @@
             z-index: 3;
             transition: all 0.3s ease;
             transform: translate(-50%, -50%);
+            display: none; /* 隱藏游標光暈效果 */
         }
 
         /* 2025年趨勢：動態玻璃質感 */
@@ -1894,20 +1895,21 @@
             margin-top: 10px;
         }
 
-        /* 垂直排列的單選按鈕組 */
+        /* 垂直排列的單選按鈕組 - 改為水平排列 */
         .form-field .radio-group.vertical {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            flex-wrap: wrap;
             gap: 15px;
             margin-top: 10px;
         }
 
         .form-field .radio-group.vertical .radio-label {
-            flex: none !important;
-            min-width: auto !important;
-            width: 100% !important;
-            padding: 15px 20px !important;
-            font-size: 1rem !important;
+            flex: 1 !important;
+            min-width: 200px !important;
+            width: auto !important;
+            padding: 15px 12px !important;
+            font-size: 0.9rem !important;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
             border: 2px solid rgba(255, 255, 255, 0.2) !important;
             border-radius: 12px !important;
@@ -1915,6 +1917,11 @@
             transition: all 0.3s ease !important;
             position: relative !important;
             overflow: hidden !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            min-height: 50px !important;
         }
 
         .form-field .radio-group.vertical .radio-label:hover {
@@ -2534,13 +2541,15 @@
         }
 
         .radio-custom {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             position: relative;
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+            margin-right: 8px;
         }
 
         .smart-radio:checked + .radio-custom {
@@ -2563,6 +2572,8 @@
         .radio-text {
             color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
+            flex: 1;
+            line-height: 1.4;
         }
 
         /* 複選框群組樣式 */
@@ -3290,16 +3301,24 @@
                 gap: 15px;
             }
 
-            /* 手機版垂直排列的單選按鈕組 */
+            /* 手機版水平排列的單選按鈕組 */
             .form-field .radio-group.vertical {
                 display: flex;
-                flex-direction: column;
-                gap: 12px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
             }
 
             .form-field .radio-group.vertical .radio-label {
-                padding: 12px 15px !important;
-                font-size: 0.95rem !important;
+                flex: 1 !important;
+                min-width: 140px !important;
+                padding: 12px 8px !important;
+                font-size: 0.85rem !important;
+                min-height: 45px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
             }
             
             .form-field .radio-label {
@@ -4003,13 +4022,21 @@
             /* 超小螢幕垂直排列的單選按鈕組 */
             .form-field .radio-group.vertical {
                 display: flex;
-                flex-direction: column;
-                gap: 10px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
             }
 
             .form-field .radio-group.vertical .radio-label {
-                padding: 10px 12px !important;
-                font-size: 0.9rem !important;
+                flex: 1 !important;
+                min-width: 120px !important;
+                padding: 10px 6px !important;
+                font-size: 0.8rem !important;
+                min-height: 40px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
             }
             
             .form-field .radio-label {
@@ -4857,27 +4884,31 @@
             window.countdownInterval = countdownInterval;
         }
 
-        // 2025年趨勢：游標互動光暈效果
-        document.addEventListener('mousemove', (e) => {
-            const cursorGlow = document.getElementById('cursorGlow');
-            const particles = document.querySelectorAll('.particle');
-            
-            // 游標光暈跟隨
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-            
-            // 粒子互動效果
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            particles.forEach((particle, index) => {
-                const speed = (index % 5 + 1) * 0.5;
-                const xOffset = (x - 0.5) * speed;
-                const yOffset = (y - 0.5) * speed;
+        // 2025年趨勢：游標互動光暈效果 - 可選禁用
+        let enableCursorEffects = false; // 設為 false 禁用游標效果，避免滑鼠被影響
+        
+        if (enableCursorEffects) {
+            document.addEventListener('mousemove', (e) => {
+                const cursorGlow = document.getElementById('cursorGlow');
+                const particles = document.querySelectorAll('.particle');
                 
-                particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                // 游標光暈跟隨
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+                
+                // 粒子互動效果
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                particles.forEach((particle, index) => {
+                    const speed = (index % 5 + 1) * 0.5;
+                    const xOffset = (x - 0.5) * speed;
+                    const yOffset = (y - 0.5) * speed;
+                    
+                    particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                });
             });
-        });
+        }
 
         // 2025年趨勢：元素懸停3D效果
         document.querySelectorAll('.feature-card').forEach(element => {
@@ -5766,7 +5797,7 @@
                         throw new Error('缺少必要欄位：姓名或電話');
                     }
                     
-                    // 創建URL編碼的表單數據 - 只包含必要欄位
+                    // 創建URL編碼的表單數據 - 包含所有欄位
                     const params = new URLSearchParams();
                     params.append('name', data.name);
                     params.append('phone', data.phone);
@@ -5779,7 +5810,30 @@
                     params.append('agreeTerms', data.agreeTerms || '');
                     params.append('agreeEvent', data.agreeEvent || '');
                     
+                    // 添加時間戳記和系統資訊 - 使用易讀格式
+                    const now = new Date();
+                    const readableTimestamp = now.toLocaleString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        timeZone: 'Asia/Taipei'
+                    });
+                    
+                    params.append('timestamp', readableTimestamp);
+                    params.append('timestampISO', data.timestamp || now.toISOString());
+                    params.append('userAgent', data.userAgent || navigator.userAgent);
+                    params.append('referrer', data.referrer || document.referrer);
+                    
                     console.log('🚀 提交表單數據到Google Sheets...');
+                    console.log('📋 提交的數據:', {
+                        name: data.name,
+                        phone: data.phone,
+                        timestamp: readableTimestamp,
+                        timestampISO: data.timestamp || now.toISOString()
+                    });
                     
                     // 設定超時時間
                     const controller = new AbortController();
@@ -6078,22 +6132,10 @@
 
         // 2025年趨勢：磁性懸停效果
         function addMagneticEffect(element) {
-            element.addEventListener('mousemove', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const distance = Math.sqrt(x * x + y * y);
-                const maxDistance = 50;
-                
-                if (distance < maxDistance) {
-                    const moveX = (x / maxDistance) * 10;
-                    const moveY = (y / maxDistance) * 10;
-                    
-                    this.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-                } else {
-                    this.style.transform = 'translate(0, 0) scale(1)';
-                }
+            // 磁性效果已禁用，避免滑鼠被意外移動
+            // 只保留基本的懸停效果
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
             });
             
             element.addEventListener('mouseleave', function() {

@@ -19,7 +19,7 @@ function doGet(e) {
       .createTextOutput(JSON.stringify({
         success: true,
         message: 'Google Apps Script 運行正常',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'})
       }))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
@@ -87,6 +87,7 @@ function doPost(e) {
     const agreeTerms = e.parameter.agreeTerms || '';
     const agreeEvent = e.parameter.agreeEvent || '';
     const timestamp = e.parameter.timestamp || '';
+    const timestampISO = e.parameter.timestampISO || '';
     const userAgent = e.parameter.userAgent || '';
     const referrer = e.parameter.referrer || '';
 
@@ -158,7 +159,7 @@ function doPost(e) {
     
     // 添加數據行（使用中文轉換後的資料）
     const newRow = [
-      timestamp, 
+      timestamp || new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'}), 
       name, 
       phone, 
       locationChinese,  // 使用中文居住地
@@ -287,7 +288,8 @@ function testFunction() {
       registrationReason: 'trend',
       agreeTerms: '是',
       agreeEvent: '是',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'}),
+      timestampISO: new Date().toISOString(),
       userAgent: 'Test Browser',
       referrer: 'https://test.com'
     }
@@ -380,7 +382,7 @@ function addTestDataToSheet() {
     
     // 添加測試數據
     const testData = [
-      new Date().toISOString(),
+      new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'}),
       '測試用戶_' + new Date().getTime(),
       '0912-345-678',
       '台北市',
@@ -474,7 +476,7 @@ function addManualData() {
     
     // 手動新增的資料
     const manualData = [
-      new Date().toISOString(), // 時間戳記
+      new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'}), // 時間戳記
       '蔣哥測試用戶', // 姓名
       '0987-654-321', // 電話
       '桃園市', // 居住地
@@ -611,7 +613,7 @@ function diagnoseSheetIssue() {
     // 嘗試新增一筆測試資料
     console.log('🧪 嘗試新增測試資料...');
     const testData = [
-      new Date().toISOString(),
+      new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'}),
       '診斷測試用戶',
       '0911-222-333',
       '台北市',
@@ -751,7 +753,7 @@ function forceAddToSheet(targetSheet) {
     console.log(`📊 新增前總行數: ${beforeRows}`);
     
     // 創建唯一的測試資料
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'});
     const uniqueId = Date.now();
     
     const testData = [
@@ -1106,7 +1108,7 @@ function testSheetsConnection() {
     
     // 添加測試行
     sheet.appendRow([
-      new Date().toISOString(),
+      new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'}),
       '測試用戶',
       '0912-345-678',
       '台北市',
