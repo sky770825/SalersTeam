@@ -2,8 +2,17 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
+    
+    <!-- 快取優化標頭 -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+    <meta http-equiv="Expires" content="31536000">
+    
+    <!-- 預載入重要資源 -->
+    <link rel="preload" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPC9zdmc+" as="image">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     
     <!-- 2025年趨勢：SEO優化 -->
     <meta name="description" content="蔣哥20年房地產實戰經驗分享，2025年房市趨勢分析，限額參加說明會，現場Q&A互動，精美獎品抽獎">
@@ -29,55 +38,70 @@
 
         html {
             overflow-x: hidden;
-            /* 優化視窗高度設置 */
-            height: 100%;
-            min-height: 100vh;
+            overflow-y: auto;
+            height: auto;
+            position: relative;
+            /* 使用標準滾動條 */
+            scrollbar-width: auto;
+            /* 確保滾動行為正常 */
+            scroll-behavior: smooth;
+            /* 優化滾動行為 */
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
         }
         
-        /* 電腦版顯示一般滾動條 - 防止閃爍 */
+        /* 標準網頁滾動條樣式 */
         ::-webkit-scrollbar {
             width: 12px;
-            background: transparent;
         }
         
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
+            background: #f1f1f1;
             border-radius: 6px;
-            border: 1px solid transparent;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
+            background: #c1c1c1;
             border-radius: 6px;
-            border: 2px solid transparent;
-            background-clip: content-box;
-            min-height: 20px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.5);
-            background-clip: content-box;
+            background: #a8a8a8;
         }
         
-        /* 確保滾動條始終可見 */
-        html {
-            overflow-y: scroll;
+        /* CSS 動畫效果取代 JavaScript */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        /* 觸覺反饋效果 */
+        .haptic-feedback {
+            transform: scale(0.95);
+            transition: transform 0.1s ease;
+        }
+        
+        /* 微互動效果 */
+        .micro-interaction:hover {
+            transform: translateY(-2px);
+            transition: transform 0.3s ease;
         }
         
         /* 手機版隱藏滾動條 */
         @media (max-width: 768px) {
             html {
                 overflow-y: auto;
+                scrollbar-width: auto;
             }
             
+            body {
+                overflow-y: visible;
+            }
+            
+            /* 手機版使用較細的滾動條 */
             ::-webkit-scrollbar {
-                width: 0px;
-                background: transparent;
-            }
-            
-            html, body {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
+                width: 8px;
             }
         }
 
@@ -85,17 +109,123 @@
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af);
             background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite;
+            /* 移除背景動畫，改為靜態 */
             overflow-x: hidden;
+            overflow-y: auto;
+            height: auto;
             position: relative;
-            line-height: 1.3;
-            /* 響應式縮放設置 */
-            font-size: clamp(14px, 1.2vw, 18px);
-            /* 優化視窗高度設置 */
-            height: 100%;
-            min-height: 100vh;
+            line-height: 1.5;
             margin: 0;
             padding: 0;
+        }
+        
+        body::before,
+        body::after {
+            pointer-events: none;
+            position: absolute; /* 改為隨頁面滾動 */
+        }
+        
+        /* 🧩 全域字體自適應 */
+        html, body {
+            font-size: clamp(14px, 2vw, 20px);
+            line-height: 1.5;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-smooth: antialiased;
+        }
+
+        /* 🧩 統一文字呈現規範 */
+        p, span, div, h1, h2, h3, h4, h5, h6 {
+            white-space: normal !important;
+            text-overflow: unset !important;
+            overflow: visible !important;
+            text-align: left;
+        }
+        
+        /* 🧩 針對中文優化的文字對齊 */
+        @media (min-width: 769px) {
+            p, div, span, h1, h2, h3, h4, h5, h6 {
+                text-align: justify;
+                text-justify: inter-ideograph;
+            }
+            
+            /* 確保品牌卡片和信任指標置中 */
+            .brand-card,
+            .brand-card *,
+            .credential-item,
+            .credential-item * {
+                text-align: center !important;
+            }
+        }
+        
+        /* 🧩 標題居中對齊 */
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        /* 🧩 重要元素文字換行優化 */
+        .hero h1,
+        .fire-text,
+        .feature-card h3 {
+            white-space: normal !important;
+            word-break: break-word !important;
+            line-height: 1.3 !important;
+        }
+
+        /* 🧩 按鈕和連結間距優化 */
+        .cta-button, .instagram-link, .youtube-link {
+            margin-top: 20px !important;
+            margin-bottom: 20px !important;
+        }
+
+        /* 🧩 頁腳樣式 */
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+        .footer p {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        /* 🧩 統一容器間距 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            margin: 40px 0;
+            padding: 30px 0;
+        }
+        
+        .card {
+            margin: 20px 0;
+            padding: 25px;
+        }
+
+        /* 🧩 手機版優化 */
+        @media (max-width: 768px) {
+            html, body {
+                font-size: clamp(14px, 3.5vw, 18px); /* 手機略大字體 */
+            }
+
+            .ai-text-scaler,
+            .question-item,
+            .feature-card,
+            .hero h1,
+            .hero p {
+                white-space: normal !important;
+                overflow: visible !important;
+                text-overflow: unset !important;
+                line-height: 1.4 !important;
+            }
         }
         
         /* 防止換行的全局設置 */
@@ -122,55 +252,43 @@
             overflow-x: hidden;
         }
         
-        /* AI智能文字縮放系統 - 不出框版 */
+        /* AI智能文字縮放系統 - 優化版 */
         .ai-text-scaler {
-            white-space: nowrap !important;
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;
-            line-height: 1.3 !important;
-            width: 100% !important;
-            display: block !important;
-            transition: font-size 0.3s ease !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            box-sizing: border-box !important;
+            line-height: 1.3;
+            width: 100%;
+            display: block;
+            transition: font-size 0.3s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
         }
         
-        /* 電腦版五個問題優化 - 不出框版 */
+        /* 電腦版五個問題優化 - 優化版 */
         @media (min-width: 769px) {
             .questions-list .question-item h4 {
-                font-size: clamp(1.1rem, 2.2vw, 1.3rem) !important;
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-                line-height: 1.3 !important;
-                width: 100% !important;
-                display: block !important;
-                transition: font-size 0.3s ease !important;
-                word-wrap: break-word !important;
-                overflow-wrap: break-word !important;
-                box-sizing: border-box !important;
+                font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+                line-height: 1.3;
+                width: 100%;
+                display: block;
+                transition: font-size 0.3s ease;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                box-sizing: border-box;
             }
             
             .questions-list {
-                max-width: 1000px !important;
-                margin: 0 auto !important;
-                overflow: hidden !important;
+                max-width: 1000px;
+                margin: 0 auto;
             }
             
             .question-item {
-                width: 100% !important;
-                overflow: hidden !important;
-                padding: 20px 25px !important;
-                box-sizing: border-box !important;
+                width: 100%;
+                padding: 20px 25px;
+                box-sizing: border-box;
             }
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* 移除gradientShift動畫關鍵幀 */
 
         body::before {
             content: '';
@@ -201,7 +319,7 @@
             z-index: 2;
         }
 
-        /* 2025年趨勢：游標互動光暈效果 */
+        /* 2025年趨勢：游標互動光暈效果 - 已禁用 */
         .cursor-glow {
             position: fixed;
             width: 300px;
@@ -212,6 +330,7 @@
             z-index: 3;
             transition: all 0.3s ease;
             transform: translate(-50%, -50%);
+            display: none; /* 隱藏游標光暈效果 */
         }
 
         /* 2025年趨勢：動態玻璃質感 */
@@ -227,27 +346,17 @@
         .fluid-animation {
             background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
             background-size: 400% 400%;
-            animation: fluidMove 8s ease infinite;
+            /* 移除背景動畫，改為靜態 */
         }
 
-        @keyframes fluidMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* 移除fluidMove動畫關鍵幀 */
 
         /* 2025年趨勢：微互動效果 */
         .micro-interaction {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .micro-interaction:hover {
-            transform: scale(1.02);
-        }
-
-        .micro-interaction:active {
-            transform: scale(0.98);
-        }
+        /* 移除微互動變換效果，改為靜態 */
 
         /* 2025年趨勢：觸覺反饋動畫 */
         @keyframes hapticFeedback {
@@ -275,26 +384,14 @@
             }
         }
 
-        /* 2025年趨勢：磁性懸停效果 */
-        .magnetic-hover {
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .magnetic-hover:hover {
-            transform: translateY(-5px) scale(1.02);
-        }
+        /* 磁性懸停效果已移除，避免影響滑鼠移動 */
 
         /* 蔣哥照片懸停效果 */
         .hero-image img {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .hero-image img:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4),
-                       0 10px 30px rgba(255,255,255,0.2),
-                       0 0 0 3px rgba(255,215,0,0.3);
-        }
+        /* 移除圖片懸停變換效果，改為靜態 */
 
         /* 影片播放優化 */
         .hero-image iframe {
@@ -329,6 +426,7 @@
             }
         }
 
+        /* 🧩 統一容器框架 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -339,8 +437,19 @@
             transform-origin: center top;
             transition: transform 0.3s ease;
         }
+        
+        /* 🧩 統一區塊框架 */
+        .section {
+            margin: 40px 0;
+            padding: 30px 0;
+        }
+        
+        .card {
+            margin: 20px 0;
+            padding: 25px;
+        }
 
-        /* 動態背景粒子效果 */
+        /* 🧩 統一z-index層級管理 */
         .particles {
             position: fixed;
             top: 0;
@@ -348,7 +457,20 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 1;
+        }
+        
+        .container {
+            z-index: 10;
+        }
+        
+        .hero {
+            z-index: 20;
+        }
+        
+        .main-content,
+        .section-content {
+            z-index: 15;
         }
 
         .particle {
@@ -357,13 +479,10 @@
             height: 4px;
             background: rgba(80, 80, 80, 0.2);
             border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+            /* 移除浮動動畫，改為靜態 */
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.7; }
-        }
+        /* 移除float動畫關鍵幀 */
 
         /* 主標題區 */
         .hero {
@@ -371,7 +490,6 @@
             color: white;
             margin-bottom: 40px;
             position: relative;
-            z-index: 30;
         }
 
         .hero h1 {
@@ -384,9 +502,8 @@
             letter-spacing: -0.02em;
             line-height: 1.1;
             position: relative;
-            z-index: 30;
             /* 2025年趨勢：創意字體動畫 */
-            animation: textGlow 3s ease-in-out infinite alternate;
+            /* 移除文字發光動畫，改為靜態 */
         }
 
         @keyframes textGlow {
@@ -482,7 +599,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: softGlow 8s ease-in-out infinite, gentleFloat 6s ease-in-out infinite;
+            /* 移除柔和發光和飄動動畫，改為靜態 */
             text-shadow: 0 0 8px rgba(218, 165, 32, 0.3),
                          0 0 15px rgba(218, 165, 32, 0.2);
             filter: drop-shadow(0 1px 4px rgba(218, 165, 32, 0.2));
@@ -506,14 +623,7 @@
         }
 
         /* 輕柔飄動效果 */
-        @keyframes gentleFloat {
-            0%, 100% { 
-                transform: translateY(0px) scale(1); 
-            }
-            50% { 
-                transform: translateY(-1px) scale(1.01); 
-            }
-        }
+        /* 移除gentleFloat動畫關鍵幀 */
 
         /* 淡淡光環效果 */
         .fire-text::before {
@@ -528,7 +638,7 @@
                 rgba(184, 134, 11, 0.05) 40%, 
                 transparent 70%);
             border-radius: 50%;
-            animation: subtleGlow 10s ease-in-out infinite alternate;
+            /* 移除微妙發光動畫，改為靜態 */
             z-index: -1;
         }
 
@@ -552,7 +662,7 @@
             transform: translateX(-50%);
             font-size: 0.3em;
             opacity: 0.4;
-            animation: quietTwinkle 12s ease-in-out infinite;
+            /* 移除安靜閃爍動畫，改為靜態 */
             pointer-events: none;
         }
 
@@ -619,12 +729,7 @@
             transition: opacity 0.6s ease;
         }
 
-        .feature-card:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 0 35px 70px rgba(0,0,0,0.25),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                        0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
+        /* 移除卡片懸停變換效果，改為靜態 */
 
         .feature-card:hover::before {
             opacity: 1;
@@ -635,14 +740,10 @@
             margin-bottom: 20px;
             display: block;
             text-align: center;
-            animation: bounce 2s infinite;
+            /* 移除彈跳動畫，改為靜態 */
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
+        /* 移除bounce動畫關鍵幀 */
 
         .feature-card h3 {
             color: #f8f9fa;
@@ -663,8 +764,9 @@
             opacity: 0.88;
         }
 
-        /* 主要內容區 */
-        .main-content {
+        /* 🧩 統一內容區框架 */
+        .main-content,
+        .section-content {
             background: rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
@@ -679,7 +781,9 @@
             overflow: hidden;
         }
 
-        .main-content::before {
+        /* 🧩 統一內容區裝飾線 */
+        .main-content::before,
+        .section-content::before {
             content: '';
             position: absolute;
             top: 0;
@@ -784,30 +888,18 @@
             align-items: center;
             margin-bottom: 30px;
             position: relative;
-            opacity: 0;
-            transform: translateX(50px);
-            animation: slideInRight 0.8s ease forwards;
+            opacity: 1;
+            transform: translateX(0);
+            /* 移除滑入動畫，改為靜態 */
         }
 
         .timeline-item:nth-child(even) {
             flex-direction: row-reverse;
-            transform: translateX(-50px);
-            animation: slideInLeft 0.8s ease forwards;
+            transform: translateX(0);
+            /* 移除滑入動畫，改為靜態 */
         }
 
-        @keyframes slideInRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+        /* 移除slideIn動畫關鍵幀 */
 
         .timeline-time {
             background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(233, 236, 239, 0.08) 100%);
@@ -825,11 +917,7 @@
             transition: all 0.3s ease;
         }
 
-        .timeline-time:hover {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
-            color: #FFD700;
-            transform: scale(1.1);
-        }
+        /* 移除時間軸懸停變換效果，改為靜態 */
 
         .timeline-content {
             flex: 1;
@@ -841,11 +929,7 @@
             transition: all 0.3s ease;
         }
 
-        .timeline-content:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+        /* 移除時間軸內容懸停變換效果，改為靜態 */
 
         .timeline-content h4 {
             color: #f8f9fa;
@@ -872,7 +956,7 @@
                 rgba(255, 140, 0, 0.08) 75%,
                 rgba(255, 215, 0, 0.12) 100%);
             background-size: 300% 300%;
-            animation: prizeGradientShift 4s ease infinite;
+            /* 移除背景動畫，避免影響頁面滾動 */
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-radius: 35px;
@@ -889,13 +973,7 @@
             overflow: hidden;
         }
 
-        @keyframes prizeGradientShift {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 100% 0%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 0% 100%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* 移除prizeGradientShift動畫關鍵幀 */
 
         /* 裝飾性邊框動畫 */
         .prize-section::before {
@@ -914,14 +992,10 @@
             background-size: 400% 400%;
             border-radius: 38px;
             z-index: -2;
-            animation: borderGlow 3s linear infinite;
+            /* 移除邊框發光動畫，改為靜態 */
         }
 
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* 移除borderGlow動畫關鍵幀 */
 
         /* 浮動獎品圖標 */
         .prize-section::after {
@@ -933,7 +1007,7 @@
             height: 60px;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"></svg>');
             background-size: contain;
-            animation: prizeFloat 3s ease-in-out infinite;
+            /* 移除浮動動畫，避免影響頁面滾動 */
             opacity: 0.3;
         }
 
@@ -958,7 +1032,7 @@
                          0 0 15px rgba(255, 215, 0, 0.3);
             position: relative;
             z-index: 20;
-            animation: titleGlow 2s ease-in-out infinite alternate;
+            /* 移除標題發光動畫，改為靜態 */
         }
 
         @keyframes titleGlow {
@@ -998,20 +1072,11 @@
             position: absolute;
             color: #FFD700;
             font-size: 1.5rem;
-            animation: starTwinkle 2s ease-in-out infinite;
+            /* 移除星星閃爍動畫，避免影響頁面滾動 */
             opacity: 0;
         }
 
-        @keyframes starTwinkle {
-            0%, 100% { 
-                opacity: 0; 
-                transform: scale(0) rotate(0deg); 
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(1) rotate(180deg); 
-            }
-        }
+        /* 移除starTwinkle動畫關鍵幀 */
 
         .star:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
         .star:nth-child(2) { top: 15%; right: 15%; animation-delay: 0.5s; }
@@ -1032,15 +1097,12 @@
             margin-top: 15px;
             box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4),
                         0 5px 15px rgba(76, 205, 196, 0.3);
-            animation: valueBounce 2s ease-in-out infinite;
+            /* 移除彈跳動畫，避免影響頁面滾動 */
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
             letter-spacing: 0.02em;
         }
 
-        @keyframes valueBounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-3px) scale(1.05); }
-        }
+        /* 移除valueBounce動畫關鍵幀 */
 
         /* CTA 按鈕區 */
         .cta-section {
@@ -1058,7 +1120,7 @@
                 #DB2777 75%, 
                 #DC2626 100%);
             background-size: 300% 300%;
-            animation: gradientFlow 3s ease infinite;
+            /* 移除漸變流動動畫，改為靜態 */
             color: white;
             padding: clamp(15px, 3vw, 25px) clamp(30px, 6vw, 50px);
             font-size: 1.4rem;
@@ -1103,7 +1165,7 @@
                 #96CEB4 75%, 
                 #FECA57 100%);
             background-size: 300% 300%;
-            animation: gradientFlow 3s ease infinite;
+            /* 移除漸變流動動畫，改為靜態 */
             border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
                         0 5px 15px rgba(255, 107, 107, 0.4),
@@ -1141,7 +1203,7 @@
             background-size: 400% 400%;
             border-radius: 50px;
             z-index: -1;
-            animation: borderPulse 2s linear infinite;
+            /* 移除邊框脈衝動畫，改為靜態 */
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -1150,30 +1212,16 @@
             opacity: 1;
         }
 
-        @keyframes borderPulse {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* 移除borderPulse動畫關鍵幀 */
 
         /* 2025年趨勢：按鈕懸停3D效果 */
-        .cta-button:hover {
-            transform: translateY(-8px) scale(1.05) rotateX(5deg);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
-                        0 10px 30px rgba(255, 107, 107, 0.6),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: gradientFlow 1.5s ease infinite, buttonPulse 2s ease infinite;
-        }
+        /* 移除CTA按鈕懸停變換效果，改為靜態 */
 
         .cta-button:hover::before {
             left: 100%;
         }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* 移除gradientFlow動畫關鍵幀 */
 
         .cta-button::before {
             content: '';
@@ -1202,13 +1250,7 @@
             transform: translate(-50%, -50%);
         }
 
-        .cta-button:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
-                        0 10px 30px rgba(255, 107, 107, 0.6),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: gradientFlow 1.5s ease infinite, buttonPulse 2s ease infinite;
-        }
+        /* 移除CTA按鈕懸停變換效果，改為靜態 */
 
         .cta-button:hover::before {
             left: 100%;
@@ -1285,22 +1327,13 @@
             transition: left 0.7s ease;
         }
 
-        .instagram-link:hover {
-            transform: translateY(-6px) scale(1.03) rotateZ(2deg);
-            box-shadow: 0 20px 40px rgba(225, 48, 108, 0.4),
-                        0 0 30px rgba(225, 48, 108, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: instagramGradient 2s ease infinite, instagramBounce 1s ease infinite;
-        }
+        /* 移除Instagram按鈕懸停變換效果，改為靜態 */
 
         .instagram-link:hover::before {
             left: 100%;
         }
 
-        @keyframes instagramBounce {
-            0%, 100% { transform: translateY(-6px) scale(1.03) rotateZ(2deg); }
-            50% { transform: translateY(-8px) scale(1.05) rotateZ(-1deg); }
-        }
+        /* 移除instagramBounce動畫關鍵幀 */
 
         /* YouTube按鈕樣式 */
         .youtube-link {
@@ -1353,22 +1386,13 @@
             transition: left 0.7s ease;
         }
 
-        .youtube-link:hover {
-            transform: translateY(-6px) scale(1.03) rotateZ(-2deg);
-            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.4),
-                        0 0 30px rgba(255, 0, 0, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: youtubeGradient 2s ease infinite, youtubeBounce 1s ease infinite;
-        }
+        /* 移除YouTube按鈕懸停變換效果，改為靜態 */
 
         .youtube-link:hover::before {
             left: 100%;
         }
 
-        @keyframes youtubeBounce {
-            0%, 100% { transform: translateY(-6px) scale(1.03) rotateZ(-2deg); }
-            50% { transform: translateY(-8px) scale(1.05) rotateZ(1deg); }
-        }
+        /* 移除youtubeBounce動畫關鍵幀 */
 
         /* 按鈕容器動畫 */
         .cta-section::before {
@@ -1411,47 +1435,137 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
+        /* 🧩 說明會時間排版優化 */
         .countdown-title {
             color: #f8f9fa;
             font-size: clamp(1.3rem, 3vw, 1.7rem);
             font-weight: 700;
             margin-bottom: clamp(15px, 3vw, 25px);
+            text-align: center;
+            line-height: 1.4;
+            letter-spacing: 0.02em;
+        }
+        
+        .countdown-title span {
+            display: inline-block;
+            margin: 5px 0;
         }
 
+        /* 🧩 倒數計時器排版優化 */
         .countdown-timer {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
+            margin: 30px 0;
+            padding: 20px 0;
         }
 
+        /* 🧩 時間單位樣式優化 */
         .time-unit {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: clamp(12px, 2.5vw, 18px) clamp(15px, 3vw, 25px);
-            min-width: clamp(70px, 15vw, 90px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: clamp(15px, 3vw, 22px) clamp(18px, 3.5vw, 28px);
+            min-width: clamp(80px, 16vw, 100px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-align: center;
         }
 
+        /* 🧩 時間數字樣式優化 */
         .time-number {
             display: block;
-            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-            font-weight: 700;
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 800;
             color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            letter-spacing: 0.05em;
         }
 
+        /* 🧩 時間標籤樣式優化 */
         .time-label {
-            font-size: clamp(0.8rem, 1.8vw, 1rem);
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 5px;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* 桌面版響應式設計 */
+        @media (min-width: 1025px) {
+            /* 桌面版滾動設定 - 標準滾動條 */
+            html {
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                scrollbar-width: auto !important;
+            }
+            
+            body {
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                height: auto !important;
+                min-height: auto !important;
+            }
+            
+            /* 桌面版標準滾動條 */
+            ::-webkit-scrollbar {
+                width: 12px !important;
+            }
+            
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1 !important;
+                border-radius: 6px !important;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: #c1c1c1 !important;
+                border-radius: 6px !important;
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+                background: #a8a8a8 !important;
+            }
+            
+            .container {
+                padding: clamp(20px, 4vw, 40px);
+                /* 移除縮放，避免視窗縮小時被拉高 */
+                transform: none;
+                /* 確保桌面版有適當的最大寬度 */
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            /* 桌面版各區塊保持適當間距 */
+            .partner-brands-section {
+                padding: 30px 40px !important;
+            }
+            
+            
+            .main-content {
+                padding: 30px 40px !important;
+            }
+            
+            .feature-card {
+                padding: 30px 40px !important;
+            }
+            
+            .prize-section {
+                padding: 30px 40px !important;
+            }
+            
+            .timeline-section {
+                padding: 30px 40px !important;
+            }
         }
 
         /* 平板響應式設計 */
         @media (max-width: 1024px) and (min-width: 769px) {
             .container {
                 padding: 15px;
-                /* 平板縮放調整 - 統一縮放比例 */
-                transform: scale(0.98);
+                /* 移除縮放，避免視窗縮小時被拉高 */
+                transform: none;
             }
             
             /* 平板文字縮放 */
@@ -1504,7 +1618,11 @@
         /* 信任指標樣式 */
         .credentials-section {
             margin: 40px 0;
-            text-align: center;
+            text-align: center !important;
+        }
+        
+        .credentials-section * {
+            text-align: center !important;
         }
 
         /* 桌面版信任指標佈局 */
@@ -1665,24 +1783,30 @@
             font-size: clamp(0.8rem, 1.8vw, 1rem);
         }
 
-        /* 緊迫感樣式 */
+        /* 🧩 緊迫感區塊排版優化 */
         .urgency-alert {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 15px;
+            margin: 25px 0;
+            text-align: center;
         }
 
+        /* 🧩 緊迫感文字樣式優化 */
         .urgency-text {
             background: linear-gradient(45deg, #FF6B6B, #FF8E53);
             color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 15px 30px;
+            border-radius: 30px;
             font-weight: 700;
             font-size: 1.2rem;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
             animation: urgencyPulse 2s ease-in-out infinite;
+            text-align: center;
+            letter-spacing: 0.02em;
+            line-height: 1.3;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
         }
 
         /* 可點擊的緊迫感文字樣式 */
@@ -1708,33 +1832,22 @@
             left: 100%;
         }
 
-        .clickable-urgency:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-            animation: none;
-        }
+        /* 移除緊迫感文字懸停變換效果，改為靜態 */
 
-        .clickable-urgency:active {
-            transform: scale(0.95);
-        }
-
+        /* 🧩 截止時間文字樣式優化 */
         .deadline-text {
             color: #FFD700;
             font-weight: 600;
             font-size: 1.1rem;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            text-align: center;
+            letter-spacing: 0.02em;
+            line-height: 1.4;
         }
 
-        @keyframes urgencyPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+        /* 移除urgencyPulse動畫關鍵幀 */
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
+        /* 移除pulse動畫關鍵幀 */
 
         .remaining-spots {
             color: #FF0000;
@@ -2617,13 +2730,38 @@
 
         /* 手機響應式設計 */
         @media (max-width: 768px) {
-            /* 移動設備滾動優化 */
-            html, body {
+            /* 移動設備滾動優化 - 標準滾動條 */
+            html {
                 overflow-x: hidden !important;
+                overflow-y: auto !important;
+                scrollbar-width: auto !important;
+            }
+            
+            body {
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
                 height: auto !important;
-                /* 手機版視窗高度優化 */
-                min-height: 100vh !important;
-                min-height: 100dvh !important; /* 動態視窗高度 */
+                /* 手機版視窗高度優化 - 移除固定高度以允許滾動 */
+                min-height: auto !important;
+            }
+            
+            /* 手機版較細的滾動條 */
+            ::-webkit-scrollbar {
+                width: 8px !important;
+            }
+            
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1 !important;
+                border-radius: 4px !important;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: #c1c1c1 !important;
+                border-radius: 4px !important;
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+                background: #a8a8a8 !important;
             }
             
             /* 確保所有容器不會阻止滾動 */
@@ -2657,10 +2795,13 @@
                 hyphens: none;
             }
             
-            /* 針對中文優化的文字對齊 */
-            p, div, span, h1, h2, h3, h4, h5, h6 {
-                text-align: justify;
-                text-justify: inter-ideograph;
+            /* 手機版文字對齊優化 */
+            p, div, span {
+                text-align: left;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                text-align: center;
             }
             
             body::before {
@@ -2671,15 +2812,15 @@
             }
             
             .container {
-                padding: 8px;
+                padding: 5px;
                 /* 優化容器寬度，確保內容完整顯示 */
                 max-width: 100vw;
                 width: 100%;
                 box-sizing: border-box;
                 /* 防止水平滾動 */
                 overflow-x: hidden;
-                /* 手機版縮放調整 - 統一縮放比例 */
-                transform: scale(0.95);
+                /* 移除縮放，避免視窗縮小時被拉高 */
+                transform: none;
             }
             
             /* 手機版文字縮放 */
@@ -2738,8 +2879,7 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                /* 確保不會超出滾動條範圍 */
-                margin-right: 15px;
+                /* 移除可能影響滾動條的邊距 */
                 background: linear-gradient(135deg, #3B82F6, #1D4ED8, #7C3AED, #DB2777, #DC2626);
                 padding: 15px 20px;
                 z-index: 1000;
@@ -3029,7 +3169,7 @@
             /* 手機版協作品牌廣告區優化 */
             .partner-brands-section {
                 margin: 15px 0 0px 0 !important;
-                padding: 20px 15px !important;
+                padding: 20px 0 !important;
             }
             
             .partner-brands-section h3 {
@@ -3044,6 +3184,11 @@
             
             .brand-card {
                 padding: 15px !important;
+                text-align: center !important;
+            }
+            
+            .brand-card * {
+                text-align: center !important;
             }
             
             .brand-card h4 {
@@ -3054,11 +3199,6 @@
                 font-size: 0.8rem !important;
             }
             
-            /* 手機版底部卡片間距優化 */
-            footer {
-                margin-top: 0px !important;
-                padding: 20px 15px !important;
-            }
             
             .mobile-call-button::before, .mobile-whatsapp-button::before {
                 content: '';
@@ -3161,44 +3301,20 @@
             
             
             .credential-item {
-                padding: 20px 15px;
+                padding: 20px 0;
             }
             
             .credential-number {
                 font-size: 1.8rem;
             }
             
-            /* 手機版粉絲成功案例佈局 - 3欄水平滾動 */
+            /* 手機版粉絲成功案例佈局 - 保持水平佈局 */
             .testimonials-grid {
-                display: flex !important;
-                flex-direction: row !important;
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
                 gap: 15px !important;
-                overflow-x: auto !important;
-                overflow-y: hidden !important;
-                padding: 0 0 15px 0 !important;
                 margin-top: 30px !important;
                 max-height: none !important;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            /* 手機版滾動條樣式 */
-            .testimonials-grid::-webkit-scrollbar {
-                height: 6px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 3px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 3px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-thumb:hover {
-                background: rgba(255, 255, 255, 0.5);
             }
             
             /* 手機版單個案例卡片樣式 */
@@ -3206,7 +3322,7 @@
                 flex: 0 0 250px !important;
                 min-width: 250px !important;
                 max-width: 250px !important;
-                padding: 20px 15px !important;
+                padding: 20px 0 !important;
             }
             
             .testimonial-card {
@@ -3348,7 +3464,7 @@
             
             /* 手機版現場抽獎宣傳調整 */
             .lottery-promotion {
-                padding: 20px 15px;
+                padding: 20px 0;
                 margin: 20px 0;
             }
             
@@ -3385,7 +3501,7 @@
             }
 
             .form-benefits {
-                padding: 20px 15px;
+                padding: 20px 0;
             }
             
             .form-benefits h4 {
@@ -3610,9 +3726,8 @@
                 background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af) !important;
                 background-size: 400% 400% !important;
                 animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite !important;
-                /* 超小螢幕視窗高度優化 */
-                min-height: 100vh !important;
-                min-height: 100dvh !important; /* 動態視窗高度 */
+                /* 超小螢幕視窗高度優化 - 移除固定高度以允許滾動 */
+                min-height: auto !important;
             }
             
             /* 確保超小螢幕背景不被覆蓋 */
@@ -3628,10 +3743,13 @@
                 hyphens: none;
             }
             
-            /* 針對中文優化的文字對齊 */
-            p, div, span, h1, h2, h3, h4, h5, h6 {
-                text-align: justify;
-                text-justify: inter-ideograph;
+            /* 手機版文字對齊優化 */
+            p, div, span {
+                text-align: left;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                text-align: center;
             }
             
             body::before {
@@ -3642,9 +3760,9 @@
             }
             
             .container {
-                padding: 10px;
-                /* 超小螢幕縮放調整 - 統一縮放比例 */
-                transform: scale(0.92);
+                padding: 0;
+                /* 移除縮放，避免視窗縮小時被拉高 */
+                transform: none;
             }
             
             /* 超小螢幕文字縮放 */
@@ -3842,21 +3960,21 @@
             }
             
             .main-content {
-                padding: 20px 15px;
+                padding: 20px 0;
                 margin: 20px 0;
             }
             
             .feature-card {
-                padding: 20px 15px;
+                padding: 20px 0;
             }
             
             .prize-section {
-                padding: 20px 15px;
+                padding: 20px 0;
                 margin: 20px 0;
             }
             
             .timeline-section {
-                padding: 25px 15px;
+                padding: 25px 0;
             }
             
             .timeline-content {
@@ -3955,18 +4073,13 @@
             }
             
             
-            /* 超小螢幕粉絲成功案例佈局 - 3欄水平滾動 */
+            /* 超小螢幕粉絲成功案例佈局 - 保持水平佈局 */
             .testimonials-grid {
-                display: flex !important;
-                flex-direction: row !important;
-                gap: 12px !important;
-                overflow-x: auto !important;
-                overflow-y: hidden !important;
-                padding: 0 0 12px 0 !important;
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 10px !important;
                 margin-top: 25px !important;
                 max-height: none !important;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
             }
             
             /* 超小螢幕單個案例卡片樣式 */
@@ -4066,17 +4179,7 @@
         }
 
 
-        /* 滾動動畫 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* 滾動動畫已移除 */
 
         /* 滾動進度條 */
         .progress-bar {
@@ -4088,8 +4191,7 @@
             background: linear-gradient(90deg, #FFD700, #FF6B35);
             z-index: 1000;
             transition: width 0.3s ease;
-            /* 確保不會超出滾動條範圍 */
-            margin-right: 15px;
+            /* 移除可能影響滾動條的邊距 */
         }
 
         /* 2025年趨勢：頁面載入動畫 */
@@ -4127,21 +4229,18 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 2025年趨勢：閱讀進度指示器 */
-        .reading-progress {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 4px;
-            height: 0%;
-            background: linear-gradient(to bottom, #FFD700, #FF6B35);
-            z-index: 1000;
-            transition: height 0.3s ease;
-            /* 確保不會超出滾動條範圍 */
-            margin-right: 15px;
+
+
+
+        /* 懶加載圖片樣式 */
+        .lazy {
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-
-
+        
+        .lazy.loaded {
+            opacity: 1;
+        }
 
         /* 浮動返回頂部按鈕 */
         .back-to-top {
@@ -4163,8 +4262,7 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 1000;
-            /* 確保不會超出滾動條範圍 */
-            margin-right: 15px;
+            /* 移除可能影響滾動條的邊距 */
         }
 
         .back-to-top.visible {
@@ -4180,13 +4278,9 @@
     </style>
 </head>
 <body>
-    <!-- 2025年趨勢：頁面載入動畫 -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-spinner"></div>
-    </div>
+    <!-- 載入動畫已移除 -->
     
     <div class="progress-bar" id="progressBar"></div>
-    <div class="reading-progress" id="readingProgress"></div>
     <div class="particles" id="particles"></div>
     <div class="cursor-glow" id="cursorGlow"></div>
     
@@ -4253,25 +4347,25 @@
         </div>
 
         <!-- 五個關鍵問題 -->
-        <div class="questions-section fade-in" style="background: linear-gradient(135deg, rgba(255,107,107,0.1) 0%, rgba(78,205,196,0.1) 100%); padding: 40px 20px; margin: 30px 0; border-radius: 20px; border: 2px solid rgba(255,215,0,0.3);">
-            <h3 style="text-align: center; color: #FFD700; font-size: clamp(1.3rem, 3vw, 1.5rem); margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); line-height: 1.4;">
+        <div class="questions-section fade-in" style="background: linear-gradient(135deg, rgba(255,107,107,0.1) 0%, rgba(78,205,196,0.1) 100%); padding: 50px 30px; margin: 40px 0; border-radius: 25px; border: 2px solid rgba(255,215,0,0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+            <h3 style="text-align: center; color: #FFD700; font-size: clamp(1.4rem, 3.2vw, 1.6rem); margin-bottom: 35px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); line-height: 1.4; letter-spacing: 0.02em;">
                 🌪️ 在參加這場講座之前，請你先問自己，也問問你身邊那些自稱房產專家的朋友這五個問題：
             </h3>
             <div class="questions-list" style="max-width: 800px; margin: 0 auto;">
-                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #FFD700;">
-                    <h4 class="ai-text-scaler" style="color: #4ECDC4; margin-bottom: 10px;">1️⃣ 台灣未來不會再缺房子，那我為什麼還要繼續學房地產？</h4>
+                <div class="question-item" style="background: rgba(255,255,255,0.12); padding: 25px; margin: 20px 0; border-radius: 18px; border-left: 6px solid #FFD700; box-shadow: 0 8px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <h4 class="ai-text-scaler" style="color: #4ECDC4; margin-bottom: 12px; font-size: clamp(1.1rem, 2.5vw, 1.3rem); line-height: 1.4; letter-spacing: 0.01em; text-align: left;">1️⃣ 台灣未來不會再缺房子，那我為什麼還要繼續學房地產？</h4>
                 </div>
-                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #4ECDC4;">
-                    <h4 class="ai-text-scaler" style="color: #FF6B6B; margin-bottom: 10px;">2️⃣ 哪些房子會越來越多？我們該如何避開那些不該投資、也不該持有的房子？</h4>
+                <div class="question-item" style="background: rgba(255,255,255,0.12); padding: 25px; margin: 20px 0; border-radius: 18px; border-left: 6px solid #4ECDC4; box-shadow: 0 8px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <h4 class="ai-text-scaler" style="color: #FF6B6B; margin-bottom: 12px; font-size: clamp(1.1rem, 2.5vw, 1.3rem); line-height: 1.4; letter-spacing: 0.01em; text-align: left;">2️⃣ 哪些房子會越來越多？我們該如何避開那些不該投資、也不該持有的房子？</h4>
                 </div>
-                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #FF6B6B;">
-                    <h4 class="ai-text-scaler" style="color: #FFD700; margin-bottom: 10px;">3️⃣ 「沒有賣不掉的房子，只有賣不掉的價格」——這句話十年後還成立嗎？</h4>
+                <div class="question-item" style="background: rgba(255,255,255,0.12); padding: 25px; margin: 20px 0; border-radius: 18px; border-left: 6px solid #FF6B6B; box-shadow: 0 8px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <h4 class="ai-text-scaler" style="color: #FFD700; margin-bottom: 12px; font-size: clamp(1.1rem, 2.5vw, 1.3rem); line-height: 1.4; letter-spacing: 0.01em; text-align: left;">3️⃣ 「沒有賣不掉的房子，只有賣不掉的價格」——這句話十年後還成立嗎？</h4>
                 </div>
-                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #FFD700;">
-                    <h4 class="ai-text-scaler" style="color: #4ECDC4; margin-bottom: 10px;">4️⃣ 你曾經獲利的房子，是賣給比你「沒財力」的人？還是比你更富的人？</h4>
+                <div class="question-item" style="background: rgba(255,255,255,0.12); padding: 25px; margin: 20px 0; border-radius: 18px; border-left: 6px solid #FFD700; box-shadow: 0 8px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <h4 class="ai-text-scaler" style="color: #4ECDC4; margin-bottom: 12px; font-size: clamp(1.1rem, 2.5vw, 1.3rem); line-height: 1.4; letter-spacing: 0.01em; text-align: left;">4️⃣ 你曾經獲利的房子，是賣給比你「沒財力」的人？還是比你更富的人？</h4>
                 </div>
-                <div class="question-item" style="background: rgba(255,255,255,0.1); padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #4ECDC4;">
-                    <h4 class="ai-text-scaler" style="color: #FF6B6B; margin-bottom: 10px;">5️⃣ 少子化時代，房子真的會沒人買？那你快告訴我——哪裡的房子十年後會暴跌？你現在就能去買？</h4>
+                <div class="question-item" style="background: rgba(255,255,255,0.12); padding: 25px; margin: 20px 0; border-radius: 18px; border-left: 6px solid #4ECDC4; box-shadow: 0 8px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <h4 class="ai-text-scaler" style="color: #FF6B6B; margin-bottom: 12px; font-size: clamp(1.1rem, 2.5vw, 1.3rem); line-height: 1.4; letter-spacing: 0.01em; text-align: left;">5️⃣ 少子化時代，房子真的會沒人買？那你快告訴我——哪裡的房子十年後會暴跌？你現在就能去買？</h4>
                 </div>
             </div>
         </div>
@@ -4306,21 +4400,21 @@
         </div>
 
         <div class="features">
-            <div class="feature-card fade-in micro-interaction magnetic-hover">
+            <div class="feature-card fade-in micro-interaction">
                 <div class="feature-icon"></div>
                 <h3 style="background: linear-gradient(45deg, #FFD700, #FF6B35); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; text-shadow: 2px 2px 4px rgba(255, 107, 53, 0.3);">最犀利的<span style="color: #FF1493; text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);">Q&A</span>現場互動</h3>
                 <p style="color: #FFD700; font-weight: 600; text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.3);">現場直接解答您的<span style="color: #FF6B35; font-weight: 700;">房產投資疑惑</span>，<span style="color: #00CED1; font-weight: 700;">零距離專業諮詢</span></p>
             </div>
-            <div class="feature-card fade-in micro-interaction magnetic-hover">
+            <div class="feature-card fade-in micro-interaction">
                 <div class="feature-icon"></div>
-                <h3 style="background: linear-gradient(45deg, #FF1493, #FF69B4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.3);"><span style="color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">20年</span>真槍實彈操作指南</h3>
+                <h3 style="background: linear-gradient(45deg, #FF1493, #FF69B4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.3); word-wrap: break-word; line-height: 1.3;"><span style="color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">20年</span>真槍實彈<br>操作指南</h3>
                 <p style="color: #00CED1; font-weight: 600; text-shadow: 1px 1px 2px rgba(0, 206, 209, 0.3);">蔣哥<span style="color: #FFD700; font-weight: 700;">20年房地產實戰經驗</span>，毫無保留分享<span style="color: #FF6B35; font-weight: 700;">投資心法與操作策略</span></p>
             </div>
         </div>
 
         <!-- 活動亮點 -->
-        <div class="highlights-section fade-in" style="background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(78,205,196,0.1) 100%); padding: 40px 20px; margin: 30px 0; border-radius: 20px; border: 2px solid rgba(255,107,107,0.3);">
-            <h3 style="text-align: center; color: #FFD700; font-size: clamp(1.2rem, 2.8vw, 1.4rem); margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); line-height: 1.4;">
+        <div class="highlights-section fade-in" style="background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(78,205,196,0.1) 100%); padding: 50px 30px; margin: 40px 0; border-radius: 25px; border: 2px solid rgba(255,107,107,0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+            <h3 style="text-align: center; color: #FFD700; font-size: clamp(1.3rem, 3vw, 1.5rem); margin-bottom: 35px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); line-height: 1.4; letter-spacing: 0.02em;">
                 💡 如果你準備好了自備款，我會清楚地帶你看懂以下關鍵真相：
             </h3>
             <div class="highlights-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
@@ -4328,28 +4422,28 @@
                     <div style="font-size: 2.5rem; margin-bottom: 15px;"></div>
                     <h4 style="color: #4ECDC4; margin-bottom: 10px; font-size: 1.2rem;">為何要在<span style="color: #FF6B6B; font-weight: 700;">2029年前</span>搶進六都「<span style="color: #FFD700; font-weight: 700;">富人區</span>」？</h4>
                 </div>
-                <div class="highlight-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; border: 2px solid rgba(78,205,196,0.3);">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"></div>
-                    <h4 style="color: #FF6B6B; margin-bottom: 10px; font-size: 1.2rem;"><span style="color: #4ECDC4; font-weight: 700;">換屋族</span>為何該避開那些「<span style="color: #FFD700; font-weight: 700;">老窮酸</span>」地段？</h4>
+                <div class="highlight-item" style="background: rgba(255,255,255,0.12); padding: 30px; border-radius: 18px; text-align: center; border: 2px solid rgba(78,205,196,0.3); box-shadow: 0 8px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <div style="font-size: 2.5rem; margin-bottom: 18px;"></div>
+                    <h4 style="color: #FF6B6B; margin-bottom: 12px; font-size: clamp(1.1rem, 2.5vw, 1.3rem); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: #4ECDC4; font-weight: 700;">換屋族</span>為何該避開那些「<span style="color: #FFD700; font-weight: 700;">老窮酸</span>」地段？</h4>
                 </div>
-                <div class="highlight-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; border: 2px solid rgba(255,107,107,0.3);">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"></div>
-                    <h4 style="color: #FFD700; margin-bottom: 10px; font-size: 1.2rem;"><span style="color: #4ECDC4; font-weight: 700;">首購族</span>又為何容易被「<span style="color: #FF6B6B; font-weight: 700;">建案渣男</span>」坑殺？</h4>
+                <div class="highlight-item" style="background: rgba(255,255,255,0.12); padding: 30px; border-radius: 18px; text-align: center; border: 2px solid rgba(255,107,107,0.3); box-shadow: 0 8px 25px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <div style="font-size: 2.5rem; margin-bottom: 18px;"></div>
+                    <h4 style="color: #FFD700; margin-bottom: 12px; font-size: clamp(1.1rem, 2.5vw, 1.3rem); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: #4ECDC4; font-weight: 700;">首購族</span>又為何容易被「<span style="color: #FF6B6B; font-weight: 700;">建案渣男</span>」坑殺？</h4>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 2px solid rgba(255,215,0,0.5);">
-                <p style="font-size: 1.3rem; color: #FFD700; font-weight: 700; margin-bottom: 10px;">
+            <div style="text-align: center; margin-top: 35px; padding: 30px 25px; background: rgba(255,255,255,0.12); border-radius: 20px; border: 2px solid rgba(255,215,0,0.5); box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(10px);">
+                <p style="font-size: clamp(1.2rem, 2.8vw, 1.4rem); color: #FFD700; font-weight: 700; margin-bottom: 15px; line-height: 1.4; letter-spacing: 0.02em;">
                     你可以不買房，但千萬別再買錯房。
                 </p>
-                <p style="font-size: 1.1rem; color: #4ECDC4; font-weight: 600;">
+                <p style="font-size: clamp(1rem, 2.2vw, 1.2rem); color: #4ECDC4; font-weight: 600; line-height: 1.5; letter-spacing: 0.01em;">
                     參加完這場講座，你會省下幾十萬房產課程的冤枉錢，也會多看懂十年市場。
                 </p>
             </div>
         </div>
 
         <!-- 社會證明 - 客戶見證區塊 -->
-        <div class="testimonials-section fade-in">
-            <h3>粉絲成功案例分享</h3>
+        <div class="testimonials-section fade-in" style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 28px; padding: 50px 30px; margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+            <h3 style="color: #f8f9fa; font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; margin-bottom: 35px; text-align: center; letter-spacing: 0.02em;">粉絲成功案例分享</h3>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-content">
@@ -4396,8 +4490,8 @@
             
         </div>
 
-        <div class="timeline-section fade-in">
-            <h3>📋 說明會流程</h3>
+        <div class="timeline-section fade-in" style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 28px; padding: 50px 30px; margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+            <h3 style="color: #f8f9fa; font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; margin-bottom: 35px; text-align: center; letter-spacing: 0.02em;">📋 說明會流程</h3>
             <div class="timeline">
                 <div class="timeline-item" style="animation-delay: 0.1s;">
                     <div class="timeline-time">13:30</div>
@@ -4461,8 +4555,8 @@
         </div>
 
         <!-- 表單預覽和優化區塊 -->
-        <div class="form-preview-section fade-in">
-            <h3>📝 報名表單</h3>
+        <div class="form-preview-section fade-in" style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 28px; padding: 50px 30px; margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+            <h3 style="color: #f8f9fa; font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; margin-bottom: 35px; text-align: center; letter-spacing: 0.02em;">📝 報名表單</h3>
             <div class="form-preview-container">
                 <div class="form-preview-card">
                     <div class="form-step active" data-step="1">
@@ -4629,8 +4723,8 @@
 
         <!-- 協作品牌廣告區 -->
         <div class="partner-brands-section fade-in" style="
-            margin: 30px 0 5px 0;
-            padding: 20px 15px;
+            margin: 30px 0 0 0;
+            padding: 20px 20px 0 20px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -4742,23 +4836,7 @@
             }
         }
 
-        // 創建動態背景粒子
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const numberOfParticles = 50;
-
-            for (let i = 0; i < numberOfParticles; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
+        // 粒子效果已移除
 
         // 滾動進度條
         function updateProgressBar() {
@@ -4768,22 +4846,7 @@
             document.getElementById('progressBar').style.width = scrolled + '%';
         }
 
-        // 滾動動畫效果
-        function handleScrollAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
-            });
-        }
+        // 滾動動畫效果已用CSS取代
 
         // 返回頂部按鈕
         function handleBackToTop() {
@@ -4815,18 +4878,22 @@
                 const now = new Date().getTime();
                 const distance = targetDate - now;
                 
-                console.log('距離目標時間:', distance, 'ms'); // 調試用
-                
                 if (distance > 0) {
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                     
-                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                    // 優化：使用更高效的DOM更新方式
+                    const daysEl = document.getElementById('days');
+                    const hoursEl = document.getElementById('hours');
+                    const minutesEl = document.getElementById('minutes');
+                    const secondsEl = document.getElementById('seconds');
+                    
+                    if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+                    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+                    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+                    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
                 } else {
                     // 活動已開始或已結束
                     document.getElementById('days').textContent = '00';
@@ -4841,45 +4908,40 @@
             
             // 立即執行一次
             updateCountdown();
-            // 每秒更新一次
+            // 恢復每秒更新，但使用更高效的實現
             const countdownInterval = setInterval(updateCountdown, 1000);
             
             // 保存interval ID以便後續清理（可選）
             window.countdownInterval = countdownInterval;
         }
 
-        // 2025年趨勢：游標互動光暈效果
-        document.addEventListener('mousemove', (e) => {
-            const cursorGlow = document.getElementById('cursorGlow');
-            const particles = document.querySelectorAll('.particle');
-            
-            // 游標光暈跟隨
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-            
-            // 粒子互動效果
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            particles.forEach((particle, index) => {
-                const speed = (index % 5 + 1) * 0.5;
-                const xOffset = (x - 0.5) * speed;
-                const yOffset = (y - 0.5) * speed;
+        // 2025年趨勢：游標互動光暈效果 - 可選禁用
+        let enableCursorEffects = false; // 設為 false 禁用游標效果，避免滑鼠被影響
+        
+        if (enableCursorEffects) {
+            document.addEventListener('mousemove', (e) => {
+                const cursorGlow = document.getElementById('cursorGlow');
+                const particles = document.querySelectorAll('.particle');
                 
-                particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                // 游標光暈跟隨
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+                
+                // 粒子互動效果
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                particles.forEach((particle, index) => {
+                    const speed = (index % 5 + 1) * 0.5;
+                    const xOffset = (x - 0.5) * speed;
+                    const yOffset = (y - 0.5) * speed;
+                    
+                    particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                });
             });
-        });
+        }
 
-        // 2025年趨勢：元素懸停3D效果
-        document.querySelectorAll('.feature-card').forEach(element => {
-            element.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02)';
-            });
-            
-            element.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
-            });
-        });
+        // 元素懸停3D效果已移除，避免影響滑鼠移動
 
 
         // 創建火花效果
@@ -4934,16 +4996,7 @@
             }, 1500);
         }
 
-        // 卡片懸停特效
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-12px) scale(1.03) rotateX(5deg)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
-            });
-        });
+        // 卡片懸停特效已移除，避免影響滑鼠移動
 
         // 時間軸項目動畫
         function animateTimelineItems() {
@@ -4964,64 +5017,13 @@
             });
         }
 
-        // 添加滾動事件監聽
-        window.addEventListener('scroll', () => {
-            updateProgressBar();
-        });
 
-        // 2025年趨勢：頁面載入動畫控制
-        function handleLoadingScreen() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            
-            // 模擬載入時間
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                // 載入完成後移除元素
-                setTimeout(() => {
-                    loadingScreen.remove();
-                }, 500);
-            }, 1500);
-        }
+        // 載入動畫已移除
 
-        // 2025年趨勢：閱讀進度指示器
-        function updateReadingProgress() {
-            const readingProgress = document.getElementById('readingProgress');
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            readingProgress.style.height = scrolled + '%';
-        }
 
-        // 2025年趨勢：觸覺反饋效果
-        function addHapticFeedback(element) {
-            element.addEventListener('click', function() {
-                this.classList.add('haptic-feedback');
-                setTimeout(() => {
-                    this.classList.remove('haptic-feedback');
-                }, 300);
-            });
-        }
+        // 觸覺反饋效果已用CSS取代
 
-        // 動態更新剩餘名額
-        function updateRemainingSpots() {
-            const remainingSpotsElement = document.getElementById('remainingSpots');
-            if (remainingSpotsElement) {
-                let currentSpots = parseInt(remainingSpotsElement.textContent);
-                
-                // 模擬名額減少（每30秒減少1個名額）
-                setInterval(() => {
-                    if (currentSpots > 5) {
-                        currentSpots--;
-                        remainingSpotsElement.textContent = currentSpots;
-                        
-                        // 當名額少於10個時，增加緊迫感
-                        if (currentSpots <= 10) {
-                            remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
-                        }
-                    }
-                }, 30000); // 30秒更新一次
-            }
-        }
+        // 動態更新剩餘名額功能已移除
 
         // AI驅動的個性化內容系統
         class AIPersonalizationEngine {
@@ -5057,48 +5059,20 @@
             }
 
             trackUserBehavior() {
-                // 追蹤頁面停留時間
-                const startTime = Date.now();
-                setInterval(() => {
-                    this.userProfile.timeOnPage = Math.floor((Date.now() - startTime) / 1000);
-                }, 1000);
-
-                // 追蹤滾動深度
+                // 簡化追蹤 - 只保留基本的滾動深度用於緊迫感調整
                 window.addEventListener('scroll', () => {
                     const scrollTop = window.pageYOffset;
                     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                     this.userProfile.scrollDepth = Math.round((scrollTop / docHeight) * 100);
                 });
-
-                // 追蹤互動次數
-                document.addEventListener('click', () => {
-                    this.userProfile.interactionCount++;
-                });
-
-                // 追蹤影片觀看
-                const video = document.querySelector('iframe');
-                if (video) {
-                    video.addEventListener('load', () => {
-                        this.userProfile.videoWatched = true;
-                    });
-                }
             }
 
             analyzeUserProfile() {
-                // AI分析用戶類型
-                if (this.userProfile.timeOnPage > 60 && this.userProfile.scrollDepth > 50) {
+                // 簡化分析 - 只根據滾動深度判斷用戶類型
+                if (this.userProfile.scrollDepth > 50) {
                     this.userProfile.userType = 'engaged';
-                } else if (this.userProfile.timeOnPage < 10) {
-                    this.userProfile.userType = 'quick_visitor';
-                } else if (this.userProfile.interactionCount > 3) {
-                    this.userProfile.userType = 'interactive';
-                }
-
-                // 根據時間分析用戶意圖
-                if (this.userProfile.timeOfDay >= 9 && this.userProfile.timeOfDay <= 17) {
-                    this.userProfile.timeContext = 'business_hours';
                 } else {
-                    this.userProfile.timeContext = 'after_hours';
+                    this.userProfile.userType = 'quick_visitor';
                 }
             }
 
@@ -5241,7 +5215,7 @@
                         reductionSpeed = 15000; // 15秒
                     }
 
-                    // 動態調整名額
+                    // 動態調整名額（每45秒減少1個名額）
                     setInterval(() => {
                         if (currentSpots > 5) {
                             currentSpots--;
@@ -5337,12 +5311,52 @@
                 const nextBtn = document.querySelector('.next-btn');
                 const prevBtn = document.querySelector('.prev-btn');
 
-                nextBtn.addEventListener('click', () => {
-                    // 防止重複提交
-                    if (nextBtn.disabled) return;
-                    this.nextStep();
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        // 防止重複提交
+                        if (nextBtn.disabled) return;
+                        this.nextStep();
+                    });
+                }
+                
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => this.prevStep());
+                }
+            }
+
+            setupFormValidation() {
+                // 表單驗證設定
+                const form = document.querySelector('form');
+                if (form) {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.validateAndSubmit();
+                    });
+                }
+            }
+
+            validateAndSubmit() {
+                // 簡單的表單驗證
+                const requiredFields = document.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ff6b6b';
+                    } else {
+                        field.style.borderColor = '';
+                    }
                 });
-                prevBtn.addEventListener('click', () => this.prevStep());
+                
+                if (isValid) {
+                    this.submitForm();
+                }
+            }
+
+            submitForm() {
+                // 表單提交邏輯
+                console.log('表單提交成功');
             }
 
             setupSmartInputs() {
@@ -5677,31 +5691,56 @@
             }
 
             setupAutoSave() {
-                // 每5秒自動保存
+                // 每8秒自動保存，平衡性能和用戶體驗
                 setInterval(() => {
                     this.saveToLocalStorage();
-                }, 5000);
+                }, 8000);
             }
 
             saveToLocalStorage() {
-                localStorage.setItem('jiangFormData', JSON.stringify(this.formData));
-                localStorage.setItem('jiangFormStep', this.currentStep.toString());
+                try {
+                    // 優化：使用壓縮和錯誤處理
+                    const compressedData = JSON.stringify(this.formData);
+                    localStorage.setItem('jiangFormData', compressedData);
+                    localStorage.setItem('jiangFormStep', this.currentStep.toString());
+                    localStorage.setItem('jiangFormTimestamp', Date.now().toString());
+                } catch (error) {
+                    console.warn('本地存儲失敗:', error);
+                }
             }
 
             loadFromLocalStorage() {
-                const savedData = localStorage.getItem('jiangFormData');
-                const savedStep = localStorage.getItem('jiangFormStep');
-                
-                if (savedData) {
-                    this.formData = JSON.parse(savedData);
-                    this.populateForm();
+                try {
+                    const savedData = localStorage.getItem('jiangFormData');
+                    const savedStep = localStorage.getItem('jiangFormStep');
+                    const timestamp = localStorage.getItem('jiangFormTimestamp');
+                    
+                    // 檢查數據是否過期（24小時）
+                    if (timestamp && Date.now() - parseInt(timestamp) > 24 * 60 * 60 * 1000) {
+                        this.clearLocalStorage();
+                        return;
+                    }
+                    
+                    if (savedData) {
+                        this.formData = JSON.parse(savedData);
+                        this.populateForm();
+                    }
+                    
+                    if (savedStep) {
+                        this.currentStep = parseInt(savedStep);
+                        this.updateFormDisplay();
+                        this.updateProgressBar();
+                    }
+                } catch (error) {
+                    console.warn('載入本地存儲失敗:', error);
+                    this.clearLocalStorage();
                 }
-                
-                if (savedStep) {
-                    this.currentStep = parseInt(savedStep);
-                    this.updateFormDisplay();
-                    this.updateProgressBar();
-                }
+            }
+            
+            clearLocalStorage() {
+                localStorage.removeItem('jiangFormData');
+                localStorage.removeItem('jiangFormStep');
+                localStorage.removeItem('jiangFormTimestamp');
             }
 
             populateForm() {
@@ -5756,8 +5795,7 @@
                 this.submitToGoogleSheets(finalData);
                 
                 // 清除本地儲存
-                localStorage.removeItem('jiangFormData');
-                localStorage.removeItem('jiangFormStep');
+                this.clearLocalStorage();
             }
 
             async submitToGoogleSheets(data) {
@@ -5773,7 +5811,7 @@
                         throw new Error('缺少必要欄位：姓名或電話');
                     }
                     
-                    // 創建URL編碼的表單數據 - 只包含必要欄位
+                    // 創建URL編碼的表單數據 - 包含所有欄位
                     const params = new URLSearchParams();
                     params.append('name', data.name);
                     params.append('phone', data.phone);
@@ -5786,7 +5824,30 @@
                     params.append('agreeTerms', data.agreeTerms || '');
                     params.append('agreeEvent', data.agreeEvent || '');
                     
+                    // 添加時間戳記和系統資訊 - 使用易讀格式
+                    const now = new Date();
+                    const readableTimestamp = now.toLocaleString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        timeZone: 'Asia/Taipei'
+                    });
+                    
+                    params.append('timestamp', readableTimestamp);
+                    params.append('timestampISO', data.timestamp || now.toISOString());
+                    params.append('userAgent', data.userAgent || navigator.userAgent);
+                    params.append('referrer', data.referrer || document.referrer);
+                    
                     console.log('🚀 提交表單數據到Google Sheets...');
+                    console.log('📋 提交的數據:', {
+                        name: data.name,
+                        phone: data.phone,
+                        timestamp: readableTimestamp,
+                        timestampISO: data.timestamp || now.toISOString()
+                    });
                     
                     // 設定超時時間
                     const controller = new AbortController();
@@ -5868,8 +5929,7 @@
                 errorMessages.forEach(error => error.remove());
                 
                 // 清除本地儲存
-                localStorage.removeItem('jiangFormData');
-                localStorage.removeItem('jiangFormStep');
+                this.clearLocalStorage();
                 
                 // 滾動到表單頂部
                 const formSection = document.querySelector('.form-preview-section');
@@ -6046,68 +6106,9 @@
 
 
 
-        // 添加按鈕點擊統計 (已移除按鈕，此功能已停用)
-        function trackButtonClicks() {
-            // const ctaButton = document.querySelector('.cta-button');
-            // if (ctaButton) {
-            //     let clickCount = 0;
-            //     
-            //     ctaButton.addEventListener('click', function() {
-            //         clickCount++;
-            //         
-            //         // 創建點擊反饋效果
-            //         const feedback = document.createElement('div');
-            //         feedback.textContent = '🔥 熱門報名中！';
-            //         feedback.style.position = 'fixed';
-            //         feedback.style.top = '50%';
-            //         feedback.style.left = '50%';
-            //         feedback.style.transform = 'translate(-50%, -50%)';
-            //         feedback.style.background = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
-            //         feedback.style.color = 'white';
-            //         feedback.style.padding = '15px 25px';
-            //         feedback.style.borderRadius = '25px';
-            //         feedback.style.fontWeight = '700';
-            //         feedback.style.fontSize = '1.2rem';
-            //         feedback.style.zIndex = '10000';
-            //         feedback.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-            //         feedback.style.animation = 'fadeInUp 0.5s ease forwards';
-            //         
-            //         document.body.appendChild(feedback);
-            //         
-            //         setTimeout(() => {
-            //             feedback.style.animation = 'fadeOutUp 0.5s ease forwards';
-            //             setTimeout(() => {
-            //                 feedback.remove();
-            //             }, 500);
-            //         }, 2000);
-            //     });
-            // }
-        }
+        // 按鈕點擊統計功能已移除
 
-        // 2025年趨勢：磁性懸停效果
-        function addMagneticEffect(element) {
-            element.addEventListener('mousemove', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const distance = Math.sqrt(x * x + y * y);
-                const maxDistance = 50;
-                
-                if (distance < maxDistance) {
-                    const moveX = (x / maxDistance) * 10;
-                    const moveY = (y / maxDistance) * 10;
-                    
-                    this.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-                } else {
-                    this.style.transform = 'translate(0, 0) scale(1)';
-                }
-            });
-            
-            element.addEventListener('mouseleave', function() {
-                this.style.transform = 'translate(0, 0) scale(1)';
-            });
-        }
+        // 磁性懸停效果已移除
 
         // 點擊免費名額跳轉到報名表單
         function initUrgencyClickToForm() {
@@ -6163,26 +6164,8 @@
             const windowHeight = window.innerHeight;
             const aspectRatio = windowWidth / windowHeight;
             
-            // 根據視窗尺寸動態調整縮放比例
-            let scale = 1;
-            if (windowWidth <= 480) {
-                scale = Math.min(0.85, 0.7 + (windowWidth / 480) * 0.15);
-            } else if (windowWidth <= 768) {
-                scale = Math.min(0.9, 0.8 + (windowWidth / 768) * 0.1);
-            } else if (windowWidth <= 1024) {
-                scale = Math.min(0.95, 0.85 + (windowWidth / 1024) * 0.1);
-            } else {
-                scale = 1;
-            }
-            
-            // 根據寬高比微調
-            if (aspectRatio < 0.6) { // 很窄的視窗
-                scale *= 0.95;
-            } else if (aspectRatio > 2) { // 很寬的視窗
-                scale *= 1.05;
-            }
-            
-            container.style.transform = `scale(${scale})`;
+            // 移除縮放設定，避免視窗縮小時被拉高
+            container.style.transform = 'none';
         }
 
         // 視窗高度優化函數
@@ -6198,16 +6181,9 @@
             html.style.setProperty('--vh', `${vh}px`);
             html.style.setProperty('--dvh', `${dvh}px`);
             
-            // 優化手機版視窗高度
-            if (window.innerWidth <= 768) {
-                // 使用動態視窗高度，避免手機瀏覽器地址欄影響
-                body.style.minHeight = `${window.innerHeight}px`;
-                html.style.minHeight = `${window.innerHeight}px`;
-            } else {
-                // 桌面版使用標準視窗高度
-                body.style.minHeight = '100vh';
-                html.style.minHeight = '100vh';
-            }
+            // 保持最小高度設定，確保頁面填滿視窗
+            body.style.minHeight = '100vh';
+            html.style.minHeight = '100vh';
         }
 
         // AI智能文字縮放函數 - 不出框版
@@ -6252,7 +6228,6 @@
                 element.style.fontSize = `${fontSize}rem`;
                 
                 // 確保文字不出框
-                element.style.overflow = 'hidden';
                 element.style.textOverflow = 'ellipsis';
                 element.style.whiteSpace = 'nowrap';
                 element.style.boxSizing = 'border-box';
@@ -6340,8 +6315,6 @@
                 element.style.fontSize = `${fontSize}rem`;
                 
                 // 確保文字不出框
-                container.style.overflow = 'hidden';
-                element.style.overflow = 'hidden';
                 element.style.textOverflow = 'ellipsis';
                 element.style.whiteSpace = 'nowrap';
                 element.style.boxSizing = 'border-box';
@@ -6365,6 +6338,7 @@
             const scrollSpeed = 0.5; // 滾動速度 (px/frame)
             const scrollDirection = 1; // 1 = 向右, -1 = 向左
             let isScrolling = true;
+            let animationId;
 
             function autoScroll() {
                 if (!isScrolling) return;
@@ -6378,98 +6352,134 @@
                 }
 
                 testimonialsGrid.scrollLeft = scrollPosition;
-                requestAnimationFrame(autoScroll);
+                animationId = requestAnimationFrame(autoScroll);
             }
 
             // 暫停自動滾動當用戶手動滾動時
             testimonialsGrid.addEventListener('scroll', function() {
                 isScrolling = false;
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
                 setTimeout(() => {
                     isScrolling = true;
                     scrollPosition = testimonialsGrid.scrollLeft;
+                    autoScroll(); // 重新開始滾動
                 }, 3000); // 3秒後恢復自動滾動
             });
 
             // 暫停自動滾動當滑鼠懸停時
             testimonialsGrid.addEventListener('mouseenter', function() {
                 isScrolling = false;
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
             });
 
             testimonialsGrid.addEventListener('mouseleave', function() {
                 isScrolling = true;
                 scrollPosition = testimonialsGrid.scrollLeft;
+                autoScroll(); // 重新開始滾動
             });
 
             // 開始自動滾動
             autoScroll();
         }
 
-        // 初始化
+        // 註冊Service Worker實現離線快取（僅在HTTPS環境中）
+        if ('serviceWorker' in navigator && location.protocol === 'https:') {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+                    const CACHE_NAME = 'jiang-page-v1';
+                    const urlsToCache = [
+                        '/',
+                        '/Brother Jiang.html'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `))
+                .then((registration) => {
+                    console.log('Service Worker 註冊成功:', registration);
+                })
+                .catch((error) => {
+                    console.log('Service Worker 註冊失敗:', error);
+                });
+            });
+        } else if (location.protocol === 'file:' || location.protocol === 'null') {
+            console.log('本地檔案環境，跳過 Service Worker 註冊');
+        }
+
+        // 初始化 - 只保留必要功能
         document.addEventListener('DOMContentLoaded', () => {
+            preloadResources(); // 預載入重要資源
             fixMobileScrolling(); // 修復移動設備滾動
-            handleLoadingScreen();
-            initTestimonialsAutoScroll(); // 初始化粉絲成功案例自動滾動
-            createParticles();
-            handleScrollAnimations();
-            adjustResponsiveScale(); // 初始化響應式縮放
-            aiTextScaling(); // 初始化AI智能文字縮放
-            ensureTextInBounds(); // 確保文字不出框
-            unifyViewportBackground(); // 統一視窗背景設置
-            handleBackToTop();
-            startCountdown();
-            initMobileCtaSticky(); // 2025年趨勢：初始化手機版粘性 CTA
-            animateTimelineItems();
-            trackButtonClicks();
-            updateRemainingSpots();
-            initUrgencyClickToForm(); // 初始化免費名額點擊跳轉
-            
-            // 監聽視窗大小變化，動態調整縮放
-            window.addEventListener('resize', () => {
-                adjustResponsiveScale();
-                aiTextScaling(); // 視窗大小變化時重新計算文字大小
-                ensureTextInBounds(); // 確保文字不出框
-                unifyViewportBackground(); // 確保背景統一
-            });
-            
-            // 監聽視窗方向變化（手機旋轉）
-            window.addEventListener('orientationchange', () => {
-                setTimeout(() => {
-                    adjustResponsiveScale();
-                    aiTextScaling(); // 方向變化時重新計算文字大小
-                    ensureTextInBounds(); // 確保文字不出框
-                    unifyViewportBackground(); // 確保背景統一
-                }, 100);
-            });
-            
-            // 啟動AI個性化系統
-            const aiEngine = new AIPersonalizationEngine();
+            handleBackToTop(); // 返回頂部
+            startCountdown(); // 倒數計時
+            initUrgencyClickToForm(); // 免費名額點擊跳轉
+            initABTesting(); // 標題變換功能
             
             // 啟動智能表單系統
             const smartForm = new SmartFormSystem();
-            
-            // 添加觸覺反饋到所有按鈕 (已移除CTA按鈕)
-            document.querySelectorAll('.feature-card, .testimonial-card, .credential-item, .form-nav-btn').forEach(addHapticFeedback);
-            
-            // 添加磁性效果到特色卡片
-            document.querySelectorAll('.feature-card, .testimonial-card, .credential-item').forEach(addMagneticEffect);
-            
-            // 開發者工具：查看AI分析結果
-            window.aiAnalytics = () => {
-                console.log('🤖 AI個性化分析報告:', aiEngine.getUserAnalytics());
-                return aiEngine.getUserAnalytics();
-            };
-            
-            // 開發者工具：查看表單數據
-            window.formAnalytics = () => {
-                console.log('📝 表單數據:', smartForm.formData);
-                return smartForm.formData;
-            };
         });
 
-        // 添加滾動事件監聽
+        // 資源預載入功能
+        function preloadResources() {
+            // 預載入重要CSS和JS資源
+            const resources = [
+                'data:text/css;base64,', // 內嵌CSS
+                'data:text/javascript;base64,' // 內嵌JS
+            ];
+            
+            resources.forEach(resource => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.href = resource;
+                link.as = resource.includes('css') ? 'style' : 'script';
+                document.head.appendChild(link);
+            });
+        }
+
+        // 移動設備滾動修復
+        function fixMobileScrolling() {
+            // 確保移動設備上的滾動正常工作
+            if ('ontouchstart' in window) {
+                // 移除可能阻止滾動的事件監聽器
+                document.addEventListener('touchstart', function(e) {
+                    // 只在特定元素上阻止默認行為
+                    if (e.target.closest('.no-scroll')) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            }
+        }
+
+        // 優化的滾動事件監聽 - 合併所有滾動相關功能
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            updateProgressBar();
-            updateReadingProgress();
+            // 使用防抖優化性能
+            if (scrollTimeout) {
+                cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = requestAnimationFrame(() => {
+                updateProgressBar();
+            });
         });
 
         // CSS 動畫樣式
@@ -6571,29 +6581,10 @@
         document.head.appendChild(style);
     </script>
 
-    <!-- 底部資訊和勾子標題 -->
-    <footer style="
-        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-        padding: 20px 15px;
-        text-align: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        margin-top: 5px;
-    ">
-        <div class="container">
-
-            <!-- 版權資訊 -->
-            <div style="
-                color: rgba(255, 255, 255, 0.6);
-                font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-                margin-top: 20px;
-                padding-top: 20px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            ">
-                <p style="margin: 0;">
-                    © 2025 房產擺渡人YT「蔣哥」
-                </p>
-            </div>
-        </div>
+    <!-- 頁腳 -->
+    <footer class="footer">
+        <p>© 2025 房產擺渡人 YT「蔣哥」</p>
     </footer>
+
 </body>
 </html>
