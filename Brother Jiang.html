@@ -40,7 +40,7 @@
             overflow-x: hidden;
             /* 優化視窗高度設置 */
             height: 100%;
-            min-height: 100vh;
+            /* 移除 min-height: 100vh 避免額外空白區域 */
         }
         
         /* 電腦版顯示一般滾動條 - 防止閃爍 */
@@ -348,6 +348,50 @@
             /* 響應式縮放容器 */
             transform-origin: center top;
             transition: transform 0.3s ease;
+        }
+        
+        /* 手機版滿版顯示 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 !important; /* 手機版移除左右間距，實現滿版 */
+                max-width: 100% !important;
+            }
+            
+            /* 手機版內容區域保持適當間距 */
+            .main-content {
+                margin: 25px 15px !important; /* 保持上下間距，左右使用較小間距 */
+                padding: 30px 20px !important;
+            }
+            
+            .hero {
+                padding: 20px 15px !important; /* Hero區域也使用較小間距 */
+            }
+            
+            .features {
+                margin: 40px 15px !important; /* 特色卡片區域 */
+            }
+            
+            /* 其他內容區域也使用較小間距 */
+            .timeline-section {
+                margin: 25px 15px !important;
+                padding: 30px 20px !important;
+            }
+            
+            .prize-section {
+                margin: 25px 15px !important;
+                padding: 30px 20px !important;
+            }
+            
+            .cta-section {
+                margin: 25px 15px !important;
+                padding: 30px 20px !important;
+            }
+            
+            /* 表單區域也使用較小間距 */
+            .form-preview-container {
+                margin: 0 15px !important;
+                padding: 25px 20px !important;
+            }
         }
 
         /* 動態背景粒子效果 */
