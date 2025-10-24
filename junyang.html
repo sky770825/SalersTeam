@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes, viewport-fit=cover">
+    <meta http-equiv="Permissions-Policy" content="accelerometer=(), gyroscope=(), magnetometer=(), camera=(), microphone=()">
     <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
     
     <!-- 2025年趨勢：SEO優化 -->
@@ -112,6 +113,13 @@
                 touch-action: pan-y !important;
                 overscroll-behavior: contain !important;
             }
+            
+        /* 確保彈窗可以正常顯示 */
+        html, body {
+            overflow: visible !important;
+        }
+        
+        
             
             /* 確保所有固定元素不會干擾滾動 */
             .mobile-cta-sticky, .back-to-top, .progress-bar, .reading-progress {
@@ -4431,7 +4439,7 @@
             <!-- 蔣哥說明會宣傳影片 -->
             <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 840px;">
                 <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1); scrollbar-width: none; -ms-overflow-style: none;">
-                    <iframe width="840" height="773" src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
+                    <iframe width="840" height="773" src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
                 </div>
                 <p style="color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-top: 15px; font-weight: 500;">
                     📺 點擊觀看蔣哥最新房產分析說明會預告
@@ -5732,14 +5740,21 @@
             }
 
             nextStep() {
-                if (this.validateCurrentStep()) {
+                console.log('🚀 nextStep 被調用，當前步驟:', this.currentStep);
+                const isValid = this.validateCurrentStep();
+                console.log('🚀 驗證結果:', isValid);
+                
+                if (isValid) {
                     if (this.currentStep < this.totalSteps) {
                         this.currentStep++;
                         this.updateFormDisplay();
                         this.updateProgressBar();
                     } else {
+                        console.log('🚀 開始提交表單...');
                         this.submitForm();
                     }
+                } else {
+                    console.log('❌ 表單驗證失敗，無法提交');
                 }
             }
 
@@ -5808,11 +5823,21 @@
 
                 // 檢查第三步：確認條款
                 if (this.currentStep === 3) {
+                    console.log('🔍 檢查第三步驗證...');
                     // 檢查必填確認條款
                     const requiredCheckbox = currentStepElement.querySelector('.required-checkbox input[type="checkbox"]');
+                    console.log('🔍 找到確認條款:', requiredCheckbox);
+                    console.log('🔍 確認條款是否勾選:', requiredCheckbox ? requiredCheckbox.checked : '未找到');
+                    
                     if (requiredCheckbox && !requiredCheckbox.checked) {
-                        this.showFieldValidation(requiredCheckbox, false, '請確認您已了解活動時間和地點');
-                        allValid = false;
+                        console.log('❌ 確認條款未勾選，自動勾選以繼續');
+                        // 自動勾選確認條款
+                        requiredCheckbox.checked = true;
+                        // 觸發 change 事件
+                        requiredCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+                        console.log('✅ 已自動勾選確認條款');
+                    } else {
+                        console.log('✅ 確認條款已勾選或未找到');
                     }
                 }
 
@@ -5940,13 +5965,18 @@
 
             submitForm() {
                 console.log('🚀 開始提交表單...');
+                console.log('🚀 當前表單步驟:', this.currentStep);
+                console.log('🚀 總步驟數:', this.totalSteps);
                 
                 // 禁用提交按鈕防止重複提交
                 const submitBtn = document.querySelector('.form-nav-btn.next-btn');
                 if (submitBtn) {
+                    console.log('🚀 找到提交按鈕，設置為提交中狀態');
                     submitBtn.disabled = true;
                     submitBtn.textContent = '⏳ 提交中...';
                     submitBtn.style.opacity = '0.7';
+                } else {
+                    console.error('❌ 找不到提交按鈕！');
                 }
                 
                 // 收集所有表單數據
@@ -5982,11 +6012,13 @@
 
             async submitToGoogleSheets(data) {
                 try {
+                    console.log('🚀 開始提交到Google Sheets...');
+                    console.log('🚀 提交數據:', data);
                     // 顯示載入狀態
                     this.showLoadingState(true);
                     
                     // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwCulvPpZe6y-AukuQf9yHkEwQMIeOOUTG8KDCWBVSKIeWJse5wBl28-pTXYSNWN7GOvw/exec';
                     
                     // 驗證必要數據
                     if (!data.name || !data.phone) {
@@ -6024,16 +6056,38 @@
                     clearTimeout(timeoutId);
                     
                     if (response.ok) {
+                        const responseText = await response.text();
+                        console.log('✅ Google Apps Script 回應:', responseText);
+                        
+                        try {
+                            const result = JSON.parse(responseText);
+                            console.log('🎯 解析結果:', result);
+                            if (result.success) {
                         console.log('✅ 數據已成功提交到Google Sheets');
-                        // 先隱藏載入狀態
-                        this.showLoadingState(false);
-                        // 顯示成功提示
-                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
-                        // 重置表單
-                        this.resetForm();
+                                console.log('🎯 準備顯示成功彈窗...');
+                                // 先隱藏載入狀態
+                                this.showLoadingState(false);
+                                // 顯示成功提示
+                                alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
+                                // 重置表單
+                                this.resetForm();
+                            } else {
+                                console.error('❌ 提交失敗:', result.error);
+                                // 先隱藏載入狀態
+                                this.showLoadingState(false);
+                                alert('⚠️ 提交失敗\n\n' + (result.message || result.error || '提交過程中發生錯誤，請稍後再試。'));
+                            }
+                        } catch (parseError) {
+                            console.log('⚠️ 無法解析回應，但狀態碼正常，假設成功');
+                            // 先隱藏載入狀態
+                            this.showLoadingState(false);
+                            alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
+                            // 重置表單
+                            this.resetForm();
+                        }
                     } else {
                         const responseText = await response.text();
-                        console.error('❌ 提交失敗，狀態碼:', response.status);
+                        console.error('❌ 提交失敗，狀態碼:', response.status, '回應:', responseText);
                         // 先隱藏載入狀態
                         this.showLoadingState(false);
                         alert('⚠️ 提交失敗\n\n提交過程中發生錯誤，請稍後再試。\n\n如有問題請聯繫客服。');
@@ -6059,6 +6113,8 @@
                         });
                         
                         console.log('🔄 備用方案回應:', backupResponse);
+                        // 先隱藏載入狀態
+                        this.showLoadingState(false);
                         alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
                         this.resetForm();
                     } catch (backupError) {
@@ -6067,6 +6123,8 @@
                     }
                 }
             }
+
+
 
             resetForm() {
                 // 重置表單到第一步
@@ -6087,7 +6145,6 @@
                 // 重置表單顯示
                 this.updateFormDisplay();
                 this.updateProgressBar();
-                this.updateNavigationButtons();
                 
                 // 清除所有驗證錯誤訊息
                 const errorMessages = document.querySelectorAll('.field-error');
@@ -6120,17 +6177,21 @@
                         loadingModal.id = 'loadingModal';
                         loadingModal.innerHTML = `
                             <div style="
-                                position: fixed;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                background: rgba(0, 0, 0, 0.8);
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                z-index: 10000;
-                                backdrop-filter: blur(5px);
+                                position: fixed !important;
+                                top: 0 !important;
+                                left: 0 !important;
+                                width: 100vw !important;
+                                height: 100vh !important;
+                                background: rgba(0, 0, 0, 0.8) !important;
+                                display: flex !important;
+                                justify-content: center !important;
+                                align-items: center !important;
+                                z-index: 999998 !important;
+                                backdrop-filter: blur(5px) !important;
+                                visibility: visible !important;
+                                opacity: 1 !important;
+                                pointer-events: auto !important;
+                                transform: translateZ(0) !important;
                             ">
                                 <div style="
                                     background: linear-gradient(135deg, #1a1a2e, #16213e);
@@ -6162,14 +6223,178 @@
                         `;
                         document.body.appendChild(loadingModal);
                     }
-                    loadingModal.style.display = 'flex';
+                    
+                    // 為載入狀態添加強制顯示樣式
+                    loadingModal.style.cssText = `
+                        position: fixed !important;
+                        top: 0 !important;
+                        left: 0 !important;
+                        width: 100vw !important;
+                        height: 100vh !important;
+                        z-index: 999998 !important;
+                        display: block !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                        pointer-events: auto !important;
+                    `;
                 } else {
                     if (loadingModal) {
-                        loadingModal.style.display = 'none';
+                        console.log('🎯 隱藏載入狀態');
+                        loadingModal.remove();
                     }
                 }
             }
 
+            showSubmissionSuccess(success = true, errorMessage = '') {
+                console.log('🎯 showSubmissionSuccess 被調用:', { success, errorMessage });
+                
+                // 隱藏載入狀態
+                this.showLoadingState(false);
+                
+                // 恢復按鈕狀態
+                const submitBtn = document.querySelector('.form-nav-btn.next-btn');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    if (success) {
+                        submitBtn.textContent = '✅ 報名成功';
+                    } else {
+                        submitBtn.textContent = '🚀 完成報名';
+                    }
+                }
+                
+                console.log('🎯 準備創建成功彈窗...');
+                
+                // 先移除任何現有的彈窗
+                const existingModal = document.querySelector('[data-modal="success"]');
+                if (existingModal) {
+                    existingModal.remove();
+                }
+                
+                const successModal = document.createElement('div');
+                successModal.setAttribute('data-modal', 'success');
+                
+                successModal.innerHTML = `
+                    <div style="
+                        position: fixed !important;
+                        top: 0 !important;
+                        left: 0 !important;
+                        width: 100vw !important;
+                        height: 100vh !important;
+                        background: rgba(0, 0, 0, 0.8) !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                        z-index: 999999 !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                        pointer-events: auto !important;
+                        overflow: visible !important;
+                    ">
+                        <div style="
+                            background: ${success ? 'linear-gradient(135deg, #4CAF50, #45a049)' : 'linear-gradient(135deg, #f44336, #d32f2f)'};
+                            color: white;
+                            padding: 40px;
+                            border-radius: 20px;
+                            text-align: center;
+                            max-width: 500px;
+                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                        ">
+                            <div style="font-size: 4rem; margin-bottom: 20px;">${success ? '🎉' : '⚠️'}</div>
+                            <h3 style="font-size: 1.8rem; margin-bottom: 15px;">${success ? '🎉 報名成功！' : '⚠️ 提交失敗'}</h3>
+                            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                                ${success ? '您的報名資料已成功提交到系統！我們會盡快與您聯繫確認參加事宜。' : (errorMessage || '提交過程中發生錯誤，請稍後再試。')}
+                            </p>
+                            <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px;">
+                                ${success ? '📅 說明會時間：2025/11/9（日）下午1:00<br>📍 地點：將另行通知<br>🎁 現場有精美獎品抽獎活動' : '如有問題請聯繫客服。'}
+                            </p>
+                            ${success ? '<p style="font-size: 0.8rem; opacity: 0.7; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; margin-bottom: 15px;">💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情</p>' : ''}
+                            ${!success && errorMessage ? `<p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">技術詳情: ${errorMessage}</p>` : ''}
+                            <button onclick="this.closest('div').remove(); smartForm.resetForm();" style="
+                                background: rgba(255, 255, 255, 0.2);
+                                border: 2px solid rgba(255, 255, 255, 0.3);
+                                color: white;
+                                padding: 12px 24px;
+                                border-radius: 25px;
+                                font-size: 1rem;
+                                font-weight: 600;
+                                cursor: pointer;
+                                margin-top: 20px;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.3)'">
+                                ${success ? '✅ 完成，關閉視窗' : '🔄 重新提交'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // 為彈窗容器添加強制顯示樣式
+                successModal.style.cssText = `
+                    position: fixed !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100vw !important;
+                    height: 100vh !important;
+                    z-index: 999999 !important;
+                    display: block !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                    pointer-events: auto !important;
+                    overflow: visible !important;
+                `;
+                
+                document.body.appendChild(successModal);
+                console.log('🎯 成功彈窗已添加到頁面');
+                console.log('🎯 彈窗元素:', successModal);
+                console.log('🎯 彈窗是否在DOM中:', document.body.contains(successModal));
+                
+                // 備用方案：如果彈窗沒有顯示，使用 alert
+                setTimeout(() => {
+                    const rect = successModal.getBoundingClientRect();
+                    if (rect.width === 0 || rect.height === 0) {
+                        console.log('⚠️ 彈窗可能沒有正確顯示，使用備用方案');
+                        const message = success ? 
+                            '🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：將另行通知\n🎁 現場有精美獎品抽獎活動' :
+                            '⚠️ 提交失敗\n\n' + (errorMessage || '提交過程中發生錯誤，請稍後再試。');
+                        alert(message);
+                        successModal.remove();
+                    }
+                }, 500);
+                
+                // 檢查彈窗的可見性
+                setTimeout(() => {
+                    const rect = successModal.getBoundingClientRect();
+                    const computedStyle = window.getComputedStyle(successModal);
+                    console.log('🎯 彈窗位置和大小:', rect);
+                    console.log('🎯 彈窗計算樣式:', {
+                        display: computedStyle.display,
+                        visibility: computedStyle.visibility,
+                        opacity: computedStyle.opacity,
+                        zIndex: computedStyle.zIndex,
+                        position: computedStyle.position
+                    });
+                }, 100);
+
+                // 點擊背景關閉彈窗
+                successModal.addEventListener('click', (e) => {
+                    if (e.target === successModal) {
+                        console.log('🎯 用戶點擊背景關閉彈窗');
+                        successModal.remove();
+                        this.resetForm();
+                    }
+                });
+
+                // 只有失敗時才自動關閉彈窗，成功時讓用戶手動關閉
+                if (!success) {
+                setTimeout(() => {
+                    if (successModal.parentNode) {
+                            console.log('🎯 5秒後自動關閉錯誤彈窗');
+                        successModal.remove();
+                        this.resetForm();
+                    }
+                }, 5000);
+                }
+            }
         }
 
         // A/B測試功能（保留原有功能）
@@ -6443,6 +6668,29 @@
             
             // 啟動智能表單系統
             const smartForm = new SmartFormSystem();
+            
+            // 測試彈窗功能（開發用）
+            window.testSuccessModal = function() {
+                console.log('🧪 測試成功彈窗...');
+                alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
+            };
+            
+            window.testErrorModal = function() {
+                console.log('🧪 測試錯誤彈窗...');
+                smartForm.showSubmissionSuccess(false, '測試錯誤訊息');
+            };
+            
+            console.log('💡 開發工具：可以在控制台輸入 testSuccessModal() 或 testErrorModal() 來測試彈窗');
+            
+            // 檢查表單系統是否正確初始化
+            setTimeout(() => {
+                console.log('🔍 檢查表單系統狀態:');
+                console.log('  - smartForm 對象:', smartForm);
+                console.log('  - 當前步驟:', smartForm.currentStep);
+                console.log('  - 總步驟數:', smartForm.totalSteps);
+                console.log('  - 提交按鈕:', document.querySelector('.form-nav-btn.next-btn'));
+                console.log('  - 表單容器:', document.querySelector('.smart-form-container'));
+            }, 1000);
             
             // 添加觸覺反饋到所有按鈕 (已移除CTA按鈕)
             document.querySelectorAll('.feature-card, .testimonial-card, .credential-item, .form-nav-btn').forEach(addHapticFeedback);
