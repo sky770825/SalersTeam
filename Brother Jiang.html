@@ -1690,6 +1690,7 @@
             position: relative;
             margin-top: 30px;
             overflow: hidden;
+            width: 100%;
             /* 確保沒有滾動條 */
             scrollbar-width: none;
             -ms-overflow-style: none;
@@ -1700,16 +1701,19 @@
         }
 
         .testimonials-carousel {
-            display: flex;
+            display: flex !important;
             transition: transform 0.5s ease-in-out;
-            gap: 30px;
+            gap: 0;
             flex-direction: row;
+            width: 600% !important; /* 6個卡片，每個100%寬度 */
+            position: relative;
         }
 
         .testimonials-carousel .testimonial-card {
-            flex: 0 0 calc(33.333% - 20px);
-            min-width: calc(33.333% - 20px);
-            max-width: calc(33.333% - 20px);
+            flex: 0 0 16.666% !important; /* 100% / 6 = 16.666% */
+            min-width: 16.666% !important;
+            max-width: 16.666% !important;
+            width: 16.666% !important;
         }
 
         /* 輪播控制按鈕 */
@@ -3347,6 +3351,7 @@
                 flex-direction: row !important;
                 overflow: hidden !important;
                 scroll-behavior: smooth !important;
+                width: 600% !important;
                 /* 移除滾動條 */
                 scrollbar-width: none !important;
                 -ms-overflow-style: none !important;
@@ -3360,14 +3365,14 @@
             }
 
             .testimonials-carousel .testimonial-card {
-                flex: 0 0 100% !important;
-                min-width: 100% !important;
-                max-width: 100% !important;
-                width: 100% !important;
+                flex: 0 0 16.666% !important;
+                min-width: 16.666% !important;
+                max-width: 16.666% !important;
+                width: 16.666% !important;
             }
 
             .carousel-controls {
-                display: none !important; /* 手機版隱藏控制按鈕 */
+                display: flex !important; /* 所有螢幕都顯示控制按鈕 */
             }
             
 
@@ -6353,21 +6358,24 @@
             const carousel = document.getElementById('testimonialsCarousel');
             const dotsContainer = document.getElementById('carouselDots');
             
-            if (!carousel) return;
+            console.log('初始化輪播，容器:', carousel);
+            console.log('指示點容器:', dotsContainer);
+            
+            if (!carousel) {
+                console.error('找不到輪播容器！');
+                return;
+            }
             
             const cards = carousel.querySelectorAll('.testimonial-card');
             totalSlides = cards.length;
             
-            // 根據螢幕大小決定顯示數量
-            if (window.innerWidth <= 768) {
-                slidesToShow = 1;
-                // 手機版添加觸摸滑動功能
-                addTouchSwipe(carousel);
-            } else if (window.innerWidth <= 1024) {
-                slidesToShow = 2;
-            } else {
-                slidesToShow = 3;
-            }
+            console.log('找到', totalSlides, '個案例卡片');
+            
+            // 所有螢幕大小都顯示單欄
+            slidesToShow = 1;
+            
+            // 添加觸摸滑動功能
+            addTouchSwipe(carousel);
             
             // 創建指示點
             createDots();
@@ -6375,11 +6383,9 @@
             // 設置初始位置
             updateCarousel();
             
-            // 自動輪播
+            // 自動輪播 - 所有螢幕都自動輪播
             setInterval(() => {
-                if (window.innerWidth > 768) { // 只在桌面版自動輪播
-                    moveCarousel(1);
-                }
+                moveCarousel(1);
             }, 5000);
         }
 
@@ -6433,7 +6439,10 @@
             if (!dotsContainer) return;
             
             dotsContainer.innerHTML = '';
-            const totalDots = Math.ceil(totalSlides / slidesToShow);
+            // 單欄顯示，每個卡片一個指示點
+            const totalDots = totalSlides;
+            
+            console.log('創建指示點，總數:', totalDots);
             
             for (let i = 0; i < totalDots; i++) {
                 const dot = document.createElement('div');
@@ -6445,13 +6454,12 @@
         }
 
         function moveCarousel(direction) {
-            const totalDots = Math.ceil(totalSlides / slidesToShow);
             currentSlide += direction;
             
-            if (currentSlide >= totalDots) {
+            if (currentSlide >= totalSlides) {
                 currentSlide = 0;
             } else if (currentSlide < 0) {
-                currentSlide = totalDots - 1;
+                currentSlide = totalSlides - 1;
             }
             
             updateCarousel();
@@ -6468,8 +6476,12 @@
             
             if (!carousel) return;
             
-            const translateX = -currentSlide * (100 / slidesToShow);
+            // 每個卡片佔16.666%寬度，所以位移是 currentSlide * 16.666%
+            const translateX = -currentSlide * 16.666;
             carousel.style.transform = `translateX(${translateX}%)`;
+            
+            console.log('切換到第', currentSlide + 1, '個案例，位移:', translateX + '%');
+            console.log('輪播容器當前樣式:', carousel.style.transform);
             
             // 更新指示點
             dots.forEach((dot, index) => {
@@ -6477,16 +6489,9 @@
             });
         }
 
-        // 響應式處理
+        // 響應式處理 - 所有螢幕都使用單欄
         window.addEventListener('resize', () => {
-            if (window.innerWidth <= 768) {
-                slidesToShow = 1;
-            } else if (window.innerWidth <= 1024) {
-                slidesToShow = 2;
-            } else {
-                slidesToShow = 3;
-            }
-            
+            slidesToShow = 1;
             currentSlide = 0;
             createDots();
             updateCarousel();
@@ -6527,9 +6532,21 @@
             setTimeout(() => {
                 const carousel = document.getElementById('testimonialsCarousel');
                 const cards = carousel ? carousel.querySelectorAll('.testimonial-card') : [];
+                const dots = document.querySelectorAll('.carousel-dot');
                 console.log('輪播卡片數量:', cards.length);
                 console.log('當前顯示數量:', slidesToShow);
                 console.log('總頁數:', Math.ceil(cards.length / slidesToShow));
+                console.log('指示點數量:', dots.length);
+                console.log('當前頁面:', currentSlide);
+                console.log('輪播容器:', carousel);
+                console.log('輪播樣式:', carousel ? carousel.style.transform : '無');
+                
+                // 添加手動測試函數到全局
+                window.testCarousel = () => {
+                    console.log('手動測試輪播');
+                    moveCarousel(1);
+                };
+                console.log('可以使用 window.testCarousel() 來手動測試輪播');
             }, 1000);
             
             // 開發者工具：查看AI分析結果
