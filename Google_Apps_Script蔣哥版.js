@@ -197,6 +197,7 @@ function doPost(e) {
       console.log('確認通知已發送');
     } catch (notificationError) {
       console.error('發送確認通知失敗:', notificationError);
+      // 不影響主要提交流程，繼續執行
     }
     
     // 準備返回的報名者姓名（遮罩格式）
@@ -251,7 +252,7 @@ function sendConfirmationNotification(name, phone, lineId, referrerType) {
     const lastRow = sheet.getLastRow();
     
     // 在備註欄位記錄確認通知
-    const notificationMessage = `確認通知已記錄 - 姓名: ${name}, 電話: ${phone}, LINE ID: ${lineId || '未提供'}, 介紹人: ${referrerTypeChinese || '其他'}`;
+    const notificationMessage = `確認通知已記錄 - 姓名: ${name}, 電話: ${phone}, LINE ID: ${lineId || '未提供'}, 介紹人: ${referrerType || '其他'}`;
     sheet.getRange(lastRow, 15).setValue(notificationMessage); // 在O列添加備註
     
     console.log('✅ 確認通知已記錄到 Google Sheets');
@@ -267,7 +268,8 @@ function sendConfirmationNotification(name, phone, lineId, referrerType) {
     
   } catch (error) {
     console.error('發送確認通知時發生錯誤:', error);
-    throw error;
+    // 不拋出錯誤，避免影響主要提交流程
+    return false;
   }
 }
 
