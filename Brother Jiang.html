@@ -2487,8 +2487,11 @@
             margin-bottom: 12px;
             padding-left: 0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.5;
         }
 
         .form-benefits li::before {
@@ -2539,6 +2542,9 @@
             color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
             font-size: 1rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.5;
         }
 
         /* 地圖容器樣式 */
@@ -3611,6 +3617,9 @@
             
             .form-benefits li {
                 font-size: 0.95rem;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                line-height: 1.6;
             }
             
             /* 手機版活動資訊和地圖調整 */
@@ -3636,6 +3645,9 @@
             
             .event-text {
                 font-size: 0.9rem;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                line-height: 1.6;
             }
             
             .prize-image {
@@ -4511,7 +4523,7 @@
                 <span style="color: #4ECDC4; font-weight: 600;">下午1:00 準時開始</span>
             </div>
             <div class="urgency-alert">
-                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
+                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">18</span> 個</span>
                 <span class="deadline-text">⏰ 報名即將截止，請把握機會！</span>
             </div>
             <div class="countdown-timer" id="countdown">
@@ -4827,7 +4839,7 @@
                                 </div>
                                 <div class="event-item">
                                     <span class="event-icon"></span>
-                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）</span>
+                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號<br>（悅讀伊頓銷售中心）</span>
                                 </div>
                             </div>
                         </div>
@@ -4858,7 +4870,7 @@
                                         確認您已知道活動時間、地點<br>
                                         <small style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
                                             時間：2025/11/9（日）下午1:00 準時開始<br>
-                                            地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）
+                                            地點：桃園市桃園區大興西路三段90號<br>（悅讀伊頓銷售中心）
                                         </small>
                                     </span>
                                 </label>
@@ -4902,6 +4914,102 @@
     </a>
 
     <script>
+        // ============================================
+        // 📋 活動名額配置區（請根據實際活動修改）
+        // ============================================
+        const EVENT_CONFIG = {
+            // 總名額設定：實際活動的真實名額上限
+            TOTAL_QUOTA: 30,
+            
+            // 顯示策略設定：為了避免剩餘名額太多時缺乏緊迫感
+            // MAX_DISPLAY_SPOTS: 顯示的最大名額數（如果實際剩餘超過此值，只顯示此值）
+            // 建議設為總名額的50-60%，例如30個名額設15-18
+            MAX_DISPLAY_SPOTS: 18,
+            
+            // MIN_DISPLAY_SPOTS: 當剩餘名額很多時的起始顯示值（隨機範圍下限）
+            // 建議設為總名額的40-50%，例如30個名額設12-15
+            MIN_DISPLAY_SPOTS: 15,
+            
+            // 📅 自動減少策略說明：
+            // 系統會根據剩餘天數自動減少顯示名額，營造持續報名的感覺
+            // - 8天以上：不因天數減少
+            // - 6-7天：減少1個
+            // - 4-5天：減少2個
+            // - 2-3天：減少4個
+            // - 1天：減少6個
+            // - 0天：減少8個
+            // 同時結合真實報名人數（每3人報名減少1個顯示名額）
+            
+            // 備註：修改 TOTAL_QUOTA 後，請同時更新 Google Apps Script 中的額滿檢查上限
+            // 在 Google_Apps_Script蔣哥版.js 中找到 getRegistrationCount() 函數
+            // 將 if (registrationCount >= 30) 中的 30 改為相同的數字
+        };
+        
+        /**
+         * 計算距離活動日期的剩餘天數
+         * @returns {number} - 剩餘天數（如果已過期則返回0）
+         */
+        function getDaysUntilEvent() {
+            // 設定目標日期為2025年11月9日 23:59:59
+            const targetDate = new Date('2025-11-09T23:59:59+08:00');
+            const now = new Date();
+            const diffTime = targetDate - now;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return Math.max(0, diffDays); // 如果已過期，返回0
+        }
+        
+        /**
+         * 智能計算顯示名額（營銷策略：避免顯示太多名額造成缺乏緊迫感）
+         * 結合真實報名人數和剩餘天數，自動減少顯示名額，營造持續報名的感覺
+         * @param {number} actualRemaining - 實際剩餘名額
+         * @returns {number} - 顯示的名額數
+         */
+        function calculateDisplaySpots(actualRemaining) {
+            // 如果實際剩餘名額 <= 顯示上限，直接顯示真實值（因為已經很緊張了）
+            if (actualRemaining <= EVENT_CONFIG.MAX_DISPLAY_SPOTS) {
+                return actualRemaining;
+            }
+            
+            // 計算剩餘天數
+            const daysLeft = getDaysUntilEvent();
+            
+            // 根據已報名人數計算基礎減少值
+            const registered = EVENT_CONFIG.TOTAL_QUOTA - actualRemaining;
+            const registrationReduction = Math.floor(registered / 3); // 每3人報名減少1個顯示名額
+            
+            // 根據剩餘天數計算天數減少值（天數越少，名額顯示越少）
+            let daysReduction = 0;
+            if (daysLeft >= 8) {
+                daysReduction = 0; // 8天以上：不因天數減少
+            } else if (daysLeft >= 6) {
+                daysReduction = 1; // 6-7天：減少1個
+            } else if (daysLeft >= 4) {
+                daysReduction = 2; // 4-5天：減少2個
+            } else if (daysLeft >= 2) {
+                daysReduction = 4; // 2-3天：減少4個
+            } else if (daysLeft >= 1) {
+                daysReduction = 6; // 1天：減少6個
+            } else {
+                daysReduction = 8; // 0天或已過期：減少8個（非常緊迫）
+            }
+            
+            // 總減少值 = 報名減少 + 天數減少
+            const totalReduction = registrationReduction + daysReduction;
+            
+            // 計算最終顯示值
+            const displaySpots = Math.max(
+                EVENT_CONFIG.MIN_DISPLAY_SPOTS - Math.floor(daysLeft / 2), // 天數越少，最少顯示值也降低
+                EVENT_CONFIG.MAX_DISPLAY_SPOTS - totalReduction
+            );
+            
+            // 確保不超過實際剩餘，也不低於實際剩餘的合理值
+            return Math.min(
+                Math.max(displaySpots, Math.max(1, actualRemaining - Math.floor(daysLeft))), 
+                actualRemaining
+            );
+        }
+        // ============================================
+        
         // 2025年趨勢：手機版粘性 CTA 控制
         function initMobileCtaSticky() {
             const mobileCtaSticky = document.getElementById('mobileCtaSticky');
@@ -5221,31 +5329,82 @@
             });
         }
 
-        // 動態更新剩餘名額
-        function updateRemainingSpots() {
-            const remainingSpotsElement = document.getElementById('remainingSpots');
-            if (remainingSpotsElement) {
-                let currentSpots = parseInt(remainingSpotsElement.textContent);
+        // 從 Google Sheets 獲取真實的剩餘名額
+        async function fetchRemainingSpotsFromSheets() {
+            try {
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbxIozUW_2v23qXyGAMiqxAGzrJscUMDJme2RWCc9_Eo36LmuEHFigVEK71LI_cS_jRt/exec';
                 
-                // 模擬名額減少（每30秒減少1個名額）
-                const spotsInterval = setInterval(() => {
-                    if (currentSpots > 5) {
-                        currentSpots--;
-                        remainingSpotsElement.textContent = currentSpots;
+                const response = await fetch(scriptUrl + '?action=getCount', {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('📊 從 Sheets 獲取報名數據:', data);
+                    
+                    if (data.success && typeof data.registrationCount === 'number') {
+                        // 使用配置的總名額，計算實際剩餘名額
+                        const totalQuota = EVENT_CONFIG.TOTAL_QUOTA;
+                        const actualRemaining = Math.max(0, totalQuota - data.registrationCount);
                         
-                        // 當名額少於10個時，增加緊迫感
-                        if (currentSpots <= 10) {
-                            remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
+                        // 使用智能顯示策略計算顯示名額（避免顯示太多造成缺乏緊迫感）
+                        const displaySpots = calculateDisplaySpots(actualRemaining);
+                        
+                        // 更新顯示
+                        const remainingSpotsElement = document.getElementById('remainingSpots');
+                        if (remainingSpotsElement) {
+                            remainingSpotsElement.textContent = displaySpots;
+                            
+                            // 當顯示名額少於10個時，增加緊迫感
+                            if (displaySpots <= 10) {
+                                remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
+                            } else {
+                                remainingSpotsElement.style.animation = '';
+                            }
                         }
+                        
+                        // 計算並顯示天數因素
+                        const daysLeft = getDaysUntilEvent();
+                        
+                        // 控制台顯示真實數據和顯示數據（方便調試）
+                        console.log(`✅ 名額已更新: 顯示 ${displaySpots} 個（實際剩餘: ${actualRemaining}, 總名額: ${totalQuota}, 已報名: ${data.registrationCount}, 剩餘天數: ${daysLeft}天）`);
+                        return actualRemaining; // 返回實際值供其他功能使用
                     } else {
-                        // 當名額達到最小值時，清除定時器
-                        clearInterval(spotsInterval);
+                        console.warn('⚠️ 數據格式不正確:', data);
+                        return null;
                     }
-                }, 30000); // 30秒更新一次
-                
-                // 保存定時器ID以便後續清理
-                window.spotsInterval = spotsInterval;
+                } else {
+                    console.error('❌ 獲取名額失敗，狀態碼:', response.status);
+                    return null;
+                }
+            } catch (error) {
+                console.error('❌ 獲取名額時發生錯誤:', error);
+                // 錯誤時不更新，保持原有顯示
+                return null;
             }
+        }
+
+        // 動態更新剩餘名額（從 Google Sheets 讀取）
+        async function updateRemainingSpots() {
+            const remainingSpotsElement = document.getElementById('remainingSpots');
+            if (!remainingSpotsElement) {
+                return;
+            }
+            
+            // 立即獲取一次
+            await fetchRemainingSpotsFromSheets();
+            
+            // 清理舊的定時器（如果存在）
+            if (window.spotsInterval) {
+                clearInterval(window.spotsInterval);
+            }
+            
+            // 設置定期更新（每60秒更新一次）
+            window.spotsInterval = setInterval(async () => {
+                await fetchRemainingSpotsFromSheets();
+            }, 60000); // 60秒更新一次
         }
 
         // AI驅動的個性化內容系統
@@ -5410,11 +5569,18 @@
                 //     }
                 // }
 
-                // 應用個性化緊迫感
+                // 應用個性化緊迫感（保留現有名額數字，只更新文字）
                 if (content.urgency[userType]) {
                     const urgencyText = document.querySelector('.urgency-text');
-                    if (urgencyText) {
-                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">22</span> 個名額`;
+                    const remainingSpotsElement = document.getElementById('remainingSpots');
+                    if (urgencyText && remainingSpotsElement) {
+                        // 保留現有的名額數字，只更新前面的文字
+                        const currentSpots = remainingSpotsElement.textContent || EVENT_CONFIG.MAX_DISPLAY_SPOTS.toString();
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">${currentSpots}</span> 個名額`;
+                    } else if (urgencyText) {
+                        // 如果沒有現有名額元素，使用配置的顯示上限作為預設值（會被updateRemainingSpots更新）
+                        const defaultSpots = EVENT_CONFIG.MAX_DISPLAY_SPOTS;
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">${defaultSpots}</span> 個名額`;
                     }
                 }
 
@@ -5453,33 +5619,33 @@
                 if (remainingSpots) {
                     let currentSpots = parseInt(remainingSpots.textContent);
                     
-                    // 根據用戶行為調整名額減少速度
-                    let reductionSpeed = 30000; // 預設30秒
+                    // 不再模擬減少名額，改為從 Sheets 獲取真實數據
+                    // 但根據用戶類型調整更新頻率（更頻繁地檢查真實名額）
+                    let updateFrequency = 60000; // 預設60秒
                     
                     if (this.userProfile.userType === 'engaged') {
-                        reductionSpeed = 20000; // 20秒
+                        updateFrequency = 45000; // 45秒（更關心名額變化）
                     } else if (this.userProfile.userType === 'quick_visitor') {
-                        reductionSpeed = 15000; // 15秒
+                        updateFrequency = 30000; // 30秒（更頻繁檢查）
                     }
 
-                    // 動態調整名額
-                    const dynamicSpotsInterval = setInterval(() => {
-                        if (currentSpots > 5) {
-                            currentSpots--;
-                            remainingSpots.textContent = currentSpots;
-                            
-                            // 根據用戶類型調整緊迫感
-                            if (currentSpots <= 10) {
-                                this.enhanceUrgency();
-                            }
-                        } else {
-                            // 當名額達到最小值時，清除定時器
-                            clearInterval(dynamicSpotsInterval);
+                    // 清理舊的定時器
+                    if (this.dynamicSpotsInterval) {
+                        clearInterval(this.dynamicSpotsInterval);
+                    }
+
+                    // 根據用戶行為調整真實名額的更新頻率
+                    this.dynamicSpotsInterval = setInterval(async () => {
+                        const spots = await fetchRemainingSpotsFromSheets();
+                        if (spots !== null && spots <= 10) {
+                            this.enhanceUrgency();
                         }
-                    }, reductionSpeed);
+                    }, updateFrequency);
                     
-                    // 保存定時器ID以便後續清理
-                    window.dynamicSpotsInterval = dynamicSpotsInterval;
+                    // 根據當前名額調整緊迫感
+                    if (currentSpots <= 10) {
+                        this.enhanceUrgency();
+                    }
                 }
             }
 
@@ -6071,6 +6237,13 @@
                         // 提交成功，顯示成功彈窗
                         console.log('🎉 報名成功！資料已提交到系統');
                         this.showSubmissionSuccess(true);
+                        
+                        // 立即更新剩餘名額（因為有人報名了）
+                        fetchRemainingSpotsFromSheets().then(remainingSpots => {
+                            if (remainingSpots !== null) {
+                                console.log(`✅ 名額已更新: 剩餘 ${remainingSpots} 個名額`);
+                            }
+                        });
                         
                         // 重置提交狀態（不重置表單，讓用戶看到成功結果）
                         this.isSubmitting = false; // 重置提交狀態
