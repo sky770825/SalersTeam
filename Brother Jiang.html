@@ -2487,11 +2487,8 @@
             margin-bottom: 12px;
             padding-left: 0;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 10px;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            line-height: 1.5;
         }
 
         .form-benefits li::before {
@@ -2542,9 +2539,6 @@
             color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
             font-size: 1rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            line-height: 1.5;
         }
 
         /* 地圖容器樣式 */
@@ -3617,9 +3611,6 @@
             
             .form-benefits li {
                 font-size: 0.95rem;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                line-height: 1.6;
             }
             
             /* 手機版活動資訊和地圖調整 */
@@ -3645,9 +3636,6 @@
             
             .event-text {
                 font-size: 0.9rem;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                line-height: 1.6;
             }
             
             .prize-image {
@@ -4443,7 +4431,7 @@
             <!-- 蔣哥說明會宣傳影片 -->
             <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 840px;">
                 <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1); scrollbar-width: none; -ms-overflow-style: none;">
-                    <iframe width="840" height="773" src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
+                    <iframe width="840" height="473" src="https://www.youtube.com/embed/GY6LEXhwWdg" title="你投資的房子，是勞力士還是Apple Watch？不缺房子的時代，正面風禾公園首排、32層摩天地標——8個月不調價，6%自備4年，月付9,000元。懂勞力士的人，都知道限量才會增值。11/9下午2點" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
                 </div>
                 <p style="color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-top: 15px; font-weight: 500;">
                     📺 點擊觀看蔣哥最新房產分析說明會預告
@@ -4523,7 +4511,7 @@
                 <span style="color: #4ECDC4; font-weight: 600;">下午1:00 準時開始</span>
             </div>
             <div class="urgency-alert">
-                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">18</span> 個</span>
+                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
                 <span class="deadline-text">⏰ 報名即將截止，請把握機會！</span>
             </div>
             <div class="countdown-timer" id="countdown">
@@ -4839,7 +4827,7 @@
                                 </div>
                                 <div class="event-item">
                                     <span class="event-icon"></span>
-                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號<br>（悅讀伊頓銷售中心）</span>
+                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）</span>
                                 </div>
                             </div>
                         </div>
@@ -4870,7 +4858,7 @@
                                         確認您已知道活動時間、地點<br>
                                         <small style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
                                             時間：2025/11/9（日）下午1:00 準時開始<br>
-                                            地點：桃園市桃園區大興西路三段90號<br>（悅讀伊頓銷售中心）
+                                            地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）
                                         </small>
                                     </span>
                                 </label>
@@ -4914,102 +4902,6 @@
     </a>
 
     <script>
-        // ============================================
-        // 📋 活動名額配置區（請根據實際活動修改）
-        // ============================================
-        const EVENT_CONFIG = {
-            // 總名額設定：實際活動的真實名額上限
-            TOTAL_QUOTA: 30,
-            
-            // 顯示策略設定：為了避免剩餘名額太多時缺乏緊迫感
-            // MAX_DISPLAY_SPOTS: 顯示的最大名額數（如果實際剩餘超過此值，只顯示此值）
-            // 建議設為總名額的50-60%，例如30個名額設15-18
-            MAX_DISPLAY_SPOTS: 18,
-            
-            // MIN_DISPLAY_SPOTS: 當剩餘名額很多時的起始顯示值（隨機範圍下限）
-            // 建議設為總名額的40-50%，例如30個名額設12-15
-            MIN_DISPLAY_SPOTS: 15,
-            
-            // 📅 自動減少策略說明：
-            // 系統會根據剩餘天數自動減少顯示名額，營造持續報名的感覺
-            // - 8天以上：不因天數減少
-            // - 6-7天：減少1個
-            // - 4-5天：減少2個
-            // - 2-3天：減少4個
-            // - 1天：減少6個
-            // - 0天：減少8個
-            // 同時結合真實報名人數（每3人報名減少1個顯示名額）
-            
-            // 備註：修改 TOTAL_QUOTA 後，請同時更新 Google Apps Script 中的額滿檢查上限
-            // 在 Google_Apps_Script蔣哥版.js 中找到 getRegistrationCount() 函數
-            // 將 if (registrationCount >= 30) 中的 30 改為相同的數字
-        };
-        
-        /**
-         * 計算距離活動日期的剩餘天數
-         * @returns {number} - 剩餘天數（如果已過期則返回0）
-         */
-        function getDaysUntilEvent() {
-            // 設定目標日期為2025年11月9日 23:59:59
-            const targetDate = new Date('2025-11-09T23:59:59+08:00');
-            const now = new Date();
-            const diffTime = targetDate - now;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return Math.max(0, diffDays); // 如果已過期，返回0
-        }
-        
-        /**
-         * 智能計算顯示名額（營銷策略：避免顯示太多名額造成缺乏緊迫感）
-         * 結合真實報名人數和剩餘天數，自動減少顯示名額，營造持續報名的感覺
-         * @param {number} actualRemaining - 實際剩餘名額
-         * @returns {number} - 顯示的名額數
-         */
-        function calculateDisplaySpots(actualRemaining) {
-            // 如果實際剩餘名額 <= 顯示上限，直接顯示真實值（因為已經很緊張了）
-            if (actualRemaining <= EVENT_CONFIG.MAX_DISPLAY_SPOTS) {
-                return actualRemaining;
-            }
-            
-            // 計算剩餘天數
-            const daysLeft = getDaysUntilEvent();
-            
-            // 根據已報名人數計算基礎減少值
-            const registered = EVENT_CONFIG.TOTAL_QUOTA - actualRemaining;
-            const registrationReduction = Math.floor(registered / 3); // 每3人報名減少1個顯示名額
-            
-            // 根據剩餘天數計算天數減少值（天數越少，名額顯示越少）
-            let daysReduction = 0;
-            if (daysLeft >= 8) {
-                daysReduction = 0; // 8天以上：不因天數減少
-            } else if (daysLeft >= 6) {
-                daysReduction = 1; // 6-7天：減少1個
-            } else if (daysLeft >= 4) {
-                daysReduction = 2; // 4-5天：減少2個
-            } else if (daysLeft >= 2) {
-                daysReduction = 4; // 2-3天：減少4個
-            } else if (daysLeft >= 1) {
-                daysReduction = 6; // 1天：減少6個
-            } else {
-                daysReduction = 8; // 0天或已過期：減少8個（非常緊迫）
-            }
-            
-            // 總減少值 = 報名減少 + 天數減少
-            const totalReduction = registrationReduction + daysReduction;
-            
-            // 計算最終顯示值
-            const displaySpots = Math.max(
-                EVENT_CONFIG.MIN_DISPLAY_SPOTS - Math.floor(daysLeft / 2), // 天數越少，最少顯示值也降低
-                EVENT_CONFIG.MAX_DISPLAY_SPOTS - totalReduction
-            );
-            
-            // 確保不超過實際剩餘，也不低於實際剩餘的合理值
-            return Math.min(
-                Math.max(displaySpots, Math.max(1, actualRemaining - Math.floor(daysLeft))), 
-                actualRemaining
-            );
-        }
-        // ============================================
-        
         // 2025年趨勢：手機版粘性 CTA 控制
         function initMobileCtaSticky() {
             const mobileCtaSticky = document.getElementById('mobileCtaSticky');
@@ -5329,82 +5221,31 @@
             });
         }
 
-        // 從 Google Sheets 獲取真實的剩餘名額
-        async function fetchRemainingSpotsFromSheets() {
-            try {
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbxIozUW_2v23qXyGAMiqxAGzrJscUMDJme2RWCc9_Eo36LmuEHFigVEK71LI_cS_jRt/exec';
-                
-                const response = await fetch(scriptUrl + '?action=getCount', {
-                    method: 'GET',
-                    mode: 'cors',
-                    cache: 'no-cache'
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('📊 從 Sheets 獲取報名數據:', data);
-                    
-                    if (data.success && typeof data.registrationCount === 'number') {
-                        // 使用配置的總名額，計算實際剩餘名額
-                        const totalQuota = EVENT_CONFIG.TOTAL_QUOTA;
-                        const actualRemaining = Math.max(0, totalQuota - data.registrationCount);
-                        
-                        // 使用智能顯示策略計算顯示名額（避免顯示太多造成缺乏緊迫感）
-                        const displaySpots = calculateDisplaySpots(actualRemaining);
-                        
-                        // 更新顯示
-                        const remainingSpotsElement = document.getElementById('remainingSpots');
-                        if (remainingSpotsElement) {
-                            remainingSpotsElement.textContent = displaySpots;
-                            
-                            // 當顯示名額少於10個時，增加緊迫感
-                            if (displaySpots <= 10) {
-                                remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
-                            } else {
-                                remainingSpotsElement.style.animation = '';
-                            }
-                        }
-                        
-                        // 計算並顯示天數因素
-                        const daysLeft = getDaysUntilEvent();
-                        
-                        // 控制台顯示真實數據和顯示數據（方便調試）
-                        console.log(`✅ 名額已更新: 顯示 ${displaySpots} 個（實際剩餘: ${actualRemaining}, 總名額: ${totalQuota}, 已報名: ${data.registrationCount}, 剩餘天數: ${daysLeft}天）`);
-                        return actualRemaining; // 返回實際值供其他功能使用
-                    } else {
-                        console.warn('⚠️ 數據格式不正確:', data);
-                        return null;
-                    }
-                } else {
-                    console.error('❌ 獲取名額失敗，狀態碼:', response.status);
-                    return null;
-                }
-            } catch (error) {
-                console.error('❌ 獲取名額時發生錯誤:', error);
-                // 錯誤時不更新，保持原有顯示
-                return null;
-            }
-        }
-
-        // 動態更新剩餘名額（從 Google Sheets 讀取）
-        async function updateRemainingSpots() {
+        // 動態更新剩餘名額
+        function updateRemainingSpots() {
             const remainingSpotsElement = document.getElementById('remainingSpots');
-            if (!remainingSpotsElement) {
-                return;
+            if (remainingSpotsElement) {
+                let currentSpots = parseInt(remainingSpotsElement.textContent);
+                
+                // 模擬名額減少（每30秒減少1個名額）
+                const spotsInterval = setInterval(() => {
+                    if (currentSpots > 5) {
+                        currentSpots--;
+                        remainingSpotsElement.textContent = currentSpots;
+                        
+                        // 當名額少於10個時，增加緊迫感
+                        if (currentSpots <= 10) {
+                            remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
+                        }
+                    } else {
+                        // 當名額達到最小值時，清除定時器
+                        clearInterval(spotsInterval);
+                    }
+                }, 30000); // 30秒更新一次
+                
+                // 保存定時器ID以便後續清理
+                window.spotsInterval = spotsInterval;
             }
-            
-            // 立即獲取一次
-            await fetchRemainingSpotsFromSheets();
-            
-            // 清理舊的定時器（如果存在）
-            if (window.spotsInterval) {
-                clearInterval(window.spotsInterval);
-            }
-            
-            // 設置定期更新（每60秒更新一次）
-            window.spotsInterval = setInterval(async () => {
-                await fetchRemainingSpotsFromSheets();
-            }, 60000); // 60秒更新一次
         }
 
         // AI驅動的個性化內容系統
@@ -5569,18 +5410,11 @@
                 //     }
                 // }
 
-                // 應用個性化緊迫感（保留現有名額數字，只更新文字）
+                // 應用個性化緊迫感
                 if (content.urgency[userType]) {
                     const urgencyText = document.querySelector('.urgency-text');
-                    const remainingSpotsElement = document.getElementById('remainingSpots');
-                    if (urgencyText && remainingSpotsElement) {
-                        // 保留現有的名額數字，只更新前面的文字
-                        const currentSpots = remainingSpotsElement.textContent || EVENT_CONFIG.MAX_DISPLAY_SPOTS.toString();
-                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">${currentSpots}</span> 個名額`;
-                    } else if (urgencyText) {
-                        // 如果沒有現有名額元素，使用配置的顯示上限作為預設值（會被updateRemainingSpots更新）
-                        const defaultSpots = EVENT_CONFIG.MAX_DISPLAY_SPOTS;
-                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">${defaultSpots}</span> 個名額`;
+                    if (urgencyText) {
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">22</span> 個名額`;
                     }
                 }
 
@@ -5619,33 +5453,33 @@
                 if (remainingSpots) {
                     let currentSpots = parseInt(remainingSpots.textContent);
                     
-                    // 不再模擬減少名額，改為從 Sheets 獲取真實數據
-                    // 但根據用戶類型調整更新頻率（更頻繁地檢查真實名額）
-                    let updateFrequency = 60000; // 預設60秒
+                    // 根據用戶行為調整名額減少速度
+                    let reductionSpeed = 30000; // 預設30秒
                     
                     if (this.userProfile.userType === 'engaged') {
-                        updateFrequency = 45000; // 45秒（更關心名額變化）
+                        reductionSpeed = 20000; // 20秒
                     } else if (this.userProfile.userType === 'quick_visitor') {
-                        updateFrequency = 30000; // 30秒（更頻繁檢查）
+                        reductionSpeed = 15000; // 15秒
                     }
 
-                    // 清理舊的定時器
-                    if (this.dynamicSpotsInterval) {
-                        clearInterval(this.dynamicSpotsInterval);
-                    }
-
-                    // 根據用戶行為調整真實名額的更新頻率
-                    this.dynamicSpotsInterval = setInterval(async () => {
-                        const spots = await fetchRemainingSpotsFromSheets();
-                        if (spots !== null && spots <= 10) {
-                            this.enhanceUrgency();
+                    // 動態調整名額
+                    const dynamicSpotsInterval = setInterval(() => {
+                        if (currentSpots > 5) {
+                            currentSpots--;
+                            remainingSpots.textContent = currentSpots;
+                            
+                            // 根據用戶類型調整緊迫感
+                            if (currentSpots <= 10) {
+                                this.enhanceUrgency();
+                            }
+                        } else {
+                            // 當名額達到最小值時，清除定時器
+                            clearInterval(dynamicSpotsInterval);
                         }
-                    }, updateFrequency);
+                    }, reductionSpeed);
                     
-                    // 根據當前名額調整緊迫感
-                    if (currentSpots <= 10) {
-                        this.enhanceUrgency();
-                    }
+                    // 保存定時器ID以便後續清理
+                    window.dynamicSpotsInterval = dynamicSpotsInterval;
                 }
             }
 
@@ -5731,10 +5565,10 @@
                 const prevBtn = document.querySelector('.form-nav-btn.prev-btn');
 
                 if (nextBtn) {
-                    nextBtn.addEventListener('click', async () => {
+                    nextBtn.addEventListener('click', () => {
                         // 防止重複提交
                         if (nextBtn.disabled) return;
-                        await this.nextStep();
+                        this.nextStep();
                     });
                 }
                 
@@ -5897,21 +5731,14 @@
                 }
             }
 
-            async nextStep() {
-                // 防止重複提交
-                if (this.isSubmitting || window.isFormSubmitting) {
-                    console.log('⚠️ 正在提交中，忽略重複點擊');
-                    return;
-                }
-                
+            nextStep() {
                 if (this.validateCurrentStep()) {
                     if (this.currentStep < this.totalSteps) {
                         this.currentStep++;
                         this.updateFormDisplay();
                         this.updateProgressBar();
                     } else {
-                        // 等待提交完成
-                        await this.submitForm();
+                        this.submitForm();
                     }
                 }
             }
@@ -6111,25 +5938,8 @@
                 });
             }
 
-            async submitForm() {
+            submitForm() {
                 console.log('🚀 開始提交表單...');
-                
-                // 防止重複提交 - 使用全局鎖
-                if (window.isFormSubmitting) {
-                    console.log('⚠️ 表單正在提交中，忽略重複調用');
-                    return;
-                }
-                
-                window.isFormSubmitting = true;
-                this.isSubmitting = true;
-                
-                // 先檢查網路連線狀態
-                if (!navigator.onLine) {
-                    console.log('⚠️ 網路連線問題，請檢查您的網路連線後重試');
-                    this.isSubmitting = false; // 重置提交狀態
-                    window.isFormSubmitting = false; // 重置全局鎖
-                    return;
-                }
                 
                 // 禁用提交按鈕防止重複提交
                 const submitBtn = document.querySelector('.form-nav-btn.next-btn');
@@ -6163,7 +5973,7 @@
                 console.log('📋 完整表單數據:', finalData);
 
                 // 提交到Google Sheets
-                await this.submitToGoogleSheets(finalData);
+                this.submitToGoogleSheets(finalData);
                 
                 // 清除本地儲存
                 localStorage.removeItem('jiangFormData');
@@ -6171,29 +5981,16 @@
             }
 
             async submitToGoogleSheets(data) {
-                // 防止重複提交
-                if (this.isSubmittingToSheets) {
-                    console.log('⚠️ 正在提交到 Google Sheets，忽略重複調用');
-                    return;
-                }
-                
-                this.isSubmittingToSheets = true;
-                
                 try {
                     // 顯示載入狀態
                     this.showLoadingState(true);
                     
                     // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxIozUW_2v23qXyGAMiqxAGzrJscUMDJme2RWCc9_Eo36LmuEHFigVEK71LI_cS_jRt/exec';
+                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
                     
                     // 驗證必要數據
                     if (!data.name || !data.phone) {
-                        console.log('❌ 缺少必要欄位：姓名或電話');
-                        this.showLoadingState(false);
-                        this.isSubmitting = false;
-                        this.isSubmittingToSheets = false;
-                        window.isFormSubmitting = false;
-                        return;
+                        throw new Error('缺少必要欄位：姓名或電話');
                     }
                     
                     // 創建URL編碼的表單數據 - 只包含必要欄位
@@ -6211,7 +6008,7 @@
                     
                     // 設定超時時間
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 15000); // 增加到15秒超時
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超時
                     
                     const response = await fetch(scriptUrl, {
                         method: 'POST',
@@ -6228,92 +6025,50 @@
                     
                     if (response.ok) {
                         console.log('✅ 數據已成功提交到Google Sheets');
-                        console.log('📋 回應狀態:', response.status);
-                        console.log('📋 回應標頭:', response.headers);
-                        
                         // 先隱藏載入狀態
                         this.showLoadingState(false);
-                        
-                        // 提交成功，顯示成功彈窗
-                        console.log('🎉 報名成功！資料已提交到系統');
-                        this.showSubmissionSuccess(true);
-                        
-                        // 立即更新剩餘名額（因為有人報名了）
-                        fetchRemainingSpotsFromSheets().then(remainingSpots => {
-                            if (remainingSpots !== null) {
-                                console.log(`✅ 名額已更新: 剩餘 ${remainingSpots} 個名額`);
-                            }
-                        });
-                        
-                        // 重置提交狀態（不重置表單，讓用戶看到成功結果）
-                        this.isSubmitting = false; // 重置提交狀態
-                        this.isSubmittingToSheets = false; // 重置 Google Sheets 提交狀態
-                        window.isFormSubmitting = false; // 重置全局鎖
-                        return; // 確保不會繼續執行後面的代碼
+                        // 顯示成功提示
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
+                        // 重置表單
+                        this.resetForm();
                     } else {
                         const responseText = await response.text();
                         console.error('❌ 提交失敗，狀態碼:', response.status);
-                        console.error('❌ 錯誤回應內容:', responseText);
-                        
                         // 先隱藏載入狀態
                         this.showLoadingState(false);
-                        
-                        // 根據狀態碼提供具體錯誤訊息
-                        let errorMessage = '⚠️ 提交失敗\n\n';
-                        if (response.status === 403) {
-                            errorMessage += '權限不足，請檢查Google Apps Script設定\n\n';
-                        } else if (response.status === 404) {
-                            errorMessage += '找不到服務，請檢查Google Apps Script URL\n\n';
-                        } else if (response.status === 500) {
-                            errorMessage += '伺服器內部錯誤，請稍後再試\n\n';
-                        } else if (response.status === 429) {
-                            errorMessage += '請求過於頻繁，請稍後再試\n\n';
-                        } else {
-                            errorMessage += `HTTP錯誤 ${response.status}，請稍後再試\n\n`;
-                        }
-                        
-                        errorMessage += '💬 如有問題請聯繫客服\n📱 客服LINE：@jiangge\n☎️ 客服電話：0900-000-000';
-                        console.log('❌ 提交失敗 (else區塊):', errorMessage);
-                        this.showSubmissionSuccess(false, errorMessage);
-                        this.isSubmitting = false; // 重置提交狀態
-                        this.isSubmittingToSheets = false; // 重置 Google Sheets 提交狀態
-                        window.isFormSubmitting = false; // 重置全局鎖
-                        return; // 確保不會繼續執行 catch 區塊
+                        alert('⚠️ 提交失敗\n\n提交過程中發生錯誤，請稍後再試。\n\n如有問題請聯繫客服。');
                     }
                 } catch (error) {
                     console.error('❌ 提交錯誤:', error);
                     this.showLoadingState(false);
                     
-                    // 簡化錯誤處理，避免重複彈窗
-                    let errorMessage = '⚠️ 提交失敗\n\n';
-                    
                     if (error.name === 'AbortError') {
-                        errorMessage += '⏰ 提交超時（15秒）\n\n請檢查網路連線後重試\n\n';
-                    } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                        errorMessage += '🌐 網路連線問題\n\n請檢查網路連線或稍後再試\n\n';
-                    } else if (error.message.includes('缺少必要欄位')) {
-                        errorMessage += '📝 表單資料不完整\n\n請確認所有必填欄位都已填寫\n\n';
+                        alert('⚠️ 提交超時\n\n請檢查網路連線後重試。');
                     } else {
-                        errorMessage += '❌ 提交過程中發生錯誤\n\n請稍後再試\n\n';
+                        alert('⚠️ 提交失敗\n\n提交過程中發生錯誤，請稍後再試。');
                     }
                     
-                    errorMessage += '💬 如有問題請聯繫客服\n📱 客服LINE：@jiangge\n☎️ 客服電話：0900-000-000';
-                    console.log('❌ 提交失敗 (catch區塊):', errorMessage);
-                    this.showSubmissionSuccess(false, errorMessage);
-                    this.isSubmitting = false; // 重置提交狀態
-                    this.isSubmittingToSheets = false; // 重置 Google Sheets 提交狀態
-                    window.isFormSubmitting = false; // 重置全局鎖
+                    // 備用方案：嘗試使用 GET 方法
+                    try {
+                        const backupUrl = scriptUrl + '?' + params.toString();
+                        console.log('🔄 備用URL:', backupUrl);
+                        
+                        const backupResponse = await fetch(backupUrl, {
+                            method: 'GET',
+                            mode: 'no-cors'
+                        });
+                        
+                        console.log('🔄 備用方案回應:', backupResponse);
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
+                        this.resetForm();
+                    } catch (backupError) {
+                        console.error('❌ 備用方案也失敗:', backupError);
+                        alert('⚠️ 提交失敗\n\n提交過程中發生錯誤，請稍後再試。');
+                    }
                 }
             }
 
             resetForm() {
-                console.log('🔄 開始重置表單...');
-                
-                // 重置所有提交狀態
-                this.isSubmitting = false;
-                this.isSubmittingToSheets = false;
-                window.isFormSubmitting = false;
-                
                 // 重置表單到第一步
                 this.currentStep = 1;
                 this.formData = {};
@@ -6328,22 +6083,11 @@
                     }
                 });
                 
-                // 重置提交按鈕狀態
-                const submitBtn = document.querySelector('.next-btn');
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                    submitBtn.textContent = '🚀 完成報名';
-                }
                 
                 // 重置表單顯示
-                try {
-                    this.updateFormDisplay();
-                    this.updateProgressBar();
-                } catch (error) {
-                    console.log('⚠️ 重置表單顯示時發生錯誤:', error);
-                    // 繼續執行，不影響主要功能
-                }
+                this.updateFormDisplay();
+                this.updateProgressBar();
+                this.updateNavigationButtons();
                 
                 // 清除所有驗證錯誤訊息
                 const errorMessages = document.querySelectorAll('.field-error');
@@ -6352,8 +6096,6 @@
                 // 清除本地儲存
                 localStorage.removeItem('jiangFormData');
                 localStorage.removeItem('jiangFormStep');
-                
-                console.log('✅ 表單重置完成，可以重新填寫');
                 
                 // 滾動到表單頂部
                 const formSection = document.querySelector('.form-preview-section');
@@ -6367,131 +6109,6 @@
                 }
                 
                 console.log('🔄 表單已重置');
-            }
-
-            // 診斷提交問題的函數
-            async diagnoseSubmissionIssue() {
-                console.log('🔍 開始診斷提交問題...');
-                
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbxIozUW_2v23qXyGAMiqxAGzrJscUMDJme2RWCc9_Eo36LmuEHFigVEK71LI_cS_jRt/exec';
-                
-                // 顯示診斷彈窗
-                this.showDiagnosticModal();
-                
-                let diagnosticResults = '<div>🔄 開始診斷...</div>';
-                this.updateDiagnosticResults(diagnosticResults);
-                
-                try {
-                    // 測試基本連線
-                    console.log('🌐 測試網路連線...');
-                    diagnosticResults += '<div>🌐 測試網路連線...</div>';
-                    this.updateDiagnosticResults(diagnosticResults);
-                    
-                    if (!navigator.onLine) {
-                        diagnosticResults += '<div style="color: #ff6b6b;">❌ 網路連線問題</div>';
-                        diagnosticResults += '<div style="color: #4ecdc4;">💡 解決方案：請檢查您的網路連線</div>';
-                        this.updateDiagnosticResults(diagnosticResults);
-                        return {
-                            success: false,
-                            issue: '網路連線問題',
-                            solution: '請檢查您的網路連線'
-                        };
-                    }
-                    
-                    diagnosticResults += '<div style="color: #51cf66;">✅ 網路連線正常</div>';
-                    this.updateDiagnosticResults(diagnosticResults);
-                    
-                    // 測試 Google Apps Script 連線
-                    console.log('🔗 測試 Google Apps Script 連線...');
-                    diagnosticResults += '<div>🔗 測試 Google Apps Script 連線...</div>';
-                    this.updateDiagnosticResults(diagnosticResults);
-                    
-                    // 測試基本連線
-                    const testResponse = await fetch(scriptUrl + '?action=getCount', {
-                        method: 'GET',
-                        mode: 'cors'
-                    });
-                    
-                    diagnosticResults += `<div>📡 回應狀態: ${testResponse.status}</div>`;
-                    diagnosticResults += `<div>📡 回應標頭: ${JSON.stringify(Object.fromEntries(testResponse.headers.entries()))}</div>`;
-                    this.updateDiagnosticResults(diagnosticResults);
-                    
-                    if (testResponse.ok) {
-                        const testData = await testResponse.json();
-                        console.log('✅ Google Apps Script 連線正常:', testData);
-                        diagnosticResults += '<div style="color: #51cf66;">✅ Google Apps Script 連線正常</div>';
-                        diagnosticResults += `<div style="color: #4ecdc4;">📊 回應數據: ${JSON.stringify(testData, null, 2)}</div>`;
-                        diagnosticResults += '<div style="color: #51cf66;">🎉 診斷完成：系統正常，可以提交表單</div>';
-                        this.updateDiagnosticResults(diagnosticResults);
-                        
-                        // 測試實際表單提交
-                        diagnosticResults += '<div>🧪 測試實際表單提交...</div>';
-                        this.updateDiagnosticResults(diagnosticResults);
-                        
-                        const testFormData = new URLSearchParams();
-                        testFormData.append('name', '測試用戶');
-                        testFormData.append('phone', '0900000000');
-                        testFormData.append('location', '測試地區');
-                        testFormData.append('lineId', 'test_line_id');
-                        testFormData.append('downPayment', '100萬');
-                        testFormData.append('registrationReason', '測試報名');
-                        testFormData.append('agreeTerms', '是');
-                        testFormData.append('agreeEvent', '是');
-                        testFormData.append('timestamp', new Date().toLocaleString('zh-TW'));
-                        testFormData.append('timestampISO', new Date().toISOString());
-                        
-                        const testSubmitResponse = await fetch(scriptUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: testFormData,
-                            mode: 'cors'
-                        });
-                        
-                        diagnosticResults += `<div>📡 提交測試回應狀態: ${testSubmitResponse.status}</div>`;
-                        this.updateDiagnosticResults(diagnosticResults);
-                        
-                        if (testSubmitResponse.ok) {
-                            const submitResult = await testSubmitResponse.text();
-                            diagnosticResults += '<div style="color: #51cf66;">✅ 表單提交測試成功</div>';
-                            diagnosticResults += `<div style="color: #4ecdc4;">📊 提交結果: ${submitResult}</div>`;
-                        } else {
-                            diagnosticResults += `<div style="color: #ff6b6b;">❌ 表單提交測試失敗 (${testSubmitResponse.status})</div>`;
-                            const errorText = await testSubmitResponse.text();
-                            diagnosticResults += `<div style="color: #ff6b6b;">📊 錯誤詳情: ${errorText}</div>`;
-                        }
-                        this.updateDiagnosticResults(diagnosticResults);
-                        
-                        return {
-                            success: true,
-                            message: '連線正常，可以正常提交',
-                            data: testData
-                        };
-                    } else {
-                        diagnosticResults += `<div style="color: #ff6b6b;">❌ HTTP錯誤 ${testResponse.status}</div>`;
-                        diagnosticResults += '<div style="color: #4ecdc4;">💡 解決方案：請檢查Google Apps Script設定</div>';
-                        this.updateDiagnosticResults(diagnosticResults);
-                        
-                        return {
-                            success: false,
-                            issue: `HTTP錯誤 ${testResponse.status}`,
-                            solution: '請檢查 Google Apps Script 設定'
-                        };
-                    }
-                    
-                } catch (error) {
-                    console.error('❌ 診斷過程中發生錯誤:', error);
-                    diagnosticResults += `<div style="color: #ff6b6b;">❌ 診斷錯誤: ${error.message}</div>`;
-                    diagnosticResults += '<div style="color: #4ecdc4;">💡 解決方案：請檢查網路連線或稍後再試</div>';
-                    this.updateDiagnosticResults(diagnosticResults);
-                    
-                    return {
-                        success: false,
-                        issue: error.message,
-                        solution: '請檢查網路連線或稍後再試'
-                    };
-                }
             }
 
             showLoadingState(show = true) {
@@ -6550,209 +6167,6 @@
                     if (loadingModal) {
                         loadingModal.style.display = 'none';
                     }
-                }
-            }
-
-            showSubmissionSuccess(success = true, errorMessage = '') {
-                console.log('🎯 開始顯示提交結果彈窗...', { success, errorMessage });
-                
-                // 隱藏載入狀態
-                this.showLoadingState(false);
-                
-                // 恢復按鈕狀態
-                const submitBtn = document.querySelector('.next-btn');
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                    if (success) {
-                        submitBtn.textContent = '✅ 報名成功';
-                    } else {
-                        submitBtn.textContent = '🚀 完成報名';
-                    }
-                }
-                const successModal = document.createElement('div');
-                successModal.id = 'successModal';
-                
-                successModal.innerHTML = `
-                    <div style="
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.8);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 99999;
-                        overflow-y: auto;
-                        padding: 20px;
-                    ">
-                        <div style="
-                            background: ${success ? 'linear-gradient(135deg, #4CAF50, #45a049)' : 'linear-gradient(135deg, #f44336, #d32f2f)'};
-                            color: white;
-                            padding: 40px;
-                            border-radius: 20px;
-                            text-align: center;
-                            max-width: 500px;
-                            width: 90%;
-                            margin: auto;
-                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                            position: relative;
-                            top: 50%;
-                            transform: translateY(-50%);
-                        ">
-                            <div style="font-size: 4rem; margin-bottom: 20px;">${success ? '🎉' : '⚠️'}</div>
-                            <h3 style="font-size: 1.8rem; margin-bottom: 15px;">${success ? '報名成功！' : '提交失敗'}</h3>
-                            <p style="font-size: 1.1rem; margin-bottom: 20px;">
-                                ${success ? '您的報名資料已成功提交到系統！' : (errorMessage || '提交過程中發生錯誤，請稍後再試。')}
-                            </p>
-                            
-                            ${success ? `
-                            <div style="
-                                background: rgba(255, 255, 255, 0.1);
-                                border-radius: 15px;
-                                padding: 20px;
-                                margin: 20px 0;
-                                text-align: left;
-                            ">
-                                <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: #FFD700;">📅 說明會資訊</h4>
-                                <div style="font-size: 0.95rem; line-height: 1.6;">
-                                    <p><strong>📅 時間：</strong>2025/11/9（日）下午1:00 準時開始</p>
-                                    <p><strong>📍 地點：</strong>桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）</p>
-                                    <p><strong>🎁 免費名額：</strong>限30人</p>
-                                </div>
-                            </div>
-                            ` : ''}
-                            
-                            <p style="font-size: 0.9rem; opacity: 0.8;">
-                                ${success ? '感謝您的報名，期待與您相見！' : '如有問題請聯繫客服。'}
-                            </p>
-                            ${!success && errorMessage ? `<p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">技術詳情: ${errorMessage}</p>` : ''}
-                            
-                            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
-                                ${success ? `
-                                <button onclick="window.smartForm.captureScreenshot(document.getElementById('successModal'))" style="
-                                    background: linear-gradient(135deg, #FFD700, #FFA500);
-                                    border: 2px solid rgba(255, 215, 0, 0.3);
-                                    color: #1a1a2e;
-                                    padding: 12px 20px;
-                                    border-radius: 25px;
-                                    font-size: 0.9rem;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    transition: all 0.3s ease;
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 8px;
-                                " onmouseover="this.style.background='linear-gradient(135deg, #FFA500, #FF8C00)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='linear-gradient(135deg, #FFD700, #FFA500)'; this.style.transform='translateY(0)'">
-                                    📸 截圖保存
-                                </button>
-                                ` : ''}
-                                
-                                <button onclick="document.getElementById('successModal').remove(); if(window.smartForm) { window.smartForm.resetForm(); }" style="
-                                    background: rgba(255, 255, 255, 0.2);
-                                    border: 2px solid rgba(255, 255, 255, 0.3);
-                                    color: white;
-                                    padding: 12px 20px;
-                                    border-radius: 25px;
-                                    font-size: 0.9rem;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    transition: all 0.3s ease;
-                                " onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.3)'">
-                                    ${success ? '關閉' : '點擊關閉'}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(successModal);
-                console.log('✅ 成功彈窗已添加到頁面', successModal);
-
-                // 點擊背景關閉彈窗
-                successModal.addEventListener('click', (e) => {
-                    if (e.target === successModal) {
-                        successModal.remove();
-                        this.resetForm();
-                    }
-                });
-
-                // 10秒後自動關閉彈窗並重置表單（給用戶更多時間截圖）
-                setTimeout(() => {
-                    if (successModal.parentNode) {
-                        successModal.remove();
-                        this.resetForm();
-                    }
-                }, 10000);
-            }
-
-            showDiagnosticModal() {
-                const diagnosticModal = document.createElement('div');
-                diagnosticModal.id = 'diagnosticModal';
-                diagnosticModal.innerHTML = `
-                    <div style="
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.8);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 10001;
-                    ">
-                        <div style="
-                            background: linear-gradient(135deg, #1a1a2e, #16213e);
-                            color: white;
-                            padding: 30px;
-                            border-radius: 20px;
-                            text-align: center;
-                            max-width: 600px;
-                            max-height: 80vh;
-                            overflow-y: auto;
-                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                        ">
-                            <div style="font-size: 3rem; margin-bottom: 20px;">🔍</div>
-                            <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #FFD700;">診斷提交問題</h3>
-                            <div id="diagnosticResults" style="
-                                text-align: left;
-                                background: rgba(255,255,255,0.1);
-                                padding: 20px;
-                                border-radius: 10px;
-                                margin: 20px 0;
-                                font-family: monospace;
-                                font-size: 0.9rem;
-                                line-height: 1.4;
-                            ">
-                                <div>🔄 正在診斷中...</div>
-                            </div>
-                            <button onclick="document.getElementById('diagnosticModal').remove();" style="
-                                background: rgba(255, 255, 255, 0.2);
-                                border: 2px solid rgba(255, 255, 255, 0.3);
-                                color: white;
-                                padding: 12px 24px;
-                                border-radius: 25px;
-                                font-size: 1rem;
-                                font-weight: 600;
-                                cursor: pointer;
-                                margin-top: 20px;
-                                transition: all 0.3s ease;
-                            ">
-                                關閉診斷
-                            </button>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(diagnosticModal);
-                return diagnosticModal;
-            }
-
-            updateDiagnosticResults(results) {
-                const resultsDiv = document.getElementById('diagnosticResults');
-                if (resultsDiv) {
-                    resultsDiv.innerHTML = results;
                 }
             }
 
@@ -7028,85 +6442,7 @@
             const aiEngine = new AIPersonalizationEngine();
             
             // 啟動智能表單系統
-            window.smartForm = new SmartFormSystem();
-            
-            // 添加測試彈窗功能（開發用）
-            window.testModal = () => {
-                console.log('🧪 測試彈窗功能...');
-                window.smartForm.showSubmissionSuccess(true);
-            };
-            
-            // 添加截圖功能
-            window.smartForm.captureScreenshot = function(modalElement) {
-                console.log('📸 開始截圖...');
-                
-                try {
-                    // 使用 html2canvas 庫來截圖
-                    if (typeof html2canvas === 'undefined') {
-                        // 動態載入 html2canvas
-                        const script = document.createElement('script');
-                        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-                        script.onload = () => {
-                            this.performScreenshot(modalElement);
-                        };
-                        document.head.appendChild(script);
-                    } else {
-                        this.performScreenshot(modalElement);
-                    }
-                } catch (error) {
-                    console.error('截圖失敗:', error);
-                    alert('截圖功能暫時無法使用，請手動截圖保存');
-                }
-            };
-            
-            window.smartForm.performScreenshot = function(modalElement) {
-                html2canvas(modalElement, {
-                    backgroundColor: null,
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: false
-                }).then(canvas => {
-                    // 創建下載連結
-                    const link = document.createElement('a');
-                    link.download = `蔣哥房產說明會報名確認_${new Date().toISOString().slice(0,10)}.png`;
-                    link.href = canvas.toDataURL();
-                    
-                    // 觸發下載
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    
-                    console.log('✅ 截圖已保存');
-                    
-                    // 顯示成功提示
-                    const toast = document.createElement('div');
-                    toast.style.cssText = `
-                        position: fixed;
-                        top: 20px;
-                        right: 20px;
-                        background: linear-gradient(135deg, #4CAF50, #45a049);
-                        color: white;
-                        padding: 15px 20px;
-                        border-radius: 10px;
-                        z-index: 999999;
-                        font-weight: 600;
-                        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                    `;
-                    toast.textContent = '📸 截圖已保存到相簿！';
-                    document.body.appendChild(toast);
-                    
-                    setTimeout(() => {
-                        if (toast.parentNode) {
-                            toast.remove();
-                        }
-                    }, 3000);
-                    
-                }).catch(error => {
-                    console.error('截圖處理失敗:', error);
-                    alert('截圖失敗，請嘗試手動截圖');
-                });
-            };
+            const smartForm = new SmartFormSystem();
             
             // 添加觸覺反饋到所有按鈕 (已移除CTA按鈕)
             document.querySelectorAll('.feature-card, .testimonial-card, .credential-item, .form-nav-btn').forEach(addHapticFeedback);
@@ -7249,7 +6585,6 @@
         `;
         document.head.appendChild(style);
     </script>
-
 
 <footer class="footer">
   <p>© 2025 房產擺渡人 YT「蔣哥」</p>
