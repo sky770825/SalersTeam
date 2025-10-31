@@ -4508,7 +4508,7 @@
         <div class="countdown-section fade-in">
             <div class="countdown-title">
                 📅 說明會時間：<span style="color: #FFD700; font-weight: 700;">2025/11/9（日）</span><br>
-                <span style="color: #4ECDC4; font-weight: 600;">下午1:00 準時開始</span>
+                <span style="color: #4ECDC4; font-weight: 600;">下午2:00 準時開始</span>
             </div>
             <div class="urgency-alert">
                 <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
@@ -4823,7 +4823,7 @@
                             <div class="event-details">
                                 <div class="event-item">
                                     <span class="event-icon"></span>
-                                    <span class="event-text">時間：2025/11/9（日）下午1:00 準時開始</span>
+                                    <span class="event-text">時間：2025/11/9（日）下午2:00 準時開始</span>
                                 </div>
                                 <div class="event-item">
                                     <span class="event-icon"></span>
@@ -4857,7 +4857,7 @@
                                     <span class="checkbox-text">
                                         確認您已知道活動時間、地點<br>
                                         <small style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
-                                            時間：2025/11/9（日）下午1:00 準時開始<br>
+                                            時間：2025/11/9（日）下午2:00 準時開始<br>
                                             地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）
                                         </small>
                                     </span>
@@ -5026,8 +5026,8 @@
 
         // 倒數計時器
         function startCountdown() {
-            // 設定目標日期為2025年11月9日 13:00 (下午1:00)
-            const targetDate = new Date('2025-11-09T13:00:00+08:00').getTime(); // 加入台灣時區
+            // 設定目標日期為2025年11月9日 14:00 (下午2:00)
+            const targetDate = new Date('2025-11-09T14:00:00+08:00').getTime(); // 加入台灣時區
             
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -6028,7 +6028,7 @@
                         // 先隱藏載入狀態
                         this.showLoadingState(false);
                         // 顯示成功提示
-                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
                         // 重置表單
                         this.resetForm();
                     } else {
@@ -6059,7 +6059,7 @@
                         });
                         
                         console.log('🔄 備用方案回應:', backupResponse);
-                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午1:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
                         this.resetForm();
                     } catch (backupError) {
                         console.error('❌ 備用方案也失敗:', backupError);
