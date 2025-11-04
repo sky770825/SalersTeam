@@ -2522,7 +2522,7 @@
 
         .event-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             padding: 10px 15px;
             background: rgba(255, 255, 255, 0.05);
@@ -2532,13 +2532,18 @@
 
         .event-icon {
             font-size: 1.3rem;
-            min-width: 30px;
+            min-width: 35px;
+            text-align: center;
+            flex-shrink: 0;
         }
 
         .event-text {
             color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
             font-size: 1rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+            flex: 1;
         }
 
         /* 地圖容器樣式 */
@@ -3627,15 +3632,21 @@
             .event-item {
                 padding: 8px 12px;
                 gap: 10px;
+                align-items: flex-start;
             }
             
             .event-icon {
                 font-size: 1.2rem;
-                min-width: 25px;
+                min-width: 30px;
+                text-align: center;
+                flex-shrink: 0;
             }
             
             .event-text {
                 font-size: 0.9rem;
+                line-height: 1.5;
+                word-wrap: break-word;
+                flex: 1;
             }
             
             .prize-image {
@@ -4822,12 +4833,12 @@
                             <h5>活動資訊確認</h5>
                             <div class="event-details">
                                 <div class="event-item">
-                                    <span class="event-icon"></span>
-                                    <span class="event-text">時間：2025/11/9（日）下午2:00 準時開始</span>
+                                    <span class="event-icon">📅</span>
+                                    <span class="event-text"><strong>時間：</strong>2025/11/9（日）下午2:00 準時開始</span>
                                 </div>
                                 <div class="event-item">
-                                    <span class="event-icon"></span>
-                                    <span class="event-text">地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）</span>
+                                    <span class="event-icon">📍</span>
+                                    <span class="event-text"><strong>地點：</strong>桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）</span>
                                 </div>
                             </div>
                         </div>
