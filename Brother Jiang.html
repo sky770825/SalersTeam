@@ -5232,42 +5232,87 @@
             });
         }
 
-        // 動態更新剩餘名額
-        function updateRemainingSpots() {
-            const remainingSpotsElement = document.getElementById('remainingSpots');
-            if (remainingSpotsElement) {
-                let currentSpots = parseInt(remainingSpotsElement.textContent);
+        // 總名額設定
+        const MAX_SPOTS = 50;
+        
+        // 從Google Sheets獲取報名人數
+        async function getRegistrationCountFromSheets() {
+            try {
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
+                const response = await fetch(scriptUrl + '?action=getCount', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
                 
-                // 模擬名額減少（每30秒減少1個名額）
-                const spotsInterval = setInterval(() => {
-                    if (currentSpots > 0) {
-                        currentSpots--;
-                        remainingSpotsElement.textContent = currentSpots;
-                        
-                        // 當名額為0時，顯示滿額提示
-                        if (currentSpots === 0) {
-                            const urgencyText = document.querySelector('.urgency-text');
-                            if (urgencyText) {
-                                urgencyText.innerHTML = '❌ <span style="color: #FF6B6B; font-weight: 700;">名額已滿</span>';
-                            }
-                            const deadlineText = document.querySelector('.deadline-text');
-                            if (deadlineText) {
-                                deadlineText.textContent = '⚠️ 感謝您的關注，請關注下次說明會！';
-                            }
-                            clearInterval(spotsInterval);
-                        } else if (currentSpots <= 10) {
-                            // 當名額少於10個時，增加緊迫感
-                            remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
-                        }
-                    } else {
-                        // 當名額達到最小值時，清除定時器
-                        clearInterval(spotsInterval);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        return data.registrationCount || 0;
                     }
-                }, 30000); // 30秒更新一次
-                
-                // 保存定時器ID以便後續清理
-                window.spotsInterval = spotsInterval;
+                }
+                return 0;
+            } catch (error) {
+                console.error('❌ 獲取報名人數失敗:', error);
+                return 0;
             }
+        }
+        
+        // 更新剩餘名額顯示
+        async function updateRemainingSpots() {
+            const remainingSpotsElement = document.getElementById('remainingSpots');
+            if (!remainingSpotsElement) return;
+            
+            try {
+                // 從Google Sheets獲取實際報名人數
+                const registrationCount = await getRegistrationCountFromSheets();
+                const remainingSpots = Math.max(0, MAX_SPOTS - registrationCount);
+                
+                // 更新顯示
+                remainingSpotsElement.textContent = remainingSpots;
+                
+                // 更新個性化內容中的名額顯示
+                const urgencyText = document.querySelector('.urgency-text');
+                if (urgencyText && !urgencyText.innerHTML.includes('名額已滿')) {
+                    const spotsSpan = urgencyText.querySelector('.remaining-spots');
+                    if (spotsSpan) {
+                        spotsSpan.textContent = remainingSpots;
+                    }
+                }
+                
+                // 當名額為0時，顯示滿額提示
+                if (remainingSpots === 0) {
+                    if (urgencyText) {
+                        urgencyText.innerHTML = '❌ <span style="color: #FF6B6B; font-weight: 700;">名額已滿</span>';
+                    }
+                    const deadlineText = document.querySelector('.deadline-text');
+                    if (deadlineText) {
+                        deadlineText.textContent = '⚠️ 感謝您的關注，請關注下次說明會！';
+                    }
+                } else if (remainingSpots <= 10) {
+                    // 當名額少於10個時，增加緊迫感
+                    remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
+                } else {
+                    remainingSpotsElement.style.animation = '';
+                }
+            } catch (error) {
+                console.error('❌ 更新名額失敗:', error);
+            }
+        }
+        
+        // 定期更新剩餘名額（每30秒更新一次）
+        function startSpotsUpdateInterval() {
+            // 清除舊的定時器
+            if (window.spotsInterval) {
+                clearInterval(window.spotsInterval);
+            }
+            
+            // 立即更新一次
+            updateRemainingSpots();
+            
+            // 每30秒更新一次
+            window.spotsInterval = setInterval(() => {
+                updateRemainingSpots();
+            }, 30000);
         }
 
         // AI驅動的個性化內容系統
@@ -5436,7 +5481,9 @@
                 if (content.urgency[userType]) {
                     const urgencyText = document.querySelector('.urgency-text');
                     if (urgencyText) {
-                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">50</span> 個名額`;
+                        // 使用動態獲取的名額，如果還沒獲取到則顯示50
+                        const currentSpots = document.getElementById('remainingSpots')?.textContent || '50';
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">${currentSpots}</span> 個名額`;
                     }
                 }
 
@@ -5471,9 +5518,9 @@
             }
 
             adjustUrgencyBasedOnBehavior() {
-                const remainingSpots = document.getElementById('remainingSpots');
-                if (remainingSpots) {
-                    let currentSpots = parseInt(remainingSpots.textContent);
+                const remainingSpotsElement = document.getElementById('remainingSpots');
+                if (remainingSpotsElement) {
+                    let currentSpots = parseInt(remainingSpotsElement.textContent) || MAX_SPOTS;
                     
                     // 根據用戶行為調整名額減少速度
                     let reductionSpeed = 30000; // 預設30秒
@@ -5484,30 +5531,20 @@
                         reductionSpeed = 15000; // 15秒
                     }
 
-                    // 動態調整名額
-                    const dynamicSpotsInterval = setInterval(() => {
-                        if (currentSpots > 0) {
-                            currentSpots--;
-                            remainingSpots.textContent = currentSpots;
-                            
-                            // 當名額為0時，顯示滿額提示
-                            if (currentSpots === 0) {
-                                const urgencyText = document.querySelector('.urgency-text');
-                                if (urgencyText) {
-                                    urgencyText.innerHTML = '❌ <span style="color: #FF6B6B; font-weight: 700;">名額已滿</span>';
+                    // 動態調整名額（改為從Google Sheets獲取，而不是模擬減少）
+                    const dynamicSpotsInterval = setInterval(async () => {
+                        try {
+                            await updateRemainingSpots();
+                            const remainingSpots = document.getElementById('remainingSpots');
+                            if (remainingSpots) {
+                                currentSpots = parseInt(remainingSpots.textContent) || 0;
+                                if (currentSpots <= 10 && currentSpots > 0) {
+                                    // 根據用戶類型調整緊迫感
+                                    this.enhanceUrgency();
                                 }
-                                const deadlineText = document.querySelector('.deadline-text');
-                                if (deadlineText) {
-                                    deadlineText.textContent = '⚠️ 感謝您的關注，請關注下次說明會！';
-                                }
-                                clearInterval(dynamicSpotsInterval);
-                            } else if (currentSpots <= 10) {
-                                // 根據用戶類型調整緊迫感
-                                this.enhanceUrgency();
                             }
-                        } else {
-                            // 當名額達到最小值時，清除定時器
-                            clearInterval(dynamicSpotsInterval);
+                        } catch (error) {
+                            console.error('❌ 動態更新名額失敗:', error);
                         }
                     }, reductionSpeed);
                     
@@ -5906,9 +5943,9 @@
 
                 prevBtn.disabled = this.currentStep === 1;
                 
-                // 檢查名額是否已滿
+                // 檢查名額是否已滿（從實際數據獲取）
                 const remainingSpotsElement = document.getElementById('remainingSpots');
-                const currentSpots = remainingSpotsElement ? parseInt(remainingSpotsElement.textContent) : 50;
+                let currentSpots = remainingSpotsElement ? parseInt(remainingSpotsElement.textContent) : MAX_SPOTS;
                 const isFull = currentSpots === 0 || isNaN(currentSpots);
                 
                 if (isFull) {
@@ -6090,6 +6127,8 @@
                         console.log('✅ 數據已成功提交到Google Sheets');
                         // 先隱藏載入狀態
                         this.showLoadingState(false);
+                        // 更新剩餘名額（因為有新報名）
+                        updateRemainingSpots();
                         // 顯示成功提示
                         alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
                         // 重置表單
@@ -6122,6 +6161,8 @@
                         });
                         
                         console.log('🔄 備用方案回應:', backupResponse);
+                        // 更新剩餘名額（因為有新報名）
+                        updateRemainingSpots();
                         alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
                         this.resetForm();
                     } catch (backupError) {
@@ -6497,7 +6538,7 @@
             initMobileCtaSticky(); // 2025年趨勢：初始化手機版粘性 CTA
             animateTimelineItems();
             trackButtonClicks();
-            updateRemainingSpots();
+            startSpotsUpdateInterval(); // 開始定期更新名額（從Google Sheets獲取）
             initUrgencyClickToForm(); // 初始化免費名額點擊跳轉
             
             // 啟動AI個性化系統
