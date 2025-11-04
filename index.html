@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5, user-scalable=yes, viewport-fit=cover">
     <title>房產擺渡人蔣哥｜114年房產分析說明會</title>
     
     <!-- 2025年趨勢：SEO優化 -->
@@ -27,14 +27,146 @@
             box-sizing: border-box;
         }
 
+        /* 完全隱藏所有容器的滾動條，只保留頁面主滾動條 */
+        * {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        *::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* 特別針對可能產生滾動條的容器 */
+        .container, .testimonials-section, .form-preview-section, .prize-section, 
+        .testimonials-carousel, .testimonials-grid, .testimonials-carousel-container,
+        .credentials-section, .questions-section, .countdown-section, .highlights-section,
+        .hero, .features-grid, .cta-section {
+            overflow-x: hidden !important;
+            overflow-y: visible !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .container::-webkit-scrollbar, .testimonials-section::-webkit-scrollbar, 
+        .form-preview-section::-webkit-scrollbar, .prize-section::-webkit-scrollbar, 
+        .testimonials-carousel::-webkit-scrollbar, .testimonials-grid::-webkit-scrollbar,
+        .testimonials-carousel-container::-webkit-scrollbar, .credentials-section::-webkit-scrollbar,
+        .questions-section::-webkit-scrollbar, .countdown-section::-webkit-scrollbar,
+        .highlights-section::-webkit-scrollbar, .hero::-webkit-scrollbar, .features-grid::-webkit-scrollbar,
+        .cta-section::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* 強制隱藏所有可能的滾動條，包括內聯樣式 */
+        div[style*="overflow"], iframe, video, embed, object {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        div[style*="overflow"]::-webkit-scrollbar, iframe::-webkit-scrollbar, 
+        video::-webkit-scrollbar, embed::-webkit-scrollbar, object::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* 只保留html和body的滾動條 */
+        html, body {
+            scrollbar-width: thin !important;
+            scrollbar-color: #4ECDC4 rgba(255, 255, 255, 0.1) !important;
+        }
+
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            display: block !important;
+            width: 8px !important;
+        }
+
+        html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 4px !important;
+        }
+
+        html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #FF5252, #26A69A) !important;
+        }
+
+        /* 手機版滾動修復 */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden !important;
+                overflow-y: scroll !important;
+                -webkit-overflow-scrolling: touch !important;
+                height: 100% !important;
+                min-height: 100vh !important;
+                touch-action: pan-y !important;
+                overscroll-behavior: contain !important;
+            }
+            
+            /* 確保所有固定元素不會干擾滾動 */
+            .mobile-cta-sticky, .back-to-top, .progress-bar, .reading-progress {
+                transform: translateZ(0) !important;
+                -webkit-transform: translateZ(0) !important;
+                will-change: transform !important;
+                touch-action: manipulation !important;
+            }
+            
+            /* 確保主要內容區域可以滾動 */
+            .container {
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                height: 100% !important;
+                min-height: 100vh !important;
+            }
+        }
+
+
         body {
             font-family: 'Noto Sans TC', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af);
             background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite;
+            /* 暫時禁用背景動畫來測試跳動問題 */
+            /* animation: gradientShift 30s ease infinite; */
             min-height: 100vh;
             overflow-x: hidden;
+            overflow-y: scroll;
             position: relative;
+            /* 優化動畫性能 */
+            will-change: background-position;
+            /* 防止背景動畫造成頁面跳動 */
+            contain: layout style paint;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            /* 防止手機版底部跳動 */
+            padding-bottom: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+
+        /* Footer 樣式 */
+        .footer {
+            text-align: center;
+            padding: 20px 0 10px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer p {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
         }
 
         @keyframes gradientShift {
@@ -72,7 +204,7 @@
             z-index: 2;
         }
 
-        /* 2025年趨勢：游標互動光暈效果 */
+        /* 2025年趨勢：游標互動光暈效果 - 已禁用 */
         .cursor-glow {
             position: fixed;
             width: 300px;
@@ -83,6 +215,7 @@
             z-index: 3;
             transition: all 0.3s ease;
             transform: translate(-50%, -50%);
+            display: none; /* 隱藏游標光暈效果 */
         }
 
         /* 2025年趨勢：動態玻璃質感 */
@@ -94,11 +227,12 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        /* 2025年趨勢：流體動畫 */
+        /* 2025年趨勢：流體動畫 - 優化性能 */
         .fluid-animation {
             background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
             background-size: 400% 400%;
-            animation: fluidMove 8s ease infinite;
+            animation: fluidMove 20s ease infinite;
+            will-change: background-position;
         }
 
         @keyframes fluidMove {
@@ -113,23 +247,36 @@
         }
 
         .micro-interaction:hover {
-            transform: scale(1.02);
+            transform: translateY(-1px);
         }
 
         .micro-interaction:active {
-            transform: scale(0.98);
+            transform: translateY(0px);
         }
 
         /* 2025年趨勢：觸覺反饋動畫 */
         @keyframes hapticFeedback {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.05); }
-            50% { transform: scale(0.95); }
-            75% { transform: scale(1.02); }
+            0%, 100% { transform: translateY(0px); }
+            25% { transform: translateY(-2px); }
+            50% { transform: translateY(1px); }
+            75% { transform: translateY(-1px); }
         }
 
         .haptic-feedback {
             animation: hapticFeedback 0.3s ease;
+        }
+
+        /* 性能優化類 */
+        .gpu-accelerated {
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            will-change: transform;
+        }
+
+        .smooth-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* 2025年趨勢：漸入動畫 */
@@ -152,7 +299,7 @@
         }
 
         .magnetic-hover:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px);
         }
 
         /* 蔣哥照片懸停效果 */
@@ -161,7 +308,7 @@
         }
 
         .hero-image img:hover {
-            transform: translateY(-8px) scale(1.05);
+            transform: translateY(-8px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.4),
                        0 10px 30px rgba(255,255,255,0.2),
                        0 0 0 3px rgba(255,215,0,0.3);
@@ -188,7 +335,7 @@
             aspect-ratio: 840/773;
         }
 
-        @media (max-width: 840px) {
+        @media (max-width: 768px) {
             .hero-image {
                 max-width: 100% !important;
                 margin: clamp(15px, 3vw, 20px) clamp(10px, 2vw, 15px) !important;
@@ -217,6 +364,11 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
+            /* 防止粒子動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: auto;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         .particle {
@@ -226,11 +378,18 @@
             background: rgba(80, 80, 80, 0.2);
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
+            /* 防止粒子動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.7; }
+            0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg) translateZ(0); opacity: 0.7; }
         }
 
         /* 主標題區 */
@@ -254,7 +413,11 @@
             position: relative;
             z-index: 30;
             /* 2025年趨勢：創意字體動畫 */
-            animation: textGlow 3s ease-in-out infinite alternate;
+            animation: textGlow 6s ease-in-out infinite alternate;
+            /* 防止動畫造成頁面跳動 */
+            will-change: text-shadow;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         @keyframes textGlow {
@@ -350,11 +513,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: softGlow 8s ease-in-out infinite, gentleFloat 6s ease-in-out infinite;
+            animation: softGlow 12s ease-in-out infinite, gentleFloat 10s ease-in-out infinite;
             text-shadow: 0 0 8px rgba(218, 165, 32, 0.3),
                          0 0 15px rgba(218, 165, 32, 0.2);
             filter: drop-shadow(0 1px 4px rgba(218, 165, 32, 0.2));
             position: relative;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: background-position, transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         /* 柔和光芒動畫 */
@@ -376,10 +546,10 @@
         /* 輕柔飄動效果 */
         @keyframes gentleFloat {
             0%, 100% { 
-                transform: translateY(0px) scale(1); 
+                transform: translateY(0px) translateZ(0); 
             }
             50% { 
-                transform: translateY(-1px) scale(1.01); 
+                transform: translateY(-0.5px) translateZ(0); 
             }
         }
 
@@ -396,17 +566,20 @@
                 rgba(184, 134, 11, 0.05) 40%, 
                 transparent 70%);
             border-radius: 50%;
-            animation: subtleGlow 10s ease-in-out infinite alternate;
+            animation: subtleGlow 15s ease-in-out infinite alternate;
             z-index: -1;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: opacity;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         @keyframes subtleGlow {
             0% { 
-                transform: scale(0.95); 
                 opacity: 0.2; 
             }
             100% { 
-                transform: scale(1.05); 
                 opacity: 0.05; 
             }
         }
@@ -417,11 +590,16 @@
             position: absolute;
             top: -20px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateZ(0);
             font-size: 0.3em;
             opacity: 0.4;
-            animation: quietTwinkle 12s ease-in-out infinite;
+            animation: quietTwinkle 20s ease-in-out infinite;
             pointer-events: none;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         @keyframes quietTwinkle {
@@ -488,7 +666,7 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-12px) scale(1.03);
+            transform: translateY(-12px);
             box-shadow: 0 35px 70px rgba(0,0,0,0.25),
                         inset 0 1px 0 rgba(255, 255, 255, 0.2),
                         0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -503,13 +681,20 @@
             margin-bottom: 20px;
             display: block;
             text-align: center;
-            animation: bounce 2s infinite;
+            animation: gentleFloat 8s ease-in-out infinite;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+            40% { transform: translateY(-3px); }
+            60% { transform: translateY(-1px); }
         }
 
         .feature-card h3 {
@@ -704,7 +889,7 @@
             background: rgba(255, 255, 255, 0.03);
             padding: clamp(20px, 4vw, 30px) clamp(25px, 5vw, 35px);
             border-radius: 20px;
-            margin: 0 clamp(20px, 4vw, 30px);
+            margin: 0 clamp(10px, 2vw, 20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
@@ -740,7 +925,7 @@
                 rgba(255, 140, 0, 0.08) 75%,
                 rgba(255, 215, 0, 0.12) 100%);
             background-size: 300% 300%;
-            animation: prizeGradientShift 4s ease infinite;
+            animation: prizeGradientShift 8s ease infinite;
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-radius: 35px;
@@ -755,6 +940,11 @@
             border: 2px solid rgba(255, 215, 0, 0.3);
             position: relative;
             overflow: hidden;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: background-position;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         @keyframes prizeGradientShift {
@@ -782,7 +972,12 @@
             background-size: 400% 400%;
             border-radius: 38px;
             z-index: -2;
-            animation: borderGlow 3s linear infinite;
+            animation: borderGlow 6s linear infinite;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: background-position;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         @keyframes borderGlow {
@@ -801,8 +996,15 @@
             height: 60px;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"></svg>');
             background-size: contain;
-            animation: prizeFloat 3s ease-in-out infinite;
+            animation: prizeFloat 6s ease-in-out infinite;
             opacity: 0.3;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         @keyframes prizeFloat {
@@ -826,7 +1028,13 @@
                          0 0 15px rgba(255, 215, 0, 0.3);
             position: relative;
             z-index: 20;
-            animation: titleGlow 2s ease-in-out infinite alternate;
+            animation: titleGlow 8s ease-in-out infinite alternate;
+            text-align: center;
+            width: 100%;
+            /* 防止動畫造成頁面跳動 */
+            will-change: color, text-shadow;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         @keyframes titleGlow {
@@ -843,12 +1051,14 @@
         .prize-section p {
             color: #f8f9fa;
             font-weight: 600;
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 2.8vw, 1.3rem);
             line-height: 1.6;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 20;
             margin-bottom: 15px;
+            text-align: center;
+            width: 100%;
         }
 
         /* 閃爍星星裝飾 */
@@ -860,6 +1070,9 @@
             left: 0;
             pointer-events: none;
             z-index: 5;
+            /* 防止動畫影響頁面佈局 */
+            contain: layout style paint;
+            will-change: auto;
         }
 
         .star {
@@ -868,16 +1081,21 @@
             font-size: 1.5rem;
             animation: starTwinkle 2s ease-in-out infinite;
             opacity: 0;
+            /* 防止動畫造成頁面跳動 */
+            transform-origin: center;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            will-change: opacity, transform;
         }
 
         @keyframes starTwinkle {
             0%, 100% { 
                 opacity: 0; 
-                transform: scale(0) rotate(0deg); 
+                transform: scale(0.8) rotate(0deg); 
             }
             50% { 
                 opacity: 1; 
-                transform: scale(1) rotate(180deg); 
+                transform: scale(1.2) rotate(180deg); 
             }
         }
 
@@ -900,14 +1118,25 @@
             margin-top: 15px;
             box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4),
                         0 5px 15px rgba(76, 205, 196, 0.3);
-            animation: valueBounce 2s ease-in-out infinite;
+            animation: gentleFloat 8s ease-in-out infinite;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
             letter-spacing: 0.02em;
+            text-align: center;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            /* 防止動畫造成頁面跳動 */
+            contain: layout style paint;
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         @keyframes valueBounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-3px) scale(1.05); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-1px); }
         }
 
         /* CTA 按鈕區 */
@@ -926,7 +1155,7 @@
                 #DB2777 75%, 
                 #DC2626 100%);
             background-size: 300% 300%;
-            animation: gradientFlow 3s ease infinite;
+            animation: gradientFlow 6s ease infinite;
             color: white;
             padding: clamp(15px, 3vw, 25px) clamp(30px, 6vw, 50px);
             font-size: 1.4rem;
@@ -971,7 +1200,7 @@
                 #96CEB4 75%, 
                 #FECA57 100%);
             background-size: 300% 300%;
-            animation: gradientFlow 3s ease infinite;
+            animation: gradientFlow 6s ease infinite;
             border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
                         0 5px 15px rgba(255, 107, 107, 0.4),
@@ -1009,7 +1238,7 @@
             background-size: 400% 400%;
             border-radius: 50px;
             z-index: -1;
-            animation: borderPulse 2s linear infinite;
+            animation: borderPulse 4s linear infinite;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -1030,7 +1259,7 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
                         0 10px 30px rgba(255, 107, 107, 0.6),
                         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: gradientFlow 1.5s ease infinite, buttonPulse 2s ease infinite;
+            animation: gradientFlow 4s ease infinite, buttonPulse 4s ease infinite;
         }
 
         .cta-button:hover::before {
@@ -1075,7 +1304,7 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
                         0 10px 30px rgba(255, 107, 107, 0.6),
                         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: gradientFlow 1.5s ease infinite, buttonPulse 2s ease infinite;
+            animation: gradientFlow 4s ease infinite, buttonPulse 4s ease infinite;
         }
 
         .cta-button:hover::before {
@@ -1116,7 +1345,7 @@
                 #FCAF45, 
                 #FFDC80);
             background-size: 300% 300%;
-            animation: instagramGradient 4s ease infinite;
+            animation: instagramGradient 8s ease infinite;
             color: white;
             text-decoration: none;
             border-radius: 35px;
@@ -1158,7 +1387,7 @@
             box-shadow: 0 20px 40px rgba(225, 48, 108, 0.4),
                         0 0 30px rgba(225, 48, 108, 0.3),
                         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: instagramGradient 2s ease infinite, instagramBounce 1s ease infinite;
+            animation: instagramGradient 4s ease infinite, instagramBounce 2s ease infinite;
         }
 
         .instagram-link:hover::before {
@@ -1166,8 +1395,8 @@
         }
 
         @keyframes instagramBounce {
-            0%, 100% { transform: translateY(-6px) scale(1.03) rotateZ(2deg); }
-            50% { transform: translateY(-8px) scale(1.05) rotateZ(-1deg); }
+            0%, 100% { transform: translateY(-6px) rotateZ(2deg); }
+            50% { transform: translateY(-8px) rotateZ(-1deg); }
         }
 
         /* YouTube按鈕樣式 */
@@ -1184,7 +1413,7 @@
                 #FF6666, 
                 #FF0000);
             background-size: 300% 300%;
-            animation: youtubeGradient 4s ease infinite;
+            animation: youtubeGradient 8s ease infinite;
             color: white;
             text-decoration: none;
             border-radius: 35px;
@@ -1226,7 +1455,7 @@
             box-shadow: 0 20px 40px rgba(255, 0, 0, 0.4),
                         0 0 30px rgba(255, 0, 0, 0.3),
                         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: youtubeGradient 2s ease infinite, youtubeBounce 1s ease infinite;
+            animation: youtubeGradient 4s ease infinite, youtubeBounce 2s ease infinite;
         }
 
         .youtube-link:hover::before {
@@ -1234,8 +1463,8 @@
         }
 
         @keyframes youtubeBounce {
-            0%, 100% { transform: translateY(-6px) scale(1.03) rotateZ(-2deg); }
-            50% { transform: translateY(-8px) scale(1.05) rotateZ(1deg); }
+            0%, 100% { transform: translateY(-6px) rotateZ(-2deg); }
+            50% { transform: translateY(-8px) rotateZ(1deg); }
         }
 
         /* 按鈕容器動畫 */
@@ -1249,7 +1478,7 @@
             background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            animation: backgroundPulse 3s ease infinite;
+            animation: backgroundPulse 6s ease infinite;
             z-index: -1;
         }
 
@@ -1273,17 +1502,26 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(25px);
             border-radius: 28px;
-            padding: 30px;
-            margin: 30px 0;
+            padding: clamp(20px, 4vw, 35px);
+            margin: clamp(20px, 4vw, 35px) auto;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.08);
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .countdown-title {
             color: #f8f9fa;
-            font-size: clamp(1.3rem, 3vw, 1.7rem);
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             font-weight: 700;
             margin-bottom: clamp(15px, 3vw, 25px);
+            text-align: center;
+            line-height: 1.4;
+            width: 100%;
         }
 
         .countdown-timer {
@@ -1447,6 +1685,103 @@
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
 
+        /* 輪播容器樣式 */
+        .testimonials-carousel-container {
+            position: relative;
+            margin-top: 30px;
+            overflow: hidden;
+            width: 100%;
+            /* 確保沒有滾動條 */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .testimonials-carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .testimonials-carousel {
+            display: flex !important;
+            transition: transform 0.5s ease-in-out;
+            gap: 0;
+            flex-direction: row;
+            width: 600% !important; /* 6個卡片，每個100%寬度 */
+            position: relative;
+        }
+
+        .testimonials-carousel .testimonial-card {
+            flex: 0 0 16.666% !important; /* 100% / 6 = 16.666% */
+            min-width: 16.666% !important;
+            max-width: 16.666% !important;
+            width: 16.666% !important;
+        }
+
+        /* 輪播控制按鈕 */
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            pointer-events: all;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .prev-btn {
+            margin-left: 20px;
+        }
+
+        .next-btn {
+            margin-right: 20px;
+        }
+
+        /* 輪播指示點 */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #FFD700;
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
         /* 桌面版粉絲成功案例佈局 */
         .testimonials-grid {
             display: grid;
@@ -1538,7 +1873,7 @@
             font-weight: 700;
             font-size: 1.2rem;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            animation: urgencyPulse 2s ease-in-out infinite;
+            animation: gentleFloat 8s ease-in-out infinite;
         }
 
         /* 可點擊的緊迫感文字樣式 */
@@ -1582,14 +1917,14 @@
         }
 
         @keyframes urgencyPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-1px); }
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-1px); }
+            100% { transform: translateY(0px); }
         }
 
         .remaining-spots {
@@ -1679,7 +2014,7 @@
 
         /* 表單預覽樣式 */
         .form-preview-section {
-            margin: 50px 0;
+            margin: 20px 0;
             text-align: center;
         }
 
@@ -1704,7 +2039,7 @@
 
         .form-preview-card {
             position: relative;
-            min-height: 400px;
+            min-height: 300px;
         }
 
         .form-step {
@@ -1747,13 +2082,14 @@
             flex-direction: column;
             gap: 15px;
             margin-top: 10px;
+            width: 100%;
         }
 
         .form-field .radio-group.vertical .radio-label {
             flex: none !important;
             min-width: auto !important;
             width: 100% !important;
-            padding: 15px 20px !important;
+            padding: 18px 25px !important;
             font-size: 1rem !important;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
             border: 2px solid rgba(255, 255, 255, 0.2) !important;
@@ -1762,6 +2098,11 @@
             transition: all 0.3s ease !important;
             position: relative !important;
             overflow: hidden !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            text-align: left !important;
+            gap: 12px !important;
         }
 
         .form-field .radio-group.vertical .radio-label:hover {
@@ -2030,7 +2371,7 @@
             width: 200%;
             height: 200%;
             background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shimmer 3s infinite;
+            animation: shimmer 6s infinite;
         }
 
         @keyframes shimmer {
@@ -2077,7 +2418,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: goldShine 2s ease-in-out infinite alternate;
+            animation: goldShine 4s ease-in-out infinite alternate;
         }
 
         @keyframes goldShine {
@@ -2388,6 +2729,8 @@
             position: relative;
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+            margin-right: 0;
         }
 
         .smart-radio:checked + .radio-custom {
@@ -2410,6 +2753,10 @@
         .radio-text {
             color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
+            flex: 1;
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         /* 複選框群組樣式 */
@@ -2473,11 +2820,12 @@
 
         /* 手機響應式設計 */
         @media (max-width: 768px) {
-            /* 手機版深藍色背景 */
+            /* 手機版深藍色背景 - 強制覆蓋所有可能的黑色背景 */
             body {
                 background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af) !important;
                 background-size: 400% 400% !important;
-                animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite !important;
+                animation: gradientShift 30s ease infinite !important;
+                background-attachment: fixed !important;
                 /* 優化文字顯示，防止不必要的換行 */
                 word-wrap: break-word;
                 word-break: keep-all;
@@ -2485,9 +2833,11 @@
                 hyphens: none;
             }
             
-            /* 確保手機版背景不被覆蓋 */
+            /* 確保手機版背景不被覆蓋 - 強制藍色背景 */
             html {
                 background: #1a1a2e !important;
+                background-image: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af) !important;
+                background-attachment: fixed !important;
             }
             
             /* 手機版通用文字優化 - 防止不必要的換行 */
@@ -2505,16 +2855,16 @@
             }
             
             body::before {
-                background: radial-gradient(circle at 20% 80%, rgba(2, 2, 2, 0.9) 0%, transparent 60%),
-                            radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.8) 0%, transparent 60%),
-                            radial-gradient(circle at 40% 40%, rgba(3, 3, 3, 0.7) 0%, transparent 60%),
-                            radial-gradient(circle at 60% 70%, rgba(1, 1, 1, 0.6) 0%, transparent 50%);
+                background: radial-gradient(circle at 20% 80%, rgba(30, 58, 138, 0.4) 0%, transparent 60%),
+                            radial-gradient(circle at 80% 20%, rgba(15, 52, 96, 0.3) 0%, transparent 60%),
+                            radial-gradient(circle at 40% 40%, rgba(22, 33, 62, 0.3) 0%, transparent 60%),
+                            radial-gradient(circle at 60% 70%, rgba(26, 26, 46, 0.2) 0%, transparent 50%);
             }
             
             .container {
                 padding: 5px;
                 /* 優化容器寬度，確保內容完整顯示 */
-                max-width: 100vw;
+                max-width: 100%;
                 width: 100%;
                 box-sizing: border-box;
                 /* 防止水平滾動 */
@@ -2563,6 +2913,10 @@
                 z-index: 1000;
                 box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
                 display: none;
+                /* 防止跳動 */
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                will-change: transform;
             }
             
             .mobile-cta-sticky .cta-button {
@@ -2645,8 +2999,8 @@
                 word-break: keep-all;
                 overflow-wrap: break-word;
                 hyphens: none;
-                line-height: 1.2;
-                white-space: nowrap;
+                line-height: 1.3;
+                white-space: normal;
             }
             
             /* 手機版特色卡片內容優化 */
@@ -2658,9 +3012,9 @@
                 word-break: keep-all;
                 overflow-wrap: break-word;
                 hyphens: none;
-                text-align: left;
+                text-align: center;
                 text-justify: none;
-                white-space: nowrap;
+                white-space: normal;
             }
             
             /* 手機版粉絲案例標題優化 */
@@ -2844,39 +3198,28 @@
                 overflow: hidden;
             }
             
-            /* 手機版協作品牌廣告區優化 */
-            .partner-brands-section {
-                margin: 15px 0 0px 0 !important;
-                padding: 20px 15px !important;
-            }
             
-            .partner-brands-section h3 {
-                font-size: 1.5rem !important;
-                margin-bottom: 25px !important;
-            }
-            
-            .brands-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 15px !important;
-            }
-            
-            .brand-card {
-                padding: 15px !important;
-            }
-            
-            .brand-card h4 {
-                font-size: 1rem !important;
-            }
-            
-            .brand-card p {
+            /* 手機版Footer緊湊化 */
+            .footer {
+                padding: 10px 0 5px !important;
                 font-size: 0.8rem !important;
             }
             
-            /* 手機版底部卡片間距優化 */
-            footer {
-                margin-top: 0px !important;
-                padding: 20px 15px !important;
+            /* 手機版移除多餘的底部間距 */
+            body {
+                padding-bottom: 0 !important;
+                margin-bottom: 0 !important;
             }
+            
+            /* 手機版縮小所有區塊的底部間距 */
+            .hero, .questions-section, .highlights-section, .testimonials-section, .form-preview-section, .prize-section {
+                margin-bottom: 15px !important;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                margin-bottom: 15px !important;
+            }
+            
             
             .mobile-call-button::before, .mobile-whatsapp-button::before {
                 content: '';
@@ -2909,6 +3252,23 @@
             .prize-section {
                 padding: 25px 20px;
                 margin: 25px 0;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .prize-section h3 {
+                text-align: center !important;
+                width: 100% !important;
+                font-size: clamp(1.4rem, 4.5vw, 2rem) !important;
+            }
+
+            .prize-section p {
+                text-align: center !important;
+                width: 100% !important;
+                font-size: clamp(1rem, 3.5vw, 1.2rem) !important;
             }
             
             .hero h1 {
@@ -2936,7 +3296,7 @@
             
             /* 手機版fire-text動畫優化 */
             .fire-text {
-                animation: softGlow 10s ease-in-out infinite, gentleFloat 8s ease-in-out infinite;
+                animation: softGlow 15s ease-in-out infinite, gentleFloat 12s ease-in-out infinite;
             }
             
             .hero .subtitle {
@@ -2986,43 +3346,72 @@
                 font-size: 1.8rem;
             }
             
-            /* 手機版粉絲成功案例佈局 - 水平滾動 */
+            /* 手機版輪播樣式 - 使用JavaScript控制 */
+            .testimonials-carousel {
+                flex-direction: row !important;
+                overflow: hidden !important;
+                scroll-behavior: smooth !important;
+                width: 600% !important;
+                /* 移除滾動條 */
+                scrollbar-width: none !important;
+                -ms-overflow-style: none !important;
+                /* 觸摸滑動 */
+                touch-action: pan-x !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            .testimonials-carousel::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .testimonials-carousel .testimonial-card {
+                flex: 0 0 16.666% !important;
+                min-width: 16.666% !important;
+                max-width: 16.666% !important;
+                width: 16.666% !important;
+            }
+
+            .carousel-controls {
+                display: flex !important; /* 所有螢幕都顯示控制按鈕 */
+            }
+            
+
+            .carousel-dots {
+                margin-top: 15px !important;
+            }
+
+            .carousel-dot {
+                width: 10px !important;
+                height: 10px !important;
+            }
+
+            /* 手機版粉絲成功案例佈局 - 移除滾動條 */
             .testimonials-grid {
                 display: flex !important;
                 flex-direction: row !important;
                 gap: 20px !important;
-                overflow-x: auto !important;
+                overflow-x: hidden !important;
                 overflow-y: hidden !important;
                 padding: 0 0 15px 0 !important;
                 margin-top: 30px !important;
                 max-height: none !important;
                 grid-template-columns: none !important;
                 scroll-behavior: smooth;
+                /* 移除滾動條 */
+                scrollbar-width: none !important;
+                -ms-overflow-style: none !important;
             }
             
             .testimonials-grid::-webkit-scrollbar {
-                height: 6px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 3px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 3px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-thumb:hover {
-                background: rgba(255, 255, 255, 0.5);
+                display: none !important;
             }
             
             /* 手機版單個案例卡片樣式 */
             .testimonial-card {
-                flex: 0 0 280px !important;
-                min-width: 280px !important;
-                max-width: 280px !important;
+                flex: 0 0 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                width: 100% !important;
                 padding: 25px 20px !important;
             }
             
@@ -3044,7 +3433,7 @@
             
             /* 手機版可點擊緊迫感文字 */
             .clickable-urgency:hover {
-                transform: scale(1.03) !important;
+                transform: translateY(-2px) !important;
                 box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5) !important;
             }
             
@@ -3059,16 +3448,16 @@
                 font-weight: 900 !important;
                 color: #FF0000 !important;
                 text-shadow: 0 0 15px rgba(255, 0, 0, 0.8) !important;
-                animation: numberPulse 1.5s ease-in-out infinite !important;
+                animation: gentleFloat 8s ease-in-out infinite !important;
             }
             
             @keyframes numberPulse {
                 0%, 100% { 
-                    transform: scale(1); 
+                    transform: translateY(0px); 
                     text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
                 }
                 50% { 
-                    transform: scale(1.1); 
+                    transform: translateY(-1px); 
                     text-shadow: 0 0 25px rgba(255, 0, 0, 1);
                 }
             }
@@ -3087,8 +3476,12 @@
             
             /* 手機版表單調整 */
             .form-preview-container {
-                padding: 25px 20px;
+                padding: 20px 15px;
                 margin: 0 10px;
+            }
+            
+            .form-preview-card {
+                min-height: 250px !important;
             }
             
             /* 手機版表單內性別選擇按鈕 */
@@ -3103,11 +3496,18 @@
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
+                width: 100%;
             }
 
             .form-field .radio-group.vertical .radio-label {
-                padding: 12px 15px !important;
+                padding: 15px 20px !important;
                 font-size: 0.95rem !important;
+                width: 100% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                text-align: left !important;
+                gap: 10px !important;
             }
             
             .form-field .radio-label {
@@ -3422,16 +3822,16 @@
 
         /* 超小螢幕響應式設計 */
         @media (max-width: 480px) {
-            /* 超小螢幕最深黑色背景 */
+            /* 超小螢幕保持一致的藍色背景 */
             body {
-                background: linear-gradient(135deg, #000000, #010101, #020202, #030303, #040404) !important;
+                background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1e3a8a, #1e40af) !important;
                 background-size: 400% 400% !important;
-                animation: gradientShift 15s ease infinite, fluidMove 20s ease infinite !important;
+                animation: gradientShift 30s ease infinite !important;
             }
             
             /* 確保超小螢幕背景不被覆蓋 */
             html {
-                background: #000000 !important;
+                background: #1a1a2e !important;
             }
             
             /* 超小螢幕通用文字優化 - 防止不必要的換行 */
@@ -3449,15 +3849,16 @@
             }
             
             body::before {
-                background: radial-gradient(circle at 20% 80%, rgba(2, 2, 2, 0.9) 0%, transparent 60%),
-                            radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.8) 0%, transparent 60%),
-                            radial-gradient(circle at 40% 40%, rgba(5, 5, 5, 0.7) 0%, transparent 60%),
-                            radial-gradient(circle at 60% 70%, rgba(1, 1, 1, 0.6) 0%, transparent 50%);
+                background: radial-gradient(circle at 20% 80%, rgba(30, 58, 138, 0.4) 0%, transparent 60%),
+                            radial-gradient(circle at 80% 20%, rgba(15, 52, 96, 0.3) 0%, transparent 60%),
+                            radial-gradient(circle at 40% 40%, rgba(22, 33, 62, 0.3) 0%, transparent 60%),
+                            radial-gradient(circle at 60% 70%, rgba(26, 26, 46, 0.2) 0%, transparent 50%);
             }
             
             .container {
                 padding: 10px;
             }
+            
             
             /* 超小螢幕文字保持與桌面版一致的可讀性 */
             
@@ -3568,8 +3969,8 @@
                 word-break: keep-all;
                 overflow-wrap: break-word;
                 hyphens: none;
-                line-height: 1.2;
-                white-space: nowrap;
+                line-height: 1.3;
+                white-space: normal;
             }
             
             /* 超小螢幕特色卡片內容優化 */
@@ -3581,9 +3982,9 @@
                 word-break: keep-all;
                 overflow-wrap: break-word;
                 hyphens: none;
-                text-align: left;
+                text-align: center;
                 text-justify: none;
-                white-space: nowrap;
+                white-space: normal;
             }
             
             /* 超小螢幕粉絲案例標題優化 */
@@ -3646,6 +4047,23 @@
             .prize-section {
                 padding: 20px 15px;
                 margin: 20px 0;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .prize-section h3 {
+                text-align: center !important;
+                width: 100% !important;
+                font-size: clamp(1.2rem, 4vw, 1.8rem) !important;
+            }
+
+            .prize-section p {
+                text-align: center !important;
+                width: 100% !important;
+                font-size: clamp(0.9rem, 3.2vw, 1.1rem) !important;
             }
             
             .timeline-section {
@@ -3744,29 +4162,37 @@
                 font-weight: 900 !important;
                 color: #FF0000 !important;
                 text-shadow: 0 0 15px rgba(255, 0, 0, 0.8) !important;
-                animation: numberPulse 1.5s ease-in-out infinite !important;
+                animation: gentleFloat 8s ease-in-out infinite !important;
             }
             
             
-            /* 超小螢幕粉絲成功案例佈局 - 水平滾動 */
+            /* 超小螢幕粉絲成功案例佈局 - 移除滾動條 */
             .testimonials-grid {
                 display: flex !important;
                 flex-direction: row !important;
                 gap: 15px !important;
-                overflow-x: auto !important;
+                overflow-x: hidden !important;
                 overflow-y: hidden !important;
                 padding: 0 0 12px 0 !important;
                 margin-top: 25px !important;
                 max-height: none !important;
                 grid-template-columns: none !important;
                 scroll-behavior: smooth;
+                /* 移除滾動條 */
+                scrollbar-width: none !important;
+                -ms-overflow-style: none !important;
+            }
+            
+            .testimonials-grid::-webkit-scrollbar {
+                display: none !important;
             }
             
             /* 超小螢幕單個案例卡片樣式 */
             .testimonial-card {
-                flex: 0 0 250px !important;
-                min-width: 250px !important;
-                max-width: 250px !important;
+                flex: 0 0 100% !important;
+                min-width: 100% !important;
+                max-width: 100% !important;
+                width: 100% !important;
                 padding: 20px 15px !important;
             }
             
@@ -3789,11 +4215,18 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
+                width: 100%;
             }
 
             .form-field .radio-group.vertical .radio-label {
-                padding: 10px 12px !important;
+                padding: 12px 15px !important;
                 font-size: 0.9rem !important;
+                width: 100% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                text-align: left !important;
+                gap: 8px !important;
             }
             
             .form-field .radio-label {
@@ -3881,6 +4314,10 @@
             background: linear-gradient(90deg, #FFD700, #FF6B35);
             z-index: 1000;
             transition: width 0.3s ease;
+            /* 防止跳動 */
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: width;
         }
 
         /* 2025年趨勢：頁面載入動畫 */
@@ -3952,6 +4389,10 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 1000;
+            /* 防止跳動 */
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: transform, opacity;
         }
 
         .back-to-top.visible {
@@ -3989,8 +4430,8 @@
             
             <!-- 蔣哥說明會宣傳影片 -->
             <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 840px;">
-                <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1);">
-                    <iframe width="840" height="773" src="https://www.youtube.com/embed/kirX1T3T8qA" title="【今年加開房產分析說明會】2025～2028大桃園潛力全面揭密！✨ 20年真槍實彈操作指南✨ 最犀利的Q&amp;A現場互動桃園真的會是北台灣最被低估的潛力區嗎？🎁 現場抽大金空調清淨機（市價2萬）下方報名" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto;"></iframe>
+                <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1); scrollbar-width: none; -ms-overflow-style: none;">
+                    <iframe width="445" height="791" src="https://www.youtube.com/embed/JT2EuyiJ4hI" title="要賺錢，就要賺有錢人的錢。他們的錢，是「數字」，不是「命」。台灣不缺房子，缺的是——會被富人收藏的地段。一樣的時間，有人戴戴Rolex ，有人戴 ORIS，台灣哪一區，是下一支「勞力士級」地段？#按讚" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
                 </div>
                 <p style="color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-top: 15px; font-weight: 500;">
                     📺 點擊觀看蔣哥最新房產分析說明會預告
@@ -4067,10 +4508,10 @@
         <div class="countdown-section fade-in">
             <div class="countdown-title">
                 📅 說明會時間：<span style="color: #FFD700; font-weight: 700;">2025/11/9（日）</span><br>
-                <span style="color: #4ECDC4; font-weight: 600;">下午1:00 準時開始</span>
+                <span style="color: #4ECDC4; font-weight: 600;">下午2:00 準時開始</span>
             </div>
             <div class="urgency-alert">
-                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
+                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">50</span> 個</span>
                 <span class="deadline-text">⏰ 報名即將截止，請把握機會！</span>
             </div>
             <div class="countdown-timer" id="countdown">
@@ -4096,13 +4537,13 @@
         <div class="features">
             <div class="feature-card fade-in micro-interaction magnetic-hover">
                 <div class="feature-icon"></div>
-                <h3>最犀利的Q&A現場互動</h3>
-                <p>現場直接解答您的房產投資疑惑，零距離專業諮詢</p>
+                <h3><span style="color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">最犀利的Q&A現場互動</span></h3>
+                <p><span style="color: #4ECDC4; font-weight: 600;">現場直接解答您的房產投資疑惑</span>，<span style="color: #FF6B6B; font-weight: 600;">零距離專業諮詢</span></p>
             </div>
             <div class="feature-card fade-in micro-interaction magnetic-hover">
                 <div class="feature-icon"></div>
-                <h3>20年真槍實彈操作指南</h3>
-                <p>蔣哥20年房地產實戰經驗，毫無保留分享投資心法與操作策略</p>
+                <h3><span style="color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">20年真槍實彈操作指南</span></h3>
+                <p><span style="color: #4ECDC4; font-weight: 600;">蔣哥20年房地產實戰經驗</span>，<span style="color: #FF6B6B; font-weight: 600;">毫無保留分享投資心法與操作策略</span></p>
             </div>
         </div>
 
@@ -4138,34 +4579,68 @@
         <!-- 社會證明 - 客戶見證區塊 -->
         <div class="testimonials-section fade-in">
             <h3>粉絲成功案例分享</h3>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"蔣哥的分析讓我避開了房市陷阱，成功投資獲利200萬！他的眼光真的很準。"</p>
+            <div class="testimonials-carousel-container">
+                <div class="testimonials-carousel" id="testimonialsCarousel">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"蔣哥的分析讓我避開了房市陷阱，成功投資獲利200萬！他的眼光真的很準。"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">張先生</span>
+                            <span class="author-title">桃園投資客</span>
+                        </div>
                     </div>
-                    <div class="testimonial-author">
-                        <span class="author-name">張先生</span>
-                        <span class="author-title">桃園投資客</span>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"參加蔣哥的說明會後，我買到了心儀的房子，價格比市場便宜了50萬！"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">李小姐</span>
+                            <span class="author-title">首購族</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"蔣哥的投資策略讓我3年內資產翻倍，現在已經有3間房產了！"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">王先生</span>
+                            <span class="author-title">多房投資者</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"蔣哥的房市分析太準了！我按照他的建議投資，半年就賺了100萬！"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">陳先生</span>
+                            <span class="author-title">新竹投資客</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"感謝蔣哥的指導，讓我從房市小白變成投資達人，現在月收入增加30萬！"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">林小姐</span>
+                            <span class="author-title">台北投資者</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"蔣哥的說明會讓我學到很多，成功避開了房市泡沫，現在資產穩健成長！"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <span class="author-name">黃先生</span>
+                            <span class="author-title">台中投資客</span>
+                        </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"參加蔣哥的說明會後，我買到了心儀的房子，價格比市場便宜了50萬！"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <span class="author-name">李小姐</span>
-                        <span class="author-title">首購族</span>
-                    </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">❮</button>
+                    <button class="carousel-btn next-btn" onclick="moveCarousel(1)">❯</button>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"蔣哥的投資策略讓我3年內資產翻倍，現在已經有3間房產了！"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <span class="author-name">王先生</span>
-                        <span class="author-title">多房投資者</span>
-                    </div>
-                </div>
+                <div class="carousel-dots" id="carouselDots"></div>
             </div>
         </div>
 
@@ -4299,22 +4774,6 @@
                                 </select>
                             </div>
                             
-                            <div class="form-field">
-                                <label>介紹人 *</label>
-                                <select name="referrerType" class="smart-input" required>
-                                    <option value="">請選擇介紹人</option>
-                                    <option value="無">無</option>
-                                    <option value="華地產介紹">華地產介紹</option>
-                                    <option value="朋友介紹">朋友介紹</option>
-                                    <option value="網路搜尋">網路搜尋</option>
-                                    <option value="其他">其他</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-field" id="referrerNameField" style="display: none;">
-                                <label>介紹人姓名</label>
-                                <input type="text" name="referrerName" placeholder="請輸入介紹人姓名" class="smart-input">
-                            </div>
                         </div>
                     </div>
                     
@@ -4364,7 +4823,7 @@
                             <div class="event-details">
                                 <div class="event-item">
                                     <span class="event-icon"></span>
-                                    <span class="event-text">時間：2025/11/9（日）下午1:00 準時開始</span>
+                                    <span class="event-text">時間：2025/11/9（日）下午2:00 準時開始</span>
                                 </div>
                                 <div class="event-item">
                                     <span class="event-icon"></span>
@@ -4398,7 +4857,7 @@
                                     <span class="checkbox-text">
                                         確認您已知道活動時間、地點<br>
                                         <small style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
-                                            時間：2025/11/9（日）下午1:00 準時開始<br>
+                                            時間：2025/11/9（日）下午2:00 準時開始<br>
                                             地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）
                                         </small>
                                     </span>
@@ -4431,87 +4890,6 @@
             </div>
         </div>
 
-        <!-- 協作品牌廣告區 -->
-        <div class="partner-brands-section fade-in" style="
-            margin: 30px 0 5px 0;
-            padding: 20px 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        ">
-            <div class="container">
-                <h3 style="
-                    text-align: center;
-                    color: #FFD700;
-                    font-size: 1.8rem;
-                    font-weight: 700;
-                    margin-bottom: 30px;
-                    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-                ">
-                    🤝 協作品牌夥伴
-                </h3>
-                
-                <div class="brands-grid" style="
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 20px;
-                    margin-bottom: 30px;
-                ">
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🏠</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">包租代管專家</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">專業房源管理團隊</p>
-                    </div>
-                    
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🔧</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">裝修工程團隊</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">室內設計與施工</p>
-                    </div>
-                    
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">💰</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">金融投資顧問</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">房貸與理財規劃</p>
-                    </div>
-                    
-                    <div class="brand-card" style="
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 20px;
-                        border-radius: 15px;
-                        text-align: center;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)'">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">⚖️</div>
-                        <h4 style="color: #4ECDC4; font-weight: 600; margin-bottom: 8px;">法律建築團隊</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">專業法務支援</p>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
 
         <div class="cta-section fade-in">
             
@@ -4530,12 +4908,27 @@
             const mainCtaSection = document.querySelector('.cta-section');
             
             if (window.innerWidth <= 768 && mobileCtaSticky && mainCtaSection) {
+                let isVisible = false;
+                
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            mobileCtaSticky.style.display = 'none';
-                        } else {
-                            mobileCtaSticky.style.display = 'block';
+                        const shouldShow = !entry.isIntersecting;
+                        
+                        // 避免不必要的DOM操作
+                        if (shouldShow !== isVisible) {
+                            isVisible = shouldShow;
+                            mobileCtaSticky.style.display = shouldShow ? 'block' : 'none';
+                            
+                            // 添加平滑過渡
+                            if (shouldShow) {
+                                mobileCtaSticky.style.opacity = '0';
+                                mobileCtaSticky.style.transform = 'translateY(100%)';
+                                requestAnimationFrame(() => {
+                                    mobileCtaSticky.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                                    mobileCtaSticky.style.opacity = '1';
+                                    mobileCtaSticky.style.transform = 'translateY(0)';
+                                });
+                            }
                         }
                     });
                 }, {
@@ -4589,18 +4982,39 @@
             });
         }
 
+        // 統一的滾動處理器 - 優化性能
+        let scrollTimeout;
+        let isScrolling = false;
+        function handleScroll() {
+            // 使用requestAnimationFrame來確保平滑滾動
+            if (!isScrolling) {
+                requestAnimationFrame(() => {
+                    const scrollTop = window.pageYOffset;
+                    const backToTop = document.getElementById('backToTop');
+                    
+                    // 更新返回頂部按鈕
+                    if (backToTop) {
+                        if (scrollTop > 300) {
+                            backToTop.classList.add('visible');
+                        } else {
+                            backToTop.classList.remove('visible');
+                        }
+                    }
+                    
+                    // 更新進度條
+                    updateProgressBar();
+                    updateReadingProgress();
+                    
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        }
+
         // 返回頂部按鈕
         function handleBackToTop() {
             const backToTop = document.getElementById('backToTop');
             
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            });
-
             backToTop.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.scrollTo({
@@ -4612,8 +5026,8 @@
 
         // 倒數計時器
         function startCountdown() {
-            // 設定目標日期為2025年11月9日 13:00 (下午1:00)
-            const targetDate = new Date('2025-11-09T13:00:00+08:00').getTime(); // 加入台灣時區
+            // 設定目標日期為2025年11月9日 14:00 (下午2:00)
+            const targetDate = new Date('2025-11-09T14:00:00+08:00').getTime(); // 加入台灣時區
             
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -4652,36 +5066,40 @@
             window.countdownInterval = countdownInterval;
         }
 
-        // 2025年趨勢：游標互動光暈效果
-        document.addEventListener('mousemove', (e) => {
-            const cursorGlow = document.getElementById('cursorGlow');
-            const particles = document.querySelectorAll('.particle');
-            
-            // 游標光暈跟隨
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-            
-            // 粒子互動效果
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            particles.forEach((particle, index) => {
-                const speed = (index % 5 + 1) * 0.5;
-                const xOffset = (x - 0.5) * speed;
-                const yOffset = (y - 0.5) * speed;
+        // 2025年趨勢：游標互動光暈效果 - 可選禁用
+        let enableCursorEffects = false; // 設為 false 禁用游標效果，避免滑鼠被影響
+        
+        if (enableCursorEffects) {
+            document.addEventListener('mousemove', (e) => {
+                const cursorGlow = document.getElementById('cursorGlow');
+                const particles = document.querySelectorAll('.particle');
                 
-                particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                // 游標光暈跟隨
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+                
+                // 粒子互動效果
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                particles.forEach((particle, index) => {
+                    const speed = (index % 5 + 1) * 0.5;
+                    const xOffset = (x - 0.5) * speed;
+                    const yOffset = (y - 0.5) * speed;
+                    
+                    particle.style.transform += ` translate(${xOffset}px, ${yOffset}px)`;
+                });
             });
-        });
+        }
 
         // 2025年趨勢：元素懸停3D效果
         document.querySelectorAll('.feature-card').forEach(element => {
             element.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02)';
+                this.style.transform = 'translateY(-10px) rotateX(5deg) rotateY(5deg)';
             });
-            
+
             element.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
+                this.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg)';
             });
         });
 
@@ -4741,11 +5159,11 @@
         // 卡片懸停特效
         document.querySelectorAll('.feature-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-12px) scale(1.03) rotateX(5deg)';
+                this.style.transform = 'translateY(-12px) rotateX(5deg)';
             });
-            
+
             card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
+                this.style.transform = 'translateY(0) rotateX(0deg)';
             });
         });
 
@@ -4768,10 +5186,7 @@
             });
         }
 
-        // 添加滾動事件監聽
-        window.addEventListener('scroll', () => {
-            updateProgressBar();
-        });
+        // 滾動事件監聽已移至統一的handleScroll函數
 
         // 2025年趨勢：頁面載入動畫控制
         function handleLoadingScreen() {
@@ -4813,17 +5228,34 @@
                 let currentSpots = parseInt(remainingSpotsElement.textContent);
                 
                 // 模擬名額減少（每30秒減少1個名額）
-                setInterval(() => {
-                    if (currentSpots > 5) {
+                const spotsInterval = setInterval(() => {
+                    if (currentSpots > 0) {
                         currentSpots--;
                         remainingSpotsElement.textContent = currentSpots;
                         
-                        // 當名額少於10個時，增加緊迫感
-                        if (currentSpots <= 10) {
+                        // 當名額為0時，顯示滿額提示
+                        if (currentSpots === 0) {
+                            const urgencyText = document.querySelector('.urgency-text');
+                            if (urgencyText) {
+                                urgencyText.innerHTML = '❌ <span style="color: #FF6B6B; font-weight: 700;">名額已滿</span>';
+                            }
+                            const deadlineText = document.querySelector('.deadline-text');
+                            if (deadlineText) {
+                                deadlineText.textContent = '⚠️ 感謝您的關注，請關注下次說明會！';
+                            }
+                            clearInterval(spotsInterval);
+                        } else if (currentSpots <= 10) {
+                            // 當名額少於10個時，增加緊迫感
                             remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
                         }
+                    } else {
+                        // 當名額達到最小值時，清除定時器
+                        clearInterval(spotsInterval);
                     }
                 }, 30000); // 30秒更新一次
+                
+                // 保存定時器ID以便後續清理
+                window.spotsInterval = spotsInterval;
             }
         }
 
@@ -4867,12 +5299,8 @@
                     this.userProfile.timeOnPage = Math.floor((Date.now() - startTime) / 1000);
                 }, 1000);
 
-                // 追蹤滾動深度
-                window.addEventListener('scroll', () => {
-                    const scrollTop = window.pageYOffset;
-                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    this.userProfile.scrollDepth = Math.round((scrollTop / docHeight) * 100);
-                });
+                // 追蹤滾動深度 - 使用統一的滾動處理器
+                // 滾動深度追蹤已整合到handleScroll函數中
 
                 // 追蹤互動次數
                 document.addEventListener('click', () => {
@@ -4997,7 +5425,7 @@
                 if (content.urgency[userType]) {
                     const urgencyText = document.querySelector('.urgency-text');
                     if (urgencyText) {
-                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">22</span> 個名額`;
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">50</span> 個名額`;
                     }
                 }
 
@@ -5046,17 +5474,34 @@
                     }
 
                     // 動態調整名額
-                    setInterval(() => {
-                        if (currentSpots > 5) {
+                    const dynamicSpotsInterval = setInterval(() => {
+                        if (currentSpots > 0) {
                             currentSpots--;
                             remainingSpots.textContent = currentSpots;
                             
-                            // 根據用戶類型調整緊迫感
-                            if (currentSpots <= 10) {
+                            // 當名額為0時，顯示滿額提示
+                            if (currentSpots === 0) {
+                                const urgencyText = document.querySelector('.urgency-text');
+                                if (urgencyText) {
+                                    urgencyText.innerHTML = '❌ <span style="color: #FF6B6B; font-weight: 700;">名額已滿</span>';
+                                }
+                                const deadlineText = document.querySelector('.deadline-text');
+                                if (deadlineText) {
+                                    deadlineText.textContent = '⚠️ 感謝您的關注，請關注下次說明會！';
+                                }
+                                clearInterval(dynamicSpotsInterval);
+                            } else if (currentSpots <= 10) {
+                                // 根據用戶類型調整緊迫感
                                 this.enhanceUrgency();
                             }
+                        } else {
+                            // 當名額達到最小值時，清除定時器
+                            clearInterval(dynamicSpotsInterval);
                         }
                     }, reductionSpeed);
+                    
+                    // 保存定時器ID以便後續清理
+                    window.dynamicSpotsInterval = dynamicSpotsInterval;
                 }
             }
 
@@ -5138,15 +5583,20 @@
             }
 
             setupFormNavigation() {
-                const nextBtn = document.querySelector('.next-btn');
-                const prevBtn = document.querySelector('.prev-btn');
+                const nextBtn = document.querySelector('.form-nav-btn.next-btn');
+                const prevBtn = document.querySelector('.form-nav-btn.prev-btn');
 
-                nextBtn.addEventListener('click', () => {
-                    // 防止重複提交
-                    if (nextBtn.disabled) return;
-                    this.nextStep();
-                });
-                prevBtn.addEventListener('click', () => this.prevStep());
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        // 防止重複提交
+                        if (nextBtn.disabled) return;
+                        this.nextStep();
+                    });
+                }
+                
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => this.prevStep());
+                }
             }
 
             setupSmartInputs() {
@@ -5175,7 +5625,6 @@
                 // 為單選按鈕添加事件監聽器
                 document.querySelectorAll('.smart-radio').forEach(radio => {
                     radio.addEventListener('change', (e) => {
-                        this.clearGenderValidation();
                         this.saveToLocalStorage();
                     });
                 });
@@ -5188,35 +5637,8 @@
                     });
                 });
 
-                // 為介紹人下拉選單添加事件監聽器
-                const referrerSelect = document.querySelector('select[name="referrerType"]');
-                const referrerNameField = document.getElementById('referrerNameField');
-                
-                if (referrerSelect && referrerNameField) {
-                    referrerSelect.addEventListener('change', (e) => {
-                        const selectedValue = e.target.value;
-                        if (selectedValue === '華地產介紹' || selectedValue === '朋友介紹') {
-                            referrerNameField.style.display = 'block';
-                            referrerNameField.querySelector('input').required = true;
-                        } else {
-                            referrerNameField.style.display = 'none';
-                            referrerNameField.querySelector('input').required = false;
-                            referrerNameField.querySelector('input').value = '';
-                        }
-                        this.saveToLocalStorage();
-                    });
-                }
             }
 
-            clearGenderValidation() {
-                const radioGroup = document.querySelector('.radio-group');
-                if (radioGroup) {
-                    const existingError = radioGroup.parentNode.querySelector('.field-error');
-                    if (existingError) {
-                        existingError.remove();
-                    }
-                }
-            }
 
             clearInfoNeedsValidation() {
                 const checkboxGroup = document.querySelector('.checkbox-group');
@@ -5226,6 +5648,25 @@
                         existingError.remove();
                     }
                 }
+            }
+
+            setupFormValidation() {
+                // 設置表單驗證規則
+                const form = document.querySelector('.smart-form');
+                if (form) {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.validateAndSubmit();
+                    });
+                }
+
+                // 設置實時驗證
+                const inputs = document.querySelectorAll('.smart-input, .smart-select, .smart-textarea');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => {
+                        this.validateField(input);
+                    });
+                });
             }
 
             handleSmartInput(input) {
@@ -5375,22 +5816,6 @@
                         allValid = false;
                     }
 
-                    // 檢查介紹人
-                    const referrerSelect = currentStepElement.querySelector('select[name="referrerType"]');
-                    if (referrerSelect && !referrerSelect.value) {
-                        this.showFieldValidation(referrerSelect, false, '請選擇介紹人');
-                        allValid = false;
-                    }
-
-                    // 檢查介紹人姓名（如果選擇了需要姓名的選項）
-                    const referrerNameField = currentStepElement.querySelector('input[name="referrerName"]');
-                    if (referrerSelect && referrerSelect.value && 
-                        (referrerSelect.value === '華地產介紹' || referrerSelect.value === '朋友介紹')) {
-                        if (!referrerNameField || !referrerNameField.value.trim()) {
-                            this.showFieldValidation(referrerNameField, false, '請輸入介紹人姓名');
-                            allValid = false;
-                        }
-                    }
                 }
 
                 // 檢查第二步：資訊需求
@@ -5416,26 +5841,6 @@
                 return allValid;
             }
 
-            showGenderValidation(isValid, message) {
-                const radioGroup = document.querySelector('.radio-group');
-                if (radioGroup) {
-                    // 移除舊的錯誤訊息
-                    const existingError = radioGroup.parentNode.querySelector('.field-error');
-                    if (existingError) {
-                        existingError.remove();
-                    }
-
-                    if (!isValid) {
-                        const errorDiv = document.createElement('div');
-                        errorDiv.className = 'field-error';
-                        errorDiv.textContent = message;
-                        errorDiv.style.color = '#FF6B6B';
-                        errorDiv.style.fontSize = '0.9rem';
-                        errorDiv.style.marginTop = '5px';
-                        radioGroup.parentNode.appendChild(errorDiv);
-                    }
-                }
-            }
 
             showInfoNeedsValidation(isValid, message) {
                 const checkboxGroup = document.querySelector('.checkbox-group');
@@ -5474,27 +5879,46 @@
                         // 滾動到表單預覽區域的頂部
                         const formSection = document.querySelector('.form-preview-section');
                         if (formSection) {
-                            formSection.scrollIntoView({ 
-                                behavior: 'smooth',
-                                block: 'start',
-                                inline: 'nearest'
+                            const rect = formSection.getBoundingClientRect();
+                            const scrollTop = window.pageYOffset + rect.top - 20;
+                            window.scrollTo({
+                                top: scrollTop,
+                                behavior: 'smooth'
                             });
                         }
                     }, 200); // 稍微延遲確保動畫完成
                 }
 
                 // 更新按鈕狀態
-                const prevBtn = document.querySelector('.prev-btn');
-                const nextBtn = document.querySelector('.next-btn');
+                const prevBtn = document.querySelector('.form-nav-btn.prev-btn');
+                const nextBtn = document.querySelector('.form-nav-btn.next-btn');
 
                 prevBtn.disabled = this.currentStep === 1;
                 
-                if (this.currentStep === this.totalSteps) {
+                // 檢查名額是否已滿
+                const remainingSpotsElement = document.getElementById('remainingSpots');
+                const currentSpots = remainingSpotsElement ? parseInt(remainingSpotsElement.textContent) : 50;
+                const isFull = currentSpots === 0 || isNaN(currentSpots);
+                
+                if (isFull) {
+                    // 名額已滿時禁用提交按鈕
+                    nextBtn.disabled = true;
+                    nextBtn.textContent = '❌ 名額已滿';
+                    nextBtn.style.background = 'linear-gradient(45deg, #999, #666)';
+                    nextBtn.style.cursor = 'not-allowed';
+                    nextBtn.style.opacity = '0.6';
+                } else if (this.currentStep === this.totalSteps) {
+                    nextBtn.disabled = false;
                     nextBtn.textContent = '🚀 完成報名';
                     nextBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+                    nextBtn.style.cursor = 'pointer';
+                    nextBtn.style.opacity = '1';
                 } else {
+                    nextBtn.disabled = false;
                     nextBtn.textContent = '下一步 →';
                     nextBtn.style.background = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
+                    nextBtn.style.cursor = 'pointer';
+                    nextBtn.style.opacity = '1';
                 }
             }
 
@@ -5557,8 +5981,18 @@
             submitForm() {
                 console.log('🚀 開始提交表單...');
                 
+                // 檢查名額是否已滿
+                const remainingSpotsElement = document.getElementById('remainingSpots');
+                if (remainingSpotsElement) {
+                    const currentSpots = parseInt(remainingSpotsElement.textContent);
+                    if (currentSpots === 0 || isNaN(currentSpots)) {
+                        alert('❌ 名額已滿\n\n很抱歉，本次說明會的名額已經額滿。\n\n感謝您的關注，請關注我們下次的說明會活動！\n\n如有疑問，歡迎聯繫客服。');
+                        return;
+                    }
+                }
+                
                 // 禁用提交按鈕防止重複提交
-                const submitBtn = document.querySelector('.next-btn');
+                const submitBtn = document.querySelector('.form-nav-btn.next-btn');
                 if (submitBtn) {
                     submitBtn.disabled = true;
                     submitBtn.textContent = '⏳ 提交中...';
@@ -5573,8 +6007,6 @@
                     location: document.querySelector('select[name="location"]')?.value || '',
                     lineId: document.querySelector('input[name="lineId"]')?.value || '',
                     downPayment: document.querySelector('select[name="downPayment"]')?.value || '',
-                    referrerType: document.querySelector('select[name="referrerType"]')?.value || '',
-                    referrerName: document.querySelector('input[name="referrerName"]')?.value || '',
                     
                     // 報名原因
                     registrationReason: document.querySelector('input[name="registrationReason"]:checked')?.value || '',
@@ -5599,30 +6031,30 @@
             }
 
             async submitToGoogleSheets(data) {
+                // 使用Google Apps Script Web App來提交數據
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
+                
+                // 驗證必要數據
+                if (!data.name || !data.phone) {
+                    alert('⚠️ 請填寫姓名和電話');
+                    this.showLoadingState(false);
+                    return;
+                }
+                
+                // 創建URL編碼的表單數據 - 只包含必要欄位
+                const params = new URLSearchParams();
+                params.append('name', data.name);
+                params.append('phone', data.phone);
+                params.append('location', data.location || '');
+                params.append('lineId', data.lineId || '');
+                params.append('downPayment', data.downPayment || '');
+                params.append('registrationReason', data.registrationReason || '');
+                params.append('agreeTerms', data.agreeTerms || '');
+                params.append('agreeEvent', data.agreeEvent || '');
+                
                 try {
                     // 顯示載入狀態
                     this.showLoadingState(true);
-                    
-                    // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyl9EB0QjtXB4xjIQG19rkjrEarlkmv7ETlgBtfEQKmy62HrbF0fYEy440vOybrBi69/exec';
-                    
-                    // 驗證必要數據
-                    if (!data.name || !data.phone) {
-                        throw new Error('缺少必要欄位：姓名或電話');
-                    }
-                    
-                    // 創建URL編碼的表單數據 - 只包含必要欄位
-                    const params = new URLSearchParams();
-                    params.append('name', data.name);
-                    params.append('phone', data.phone);
-                    params.append('location', data.location || '');
-                    params.append('lineId', data.lineId || '');
-                    params.append('downPayment', data.downPayment || '');
-                    params.append('referrerType', data.referrerType || '');
-                    params.append('referrerName', data.referrerName || '');
-                    params.append('registrationReason', data.registrationReason || '');
-                    params.append('agreeTerms', data.agreeTerms || '');
-                    params.append('agreeEvent', data.agreeEvent || '');
                     
                     console.log('🚀 提交表單數據到Google Sheets...');
                     
@@ -5645,20 +6077,27 @@
                     
                     if (response.ok) {
                         console.log('✅ 數據已成功提交到Google Sheets');
-                        this.showSubmissionSuccess(true);
+                        // 先隱藏載入狀態
+                        this.showLoadingState(false);
+                        // 顯示成功提示
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
+                        // 重置表單
+                        this.resetForm();
                     } else {
                         const responseText = await response.text();
                         console.error('❌ 提交失敗，狀態碼:', response.status);
-                        this.showSubmissionSuccess(false, `提交失敗，請稍後再試`);
+                        // 先隱藏載入狀態
+                        this.showLoadingState(false);
+                        alert('⚠️ 提交失敗\n\n提交過程中發生錯誤，請稍後再試。\n\n如有問題請聯繫客服。');
                     }
                 } catch (error) {
                     console.error('❌ 提交錯誤:', error);
                     this.showLoadingState(false);
                     
                     if (error.name === 'AbortError') {
-                        this.showSubmissionSuccess(false, '提交超時，請檢查網路連線後重試');
+                        alert('⚠️ 提交超時\n\n請檢查網路連線後重試。');
                     } else {
-                        this.showSubmissionSuccess(false, '提交失敗，請稍後再試');
+                        alert('⚠️ 提交失敗\n\n提交過程中發生錯誤，請稍後再試。');
                     }
                     
                     // 備用方案：嘗試使用 GET 方法
@@ -5672,10 +6111,11 @@
                         });
                         
                         console.log('🔄 備用方案回應:', backupResponse);
-                        this.showSubmissionSuccess(true);
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
+                        this.resetForm();
                     } catch (backupError) {
                         console.error('❌ 備用方案也失敗:', backupError);
-                        this.showSubmissionSuccess(false, `提交失敗: ${error.message}`);
+                        alert('⚠️ 提交失敗\n\n提交過程中發生錯誤，請稍後再試。');
                     }
                 }
             }
@@ -5695,20 +6135,10 @@
                     }
                 });
                 
-                // 重置介紹人姓名欄位顯示狀態
-                const referrerNameField = document.getElementById('referrerNameField');
-                if (referrerNameField) {
-                    referrerNameField.style.display = 'none';
-                    const referrerNameInput = referrerNameField.querySelector('input');
-                    if (referrerNameInput) {
-                        referrerNameInput.required = false;
-                    }
-                }
                 
                 // 重置表單顯示
                 this.updateFormDisplay();
                 this.updateProgressBar();
-                this.updateNavigationButtons();
                 
                 // 清除所有驗證錯誤訊息
                 const errorMessages = document.querySelectorAll('.field-error');
@@ -5721,9 +6151,11 @@
                 // 滾動到表單頂部
                 const formSection = document.querySelector('.form-preview-section');
                 if (formSection) {
-                    formSection.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
+                    const rect = formSection.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset + rect.top - 20;
+                    window.scrollTo({
+                        top: scrollTop,
+                        behavior: 'smooth'
                     });
                 }
                 
@@ -5789,89 +6221,6 @@
                 }
             }
 
-            showSubmissionSuccess(success = true, errorMessage = '') {
-                // 隱藏載入狀態
-                this.showLoadingState(false);
-                
-                // 恢復按鈕狀態
-                const submitBtn = document.querySelector('.next-btn');
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                    if (success) {
-                        submitBtn.textContent = '✅ 報名成功';
-                    } else {
-                        submitBtn.textContent = '🚀 完成報名';
-                    }
-                }
-                const successModal = document.createElement('div');
-                
-                successModal.innerHTML = `
-                    <div style="
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.8);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 10000;
-                    ">
-                        <div style="
-                            background: ${success ? 'linear-gradient(135deg, #4CAF50, #45a049)' : 'linear-gradient(135deg, #f44336, #d32f2f)'};
-                            color: white;
-                            padding: 40px;
-                            border-radius: 20px;
-                            text-align: center;
-                            max-width: 500px;
-                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                        ">
-                            <div style="font-size: 4rem; margin-bottom: 20px;">${success ? '🎉' : '⚠️'}</div>
-                            <h3 style="font-size: 1.8rem; margin-bottom: 15px;">${success ? '報名成功！' : '提交失敗'}</h3>
-                            <p style="font-size: 1.1rem; margin-bottom: 20px;">
-                                ${success ? '您的報名資料已成功提交到系統！' : (errorMessage || '提交過程中發生錯誤，請稍後再試。')}
-                            </p>
-                            <p style="font-size: 0.9rem; opacity: 0.8;">
-                                ${success ? '感謝您的報名，期待與您相見！' : '如有問題請聯繫客服。'}
-                            </p>
-                            ${!success && errorMessage ? `<p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">技術詳情: ${errorMessage}</p>` : ''}
-                            <button onclick="this.closest('div').remove(); smartForm.resetForm();" style="
-                                background: rgba(255, 255, 255, 0.2);
-                                border: 2px solid rgba(255, 255, 255, 0.3);
-                                color: white;
-                                padding: 12px 24px;
-                                border-radius: 25px;
-                                font-size: 1rem;
-                                font-weight: 600;
-                                cursor: pointer;
-                                margin-top: 20px;
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.3)'">
-                                點擊關閉
-                            </button>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(successModal);
-
-                // 點擊背景關閉彈窗
-                successModal.addEventListener('click', (e) => {
-                    if (e.target === successModal) {
-                        successModal.remove();
-                        this.resetForm();
-                    }
-                });
-
-                // 5秒後自動關閉彈窗並重置表單
-                setTimeout(() => {
-                    if (successModal.parentNode) {
-                        successModal.remove();
-                        this.resetForm();
-                    }
-                }, 5000);
-            }
         }
 
         // A/B測試功能（保留原有功能）
@@ -5933,26 +6282,14 @@
 
         // 2025年趨勢：磁性懸停效果
         function addMagneticEffect(element) {
-            element.addEventListener('mousemove', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const distance = Math.sqrt(x * x + y * y);
-                const maxDistance = 50;
-                
-                if (distance < maxDistance) {
-                    const moveX = (x / maxDistance) * 10;
-                    const moveY = (y / maxDistance) * 10;
-                    
-                    this.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-                } else {
-                    this.style.transform = 'translate(0, 0) scale(1)';
-                }
+            // 磁性效果已禁用，避免滑鼠被意外移動
+            // 只保留基本的懸停效果
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
             });
-            
+
             element.addEventListener('mouseleave', function() {
-                this.style.transform = 'translate(0, 0) scale(1)';
+                this.style.transform = 'translate(0, 0)';
             });
         }
 
@@ -5964,9 +6301,11 @@
                     const formSection = document.querySelector('.form-preview-section');
                     if (formSection) {
                         // 平滑滾動到表單區域
-                        formSection.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
+                        const rect = formSection.getBoundingClientRect();
+                        const scrollTop = window.pageYOffset + rect.top - 20;
+                        window.scrollTo({
+                            top: scrollTop,
+                            behavior: 'smooth'
                         });
                         
                         // 添加視覺反饋
@@ -5986,6 +6325,154 @@
             }
         }
 
+        // 輪播功能
+        let currentSlide = 0;
+        let totalSlides = 0;
+        let slidesToShow = 3;
+
+        function initTestimonialsCarousel() {
+            const carousel = document.getElementById('testimonialsCarousel');
+            const dotsContainer = document.getElementById('carouselDots');
+            
+            console.log('初始化輪播，容器:', carousel);
+            console.log('指示點容器:', dotsContainer);
+            
+            if (!carousel) {
+                console.error('找不到輪播容器！');
+                return;
+            }
+            
+            const cards = carousel.querySelectorAll('.testimonial-card');
+            totalSlides = cards.length;
+            
+            console.log('找到', totalSlides, '個案例卡片');
+            
+            // 所有螢幕大小都顯示單欄
+            slidesToShow = 1;
+            
+            // 添加觸摸滑動功能
+            addTouchSwipe(carousel);
+            
+            // 創建指示點
+            createDots();
+            
+            // 設置初始位置
+            updateCarousel();
+            
+            // 自動輪播 - 所有螢幕都自動輪播
+            setInterval(() => {
+                moveCarousel(1);
+            }, 5000);
+        }
+
+        // 手機版觸摸滑動功能
+        function addTouchSwipe(carousel) {
+            let startX = 0;
+            let startY = 0;
+            let isScrolling = false;
+
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                isScrolling = false;
+            }, { passive: true });
+
+            carousel.addEventListener('touchmove', (e) => {
+                if (!startX || !startY) return;
+                
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                const diffX = Math.abs(currentX - startX);
+                const diffY = Math.abs(currentY - startY);
+                
+                if (diffX > diffY) {
+                    isScrolling = true;
+                }
+            }, { passive: true });
+
+            carousel.addEventListener('touchend', (e) => {
+                if (!startX || !startY || !isScrolling) return;
+                
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+                
+                if (Math.abs(diffX) > 50) { // 滑動距離超過50px才觸發
+                    if (diffX > 0) {
+                        moveCarousel(1); // 向左滑動，顯示下一張
+                    } else {
+                        moveCarousel(-1); // 向右滑動，顯示上一張
+                    }
+                }
+                
+                startX = 0;
+                startY = 0;
+                isScrolling = false;
+            }, { passive: true });
+        }
+
+        function createDots() {
+            const dotsContainer = document.getElementById('carouselDots');
+            if (!dotsContainer) return;
+            
+            dotsContainer.innerHTML = '';
+            // 單欄顯示，每個卡片一個指示點
+            const totalDots = totalSlides;
+            
+            console.log('創建指示點，總數:', totalDots);
+            
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            
+            updateCarousel();
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const carousel = document.getElementById('testimonialsCarousel');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            if (!carousel) return;
+            
+            // 每個卡片佔16.666%寬度，所以位移是 currentSlide * 16.666%
+            const translateX = -currentSlide * 16.666;
+            carousel.style.transform = `translateX(${translateX}%)`;
+            
+            console.log('切換到第', currentSlide + 1, '個案例，位移:', translateX + '%');
+            console.log('輪播容器當前樣式:', carousel.style.transform);
+            
+            // 更新指示點
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // 響應式處理 - 所有螢幕都使用單欄
+        window.addEventListener('resize', () => {
+            slidesToShow = 1;
+            currentSlide = 0;
+            createDots();
+            updateCarousel();
+        });
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             handleLoadingScreen();
@@ -5993,6 +6480,9 @@
             handleScrollAnimations();
             handleBackToTop();
             startCountdown();
+            
+            // 添加統一的滾動事件監聽器
+            window.addEventListener('scroll', handleScroll, { passive: true });
             initMobileCtaSticky(); // 2025年趨勢：初始化手機版粘性 CTA
             animateTimelineItems();
             trackButtonClicks();
@@ -6011,6 +6501,30 @@
             // 添加磁性效果到特色卡片
             document.querySelectorAll('.feature-card, .testimonial-card, .credential-item').forEach(addMagneticEffect);
             
+            // 初始化輪播功能
+            initTestimonialsCarousel();
+            
+            // 調試：檢查輪播狀態
+            setTimeout(() => {
+                const carousel = document.getElementById('testimonialsCarousel');
+                const cards = carousel ? carousel.querySelectorAll('.testimonial-card') : [];
+                const dots = document.querySelectorAll('.carousel-dot');
+                console.log('輪播卡片數量:', cards.length);
+                console.log('當前顯示數量:', slidesToShow);
+                console.log('總頁數:', Math.ceil(cards.length / slidesToShow));
+                console.log('指示點數量:', dots.length);
+                console.log('當前頁面:', currentSlide);
+                console.log('輪播容器:', carousel);
+                console.log('輪播樣式:', carousel ? carousel.style.transform : '無');
+                
+                // 添加手動測試函數到全局
+                window.testCarousel = () => {
+                    console.log('手動測試輪播');
+                    moveCarousel(1);
+                };
+                console.log('可以使用 window.testCarousel() 來手動測試輪播');
+            }, 1000);
+            
             // 開發者工具：查看AI分析結果
             window.aiAnalytics = () => {
                 console.log('🤖 AI個性化分析報告:', aiEngine.getUserAnalytics());
@@ -6024,57 +6538,51 @@
             };
         });
 
-        // 添加滾動事件監聽
-        window.addEventListener('scroll', () => {
-            updateProgressBar();
-            updateReadingProgress();
-        });
+        // 滾動事件監聽已移至統一的handleScroll函數
 
         // CSS 動畫樣式
         const style = document.createElement('style');
         style.textContent = `
             @keyframes superRipple {
                 0% {
-                    transform: scale(0);
                     opacity: 0.8;
                 }
                 100% {
-                    transform: scale(1);
                     opacity: 0;
                 }
             }
             
             @keyframes sparkle {
                 0% {
-                    transform: translateY(0) scale(1);
+                    transform: translateY(0);
                     opacity: 1;
                 }
                 100% {
-                    transform: translateY(-20px) scale(0);
+                    transform: translateY(-20px);
                     opacity: 0;
                 }
             }
             
             @keyframes explode {
                 0% {
-                    transform: translate(0, 0) scale(1);
+                    transform: translate(0, 0);
                     opacity: 1;
                 }
                 100% {
-                    transform: translate(var(--dx), var(--dy)) scale(0);
+                    transform: translate(var(--dx), var(--dy));
                     opacity: 0;
                 }
             }
             
             .particle:nth-child(odd) {
                 background: linear-gradient(45deg, rgba(60, 60, 60, 0.2), rgba(40, 40, 40, 0.15));
-                animation: float 8s ease-in-out infinite;
+                animation: float 12s ease-in-out infinite;
             }
 
             .particle:nth-child(even) {
                 background: rgba(80, 80, 80, 0.1);
                 border-radius: 2px;
-                animation: float 10s ease-in-out infinite reverse;
+                animation: float 15s ease-in-out infinite reverse;
             }
             
             /* 按鈕額外特效 */
@@ -6084,11 +6592,11 @@
             }
             
             .cta-button:active {
-                transform: translateY(-4px) scale(0.98);
+                transform: translateY(-4px);
             }
-            
+
             .instagram-link:active {
-                transform: translateY(-2px) scale(0.98) rotateZ(1deg);
+                transform: translateY(-2px) rotateZ(1deg);
             }
             
             /* 額外動畫效果 */
@@ -6129,75 +6637,9 @@
         document.head.appendChild(style);
     </script>
 
-    <!-- 底部資訊和勾子標題 -->
-    <footer style="
-        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-        padding: 20px 15px;
-        text-align: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        margin-top: 5px;
-    ">
-        <div class="container">
-            <!-- 勾子標題 -->
-            <div style="
-                margin-bottom: 20px;
-                padding: 20px;
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 20px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            ">
-                <h3 style="
-                    color: #FFD700;
-                    font-size: clamp(1.4rem, 4vw, 1.8rem);
-                    font-weight: 700;
-                    margin-bottom: 15px;
-                    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-                ">
-                    🚀 想要更多房產投資機會？
-                </h3>
-                <p style="
-                    color: rgba(255, 255, 255, 0.9);
-                    font-size: clamp(1rem, 3.5vw, 1.2rem);
-                    margin-bottom: 25px;
-                    line-height: 1.6;
-                ">
-                    加入全台唯一房地產主題式 BNI 分會<br>
-                    <span style="color: #4ECDC4; font-weight: 600;">100+ 位房地產菁英</span> 已加入，<br>
-                    這不是一場社交，而是一支真正要<br>「<span style="color: #FF6B6B; font-weight: 700;">打團體戰的 Power Team</span>」！
-                </p>
-                <a href="https://sky770825.github.io/Hua-Real-Estate/invite" 
-                   target="_blank"
-                   style="
-                       display: inline-block;
-                       background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-                       color: white;
-                       padding: 15px 30px;
-                       border-radius: 25px;
-                       text-decoration: none;
-                       font-weight: 700;
-                       font-size: clamp(1rem, 3vw, 1.1rem);
-                       transition: all 0.3s ease;
-                       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                   "
-                   onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.4)'"
-                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.3)'">
-                    🎯 立即加入 BNI 華地產分會
-                </a>
-            </div>
+<footer class="footer">
+  <p>© 2025 房產擺渡人 YT「蔣哥」</p>
+</footer>
 
-            <!-- 版權資訊 -->
-            <div style="
-                color: rgba(255, 255, 255, 0.6);
-                font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-                margin-top: 20px;
-                padding-top: 20px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            ">
-                <p style="margin: 0;">
-                    © 2025 BNI華地產房產行銷組團隊製
-                </p>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>
