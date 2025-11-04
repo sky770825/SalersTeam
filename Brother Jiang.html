@@ -4431,7 +4431,7 @@
             <!-- 蔣哥說明會宣傳影片 -->
             <div class="hero-image" style="margin: 30px auto; text-align: center; max-width: 840px;">
                 <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 5px 15px rgba(255,255,255,0.1), 0 0 0 2px rgba(255,255,255,0.1); scrollbar-width: none; -ms-overflow-style: none;">
-                    <iframe width="840" height="473" src="https://www.youtube.com/embed/GY6LEXhwWdg" title="你投資的房子，是勞力士還是Apple Watch？不缺房子的時代，正面風禾公園首排、32層摩天地標——8個月不調價，6%自備4年，月付9,000元。懂勞力士的人，都知道限量才會增值。11/9下午2點" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
+                    <iframe width="445" height="791" src="https://www.youtube.com/embed/JT2EuyiJ4hI" title="要賺錢，就要賺有錢人的錢。他們的錢，是「數字」，不是「命」。台灣不缺房子，缺的是——會被富人收藏的地段。一樣的時間，有人戴戴Rolex ，有人戴 ORIS，台灣哪一區，是下一支「勞力士級」地段？#按讚" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px; max-width: 100%; height: auto; max-height: 60vh;"></iframe>
                 </div>
                 <p style="color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-top: 15px; font-weight: 500;">
                     📺 點擊觀看蔣哥最新房產分析說明會預告
@@ -4511,7 +4511,7 @@
                 <span style="color: #4ECDC4; font-weight: 600;">下午2:00 準時開始</span>
             </div>
             <div class="urgency-alert">
-                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">22</span> 個</span>
+                <span class="urgency-text clickable-urgency">⚠️ 免費名額僅剩 <span class="remaining-spots" id="remainingSpots">50</span> 個</span>
                 <span class="deadline-text">⏰ 報名即將截止，請把握機會！</span>
             </div>
             <div class="countdown-timer" id="countdown">
@@ -5229,12 +5229,23 @@
                 
                 // 模擬名額減少（每30秒減少1個名額）
                 const spotsInterval = setInterval(() => {
-                    if (currentSpots > 5) {
+                    if (currentSpots > 0) {
                         currentSpots--;
                         remainingSpotsElement.textContent = currentSpots;
                         
-                        // 當名額少於10個時，增加緊迫感
-                        if (currentSpots <= 10) {
+                        // 當名額為0時，顯示滿額提示
+                        if (currentSpots === 0) {
+                            const urgencyText = document.querySelector('.urgency-text');
+                            if (urgencyText) {
+                                urgencyText.innerHTML = '❌ <span style="color: #FF6B6B; font-weight: 700;">名額已滿</span>';
+                            }
+                            const deadlineText = document.querySelector('.deadline-text');
+                            if (deadlineText) {
+                                deadlineText.textContent = '⚠️ 感謝您的關注，請關注下次說明會！';
+                            }
+                            clearInterval(spotsInterval);
+                        } else if (currentSpots <= 10) {
+                            // 當名額少於10個時，增加緊迫感
                             remainingSpotsElement.style.animation = 'urgencyPulse 1s ease-in-out infinite';
                         }
                     } else {
@@ -5414,7 +5425,7 @@
                 if (content.urgency[userType]) {
                     const urgencyText = document.querySelector('.urgency-text');
                     if (urgencyText) {
-                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">22</span> 個名額`;
+                        urgencyText.innerHTML = `${content.urgency[userType]} <span class="remaining-spots" id="remainingSpots">50</span> 個名額`;
                     }
                 }
 
@@ -5464,12 +5475,23 @@
 
                     // 動態調整名額
                     const dynamicSpotsInterval = setInterval(() => {
-                        if (currentSpots > 5) {
+                        if (currentSpots > 0) {
                             currentSpots--;
                             remainingSpots.textContent = currentSpots;
                             
-                            // 根據用戶類型調整緊迫感
-                            if (currentSpots <= 10) {
+                            // 當名額為0時，顯示滿額提示
+                            if (currentSpots === 0) {
+                                const urgencyText = document.querySelector('.urgency-text');
+                                if (urgencyText) {
+                                    urgencyText.innerHTML = '❌ <span style="color: #FF6B6B; font-weight: 700;">名額已滿</span>';
+                                }
+                                const deadlineText = document.querySelector('.deadline-text');
+                                if (deadlineText) {
+                                    deadlineText.textContent = '⚠️ 感謝您的關注，請關注下次說明會！';
+                                }
+                                clearInterval(dynamicSpotsInterval);
+                            } else if (currentSpots <= 10) {
+                                // 根據用戶類型調整緊迫感
                                 this.enhanceUrgency();
                             }
                         } else {
@@ -5873,12 +5895,30 @@
 
                 prevBtn.disabled = this.currentStep === 1;
                 
-                if (this.currentStep === this.totalSteps) {
+                // 檢查名額是否已滿
+                const remainingSpotsElement = document.getElementById('remainingSpots');
+                const currentSpots = remainingSpotsElement ? parseInt(remainingSpotsElement.textContent) : 50;
+                const isFull = currentSpots === 0 || isNaN(currentSpots);
+                
+                if (isFull) {
+                    // 名額已滿時禁用提交按鈕
+                    nextBtn.disabled = true;
+                    nextBtn.textContent = '❌ 名額已滿';
+                    nextBtn.style.background = 'linear-gradient(45deg, #999, #666)';
+                    nextBtn.style.cursor = 'not-allowed';
+                    nextBtn.style.opacity = '0.6';
+                } else if (this.currentStep === this.totalSteps) {
+                    nextBtn.disabled = false;
                     nextBtn.textContent = '🚀 完成報名';
                     nextBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+                    nextBtn.style.cursor = 'pointer';
+                    nextBtn.style.opacity = '1';
                 } else {
+                    nextBtn.disabled = false;
                     nextBtn.textContent = '下一步 →';
                     nextBtn.style.background = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
+                    nextBtn.style.cursor = 'pointer';
+                    nextBtn.style.opacity = '1';
                 }
             }
 
@@ -5941,6 +5981,16 @@
             submitForm() {
                 console.log('🚀 開始提交表單...');
                 
+                // 檢查名額是否已滿
+                const remainingSpotsElement = document.getElementById('remainingSpots');
+                if (remainingSpotsElement) {
+                    const currentSpots = parseInt(remainingSpotsElement.textContent);
+                    if (currentSpots === 0 || isNaN(currentSpots)) {
+                        alert('❌ 名額已滿\n\n很抱歉，本次說明會的名額已經額滿。\n\n感謝您的關注，請關注我們下次的說明會活動！\n\n如有疑問，歡迎聯繫客服。');
+                        return;
+                    }
+                }
+                
                 // 禁用提交按鈕防止重複提交
                 const submitBtn = document.querySelector('.form-nav-btn.next-btn');
                 if (submitBtn) {
@@ -5981,28 +6031,30 @@
             }
 
             async submitToGoogleSheets(data) {
+                // 使用Google Apps Script Web App來提交數據
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
+                
+                // 驗證必要數據
+                if (!data.name || !data.phone) {
+                    alert('⚠️ 請填寫姓名和電話');
+                    this.showLoadingState(false);
+                    return;
+                }
+                
+                // 創建URL編碼的表單數據 - 只包含必要欄位
+                const params = new URLSearchParams();
+                params.append('name', data.name);
+                params.append('phone', data.phone);
+                params.append('location', data.location || '');
+                params.append('lineId', data.lineId || '');
+                params.append('downPayment', data.downPayment || '');
+                params.append('registrationReason', data.registrationReason || '');
+                params.append('agreeTerms', data.agreeTerms || '');
+                params.append('agreeEvent', data.agreeEvent || '');
+                
                 try {
                     // 顯示載入狀態
                     this.showLoadingState(true);
-                    
-                    // 使用Google Apps Script Web App來提交數據
-                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
-                    
-                    // 驗證必要數據
-                    if (!data.name || !data.phone) {
-                        throw new Error('缺少必要欄位：姓名或電話');
-                    }
-                    
-                    // 創建URL編碼的表單數據 - 只包含必要欄位
-                    const params = new URLSearchParams();
-                    params.append('name', data.name);
-                    params.append('phone', data.phone);
-                    params.append('location', data.location || '');
-                    params.append('lineId', data.lineId || '');
-                    params.append('downPayment', data.downPayment || '');
-                    params.append('registrationReason', data.registrationReason || '');
-                    params.append('agreeTerms', data.agreeTerms || '');
-                    params.append('agreeEvent', data.agreeEvent || '');
                     
                     console.log('🚀 提交表單數據到Google Sheets...');
                     
@@ -6087,7 +6139,6 @@
                 // 重置表單顯示
                 this.updateFormDisplay();
                 this.updateProgressBar();
-                this.updateNavigationButtons();
                 
                 // 清除所有驗證錯誤訊息
                 const errorMessages = document.querySelectorAll('.field-error');
