@@ -4518,7 +4518,7 @@
 
         <div class="countdown-section fade-in">
             <div class="countdown-title">
-                📅 說明會時間：<span style="color: #FFD700; font-weight: 700;">2025/11/9（日）</span><br>
+                📅 說明會時間：<span style="color: #FFD700; font-weight: 700;">2025/11/29（六）</span><br>
                 <span style="color: #4ECDC4; font-weight: 600;">下午2:00 準時開始</span>
             </div>
             <div class="urgency-alert">
@@ -4834,7 +4834,7 @@
                             <div class="event-details">
                                 <div class="event-item">
                                     <span class="event-icon">📅</span>
-                                    <span class="event-text"><strong>時間：</strong>2025/11/9（日）下午2:00 準時開始</span>
+                                    <span class="event-text"><strong>時間：</strong>2025/11/29（六）下午2:00 準時開始</span>
                                 </div>
                                 <div class="event-item">
                                     <span class="event-icon">📍</span>
@@ -4868,7 +4868,7 @@
                                     <span class="checkbox-text">
                                         確認您已知道活動時間、地點<br>
                                         <small style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
-                                            時間：2025/11/9（日）下午2:00 準時開始<br>
+                                            時間：2025/11/29（六）下午2:00 準時開始<br>
                                             地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）
                                         </small>
                                     </span>
@@ -5035,16 +5035,74 @@
             });
         }
 
+        // 禁用報名表單
+        function disableRegistrationForm() {
+            // 禁用所有表單輸入欄位
+            const formInputs = document.querySelectorAll('.form-preview-section input, .form-preview-section select, .form-preview-section textarea');
+            formInputs.forEach(input => {
+                input.disabled = true;
+                input.style.opacity = '0.6';
+                input.style.cursor = 'not-allowed';
+            });
+            
+            // 禁用所有按鈕
+            const formButtons = document.querySelectorAll('.form-preview-section .form-nav-btn');
+            formButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+                btn.style.cursor = 'not-allowed';
+            });
+            
+            // 禁用所有單選和複選框
+            const checkboxes = document.querySelectorAll('.form-preview-section input[type="checkbox"], .form-preview-section input[type="radio"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.disabled = true;
+            });
+            
+            // 在表單區域顯示結束提示
+            const formSection = document.querySelector('.form-preview-section');
+            if (formSection) {
+                let endMessage = formSection.querySelector('.registration-ended-message');
+                if (!endMessage) {
+                    endMessage = document.createElement('div');
+                    endMessage.className = 'registration-ended-message';
+                    endMessage.style.cssText = 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin: 20px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.3);';
+                    endMessage.innerHTML = '<h3 style="margin: 0 0 15px 0; font-size: 24px;">⏰ 報名活動已結束</h3><p style="margin: 0; font-size: 16px; opacity: 0.9;">感謝您的關注，本次說明會報名時間已截止。<br>如有疑問，歡迎聯繫客服。</p>';
+                    const formContainer = formSection.querySelector('.form-preview-container');
+                    if (formContainer) {
+                        formContainer.insertBefore(endMessage, formContainer.firstChild);
+                    }
+                }
+            }
+        }
+
         // 倒數計時器
         function startCountdown() {
-            // 設定目標日期為2025年11月9日 14:00 (下午2:00)
-            const targetDate = new Date('2025-11-09T14:00:00+08:00').getTime(); // 加入台灣時區
+            // 檢查必要的元素是否存在
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+                console.error('❌ 倒數計時器元素未找到，請檢查HTML結構');
+                return;
+            }
+            
+            // 設定目標日期為2025年11月29日 14:00 (下午2:00)
+            const targetDate = new Date('2025-11-29T14:00:00+08:00').getTime(); // 加入台灣時區
             
             function updateCountdown() {
                 const now = new Date().getTime();
                 const distance = targetDate - now;
                 
-                console.log('距離目標時間:', distance, 'ms'); // 調試用
+                console.log('距離目標時間:', distance, 'ms', '目標日期:', new Date(targetDate).toLocaleString('zh-TW')); // 調試用
+                
+                // 確保元素仍然存在
+                if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+                    console.error('倒數計時器元素已消失');
+                    return;
+                }
                 
                 if (distance > 0) {
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -5052,29 +5110,49 @@
                     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                     
-                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                    daysEl.textContent = days.toString().padStart(2, '0');
+                    hoursEl.textContent = hours.toString().padStart(2, '0');
+                    minutesEl.textContent = minutes.toString().padStart(2, '0');
+                    secondsEl.textContent = seconds.toString().padStart(2, '0');
+                    
+                    console.log(`倒數計時: ${days}天 ${hours}小時 ${minutes}分鐘 ${seconds}秒`);
                 } else {
                     // 活動已開始或已結束
-                    document.getElementById('days').textContent = '00';
-                    document.getElementById('hours').textContent = '00';
-                    document.getElementById('minutes').textContent = '00';
-                    document.getElementById('seconds').textContent = '00';
+                    daysEl.textContent = '00';
+                    hoursEl.textContent = '00';
+                    minutesEl.textContent = '00';
+                    secondsEl.textContent = '00';
                     
-                    // 可以在這裡添加活動已開始的訊息
-                    document.querySelector('.countdown-title').innerHTML = '活動進行中或已結束';
+                    // 顯示活動已結束的訊息
+                    const countdownTitle = document.querySelector('.countdown-title');
+                    if (countdownTitle) {
+                        countdownTitle.innerHTML = '⏰ 報名活動已結束';
+                    }
+                    
+                    // 禁用報名表單
+                    disableRegistrationForm();
+                    
+                    // 清除倒數計時器
+                    if (window.countdownInterval) {
+                        clearInterval(window.countdownInterval);
+                        window.countdownInterval = null;
+                    }
                 }
             }
             
             // 立即執行一次
             updateCountdown();
-            // 每秒更新一次
-            const countdownInterval = setInterval(updateCountdown, 1000);
             
-            // 保存interval ID以便後續清理（可選）
-            window.countdownInterval = countdownInterval;
+            // 如果活動已結束，立即禁用表單
+            const now = new Date().getTime();
+            if (now >= targetDate) {
+                disableRegistrationForm();
+            } else {
+                // 每秒更新一次
+                const countdownInterval = setInterval(updateCountdown, 1000);
+                // 保存interval ID以便後續清理
+                window.countdownInterval = countdownInterval;
+            }
         }
 
         // 2025年趨勢：游標互動光暈效果 - 可選禁用
@@ -6130,7 +6208,7 @@
                         // 更新剩餘名額（因為有新報名）
                         updateRemainingSpots();
                         // 顯示成功提示
-                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/29（六）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動\n\n💡 請保持手機暢通，我們會透過電話或LINE與您確認參加詳情');
                         // 重置表單
                         this.resetForm();
                     } else {
@@ -6163,7 +6241,7 @@
                         console.log('🔄 備用方案回應:', backupResponse);
                         // 更新剩餘名額（因為有新報名）
                         updateRemainingSpots();
-                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/9（日）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
+                        alert('🎉 報名成功！\n\n您的報名資料已成功提交到系統！\n我們會盡快與您聯繫確認參加事宜。\n\n📅 說明會時間：2025/11/29（六）下午2:00\n📍 地點：桃園市桃園區大興西路三段90號（悅讀伊頓銷售中心）\n🎁 現場有精美獎品抽獎活動');
                         this.resetForm();
                     } catch (backupError) {
                         console.error('❌ 備用方案也失敗:', backupError);
