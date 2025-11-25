@@ -5426,7 +5426,7 @@
         // 從Google Sheets獲取報名人數
         async function getRegistrationCountFromSheets() {
             try {
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwA31xO13rbG6jmB3qol3rrql7gTUd13QjXXU_ZOjXHoUpnWW24onf8uuXZpP-55Wvo/exec';
                 const response = await fetch(scriptUrl + '?action=getCount', {
                     method: 'GET',
                     mode: 'cors'
@@ -6131,19 +6131,8 @@
 
                 prevBtn.disabled = this.currentStep === 1;
                 
-                // 檢查名額是否已滿（從實際數據獲取）
-                const remainingSpotsElement = document.getElementById('remainingSpots');
-                let currentSpots = remainingSpotsElement ? parseInt(remainingSpotsElement.textContent) : MAX_SPOTS;
-                const isFull = currentSpots === 0 || isNaN(currentSpots);
-                
-                if (isFull) {
-                    // 名額已滿時禁用提交按鈕
-                    nextBtn.disabled = true;
-                    nextBtn.textContent = '❌ 名額已滿';
-                    nextBtn.style.background = 'linear-gradient(45deg, #999, #666)';
-                    nextBtn.style.cursor = 'not-allowed';
-                    nextBtn.style.opacity = '0.6';
-                } else if (this.currentStep === this.totalSteps) {
+                // 不再檢查名額限制，允許無限新增
+                if (this.currentStep === this.totalSteps) {
                     nextBtn.disabled = false;
                     nextBtn.textContent = '🚀 完成報名';
                     nextBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
@@ -6217,16 +6206,6 @@
             submitForm() {
                 console.log('🚀 開始提交表單...');
                 
-                // 檢查名額是否已滿
-                const remainingSpotsElement = document.getElementById('remainingSpots');
-                if (remainingSpotsElement) {
-                    const currentSpots = parseInt(remainingSpotsElement.textContent);
-                    if (currentSpots === 0 || isNaN(currentSpots)) {
-                        alert('❌ 名額已滿\n\n很抱歉，本次說明會的名額已經額滿。\n\n感謝您的關注，請關注我們下次的說明會活動！\n\n如有疑問，歡迎聯繫客服。');
-                        return;
-                    }
-                }
-                
                 // 禁用提交按鈕防止重複提交
                 const submitBtn = document.querySelector('.form-nav-btn.next-btn');
                 if (submitBtn) {
@@ -6268,7 +6247,7 @@
 
             async submitToGoogleSheets(data) {
                 // 使用Google Apps Script Web App來提交數據
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyFuL19ZnOMgWByHJcIn9rr4cdIjPQy2tuSeYVe3jjCSqcfSpKoCdnvqtM8V_4mgGJC/exec';
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwA31xO13rbG6jmB3qol3rrql7gTUd13QjXXU_ZOjXHoUpnWW24onf8uuXZpP-55Wvo/exec';
                 
                 // 驗證必要數據
                 if (!data.name || !data.phone) {

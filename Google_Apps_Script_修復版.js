@@ -60,19 +60,7 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    // 檢查報名人數是否已滿
-    const countData = getRegistrationCount();
-    if (countData.isFull) {
-      console.log('報名已額滿，拒絕新報名');
-      return ContentService
-        .createTextOutput(JSON.stringify({
-          success: false,
-          error: '報名已額滿',
-          message: '很抱歉，本次說明會的免費名額已全部額滿（30人）',
-          isFull: true
-        }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
+    // 不再檢查報名人數限制，允許無限新增
     
     // 獲取表單數據
     const name = e.parameter.name || '';
@@ -1092,7 +1080,7 @@ function getRegistrationCount() {
       totalRows: totalRows,
       registrationCount: registrationCount,
       latestRegistrant: latestRegistrant,
-      isFull: registrationCount >= 30
+      isFull: false  // 不再限制報名人數
     };
     
   } catch (error) {
