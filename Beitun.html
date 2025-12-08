@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <meta name="description" content="台中北屯預售屋，蔣哥嚴選建案，單坪43萬特價優惠。機捷特區最成熟地段，三個捷運包覆，Costco、總站夜市在側。立即報名登記保留席！" />
+  <meta name="keywords" content="台中北屯,預售屋,43萬,蔣哥,機捷特區,房地產" />
+  <meta property="og:title" content="蔣哥單坪43萬私訊我 - 報名網頁" />
+  <meta property="og:description" content="台中北屯預售屋，蔣哥嚴選建案，單坪43萬特價優惠。立即報名登記保留席！" />
+  <meta property="og:type" content="website" />
   <title>蔣哥單坪43萬私訊我 - 報名網頁</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +16,6 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     body {
       font-family: 'Noto Sans TC', sans-serif;
@@ -107,10 +111,15 @@
             <div className="absolute inset-0 bg-red-600 blur-2xl opacity-30 animate-pulse rounded-full"></div>
             <div className="w-16 h-16 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin relative z-10"></div>
           </div>
-          <h2 className="mt-8 text-3xl font-black tracking-widest text-white drop-shadow-lg">
-            蔣哥<span className="text-red-600">嚴選</span>
-          </h2>
-          <p className="text-gray-400 text-sm mt-3 tracking-widest uppercase animate-pulse">
+          <div className="mt-8 text-center space-y-2">
+            <h2 className="text-2xl font-black tracking-widest text-white drop-shadow-lg">
+              房產擺渡人<span className="text-red-600">蔣哥</span>
+            </h2>
+            <p className="text-xl font-black tracking-wide text-yellow-400 drop-shadow-lg">
+              建案嚴選
+            </p>
+          </div>
+          <p className="text-gray-400 text-sm mt-6 tracking-widest uppercase animate-pulse">
             LOADING...
           </p>
         </div>
@@ -127,6 +136,10 @@
                 src="https://i.postimg.cc/q7x6Tcwg/S-180158515.jpg" 
                 alt="房產擺渡人蔣哥" 
                 className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
               />
             </div>
             <div className="bg-gray-900 px-6 pt-10 pb-10 relative rounded-t-[2rem] -mt-10 z-10 border-t border-gray-800">
@@ -169,32 +182,56 @@
 
     // Questionnaire Component
     function Questionnaire({ onComplete }) {
-      const [formData, setFormData] = useState({
-        q1_price_perception: '',
-        q2_large_base: '',
-        q3_safety_value: '',
-        q4_costco_value: '',
-        q5_ac_preference: '',
-        q6_meet_event: false,
-        q7_self_visit: false,
-        name: '',
-        lineId: '',
-        phone: '',
-        location: ''
-      });
+      // 從 localStorage 恢復表單數據
+      const getInitialFormData = () => {
+        try {
+          const saved = localStorage.getItem('beitun_form_data');
+          if (saved) {
+            return JSON.parse(saved);
+          }
+        } catch (e) {
+          console.warn('無法讀取保存的表單數據:', e);
+        }
+        return {
+          q1_price_perception: '',
+          q2_large_base: '',
+          q3_safety_value: '',
+          q4_costco_value: '',
+          q5_ac_preference: '',
+          q6_meet_event: false,
+          q7_self_visit: false,
+          name: '',
+          lineId: '',
+          phone: '',
+          location: ''
+        };
+      };
 
+      const [formData, setFormData] = useState(getInitialFormData);
       const [errors, setErrors] = useState({});
       const [isSubmitting, setIsSubmitting] = useState(false);
       const [submitError, setSubmitError] = useState(null);
+      const [hasSubmitted, setHasSubmitted] = useState(false);
 
       const handleInputChange = (e) => {
         const { name, value, type } = e.target;
+        let newValue;
         if (type === 'checkbox') {
-          const checked = e.target.checked;
-          setFormData(prev => ({ ...prev, [name]: checked }));
+          newValue = e.target.checked;
         } else {
-          setFormData(prev => ({ ...prev, [name]: value }));
+          newValue = value;
         }
+        
+        const updatedData = { ...formData, [name]: newValue };
+        setFormData(updatedData);
+        
+        // 保存到 localStorage
+        try {
+          localStorage.setItem('beitun_form_data', JSON.stringify(updatedData));
+        } catch (e) {
+          console.warn('無法保存表單數據:', e);
+        }
+        
         if (errors[name]) {
           setErrors(prev => ({ ...prev, [name]: undefined }));
         }
@@ -209,7 +246,15 @@
         if (!formData.q5_ac_preference) newErrors.q5_ac_preference = "請選擇冷氣方案";
         if (!formData.name.trim()) newErrors.name = "請輸入真實姓名";
         if (!formData.lineId.trim()) newErrors.lineId = "請輸入Line ID";
-        if (!formData.phone.trim()) newErrors.phone = "請輸入手機號碼";
+        
+        // 增強手機號碼驗證（台灣手機號碼格式）
+        const phoneRegex = /^09\d{8}$/;
+        if (!formData.phone.trim()) {
+          newErrors.phone = "請輸入手機號碼";
+        } else if (!phoneRegex.test(formData.phone.trim())) {
+          newErrors.phone = "請輸入正確的手機號碼格式（例：0912345678）";
+        }
+        
         if (!formData.location.trim()) newErrors.location = "請輸入居住地區";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -217,6 +262,12 @@
 
       const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // 防重複提交
+        if (hasSubmitted || isSubmitting) {
+          return;
+        }
+        
         if (!validate()) {
           const firstError = document.querySelector('.error-message');
           firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -225,21 +276,28 @@
 
         setIsSubmitting(true);
         setSubmitError(null);
+        setHasSubmitted(true);
 
         try {
           const result = await submitToGoogleSheets(formData);
           if (result.success) {
             console.log('表單已成功提交到 Google Sheets');
+            // 清除保存的表單數據
+            try {
+              localStorage.removeItem('beitun_form_data');
+            } catch (e) {
+              console.warn('無法清除保存的表單數據:', e);
+            }
             onComplete();
           } else {
             setSubmitError(result.error || '提交失敗，請稍後重試');
-            onComplete();
+            setHasSubmitted(false); // 允許重試
+            setIsSubmitting(false);
           }
         } catch (error) {
           console.error('提交時發生錯誤:', error);
           setSubmitError('提交時發生錯誤，請稍後重試');
-          onComplete();
-        } finally {
+          setHasSubmitted(false); // 允許重試
           setIsSubmitting(false);
         }
       };
@@ -422,7 +480,7 @@
 
               <div className="relative">
                 <span className="absolute top-3.5 left-3 text-gray-400">📱</span>
-                <input type="tel" name="phone" placeholder="手機電話" value={formData.phone} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                <input type="tel" name="phone" placeholder="手機電話（例：0912345678）" value={formData.phone} onChange={handleInputChange} maxLength="10" pattern="[0-9]*" inputMode="numeric" className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
                 {errors.phone && <p className="text-red-500 text-xs mt-1 ml-2 font-bold">{errors.phone}</p>}
               </div>
 
@@ -461,6 +519,34 @@
     // Success Screen
     function SuccessScreen({ onClose }) {
       const lineUrl = "https://lin.ee/28b2R6ez";
+      const message = "蔣哥+1我想要買台中機捷的房子";
+      const [copied, setCopied] = useState(false);
+
+      const handleCopy = async () => {
+        try {
+          await navigator.clipboard.writeText(message);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+          console.error('複製失敗:', err);
+          // 降級方案：使用傳統方法
+          const textArea = document.createElement('textarea');
+          textArea.value = message;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          } catch (e) {
+            console.error('複製失敗:', e);
+          }
+          document.body.removeChild(textArea);
+        }
+      };
+
       return (
         <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 text-center animate-fade-in relative">
           {onClose && (
@@ -476,11 +562,22 @@
             <p className="text-gray-600 text-lg leading-relaxed">
               請務必點擊下方按鈕加入官方 Line 群組，並私訊：
             </p>
-            <div className="bg-gray-100 p-4 rounded-lg border-2 border-dashed border-gray-300">
-              <p className="text-xl font-bold text-red-600 select-all">
-                「蔣哥+1我想要買台中機捷的房子」
+            <div className="bg-gray-100 p-4 rounded-lg border-2 border-dashed border-gray-300 relative">
+              <p className="text-xl font-bold text-red-600 select-all pr-10">
+                「{message}」
               </p>
+              <button
+                onClick={handleCopy}
+                className="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700 transition-colors rounded-lg hover:bg-gray-200"
+                aria-label="複製訊息"
+                title="複製訊息"
+              >
+                {copied ? '✓' : '📋'}
+              </button>
             </div>
+            {copied && (
+              <p className="text-sm text-green-600 font-bold animate-pulse">✓ 已複製到剪貼板！</p>
+            )}
             <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="block w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xl py-4 rounded-xl shadow-lg transform active:scale-95 transition-all">
               加入 Line 官方帳號
             </a>
