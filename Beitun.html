@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <title>蔣哥單坪43萬私訊我 - 報名網頁</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #f3f4f6;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.5s ease-in;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // ============================================
+    // 配置區：請在這裡設置您的 Google Apps Script URL
+    // ============================================
+    // 如何獲取 URL：
+    // 1. 打開 Google Sheets > 擴展程序 > Apps Script
+    // 2. 部署為網頁應用程式
+    // 3. 複製 Web 應用程式 URL 並貼到下面
+    // ============================================
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwT4MIuzanc4lrIzc2Z8TJdHLfcjGkTGW3Ifh7bs-aVBG8gcxNQklApzE3nkVu_MtmH/exec';
+
+    // 格式化數據函數
+    function formatFormDataForSheets(data) {
+      return [
+        new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
+        data.name,
+        data.lineId,
+        data.phone,
+        data.location,
+        data.q1_price_perception === 'yes' ? '是' : '否',
+        data.q2_large_base === 'consider' ? '會考慮' : '沒興趣',
+        data.q3_safety_value === 'yes' ? '是' : '不是',
+        data.q4_costco_value === 'yes' ? '一定是' : '還好',
+        data.q5_ac_preference === 'full_install' ? '冷氣全部裝到好' : '只送室外機',
+        data.q6_meet_event === true ? '我會到' : '我想改天',
+        data.q7_self_visit ? '我想在直播間拿到 43 萬保留席地址' : '',
+      ];
+    }
+
+    // 提交到 Google Sheets
+    async function submitToGoogleSheets(data) {
+      if (!GOOGLE_SCRIPT_URL) {
+        console.error('Google Script URL 未设置');
+        return { success: false, error: 'Google Script URL 未配置' };
+      }
+
+      try {
+        const rowData = formatFormDataForSheets(data);
+        console.log('准备提交数据到 Google Sheets:', { url: GOOGLE_SCRIPT_URL, data: rowData });
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: rowData }),
+        });
+
+        console.log('请求已发送');
+        return { success: true };
+      } catch (error) {
+        console.error('提交失败:', error);
+        return { success: false, error: error.message || '提交失败，请稍后重试' };
+      }
+    }
+
+    // Loading Screen
+    function LoadingScreen() {
+      return (
+        <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center text-white">
+          <div className="relative">
+            <div className="absolute inset-0 bg-red-600 blur-2xl opacity-30 animate-pulse rounded-full"></div>
+            <div className="w-16 h-16 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin relative z-10"></div>
+          </div>
+          <h2 className="mt-8 text-3xl font-black tracking-widest text-white drop-shadow-lg">
+            蔣哥<span className="text-red-600">嚴選</span>
+          </h2>
+          <p className="text-gray-400 text-sm mt-3 tracking-widest uppercase animate-pulse">
+            LOADING...
+          </p>
+        </div>
+      );
+    }
+
+    // Hero Component
+    function Hero() {
+      return (
+        <div className="w-full bg-black">
+          <div className="max-w-md mx-auto relative group overflow-hidden shadow-2xl">
+            <div className="aspect-[4/5] w-full bg-gray-900 relative">
+              <img 
+                src="https://i.postimg.cc/q7x6Tcwg/S-180158515.jpg" 
+                alt="房產擺渡人蔣哥" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="bg-gray-900 px-6 pt-10 pb-10 relative rounded-t-[2rem] -mt-10 z-10 border-t border-gray-800">
+              <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-max">
+                <span className="bg-red-600 text-white text-base font-bold px-6 py-2 rounded-full border-4 border-gray-900 shadow-[0_0_20px_rgba(220,38,38,0.5)] animate-pulse flex items-center gap-2">
+                  🔥 限量直切重點
+                </span>
+              </div>
+              <h1 className="text-center mb-6">
+                <span className="block text-white text-lg font-bold tracking-widest opacity-80 mb-1">
+                  台中北屯預售屋
+                </span>
+                <span className="block text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 drop-shadow-sm">
+                  43 萬/坪
+                </span>
+              </h1>
+              <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 mb-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-red-600/10 rounded-bl-full -mr-8 -mt-8"></div>
+                <div className="flex items-center justify-between mb-3 border-b border-gray-700 pb-3">
+                  <span className="text-gray-400 font-bold">目前行情</span>
+                  <span className="text-gray-400 font-medium line-through decoration-red-500 decoration-2">53-63 萬/坪</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-white font-bold flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+                    蔣哥特談
+                  </span>
+                  <span className="text-2xl font-black text-yellow-400">43 萬/坪</span>
+                </div>
+              </div>
+              <p className="text-gray-300 text-center text-sm leading-relaxed font-medium">
+                機捷特區最成熟地段<br/>
+                <span className="text-red-400">不用開合跳，直接打進核心價格帶</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Questionnaire Component
+    function Questionnaire({ onComplete }) {
+      const [formData, setFormData] = useState({
+        q1_price_perception: '',
+        q2_large_base: '',
+        q3_safety_value: '',
+        q4_costco_value: '',
+        q5_ac_preference: '',
+        q6_meet_event: false,
+        q7_self_visit: false,
+        name: '',
+        lineId: '',
+        phone: '',
+        location: ''
+      });
+
+      const [errors, setErrors] = useState({});
+      const [isSubmitting, setIsSubmitting] = useState(false);
+      const [submitError, setSubmitError] = useState(null);
+
+      const handleInputChange = (e) => {
+        const { name, value, type } = e.target;
+        if (type === 'checkbox') {
+          const checked = e.target.checked;
+          setFormData(prev => ({ ...prev, [name]: checked }));
+        } else {
+          setFormData(prev => ({ ...prev, [name]: value }));
+        }
+        if (errors[name]) {
+          setErrors(prev => ({ ...prev, [name]: undefined }));
+        }
+      };
+
+      const validate = () => {
+        const newErrors = {};
+        if (!formData.q1_price_perception) newErrors.q1_price_perception = "請回答此問題";
+        if (!formData.q2_large_base) newErrors.q2_large_base = "請回答此問題";
+        if (!formData.q3_safety_value) newErrors.q3_safety_value = "請回答此問題";
+        if (!formData.q4_costco_value) newErrors.q4_costco_value = "請回答此問題";
+        if (!formData.q5_ac_preference) newErrors.q5_ac_preference = "請選擇冷氣方案";
+        if (!formData.name.trim()) newErrors.name = "請輸入真實姓名";
+        if (!formData.lineId.trim()) newErrors.lineId = "請輸入Line ID";
+        if (!formData.phone.trim()) newErrors.phone = "請輸入手機號碼";
+        if (!formData.location.trim()) newErrors.location = "請輸入居住地區";
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validate()) {
+          const firstError = document.querySelector('.error-message');
+          firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitError(null);
+
+        try {
+          const result = await submitToGoogleSheets(formData);
+          if (result.success) {
+            console.log('表單已成功提交到 Google Sheets');
+            onComplete();
+          } else {
+            setSubmitError(result.error || '提交失敗，請稍後重試');
+            onComplete();
+          }
+        } catch (error) {
+          console.error('提交時發生錯誤:', error);
+          setSubmitError('提交時發生錯誤，請稍後重試');
+          onComplete();
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+
+      return (
+        <div className="max-w-md mx-auto bg-white -mt-4 rounded-t-3xl relative z-10 px-6 py-8 shadow-inner">
+          <div className="mb-8">
+            <h2 className="text-xl font-black text-gray-800 mb-4 border-l-4 border-red-700 pl-3">
+              📍 區域條件一次給你
+            </h2>
+            <div className="bg-gray-50 p-5 rounded-xl space-y-3 text-sm font-medium text-gray-700 shadow-sm border border-gray-100">
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>三個捷運包覆</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>74 快速道路兩個閘道口</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>Costco、總站夜市、大地廣場在側</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>三間貴族學校＋中國醫藥 BOT 案</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>捷運＋火車直達台中高鐵</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>青壯派重劃區，商業機能最成熟</span>
+              </div>
+            </div>
+            <p className="text-center text-sm font-bold text-red-600 mt-4 animate-pulse">🗳 來！下面這 7 題你一定要選：</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Question 1 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                1. 你覺得 <span className="text-red-600">北屯預售 43 萬/坪</span> 貴嗎？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q1_price_perception" value="yes" checked={formData.q1_price_perception === 'yes'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">是</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q1_price_perception" value="no" checked={formData.q1_price_perception === 'no'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">否</span>
+                </label>
+              </div>
+              {errors.q1_price_perception && <p className="text-red-500 text-xs error-message flex items-center">⚠ {errors.q1_price_perception}</p>}
+            </div>
+
+            {/* Question 2 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                2. 如果還是 <span className="text-red-600">1700坪捷運200公尺的大基地</span> 呢？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex flex-col gap-3">
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q2_large_base" value="consider" checked={formData.q2_large_base === 'consider'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">會考慮</span>
+                </label>
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q2_large_base" value="not_interested" checked={formData.q2_large_base === 'not_interested'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">沒興趣</span>
+                </label>
+              </div>
+              {errors.q2_large_base && <p className="text-red-500 text-xs error-message flex items-center">⚠ {errors.q2_large_base}</p>}
+            </div>
+
+            {/* Question 3 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                3. <span className="text-red-600">雙制震＋雙鐵捷運</span>，對你投資是加分嗎？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q3_safety_value" value="yes" checked={formData.q3_safety_value === 'yes'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">是</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q3_safety_value" value="no" checked={formData.q3_safety_value === 'no'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">不是</span>
+                </label>
+              </div>
+              {errors.q3_safety_value && <p className="text-red-500 text-xs error-message flex items-center">⚠ {errors.q3_safety_value}</p>}
+            </div>
+
+            {/* Question 4 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                4. 離 <span className="text-red-600">Costco 超近</span>，是不是房地產絕對加分項？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q4_costco_value" value="yes" checked={formData.q4_costco_value === 'yes'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">一定是</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q4_costco_value" value="no" checked={formData.q4_costco_value === 'no'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">還好</span>
+                </label>
+              </div>
+              {errors.q4_costco_value && <p className="text-red-500 text-xs error-message flex items-center">⚠ {errors.q4_costco_value}</p>}
+            </div>
+
+            {/* Question 5 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                5. 建商送冷氣，你想要哪一個？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex flex-col gap-3">
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q5_ac_preference" value="full_install" checked={formData.q5_ac_preference === 'full_install'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">冷氣全部裝到好</span>
+                </label>
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q5_ac_preference" value="outdoor_only" checked={formData.q5_ac_preference === 'outdoor_only'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">只送室外機</span>
+                </label>
+              </div>
+              {errors.q5_ac_preference && <p className="text-red-500 text-xs error-message flex items-center">⚠ {errors.q5_ac_preference}</p>}
+            </div>
+
+            {/* Question 6 */}
+            <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+              <label className="font-bold text-gray-900 block text-lg mb-2">
+                6. <span className="inline-flex items-center gap-1 bg-yellow-400 text-black px-1 rounded">📅 12/13（六）早上 11:00</span>
+              </label>
+              <p className="text-gray-800 font-medium mb-3">你願意來 <span className="text-red-600 font-bold underline">台中高鐵</span> 跟蔣哥一起坐捷運看房子嗎？</p>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 bg-white border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition shadow-sm">
+                  <input type="radio" name="q6_meet_event" value="yes" checked={formData.q6_meet_event === true} onChange={() => setFormData(prev => ({ ...prev, q6_meet_event: true }))} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">我會到</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 bg-white border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition shadow-sm">
+                  <input type="radio" name="q6_meet_event" value="no" checked={formData.q6_meet_event === false} onChange={() => setFormData(prev => ({ ...prev, q6_meet_event: false }))} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">我想改天</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Question 7 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                7. 如果你想 <span className="text-red-600">自己先去看現場</span>
+              </label>
+              <label className="flex items-start space-x-3 p-4 rounded-xl border-2 border-dashed border-red-300 bg-red-50 cursor-pointer hover:bg-red-100 transition">
+                <input type="checkbox" name="q7_self_visit" checked={formData.q7_self_visit} onChange={handleInputChange} className="mt-1 w-6 h-6 accent-red-600 shrink-0" />
+                <span className="text-base font-bold text-gray-800">
+                  我想在直播間拿到 <span className="text-red-600 text-lg">43 萬保留席地址</span>
+                </span>
+              </label>
+            </div>
+
+            {/* Personal Data */}
+            <div className="pt-8 border-t-2 border-gray-100 space-y-4">
+              <h3 className="text-xl font-black text-gray-800 flex items-center mb-6">
+                <span className="w-2 h-8 bg-red-600 mr-3 rounded-full"></span>
+                登記 43 萬保留席 (必填)
+              </h3>
+              
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">👤</span>
+                <input type="text" name="name" placeholder="真實姓名" value={formData.name} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.name ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.name && <p className="text-red-500 text-xs mt-1 ml-2 font-bold">{errors.name}</p>}
+              </div>
+
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">💬</span>
+                <input type="text" name="lineId" placeholder="Line ID" value={formData.lineId} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.lineId ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.lineId && <p className="text-red-500 text-xs mt-1 ml-2 font-bold">{errors.lineId}</p>}
+              </div>
+
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">📱</span>
+                <input type="tel" name="phone" placeholder="手機電話" value={formData.phone} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.phone && <p className="text-red-500 text-xs mt-1 ml-2 font-bold">{errors.phone}</p>}
+              </div>
+
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">📍</span>
+                <input type="text" name="location" placeholder="從哪裡來 (例：台中、台北)" value={formData.location} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.location ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.location && <p className="text-red-500 text-xs mt-1 ml-2 font-bold">{errors.location}</p>}
+              </div>
+            </div>
+
+            {submitError && (
+              <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4 mb-4">
+                <p className="text-red-700 text-sm font-bold flex items-center gap-2">
+                  ⚠ {submitError}
+                </p>
+              </div>
+            )}
+
+            <button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-black text-xl py-4 rounded-xl shadow-xl transform active:scale-95 transition-all flex items-center justify-center gap-2 border border-white/20">
+              {isSubmitting ? (
+                <>
+                  <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                  提交中...
+                </>
+              ) : (
+                <>
+                  📤 立即送出問券
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+      );
+    }
+
+    // Success Screen
+    function SuccessScreen({ onClose }) {
+      const lineUrl = "https://lin.ee/28b2R6ez";
+      return (
+        <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 text-center animate-fade-in relative">
+          {onClose && (
+            <button onClick={onClose} className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 rounded-full hover:bg-white/10" aria-label="關閉">
+              ✕
+            </button>
+          )}
+          <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full space-y-6">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-green-600 text-4xl">✓</span>
+            </div>
+            <h2 className="text-3xl font-black text-gray-800">資料已送出！</h2>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              請務必點擊下方按鈕加入官方 Line 群組，並私訊：
+            </p>
+            <div className="bg-gray-100 p-4 rounded-lg border-2 border-dashed border-gray-300">
+              <p className="text-xl font-bold text-red-600 select-all">
+                「蔣哥+1我想要買台中機捷的房子」
+              </p>
+            </div>
+            <a href={lineUrl} target="_blank" rel="noopener noreferrer" className="block w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xl py-4 rounded-xl shadow-lg transform active:scale-95 transition-all">
+              加入 Line 官方帳號
+            </a>
+            <p className="text-xs text-gray-400 mt-4">點擊上方按鈕將開啟 Line 應用程式</p>
+            {onClose && (
+              <button onClick={onClose} className="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-lg py-3 rounded-xl shadow-md transform active:scale-95 transition-all flex items-center justify-center gap-2">
+                🏠 返回首頁
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // Main App
+    function App() {
+      const [loading, setLoading] = useState(true);
+      const [isSubmitted, setIsSubmitted] = useState(false);
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+      }, []);
+
+      if (loading) {
+        return <LoadingScreen />;
+      }
+
+      if (isSubmitted) {
+        return <SuccessScreen onClose={() => setIsSubmitted(false)} />;
+      }
+
+      return (
+        <div className="min-h-screen bg-gray-100 flex flex-col font-sans">
+          <div className="w-full max-w-[480px] mx-auto bg-white min-h-screen shadow-2xl overflow-hidden flex flex-col animate-fade-in">
+            <Hero />
+            <Questionnaire onComplete={() => setIsSubmitted(true)} />
+            <footer className="bg-gray-900 text-gray-500 text-xs text-center py-6 mt-auto">
+              <p>&copy; {new Date().getFullYear()} 蔣哥房地產. All rights reserved.</p>
+            </footer>
+          </div>
+        </div>
+      );
+    }
+
+    // Render
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
+
