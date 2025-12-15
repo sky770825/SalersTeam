@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>研森｜銷售中心限時優惠｜填單預約賞屋</title>
+  <meta name="description" content="清景麟集團 — 研森（限量五席）｜台南新都心段｜填單預約賞屋，享限時優惠。" />
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --card: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --gold: #f6d365;
+      --gold2:#fda085;
+      --danger:#ff5a7a;
+      --ok:#38d39f;
+      --r: 18px;
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(246,211,101,.20), transparent 55%),
+                  radial-gradient(900px 500px at 90% 30%, rgba(253,160,133,.18), transparent 55%),
+                  linear-gradient(180deg, #070a12, #0b0f1a 40%, #070a12);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit}
+    .wrap{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    header{
+      padding: 18px 0 10px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      flex-wrap:wrap;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+    }
+    .dot{width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      box-shadow: 0 0 18px rgba(246,211,101,.55);
+    }
+    .title{
+      font-weight:800;
+      letter-spacing:.3px;
+      font-size: 16px;
+      margin:0;
+    }
+    .top-actions{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .btn{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      backdrop-filter: blur(10px);
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22);}
+    .btn.primary{
+      border: none;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color:#1a1308;
+      font-weight:800;
+      box-shadow: 0 14px 30px rgba(246,211,101,.18);
+    }
+    .btn.primary:hover{transform: translateY(-1px) scale(1.01);}
+    .hero{
+      margin-top: 10px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      border-radius: calc(var(--r) + 8px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 360px at 20% 10%, rgba(246,211,101,.22), transparent 60%),
+                  radial-gradient(600px 300px at 90% 40%, rgba(253,160,133,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      padding: 18px;
+    }
+    @media (max-width: 920px){
+      .hero-inner{grid-template-columns: 1fr; }
+    }
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-weight:800;
+      color: #1a1308;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      padding: 8px 12px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .h1{
+      margin: 12px 0 10px;
+      font-size: clamp(24px, 3.2vw, 40px);
+      line-height: 1.28;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size: 16px;
+    }
+    .grid{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns: 1fr;}
+    }
+    .pill{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      border-radius: 14px;
+      padding: 12px 12px;
+    }
+    .pill b{display:block; margin-bottom:2px;}
+    .pill small{color:var(--muted);}
+    .right-card{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--r);
+      padding: 14px;
+      backdrop-filter: blur(10px);
+      height: fit-content;
+    }
+    .price{
+      font-size: 22px;
+      font-weight: 900;
+      margin: 4px 0 6px;
+    }
+    .strike{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 10px;
+    }
+    .alert{
+      border:1px solid rgba(255,90,122,.35);
+      background: rgba(255,90,122,.10);
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+    .alert b{color:#ffd0da}
+    .section{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 920px){
+      .section{grid-template-columns: 1fr;}
+    }
+    .card{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--r);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    ul{margin:0; padding-left: 18px; color: var(--muted);}
+    li{margin: 6px 0;}
+    .form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 560px){
+      .form{grid-template-columns: 1fr;}
+    }
+    label{
+      display:block;
+      font-size: 13px;
+      color: var(--muted);
+      margin: 6px 0 6px;
+    }
+    input, select, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(10,14,26,.55);
+      color: var(--text);
+      outline:none;
+    }
+    input::placeholder, textarea::placeholder{color: rgba(255,255,255,.45);}
+    textarea{min-height: 96px; resize: vertical;}
+
+    .qwrap{
+      display:grid;
+      gap:10px;
+      margin-top:8px;
+    }
+    .qitem{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(10,14,26,.45);
+      border-radius:14px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .qitem:hover{
+      transform: translateY(-1px);
+      background: rgba(10,14,26,.58);
+      border-color: rgba(255,255,255,.22);
+    }
+    .qitem input{width:auto; margin-top:4px;}
+
+    .form-actions{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .note{
+      color: rgba(255,255,255,.55);
+      font-size: 13px;
+    }
+    .success, .error{
+      margin-top: 10px;
+      border-radius: 14px;
+      padding: 12px;
+      display:none;
+    }
+    .success{border:1px solid rgba(56,211,159,.35); background: rgba(56,211,159,.10);}
+    .error{border:1px solid rgba(255,90,122,.35); background: rgba(255,90,122,.10);}
+
+    .qrbox{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      align-items:center;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: var(--r);
+      border: 1px dashed rgba(255,255,255,.24);
+      background: rgba(255,255,255,.04);
+    }
+    @media (max-width: 560px){
+      .qrbox{grid-template-columns: 1fr;}
+    }
+    .qr{
+      width:120px; height:120px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .qr img{width:100%; height:100%; object-fit:cover;}
+    footer{
+      margin: 18px 0 8px;
+      color: rgba(255,255,255,.48);
+      font-size: 12px;
+      text-align:center;
+    }
+
+    /* 手機版：把上方品牌 + 按鈕做成「標題列」感覺 */
+    @media (max-width: 768px){
+      header{
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        padding: 10px 0 8px;
+        background: rgba(7,10,18,.96);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255,255,255,.12);
+      }
+      .brand .title{
+        font-size: 14px;
+      }
+      .top-actions{
+        width: 100%;
+        justify-content: flex-end;
+      }
+      .top-actions .btn{
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+    }
+
+    /* 簡單 landing page 動畫效果 */
+    .reveal{
+      opacity:0;
+      transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* 手機版底部浮動 CTA */
+    @media (max-width: 768px){
+      .mobile-cta{
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        padding: 10px 16px;
+        background: linear-gradient(180deg, rgba(7,10,18,0), rgba(7,10,18,.95));
+      }
+      .mobile-cta-inner{
+        max-width: 1120px;
+        margin: 0 auto;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+      }
+      .mobile-cta-text{
+        font-size: 13px;
+        color: rgba(255,255,255,.78);
+      }
+      .mobile-cta-text b{
+        display:block;
+        font-size:14px;
+        color:#fff;
+      }
+      .mobile-cta .btn.primary{
+        padding: 10px 16px;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      body{
+        padding-bottom: 64px; /* 預留空間避免內容被 CTA 蓋到 */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"></div>
+      <div class="top-actions">
+        <a class="btn" href="#benefits">建案亮點</a>
+        <a class="btn" href="#booking">立即預約</a>
+        <a class="btn primary" href="#booking">⚡ 限時優惠填單</a>
+      </div>
+    </header>
+
+    <section class="hero reveal">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">全台南新貴們注意⚠️ 副都核心啟動</div>
+          <h1 class="h1">東區燙金門牌｜崇明國中明星學區<br/>「研森」現買現住，3字頭最強戰力</h1>
+          <p class="sub">政府建設招商大力做多：南台南車站鐵路地下化 ✖️ 台南小巨蛋預定地 ✖️ 好市多/家樂福大型美式商場進駐（以實際公告為準）</p>
+
+          <div class="grid" id="benefits">
+            <div class="pill">
+              <b>🏷️ 每坪不到 40 萬</b>
+              <small>3 字頭稀有門檻，鎖定入手時機</small>
+            </div>
+            <div class="pill">
+              <b>🧾 2 年免付物業管理費</b>
+              <small>現在購買享限時方案</small>
+            </div>
+            <div class="pill">
+              <b>🛡️ 保固一次到位</b>
+              <small>3 年建材 + 5 年防水 + 25 年結構體</small>
+            </div>
+            <div class="pill">
+              <b>🚇 副都核心利多</b>
+              <small>重大建設集中，生活與通勤同步升級</small>
+            </div>
+          </div>
+
+          <div class="alert">
+            <b>⚠️ 溫馨提醒：</b>以上資訊以現場銷售中心與官方公告為準；名額有限，請先填單鎖定優惠。
+          </div>
+        </div>
+
+        <aside class="right-card">
+          <div class="badge">🔥 限時優惠｜現場專案</div>
+          <div class="price">📌 立刻預約，優先安排賞屋時段</div>
+          <p class="strike">✅ 近學區｜✅ 近建設｜✅ 低門檻｜✅ 現買現住</p>
+          <a class="btn primary" href="#booking" style="width:100%; justify-content:center;">📩 立刻填單預約</a>
+
+          <div class="qrbox">
+            <div class="qr" aria-label="QR code">
+              <img id="qrImg" alt="QR code" src="" style="display:none;">
+              <div id="qrPlaceholder" style="color:rgba(255,255,255,.60); font-size:12px; text-align:center; padding:10px;">
+                放你的<br>QR Code 圖
+              </div>
+            </div>
+            <div>
+              <b>📷 QR code｜銷售中心限時優惠</b><br/>
+              <span style="color:var(--muted); font-size:13px;">
+                掃碼或直接填寫下方表單<br/>專人與你確認賞屋時間
+              </span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="card">
+        <h2>🏗️ 建設利多（重點整理）</h2>
+        <ul>
+          <li>🚉 南台南車站｜鐵路地下化（依政府期程）</li>
+          <li>🏟️ 台南小巨蛋預定地（依後續公告）</li>
+          <li>🛒 大型賣場進駐：好市多／家樂福（依實際進駐資訊）</li>
+          <li>📈 副都核心帶動：人口、商業、生活機能加速集中</li>
+        </ul>
+      </div>
+
+      <div class="card" id="booking">
+        <h2>📩 填單預約賞屋</h2>
+        <p class="sub">留下資料，我們將以電話或 LINE 與你確認「可賞屋時段」與「限時優惠內容」。</p>
+
+        <form id="leadForm">
+          <div class="form">
+            <div>
+              <label for="name">姓名</label>
+              <input id="name" name="name" placeholder="王小明" required />
+            </div>
+            <div>
+              <label for="phone">手機</label>
+              <input id="phone" name="phone" placeholder="09xxxxxxxx" inputmode="numeric" required />
+            </div>
+            <div>
+              <label for="contact">偏好聯絡方式</label>
+              <select id="contact" name="contact">
+                <option value="phone">電話</option>
+                <option value="line">LINE</option>
+                <option value="either">都可以</option>
+              </select>
+            </div>
+            <div>
+              <label for="time">預計賞屋時間</label>
+              <select id="time" name="time" required>
+                <option value="" selected disabled>請選擇</option>
+                <option>平日白天</option>
+                <option>平日晚上</option>
+                <option>週末白天</option>
+                <option>週末晚上</option>
+                <option>我想先了解，再約時間</option>
+              </select>
+            </div>
+
+            <!-- ✅ 複選問題（最多 2 題） -->
+            <div style="grid-column: 1 / -1;">
+              <label style="display:flex; align-items:center; gap:8px;">
+                我這次最想要了解本案的 2 個問題（複選）
+                <span style="font-size:12px; color:rgba(255,255,255,.55);">（最多選 2 題）</span>
+              </label>
+
+              <div class="qwrap">
+                <label class="qitem">
+                  <input type="checkbox" name="questions" value="1｜想要了解更多台南新都心段重大發展">
+                  <span>1、想要了解更多台南新都心段重大發展</span>
+                </label>
+
+                <label class="qitem">
+                  <input type="checkbox" name="questions" value="2｜如何保障我交屋後的2年免管理費方案？">
+                  <span>2、如何保障我交屋後的2年免管理費方案？</span>
+                </label>
+
+                <label class="qitem">
+                  <input type="checkbox" name="questions" value="3｜3年建材5年防水保固跟25年結構保固是限量戶別嗎？">
+                  <span>3、3年建材5年防水保固跟25年結構保固是限量戶別嗎？</span>
+                </label>
+
+                <label class="qitem">
+                  <input type="checkbox" name="questions" value="4｜40萬不到能購買景觀公園戶嗎？">
+                  <span>4、40萬不到能購買景觀公園戶嗎？</span>
+                </label>
+
+                <label class="qitem">
+                  <input type="checkbox" name="questions" value="5｜2-3房總價會超過1500萬嗎？">
+                  <span>5、2-3房總價會超過1500萬嗎？</span>
+                </label>
+              </div>
+
+              <div id="qHint" style="margin-top:8px; font-size:12px; color:rgba(255,255,255,.55);">
+                可複選最多 2 題
+              </div>
+            </div>
+
+            <div style="grid-column: 1 / -1;">
+              <label for="need">需求備註（可不填）</label>
+              <textarea id="need" name="need" placeholder="例如：預算區間、想看幾房、是否需車位、想了解付款方式…"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <div class="note">提交即代表同意我們以聯絡資訊與你確認賞屋與專案內容（僅用於本案聯繫）。</div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" type="reset">清除</button>
+              <button class="btn primary" id="submitBtn" type="submit">🚀 送出預約</button>
+            </div>
+          </div>
+
+          <div class="success" id="okBox">
+            ✅ 填單完成！將會有專人與您聯繫。<br/>
+            購買前請出示本通知，取得「蔣哥」特別購屋好禮喔！
+          </div>
+          <div class="error" id="errBox">⚠️ 送出失敗，請稍後再試或改用電話/LINE 聯絡。</div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section reveal" id="streetview">
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2>📍 現場街景實拍</h2>
+        <p class="sub">下方為本案周邊街景示意，實際環境請以現場狀況與政府／官方公告為準。</p>
+        <div style="margin-top:10px; border-radius: var(--r); overflow:hidden; border:1px solid var(--stroke); box-shadow: var(--shadow);">
+          <iframe src="https://www.google.com/maps/embed?pb=!4v1765794310763!6m8!1m7!1sdFmw1-HAU0kQzCR7qG3mQA!2m2!1d22.96102573440214!2d120.2189379335809!3f8.441176056778954!4f-11.14806855635527!5f0.7820865974627469"
+                  width="100%" height="360" style="border:0;" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="social">
+      <div class="card" style="grid-column: 1 / -1; text-align:center;">
+        <h2>📲 官方社群聯絡方式</h2>
+        <p class="sub">想先用 LINE 問細節，或加入社群看更多案場資訊，都可以透過下面方式找到我們。</p>
+        <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+          <a href="https://lin.ee/28b2R6ez" target="_blank" rel="noopener noreferrer" class="btn primary">
+            加入 LINE 官方社群
+          </a>
+          <a href="https://lin.ee/28b2R6ez" target="_blank" rel="noopener noreferrer" class="btn">
+            私訊：「我想了解台南研森」
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 房產擺渡人 YT「蔣哥」｜本頁資訊以現場及官方公告為準
+    </footer>
+  </div>
+
+  <!-- 手機版底部浮動 CTA -->
+  <div class="mobile-cta">
+    <div class="mobile-cta-inner">
+      <div class="mobile-cta-text">
+        <b>想看研森現場？</b>
+        填單預約賞屋，保留限量優惠席次
+      </div>
+      <a href="#booking" class="btn primary">📩 立即填單</a>
+    </div>
+  </div>
+
+  <script>
+    // ✅ Webhook / Google Apps Script：把這裡換成你的網址
+    const API_ENDPOINT = "https://script.google.com/macros/s/AKfycby7kTJhy5WAsb7peILAPrcu-RzeYzOAW45J_8xQX_sg6d9CjKzwX2xvsf2p2gds_m0VkA/exec";
+
+    // ✅ QR code：放圖片網址，例如 "assets/qr.png" 或 "https://.../qr.png"
+    const QR_IMAGE_URL = ""; // <- 你貼上 QR 圖網址
+    const qrImg = document.getElementById("qrImg");
+    const qrPlaceholder = document.getElementById("qrPlaceholder");
+    if (QR_IMAGE_URL) {
+      qrImg.src = QR_IMAGE_URL;
+      qrImg.style.display = "block";
+      qrPlaceholder.style.display = "none";
+    }
+
+    const form = document.getElementById("leadForm");
+    const okBox = document.getElementById("okBox");
+    const errBox = document.getElementById("errBox");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // 手機號碼正規化：全形數字 → 半形，只保留 0-9
+    function normalizePhone(str){
+      const halfWidth = (str || "").replace(/[０-９]/g, ch => {
+        const idx = "０１２３４５６７８９".indexOf(ch);
+        return idx === -1 ? ch : String(idx);
+      });
+      return halfWidth.replace(/[^0-9]/g, "");
+    }
+
+    function isTaiwanMobile(phone){
+      const normalized = normalizePhone(phone);
+      // 放寬為「任何 10 碼數字」即可（前端不再強制 09 開頭，避免誤擋）
+      return normalized.length === 10;
+    }
+
+    // ✅ 限制複選最多 2 題
+    const qBoxes = () => Array.from(document.querySelectorAll('input[name="questions"]'));
+    const qHint = document.getElementById("qHint");
+
+    document.addEventListener("change", (e) => {
+      if (e.target && e.target.name === "questions") {
+        const checked = qBoxes().filter(x => x.checked);
+        if (checked.length > 2) {
+          e.target.checked = false;
+        }
+        const now = qBoxes().filter(x => x.checked).length;
+        qHint.textContent = `已選 ${now}/2 題`;
+      }
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      okBox.style.display = "none";
+      errBox.style.display = "none";
+
+      const selectedQs = qBoxes().filter(x => x.checked).map(x => x.value);
+
+      if (selectedQs.length === 0) {
+        errBox.textContent = "⚠️ 請先勾選你最想了解的問題（最多 2 題）。";
+        errBox.style.display = "block";
+        return;
+      }
+
+      const normalizedPhone = normalizePhone(form.phone.value);
+
+      const data = {
+        name: form.name.value.trim(),
+        phone: normalizedPhone,
+        contact: form.contact.value,
+        time: form.time.value,
+        questions: selectedQs, // ✅ 新增
+        need: form.need.value.trim(),
+        source: "研森｜RWD報名頁",
+        ts: new Date().toISOString(),
+      };
+
+      if (!isTaiwanMobile(data.phone)) {
+        errBox.textContent = "⚠️ 手機格式錯誤，請輸入 10 碼數字手機（不用加 +886）。";
+        errBox.style.display = "block";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "送出中…";
+
+      try{
+        if (!API_ENDPOINT) {
+          okBox.style.display = "block";
+          form.reset();
+          qHint.textContent = "可複選最多 2 題";
+        } else {
+          // 使用隱藏 iframe + form 提交，避免瀏覽器 CORS 問題
+          const iframe = document.createElement("iframe");
+          iframe.name = "tainanSubmitFrame_" + Date.now();
+          iframe.style.display = "none";
+          document.body.appendChild(iframe);
+
+          const hiddenForm = document.createElement("form");
+          hiddenForm.method = "POST";
+          hiddenForm.action = API_ENDPOINT;
+          hiddenForm.target = iframe.name;
+          hiddenForm.style.display = "none";
+
+          // 基本欄位
+          const appendField = (name, value) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = name;
+            input.value = value || "";
+            hiddenForm.appendChild(input);
+          };
+
+          appendField("name", data.name);
+          appendField("phone", data.phone);
+          appendField("contact", data.contact);
+          appendField("time", data.time);
+          appendField("need", data.need);
+          appendField("source", data.source);
+          appendField("ts", data.ts);
+
+          // 將前兩個問題分別帶成 q1 / q2，方便 Apps Script 解析
+          appendField("q1", selectedQs[0] || "");
+          appendField("q2", selectedQs[1] || "");
+
+          document.body.appendChild(hiddenForm);
+
+          let handled = false;
+
+          const onDone = (success) => {
+            if (handled) return;
+            handled = true;
+            document.body.removeChild(hiddenForm);
+            document.body.removeChild(iframe);
+
+            if (success) {
+              okBox.style.display = "block";
+              form.reset();
+              qHint.textContent = "可複選最多 2 題";
+            } else {
+              errBox.style.display = "block";
+            }
+            submitBtn.disabled = false;
+            submitBtn.textContent = "🚀 送出預約";
+          };
+
+          iframe.onload = () => onDone(true);
+          iframe.onerror = () => onDone(false);
+
+          // 安全 timeout（例如 10 秒），避免卡住
+          setTimeout(() => onDone(true), 10000);
+
+          hiddenForm.submit();
+          return; // 讓 onDone 負責恢復按鈕狀態
+        }
+      } catch(err){
+        errBox.style.display = "block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "🚀 送出預約";
+      }
+    });
+
+    // Landing page 滾動 reveal 效果
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.15});
+
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
