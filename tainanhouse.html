@@ -79,9 +79,9 @@
       display: inline-block;
       background: #dc2626;
       color: #fff;
-      font-size: 14px;
+      font-size: clamp(14px, 3.5vw, 18px);
       font-weight: 700;
-      padding: 6px 20px;
+      padding: 6px clamp(12px, 4vw, 20px);
       border-radius: 999px;
       box-shadow: 0 0 20px rgba(220,38,38,0.5);
       animation: pulse 2s ease-in-out infinite;
@@ -97,7 +97,7 @@
     .hero-title .location{
       display: block;
       color: #fff;
-      font-size: 16px;
+      font-size: clamp(16px, 4.5vw, 20px);
       font-weight: 700;
       letter-spacing: 0.05em;
       opacity: 0.8;
@@ -106,7 +106,7 @@
     }
     .hero-title .price{
       display: block;
-      font-size: 32px;
+      font-size: clamp(32px, 9vw, 42px);
       font-weight: 900;
       background: linear-gradient(to right, #fef08a, #fde047, #fef08a);
       -webkit-background-clip: text;
@@ -152,17 +152,17 @@
     .price-label{
       color: #9ca3af;
       font-weight: 700;
-      font-size: 13px;
+      font-size: clamp(13px, 3.5vw, 16px);
       white-space: nowrap;
     }
     .price-value{
       color: #fff;
       font-weight: 700;
-      font-size: 14px;
+      font-size: clamp(14px, 3.8vw, 17px);
       white-space: nowrap;
     }
     .price-value.large{
-      font-size: 20px;
+      font-size: clamp(20px, 5.5vw, 26px);
       font-weight: 900;
       color: #fde047;
       white-space: nowrap;
@@ -172,7 +172,8 @@
       text-decoration: line-through;
       text-decoration-color: #dc2626;
       text-decoration-thickness: 2px;
-      font-size: 13px;
+      font-size: clamp(13px, 3.5vw, 16px);
+      white-space: nowrap;
     }
     .price-highlight{
       margin-top: 8px;
@@ -181,7 +182,7 @@
     }
     .price-highlight p{
       color: #fca5a5;
-      font-size: 12px;
+      font-size: clamp(12px, 3.2vw, 15px);
       font-weight: 700;
       text-align: center;
       margin: 0;
@@ -190,14 +191,21 @@
     .hero-description{
       color: #d1d5db;
       text-align: center;
-      font-size: 14px;
+      font-size: clamp(14px, 3.8vw, 17px);
       line-height: 1.5;
       font-weight: 500;
       margin-bottom: 16px;
     }
+    .hero-description .description-line{
+      display: inline-block;
+      white-space: nowrap;
+      font-size: clamp(14px, 3.8vw, 17px);
+    }
     .hero-description .highlight{
       color: #fca5a5;
       font-weight: 700;
+      font-size: clamp(15px, 4vw, 18px);
+      white-space: nowrap;
     }
     .hero-image-card{
       width: 100%;
@@ -609,19 +617,22 @@
         margin-top: -16px;
       }
       .hero-badge{
-        font-size: 13px;
-        padding: 5px 16px;
+        font-size: clamp(14px, 4vw, 18px);
+        padding: 6px clamp(12px, 4vw, 20px);
         margin-bottom: 12px;
+        white-space: nowrap;
       }
       .hero-title{
         margin-bottom: 12px;
       }
       .hero-title .location{
-        font-size: 14px;
+        font-size: clamp(16px, 4.5vw, 20px);
         margin-bottom: 3px;
+        white-space: nowrap;
       }
       .hero-title .price{
-        font-size: 28px;
+        font-size: clamp(32px, 9vw, 42px);
+        white-space: nowrap;
       }
       .price-card{
         padding: 10px;
@@ -632,28 +643,41 @@
         padding-bottom: 6px;
       }
       .price-label{
-        font-size: 12px;
+        font-size: clamp(13px, 3.5vw, 16px);
+        white-space: nowrap;
       }
       .price-value{
-        font-size: 13px;
+        font-size: clamp(14px, 3.8vw, 17px);
+        white-space: nowrap;
       }
       .price-value.large{
-        font-size: 18px;
+        font-size: clamp(20px, 5.5vw, 26px);
+        white-space: nowrap;
       }
       .price-value.strike{
-        font-size: 12px;
+        font-size: clamp(13px, 3.5vw, 16px);
+        white-space: nowrap;
       }
       .price-highlight{
         margin-top: 6px;
         padding-top: 6px;
       }
       .price-highlight p{
-        font-size: 11px;
+        font-size: clamp(12px, 3.2vw, 15px);
+        white-space: nowrap;
       }
       .hero-description{
-        font-size: 13px;
+        font-size: clamp(14px, 3.8vw, 17px);
         margin-bottom: 12px;
-        line-height: 1.4;
+        line-height: 1.5;
+      }
+      .hero-description .description-line{
+        font-size: clamp(14px, 3.8vw, 17px);
+        white-space: nowrap;
+      }
+      .hero-description .highlight{
+        font-size: clamp(15px, 4vw, 18px);
+        white-space: nowrap;
       }
       .info-card h2,
       .card h2{
@@ -830,7 +854,7 @@
             </div>
           </div>
           <p class="hero-description">
-            東區燙金門牌｜崇明國中明星學區<br/>
+            <span class="description-line">東區燙金門牌｜崇明國中明星學區</span><br/>
             <span class="highlight">「研森」現買現住，3字頭最強戰力</span>
           </p>
           <div class="hero-image-card" id="heroImageCard" style="display:none;">
