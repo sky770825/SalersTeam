@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>蔣哥專案管理儀表板</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .main-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in {
+      animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .filter-btn.active {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+      color: white !important;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      transform: scale(1.05);
+    }
+    .filter-btn {
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .stat-card {
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .stat-card:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+    .header-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .search-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    /* 响应式优化 */
+    @media (max-width: 768px) {
+      .main-container {
+        border-radius: 0;
+        margin: 0;
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 1.75rem !important;
+      }
+      .stat-card {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: calc(50% - 0.5rem);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .stat-card {
+        flex: 1 1 100%;
+        min-width: 100%;
+      }
+      .header-buttons {
+        width: 100%;
+      }
+      .header-buttons button {
+        flex: 1;
+      }
+    }
+    
+    /* 滚动条美化 */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl main-container">
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="header-card rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex-1 min-w-0">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-800 mb-2 flex items-center gap-2 sm:gap-3">
+              <span class="text-3xl sm:text-4xl lg:text-5xl">📊</span>
+              <span class="break-words">蔣哥專案管理儀表板</span>
+            </h1>
+            <p class="text-gray-600 text-sm sm:text-base lg:text-lg">統一管理所有前端網頁和表單，快速訪問您需要的資源</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Bar and Filters -->
+      <div class="search-card rounded-xl shadow-lg p-3 sm:p-4 space-y-3 sm:space-y-4">
+        <div class="relative">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 搜尋網頁或表單名稱..."
+            class="w-full px-4 py-2.5 sm:py-3 pl-10 sm:pl-12 pr-20 sm:pr-24 rounded-lg border-2 border-gray-200 focus:border-blue-500 search-input text-sm sm:text-base lg:text-lg transition-all"
+          />
+          <span class="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg sm:text-xl">🔍</span>
+          <span class="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded border border-gray-300 hidden sm:inline-block">
+            Ctrl+K
+          </span>
+        </div>
+        
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-2">
+          <button
+            onclick="filterByCategory('all')"
+            id="filter-all"
+            class="px-4 py-2 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-600 transition-colors filter-btn active"
+          >
+            全部
+          </button>
+          <!-- Category buttons will be dynamically generated -->
+        </div>
+      </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
+      <div class="stat-card bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 text-white flex items-center gap-2 sm:gap-3 flex-1 min-w-[120px]">
+        <div class="text-xl sm:text-2xl font-black" id="totalCount">0</div>
+        <div class="text-blue-100 font-medium text-xs sm:text-sm whitespace-nowrap">總計項目</div>
+      </div>
+      <div class="stat-card bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 text-white flex items-center gap-2 sm:gap-3 flex-1 min-w-[120px]">
+        <div class="text-xl sm:text-2xl font-black" id="formCount">0</div>
+        <div class="text-green-100 font-medium text-xs sm:text-sm whitespace-nowrap">表單數量</div>
+      </div>
+      <div class="stat-card bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 text-white flex items-center gap-2 sm:gap-3 flex-1 min-w-[120px]">
+        <div class="text-xl sm:text-2xl font-black" id="pageCount">0</div>
+        <div class="text-purple-100 font-medium text-xs sm:text-sm whitespace-nowrap">網頁數量</div>
+      </div>
+    </div>
+
+    <!-- Recently Accessed Section -->
+    <div id="recentSection" class="mb-8 hidden">
+      <h2 class="text-2xl font-black text-gray-800 mb-4 flex items-center gap-2">
+        <span>🕒</span>
+        <span>最近訪問</span>
+      </h2>
+      <div id="recentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
+        <!-- Recent cards will be dynamically generated here -->
+      </div>
+    </div>
+
+    <!-- All Resources Section -->
+    <div class="mb-4">
+      <h2 class="text-2xl font-black text-gray-800 mb-4 flex items-center gap-2">
+        <span>📚</span>
+        <span id="sectionTitle">所有資源</span>
+      </h2>
+    </div>
+
+    <!-- Content Grid -->
+    <div id="contentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <!-- Cards will be dynamically generated here -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-16">
+      <div class="text-6xl mb-4">🔍</div>
+      <h3 class="text-2xl font-bold text-gray-700 mb-2">找不到符合的項目</h3>
+      <p class="text-gray-500">請嘗試其他關鍵字</p>
+    </div>
+  </div>
+
+  <script>
+    // 獲取最近訪問記錄
+    function getRecentAccess() {
+      try {
+        const recent = localStorage.getItem('dashboard_recent_access');
+        return recent ? JSON.parse(recent) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    // 保存訪問記錄
+    function saveAccess(filename) {
+      try {
+        let recent = getRecentAccess();
+        // 移除已存在的記錄
+        recent = recent.filter(item => item.file !== filename);
+        // 添加到開頭
+        recent.unshift({
+          file: filename,
+          timestamp: Date.now()
+        });
+        // 只保留最近5個
+        recent = recent.slice(0, 5);
+        localStorage.setItem('dashboard_recent_access', JSON.stringify(recent));
+      } catch (e) {
+        console.warn('無法保存訪問記錄:', e);
+      }
+    }
+
+    // 渲染最近訪問
+    function renderRecent() {
+      const recent = getRecentAccess();
+      const recentSection = document.getElementById('recentSection');
+      const recentGrid = document.getElementById('recentGrid');
+
+      if (recent.length === 0) {
+        recentSection.classList.add('hidden');
+        return;
+      }
+
+      recentSection.classList.remove('hidden');
+      
+      const recentResources = recent
+        .map(access => resources.find(r => r.file === access.file))
+        .filter(r => r !== undefined);
+
+      recentGrid.innerHTML = recentResources.map((resource, index) => `
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in border-2 border-yellow-300" style="animation-delay: ${index * 0.05}s">
+          <div class="bg-gradient-to-br ${resource.color} p-6 text-white">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">${resource.icon}</span>
+              <span class="px-3 py-1 bg-yellow-400 text-gray-900 rounded-full text-xs font-bold">
+                🕒 最近
+              </span>
+            </div>
+            <h3 class="text-xl font-black mb-1">${resource.name}</h3>
+            <p class="text-white text-opacity-90 text-sm">${resource.description}</p>
+          </div>
+          <div class="p-5">
+            <div class="mb-4">
+              <span class="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">
+                ${resource.category}
+              </span>
+            </div>
+            <div class="flex gap-2 mb-3 flex-wrap">
+              <a
+                href="${resource.file}"
+                target="_blank"
+                onclick="saveAccess('${resource.file}')"
+                class="flex-1 min-w-[140px] bg-gradient-to-r ${resource.color} text-white font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-center hover:opacity-90 transition-all shadow-md text-sm sm:text-base"
+              >
+                🚀 <span class="hidden sm:inline">開啟</span>報名網頁
+              </a>
+              <button
+                onclick="copyLink('${resource.file}')"
+                class="px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-lg transition-all shadow-sm"
+                title="複製連結"
+              >
+                📋
+              </button>
+              <button
+                onclick="copySheetsLink('${resource.sheetsUrl || ''}')"
+                class="px-3 sm:px-4 py-2.5 sm:py-3 bg-green-100 hover:bg-green-200 text-green-700 font-bold rounded-lg transition-all shadow-sm ${!resource.sheetsUrl ? 'hidden' : ''}"
+                title="複製資料表連結"
+              >
+                📊
+              </button>
+            </div>
+            ${resource.sheetsUrl ? `
+            <a
+              href="${resource.sheetsUrl}"
+              target="_blank"
+              class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-2.5 px-4 rounded-lg text-center hover:opacity-90 transition-opacity shadow-md text-sm flex items-center justify-center gap-2"
+            >
+              📊 查看報名進度
+            </a>
+            ` : ''}
+            <div class="mt-3 text-xs text-gray-500 font-mono">
+              檔案: ${resource.file}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 資料庫：所有網頁和表單的資訊
+    const resources = [
+      {
+        name: '北屯機捷特區報名表單',
+        file: 'Beitun.html',
+        type: 'form',
+        description: '台中北屯機捷特區「43萬起」早鳥保留戶報名表單',
+        category: '房地產表單',
+        icon: '🏠',
+        color: 'from-red-500 to-red-600',
+        sheetsUrl: 'https://docs.google.com/spreadsheets/d/1igfkcSPh3nUgZ-agvlFA1_q_hdIJhSSslCGqnk19Nvs/edit?usp=drive_link'
+      },
+      {
+        name: '蔣哥報名網頁',
+        file: 'Brother Jiang.html',
+        type: 'page',
+        description: '房產擺渡人蔣哥｜114年房產分析說明會',
+        category: '房地產網頁',
+        icon: '👨‍💼',
+        color: 'from-blue-500 to-blue-600',
+        sheetsUrl: 'https://docs.google.com/spreadsheets/d/1I0ajxRqNjPw-dHFZuPuiz2ux7kVOh-jhLeSOVYIXxVw/edit?usp=drive_link'
+      },
+      {
+        name: '台南研森報名表單',
+        file: 'tainanhouse.html',
+        type: 'form',
+        description: '台南新都心段「研森」建案限時優惠報名表單',
+        category: '房地產表單',
+        icon: '🏘️',
+        color: 'from-yellow-500 to-yellow-600',
+        sheetsUrl: 'https://docs.google.com/spreadsheets/d/1dyDlkPC6mIYzS6bisw28h3iAhCWlrHpNQpsO80fcN2Y/edit?usp=drive_link'
+      }
+    ];
+
+    // 渲染卡片
+    function renderCards(filteredResources = resources) {
+      const grid = document.getElementById('contentGrid');
+      const emptyState = document.getElementById('emptyState');
+      
+      if (filteredResources.length === 0) {
+        grid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      grid.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+
+      grid.innerHTML = filteredResources.map((resource, index) => `
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover fade-in" style="animation-delay: ${index * 0.05}s">
+          <div class="bg-gradient-to-br ${resource.color} p-6 text-white">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">${resource.icon}</span>
+              <span class="px-3 py-1 bg-white bg-opacity-20 rounded-full text-xs font-bold uppercase">
+                ${resource.type === 'form' ? '表單' : '網頁'}
+              </span>
+            </div>
+            <h3 class="text-xl font-black mb-1">${resource.name}</h3>
+            <p class="text-white text-opacity-90 text-sm">${resource.description}</p>
+          </div>
+          <div class="p-5">
+            <div class="mb-4">
+              <span class="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">
+                ${resource.category}
+              </span>
+            </div>
+            <div class="flex gap-2 mb-3">
+              <a
+                href="${resource.file}"
+                target="_blank"
+                onclick="saveAccess('${resource.file}')"
+                class="flex-1 bg-gradient-to-r ${resource.color} text-white font-bold py-3 px-4 rounded-lg text-center hover:opacity-90 transition-opacity shadow-md"
+              >
+                🚀 開啟報名網頁
+              </a>
+              <button
+                onclick="copyLink('${resource.file}')"
+                class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-lg transition-colors"
+                title="複製連結"
+              >
+                📋
+              </button>
+            </div>
+            ${resource.sheetsUrl ? `
+            <a
+              href="${resource.sheetsUrl}"
+              target="_blank"
+              class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-2.5 px-4 rounded-lg text-center hover:opacity-90 transition-opacity shadow-md text-sm flex items-center justify-center gap-2"
+            >
+              📊 查看報名進度
+            </a>
+            ` : ''}
+            <div class="mt-3 text-xs text-gray-500 font-mono">
+              檔案: ${resource.file}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // 更新統計
+      updateStats(filteredResources);
+    }
+
+    // 保存每個元素的定時器引用
+    const animationTimers = {};
+
+    // 更新統計數字
+    function updateStats(filteredResources) {
+      const total = filteredResources.length;
+      const forms = filteredResources.filter(r => r.type === 'form').length;
+      const pages = filteredResources.filter(r => r.type === 'page').length;
+
+      // 動畫效果
+      animateValue('totalCount', total);
+      animateValue('formCount', forms);
+      animateValue('pageCount', pages);
+    }
+
+    // 數字動畫
+    function animateValue(elementId, targetValue) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      // 清除之前的定時器
+      if (animationTimers[elementId]) {
+        clearInterval(animationTimers[elementId]);
+        delete animationTimers[elementId];
+      }
+
+      const start = parseInt(element.textContent) || 0;
+      
+      // 如果目標值和當前值相同，直接設置，不執行動畫
+      if (start === targetValue) {
+        element.textContent = targetValue;
+        return;
+      }
+
+      const duration = 500;
+      const steps = Math.abs(targetValue - start);
+      
+      // 如果步數為0，直接設置值
+      if (steps === 0) {
+        element.textContent = targetValue;
+        return;
+      }
+
+      const increment = targetValue > start ? 1 : -1;
+      const stepDuration = duration / steps;
+
+      let current = start;
+      const timer = setInterval(() => {
+        current += increment;
+        element.textContent = current;
+        if (current === targetValue) {
+          clearInterval(timer);
+          delete animationTimers[elementId];
+        }
+      }, stepDuration);
+      
+      // 保存定時器引用
+      animationTimers[elementId] = timer;
+    }
+
+    // 當前選中的分類
+    let currentCategory = 'all';
+
+    // 按分類篩選
+    function filterByCategory(category) {
+      currentCategory = category;
+      
+      // 更新按鈕狀態
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-blue-500');
+        btn.classList.add('bg-gray-200', 'text-gray-700');
+      });
+      document.getElementById(`filter-${category}`).classList.add('active', 'bg-blue-500', 'text-white');
+      document.getElementById(`filter-${category}`).classList.remove('bg-gray-200', 'text-gray-700');
+
+      // 更新標題
+      const sectionTitle = document.getElementById('sectionTitle');
+      if (category === 'all') {
+        sectionTitle.textContent = '所有資源';
+      } else {
+        sectionTitle.textContent = category;
+      }
+
+      // 執行搜尋（會自動應用分類篩選）
+      handleSearch();
+    }
+
+    // 搜尋功能
+    function handleSearch() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      
+      let filtered = resources;
+
+      // 先應用分類篩選
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(resource => resource.category === currentCategory);
+      }
+
+      // 再應用搜尋篩選
+      if (searchTerm !== '') {
+        filtered = filtered.filter(resource => 
+          resource.name.toLowerCase().includes(searchTerm) ||
+          resource.description.toLowerCase().includes(searchTerm) ||
+          resource.category.toLowerCase().includes(searchTerm) ||
+          resource.file.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      renderCards(filtered);
+    }
+
+    // 渲染分類按鈕
+    function renderCategoryFilters() {
+      const categories = ['all', ...new Set(resources.map(r => r.category))];
+      const filterContainer = document.querySelector('.flex.flex-wrap.gap-2');
+      
+      categories.forEach(category => {
+        if (category === 'all') return; // 已經在HTML中
+        const btn = document.createElement('button');
+        btn.id = `filter-${category}`;
+        btn.className = 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-bold hover:bg-gray-300 transition-colors filter-btn';
+        btn.textContent = category;
+        btn.onclick = () => filterByCategory(category);
+        filterContainer.appendChild(btn);
+      });
+    }
+
+    // 複製連結
+    function copyLink(filename) {
+      const url = window.location.origin + window.location.pathname.replace('dashboard.html', '') + filename;
+      navigator.clipboard.writeText(url).then(() => {
+        // 顯示提示
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '✅';
+        button.classList.add('bg-green-100');
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.classList.remove('bg-green-100');
+        }, 2000);
+      }).catch(err => {
+        console.error('複製失敗:', err);
+        alert('複製失敗，請手動複製連結');
+      });
+    }
+
+    // 複製所有連結
+    function copyAllLinks() {
+      const baseUrl = window.location.origin + window.location.pathname.replace('dashboard.html', '');
+      const links = resources.map(r => `${r.name}: ${baseUrl}${r.file}`).join('\n');
+      navigator.clipboard.writeText(links).then(() => {
+        showToast('✅ 已複製所有連結到剪貼簿！', 'success');
+      }).catch(err => {
+        console.error('複製失敗:', err);
+        showToast('❌ 複製失敗，請稍後再試', 'error');
+      });
+    }
+
+    // 一鍵開啟所有報名網頁
+    function openAllPages() {
+      const baseUrl = window.location.origin + window.location.pathname.replace('dashboard.html', '');
+      resources.forEach(resource => {
+        window.open(baseUrl + resource.file, '_blank');
+      });
+      showToast(`🚀 已開啟 ${resources.length} 個報名網頁！`, 'success');
+    }
+
+    // 複製資料表連結
+    function copySheetsLink(url) {
+      if (!url) return;
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('✅ 已複製資料表連結！', 'success');
+      }).catch(err => {
+        console.error('複製失敗:', err);
+        showToast('❌ 複製失敗', 'error');
+      });
+    }
+
+    // 顯示提示訊息
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg text-white font-bold animate-fade-in ${
+        type === 'success' ? 'bg-green-500' : 
+        type === 'error' ? 'bg-red-500' : 
+        'bg-blue-500'
+      }`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategoryFilters();
+      renderRecent();
+      renderCards();
+      
+      // 搜尋輸入框事件
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', handleSearch);
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          handleSearch();
+        }
+      });
+
+      // 快捷鍵支持：Ctrl+K 或 Cmd+K 快速聚焦搜尋框
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          searchInput.focus();
+          searchInput.select();
+        }
+        // ESC 鍵清除搜尋
+        if (e.key === 'Escape' && document.activeElement === searchInput) {
+          searchInput.value = '';
+          handleSearch();
+          searchInput.blur();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
