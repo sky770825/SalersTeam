@@ -23,317 +23,754 @@
     body{
       margin:0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(246,211,101,.20), transparent 55%),
-                  radial-gradient(900px 500px at 90% 30%, rgba(253,160,133,.18), transparent 55%),
-                  linear-gradient(180deg, #070a12, #0b0f1a 40%, #070a12);
-      color:var(--text);
+      background: #f3f4f6;
+      color: #1f2937;
       line-height:1.6;
     }
-    a{color:inherit}
+    a{color:inherit; text-decoration:none;}
     .wrap{
-      max-width: 1120px;
+      max-width: 480px;
       margin: 0 auto;
-      padding: 18px;
+      padding: 0;
+      background: #fff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
-    header{
-      padding: 18px 0 10px;
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
+    .hero-section{
+      width: 100%;
+      background: #000;
     }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      flex-wrap:wrap;
+    .hero-container{
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      border-radius:999px;
-      backdrop-filter: blur(10px);
+    .hero-image{
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: #111827;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
     }
-    .dot{width:10px;height:10px;border-radius:50%;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      box-shadow: 0 0 18px rgba(246,211,101,.55);
+    .hero-image img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
     }
-    .title{
-      font-weight:800;
-      letter-spacing:.3px;
-      font-size: 16px;
-      margin:0;
+    .hero-image:hover img{
+      transform: scale(1.02);
     }
-    .top-actions{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    .hero-content{
+      background: #111827;
+      padding: 24px 20px 32px;
+      position: relative;
+      border-top: 1px solid #374151;
+      margin-top: -20px;
+      border-radius: 24px 24px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .btn{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      padding:10px 14px;
+    .hero-badge{
+      display: inline-block;
+      background: #dc2626;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 6px 20px;
       border-radius: 999px;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      backdrop-filter: blur(10px);
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22);}
-    .btn.primary{
-      border: none;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      color:#1a1308;
-      font-weight:800;
-      box-shadow: 0 14px 30px rgba(246,211,101,.18);
-    }
-    .btn.primary:hover{transform: translateY(-1px) scale(1.01);}
-    .hero{
-      margin-top: 10px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      border-radius: calc(var(--r) + 8px);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(700px 360px at 20% 10%, rgba(246,211,101,.22), transparent 60%),
-                  radial-gradient(600px 300px at 90% 40%, rgba(253,160,133,.18), transparent 60%);
-      pointer-events:none;
-    }
-    .hero-inner{
-      position:relative;
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 14px;
-      padding: 18px;
-    }
-    @media (max-width: 920px){
-      .hero-inner{grid-template-columns: 1fr; }
-    }
-    .kicker{
-      display:inline-flex; gap:8px; align-items:center;
-      font-weight:800;
-      color: #1a1308;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      padding: 8px 12px;
-      border-radius: 999px;
+      box-shadow: 0 0 20px rgba(220,38,38,0.5);
+      animation: pulse 2s ease-in-out infinite;
+      white-space: nowrap;
+      margin: 0 auto 16px;
+      text-align: center;
       width: fit-content;
     }
-    .h1{
-      margin: 12px 0 10px;
-      font-size: clamp(24px, 3.2vw, 40px);
-      line-height: 1.28;
-      font-weight: 900;
-      letter-spacing: .2px;
+    .hero-title{
+      text-align: center;
+      margin-bottom: 16px;
     }
-    .sub{
-      margin:0;
-      color:var(--muted);
+    .hero-title .location{
+      display: block;
+      color: #fff;
       font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      opacity: 0.8;
+      margin-bottom: 4px;
+      white-space: nowrap;
     }
-    .grid{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 10px;
-    }
-    @media (max-width: 560px){
-      .grid{grid-template-columns: 1fr;}
-    }
-    .pill{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      border-radius: 14px;
-      padding: 12px 12px;
-    }
-    .pill b{display:block; margin-bottom:2px;}
-    .pill small{color:var(--muted);}
-    .right-card{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      border-radius: var(--r);
-      padding: 14px;
-      backdrop-filter: blur(10px);
-      height: fit-content;
-    }
-    .price{
-      font-size: 22px;
+    .hero-title .price{
+      display: block;
+      font-size: 32px;
       font-weight: 900;
-      margin: 4px 0 6px;
+      background: linear-gradient(to right, #fef08a, #fde047, #fef08a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      white-space: nowrap;
     }
-    .strike{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0 0 10px;
-    }
-    .alert{
-      border:1px solid rgba(255,90,122,.35);
-      background: rgba(255,90,122,.10);
-      border-radius: 14px;
+    .price-card{
+      background: #1f2937;
+      border-radius: 12px;
       padding: 12px;
+      border: 1px solid #374151;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+    .price-card::before{
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 64px;
+      height: 64px;
+      background: rgba(220,38,38,0.1);
+      border-radius: 0 0 0 100%;
+      transform: translate(50%, -50%);
+    }
+    .price-row{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #374151;
+    }
+    .price-row:last-child{
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .price-label{
+      color: #9ca3af;
+      font-weight: 700;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .price-value{
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .price-value.large{
+      font-size: 20px;
+      font-weight: 900;
+      color: #fde047;
+      white-space: nowrap;
+    }
+    .price-value.strike{
+      color: #9ca3af;
+      text-decoration: line-through;
+      text-decoration-color: #dc2626;
+      text-decoration-thickness: 2px;
+      font-size: 13px;
+    }
+    .price-highlight{
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #374151;
+    }
+    .price-highlight p{
+      color: #fca5a5;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .hero-description{
+      color: #d1d5db;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .hero-description .highlight{
+      color: #fca5a5;
+      font-weight: 700;
+    }
+    .hero-image-card{
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid #374151;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      margin-top: 0;
+    }
+    .hero-image-card:hover{
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+    .hero-image-card img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hero-image-overlay{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .hero-image-card:hover .hero-image-overlay{
+      background: rgba(0,0,0,0.2);
+    }
+    .hero-image-overlay span{
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .hero-image-card:hover .hero-image-overlay span{
+      opacity: 1;
+    }
+    .content-section{
+      background: #fff;
+      padding: 0;
+      margin-top: -4px;
+    }
+    .info-card{
+      background: #fff;
+      padding: 32px 24px;
+      border-radius: 0;
+    }
+    .info-card h2{
+      font-size: 20px;
+      font-weight: 900;
+      color: #1f2937;
+      margin: 0 0 16px;
+      padding-left: 12px;
+      border-left: 4px solid #dc2626;
+    }
+    .highlight-box{
+      background: linear-gradient(to right, #fef2f2, #fef3c7);
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border: 2px solid #fecaca;
+    }
+    .highlight-box p{
+      color: #1f2937;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.6;
+      text-align: center;
+      margin: 0;
+    }
+    .highlight-box .red-text{
+      color: #dc2626;
+    }
+    .feature-list{
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border: 1px solid #e5e7eb;
+    }
+    .feature-item{
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #374151;
+    }
+    .feature-item:last-child{
+      margin-bottom: 0;
+    }
+    .feature-item .check{
+      color: #10b981;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .feature-item .icon{
+      color: #2563eb;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .feature-note{
+      background: #eff6ff;
+      padding: 12px;
+      border-radius: 8px;
       margin-top: 12px;
+      border: 1px solid #bfdbfe;
     }
-    .alert b{color:#ffd0da}
-    .section{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+    .feature-note p{
+      color: #1e40af;
+      font-weight: 700;
+      font-size: 14px;
+      margin: 0 0 4px;
     }
-    @media (max-width: 920px){
-      .section{grid-template-columns: 1fr;}
+    .feature-note .subtext{
+      color: #4b5563;
+      font-weight: 400;
+      font-size: 13px;
     }
     .card{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      border-radius: var(--r);
-      padding: 16px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      background: #fff;
+      border-radius: 0;
+      padding: 32px 24px;
+      box-shadow: none;
     }
     .card h2{
-      margin:0 0 10px;
-      font-size: 18px;
-      letter-spacing:.2px;
+      margin: 0 0 16px;
+      font-size: 20px;
+      font-weight: 900;
+      color: #1f2937;
+      padding-left: 12px;
+      border-left: 4px solid #dc2626;
     }
-    ul{margin:0; padding-left: 18px; color: var(--muted);}
-    li{margin: 6px 0;}
+    .card .sub{
+      color: #6b7280;
+      font-size: 16px;
+      margin: 0 0 24px;
+    }
+    ul{
+      margin: 0;
+      padding-left: 20px;
+      color: #4b5563;
+    }
+    li{
+      margin: 8px 0;
+      font-size: 16px;
+    }
     .form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 24px;
     }
-    @media (max-width: 560px){
-      .form{grid-template-columns: 1fr;}
+    .form-group{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
     label{
-      display:block;
-      font-size: 13px;
-      color: var(--muted);
-      margin: 6px 0 6px;
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0;
+    }
+    label .required{
+      white-space: nowrap;
+    }
+    label .required{
+      color: #dc2626;
     }
     input, select, textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(10,14,26,.55);
-      color: var(--text);
-      outline:none;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+      background: #fff;
+      color: #1f2937;
+      outline: none;
+      font-size: 16px;
+      transition: all 0.2s ease;
     }
-    input::placeholder, textarea::placeholder{color: rgba(255,255,255,.45);}
-    textarea{min-height: 96px; resize: vertical;}
+    input:focus, select:focus, textarea:focus{
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+    }
+    input::placeholder, textarea::placeholder{
+      color: #9ca3af;
+    }
+    textarea{
+      min-height: 96px;
+      resize: vertical;
+    }
 
     .qwrap{
-      display:grid;
-      gap:10px;
-      margin-top:8px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
     }
     .qitem{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:12px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(10,14,26,.45);
-      border-radius:14px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      border: 2px solid #e5e7eb;
+      background: #fff;
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
     }
     .qitem:hover{
-      transform: translateY(-1px);
-      background: rgba(10,14,26,.58);
-      border-color: rgba(255,255,255,.22);
+      transform: translateY(-2px);
+      background: #fef2f2;
+      border-color: #dc2626;
     }
-    .qitem input{width:auto; margin-top:4px;}
+    .qitem:has(input:checked){
+      background: #fef2f2;
+      border-color: #dc2626;
+    }
+    .qitem input{
+      width: auto;
+      margin-top: 2px;
+      accent-color: #dc2626;
+    }
+    .qitem span{
+      color: #1f2937;
+      font-size: 16px;
+      font-weight: 500;
+      word-break: keep-all;
+    }
 
     .form-actions{
-      margin-top: 12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
     .note{
-      color: rgba(255,255,255,.55);
+      color: #6b7280;
       font-size: 13px;
+      text-align: center;
+    }
+    .form-buttons{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      flex: 1;
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+      background: #fff;
+      color: #1f2937;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .btn:hover{
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+    .btn.primary{
+      background: linear-gradient(to right, #dc2626, #b91c1c);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 12px rgba(220,38,38,0.3);
+    }
+    .btn.primary:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(220,38,38,0.4);
+    }
+    .btn.primary:disabled{
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
     }
     .success, .error{
-      margin-top: 10px;
-      border-radius: 14px;
-      padding: 12px;
-      display:none;
+      margin-top: 16px;
+      border-radius: 12px;
+      padding: 16px;
+      display: none;
     }
-    .success{border:1px solid rgba(56,211,159,.35); background: rgba(56,211,159,.10);}
-    .error{border:1px solid rgba(255,90,122,.35); background: rgba(255,90,122,.10);}
+    .success{
+      border: 2px solid rgba(34,197,94,0.3);
+      background: rgba(220,252,231,0.5);
+      color: #166534;
+    }
+    .error{
+      border: 2px solid rgba(239,68,68,0.3);
+      background: rgba(254,226,226,0.5);
+      color: #991b1b;
+    }
 
     .qrbox{
-      display:grid;
-      grid-template-columns: 120px 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
-      align-items:center;
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: var(--r);
-      border: 1px dashed rgba(255,255,255,.24);
-      background: rgba(255,255,255,.04);
-    }
-    @media (max-width: 560px){
-      .qrbox{grid-template-columns: 1fr;}
+      align-items: center;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 2px dashed #d1d5db;
+      background: #f9fafb;
     }
     .qr{
-      width:120px; height:120px;
+      width: 120px;
+      height: 120px;
       border-radius: 16px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
+      background: #fff;
+      border: 2px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    .qr img{width:100%; height:100%; object-fit:cover;}
+    .qr img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .qr-text{
+      text-align: center;
+    }
+    .qr-text b{
+      display: block;
+      color: #1f2937;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .qr-text span{
+      color: #6b7280;
+      font-size: 14px;
+    }
     footer{
-      margin: 18px 0 8px;
-      color: rgba(255,255,255,.48);
+      margin: 0;
+      padding: 24px;
+      background: #111827;
+      color: #9ca3af;
       font-size: 12px;
-      text-align:center;
+      text-align: center;
     }
 
-    /* 手機版：把上方品牌 + 按鈕做成「標題列」感覺 */
-    @media (max-width: 768px){
-      header{
-        position: sticky;
-        top: 0;
-        z-index: 40;
-        padding: 10px 0 8px;
-        background: rgba(7,10,18,.96);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid rgba(255,255,255,.12);
+    /* 圖片放大模態框 */
+    .image-modal{
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .image-modal.show{
+      display: flex;
+    }
+    .image-modal-content{
+      max-width: 100%;
+      max-height: 90vh;
+      position: relative;
+    }
+    .image-modal img{
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .image-modal-close{
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-modal-close:hover{
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* 手機端文字調整 - 防止換行並調整大小 */
+    @media (max-width: 480px){
+      .hero-content{
+        padding: 20px 16px 24px;
+        margin-top: -16px;
       }
-      .brand .title{
+      .hero-badge{
+        font-size: 13px;
+        padding: 5px 16px;
+        margin-bottom: 12px;
+      }
+      .hero-title{
+        margin-bottom: 12px;
+      }
+      .hero-title .location{
         font-size: 14px;
+        margin-bottom: 3px;
       }
-      .top-actions{
-        width: 100%;
-        justify-content: flex-end;
+      .hero-title .price{
+        font-size: 28px;
       }
-      .top-actions .btn{
-        padding: 8px 12px;
+      .price-card{
+        padding: 10px;
+        margin-bottom: 12px;
+      }
+      .price-row{
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+      }
+      .price-label{
+        font-size: 12px;
+      }
+      .price-value{
         font-size: 13px;
       }
+      .price-value.large{
+        font-size: 18px;
+      }
+      .price-value.strike{
+        font-size: 12px;
+      }
+      .price-highlight{
+        margin-top: 6px;
+        padding-top: 6px;
+      }
+      .price-highlight p{
+        font-size: 11px;
+      }
+      .hero-description{
+        font-size: 13px;
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+      .info-card h2,
+      .card h2{
+        font-size: 18px;
+        white-space: nowrap;
+      }
+      .highlight-box p{
+        font-size: 15px;
+      }
+      .feature-item{
+        font-size: 15px;
+      }
+      .card .sub{
+        font-size: 15px;
+      }
+      label{
+        font-size: 15px;
+        white-space: nowrap;
+      }
+      input, select, textarea{
+        font-size: 16px; /* 防止 iOS 自動縮放 */
+      }
+      .btn{
+        font-size: 15px;
+        white-space: nowrap;
+      }
+      .qitem span{
+        font-size: 15px;
+      }
+      .note{
+        font-size: 12px;
+      }
+      .qr-text b{
+        font-size: 15px;
+        white-space: nowrap;
+      }
+      .qr-text span{
+        font-size: 13px;
+      }
+    }
+
+    /* Loading Screen */
+    .loading-screen{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .loading-screen.hide{
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .loading-spinner-wrapper{
+      position: relative;
+    }
+    .loading-spinner-glow{
+      position: absolute;
+      inset: 0;
+      background: #dc2626;
+      filter: blur(32px);
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .loading-spinner{
+      width: 64px;
+      height: 64px;
+      border: 4px solid #eab308;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: relative;
+      z-index: 10;
+    }
+    @keyframes spin{
+      to{ transform: rotate(360deg); }
+    }
+    @keyframes pulse{
+      0%, 100%{ opacity: 0.3; }
+      50%{ opacity: 0.5; }
+    }
+    .loading-title{
+      margin-top: 32px;
+      text-align: center;
+    }
+    .loading-title h2{
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      margin: 0;
+    }
+    .loading-title h2 .red-text{
+      color: #dc2626;
+    }
+    .loading-title p{
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #eab308;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      margin: 8px 0 0;
+    }
+    .loading-text{
+      color: #9ca3af;
+      font-size: 14px;
+      margin-top: 24px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
     }
 
     /* 簡單 landing page 動畫效果 */
@@ -347,122 +784,122 @@
       transform: translateY(0);
     }
 
-    /* 手機版底部浮動 CTA */
-    @media (max-width: 768px){
-      .mobile-cta{
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 50;
-        padding: 10px 16px;
-        background: linear-gradient(180deg, rgba(7,10,18,0), rgba(7,10,18,.95));
-      }
-      .mobile-cta-inner{
-        max-width: 1120px;
-        margin: 0 auto;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:10px;
-      }
-      .mobile-cta-text{
-        font-size: 13px;
-        color: rgba(255,255,255,.78);
-      }
-      .mobile-cta-text b{
-        display:block;
-        font-size:14px;
-        color:#fff;
-      }
-      .mobile-cta .btn.primary{
-        padding: 10px 16px;
-        font-size: 14px;
-        white-space: nowrap;
-      }
-
-      body{
-        padding-bottom: 64px; /* 預留空間避免內容被 CTA 蓋到 */
-      }
-    }
   </style>
 </head>
 
 <body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-spinner-wrapper">
+      <div class="loading-spinner-glow"></div>
+      <div class="loading-spinner"></div>
+    </div>
+    <div class="loading-title">
+      <h2>房產擺渡人<span class="red-text">蔣哥</span></h2>
+      <p>建案嚴選</p>
+    </div>
+    <p class="loading-text">LOADING...</p>
+  </div>
+
   <div class="wrap">
-    <header>
-      <div class="brand"></div>
-      <div class="top-actions">
-        <a class="btn" href="#benefits">建案亮點</a>
-        <a class="btn" href="#booking">立即預約</a>
-        <a class="btn primary" href="#booking">⚡ 限時優惠填單</a>
-      </div>
-    </header>
-
-    <section class="hero reveal">
-      <div class="hero-inner">
-        <div>
-          <div class="kicker">全台南新貴們注意⚠️ 副都核心啟動</div>
-          <h1 class="h1">東區燙金門牌｜崇明國中明星學區<br/>「研森」現買現住，3字頭最強戰力</h1>
-          <p class="sub">政府建設招商大力做多：南台南車站鐵路地下化 ✖️ 台南小巨蛋預定地 ✖️ 好市多/家樂福大型美式商場進駐（以實際公告為準）</p>
-
-          <div class="grid" id="benefits">
-            <div class="pill">
-              <b>🏷️ 每坪不到 40 萬</b>
-              <small>3 字頭稀有門檻，鎖定入手時機</small>
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class="hero-image" id="heroCoverImage">
+          <img id="coverImage" src="https://i.postimg.cc/BQ1hv091/nan-tai-nan.png" alt="研森建案封面（點擊放大）" style="width:100%; height:100%; object-fit:cover;" loading="eager" onerror="this.style.display='none';">
+        </div>
+        <div class="hero-content">
+          <div class="hero-badge">🔥 限時優惠｜現場專案</div>
+          <div class="hero-title">
+            <span class="location">台南新都心段</span>
+            <span class="price">研森</span>
+          </div>
+          <div class="price-card">
+            <div class="price-row">
+              <span class="price-label">目前行情</span>
+              <span class="price-value strike">40-45 萬/坪</span>
             </div>
-            <div class="pill">
-              <b>🧾 2 年免付物業管理費</b>
-              <small>現在購買享限時方案</small>
+            <div class="price-row">
+              <span class="price-label">
+                <span style="display:inline-block; width:8px; height:8px; background:#fde047; border-radius:50%; margin-right:8px; animation:pulse 2s ease-in-out infinite;"></span>
+                蔣哥限時優惠價
+              </span>
+              <span class="price-value large">3 字頭起</span>
             </div>
-            <div class="pill">
-              <b>🛡️ 保固一次到位</b>
-              <small>3 年建材 + 5 年防水 + 25 年結構體</small>
-            </div>
-            <div class="pill">
-              <b>🚇 副都核心利多</b>
-              <small>重大建設集中，生活與通勤同步升級</small>
+            <div class="price-highlight">
+              <p>每坪不到 40 萬，3 字頭稀有門檻</p>
             </div>
           </div>
-
-          <div class="alert">
-            <b>⚠️ 溫馨提醒：</b>以上資訊以現場銷售中心與官方公告為準；名額有限，請先填單鎖定優惠。
+          <p class="hero-description">
+            東區燙金門牌｜崇明國中明星學區<br/>
+            <span class="highlight">「研森」現買現住，3字頭最強戰力</span>
+          </p>
+          <div class="hero-image-card" id="heroImageCard" style="display:none;">
+            <img id="heroInfoImage" src="" alt="建案資訊（點擊放大）" style="display:none;">
+            <div id="heroImagePlaceholder" style="padding:30px; text-align:center; color:#6b7280; font-size:14px;">
+              建案資訊圖片<br/>（點擊可放大）
+            </div>
+            <div class="hero-image-overlay">
+              <span>🔍 點擊放大</span>
+            </div>
           </div>
         </div>
-
-        <aside class="right-card">
-          <div class="badge">🔥 限時優惠｜現場專案</div>
-          <div class="price">📌 立刻預約，優先安排賞屋時段</div>
-          <p class="strike">✅ 近學區｜✅ 近建設｜✅ 低門檻｜✅ 現買現住</p>
-          <a class="btn primary" href="#booking" style="width:100%; justify-content:center;">📩 立刻填單預約</a>
-
-          <div class="qrbox">
-            <div class="qr" aria-label="QR code">
-              <img id="qrImg" alt="QR code" src="" style="display:none;">
-              <div id="qrPlaceholder" style="color:rgba(255,255,255,.60); font-size:12px; text-align:center; padding:10px;">
-                放你的<br>QR Code 圖
-              </div>
-            </div>
-            <div>
-              <b>📷 QR code｜銷售中心限時優惠</b><br/>
-              <span style="color:var(--muted); font-size:13px;">
-                掃碼或直接填寫下方表單<br/>專人與你確認賞屋時間
-              </span>
-            </div>
-          </div>
-        </aside>
       </div>
     </section>
 
-    <section class="section reveal">
-      <div class="card">
-        <h2>🏗️ 建設利多（重點整理）</h2>
-        <ul>
-          <li>🚉 南台南車站｜鐵路地下化（依政府期程）</li>
-          <li>🏟️ 台南小巨蛋預定地（依後續公告）</li>
-          <li>🛒 大型賣場進駐：好市多／家樂福（依實際進駐資訊）</li>
-          <li>📈 副都核心帶動：人口、商業、生活機能加速集中</li>
-        </ul>
+    <section class="content-section">
+      <div class="info-card" id="benefits">
+        <div class="highlight-box">
+          <p>
+            買房不能只比便宜，更要比「有沒有漲價實力」！<br/>
+            <span class="red-text">我們有地點更好的漲價實力！</span>
+          </p>
+        </div>
+
+        <h2>✅ 建設利多（重點整理）</h2>
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>南台南車站｜鐵路地下化（依政府期程）</span>
+          </div>
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>台南小巨蛋預定地（依後續公告）</span>
+          </div>
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>大型賣場進駐：好市多／家樂福（依實際進駐資訊）</span>
+          </div>
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>副都核心帶動：人口、商業、生活機能加速集中</span>
+          </div>
+        </div>
+
+        <h2>✅ 建案亮點</h2>
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>每坪不到 40 萬</span>
+          </div>
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>2 年免付物業管理費</span>
+          </div>
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>保固一次到位：3 年建材 + 5 年防水 + 25 年結構體</span>
+          </div>
+          <div class="feature-item">
+            <span class="check">✓</span>
+            <span>副都核心利多：重大建設集中，生活與通勤同步升級</span>
+          </div>
+        </div>
+
+        <div style="background:#fef3c7; padding:16px; border-radius:12px; border:2px solid #fbbf24; margin-top:24px;">
+          <p style="color:#92400e; font-weight:700; margin:0; text-align:center;">
+            ⚠️ 溫馨提醒：以上資訊以現場銷售中心與官方公告為準；名額有限，請先填單鎖定優惠。
+          </p>
+        </div>
       </div>
 
       <div class="card" id="booking">
@@ -471,15 +908,15 @@
 
         <form id="leadForm">
           <div class="form">
-            <div>
-              <label for="name">姓名</label>
+            <div class="form-group">
+              <label for="name">姓名 <span class="required">*</span></label>
               <input id="name" name="name" placeholder="王小明" required />
             </div>
-            <div>
-              <label for="phone">手機</label>
+            <div class="form-group">
+              <label for="phone">手機 <span class="required">*</span></label>
               <input id="phone" name="phone" placeholder="09xxxxxxxx" inputmode="numeric" required />
             </div>
-            <div>
+            <div class="form-group">
               <label for="contact">偏好聯絡方式</label>
               <select id="contact" name="contact">
                 <option value="phone">電話</option>
@@ -487,8 +924,8 @@
                 <option value="either">都可以</option>
               </select>
             </div>
-            <div>
-              <label for="time">預計賞屋時間</label>
+            <div class="form-group">
+              <label for="time">預計賞屋時間 <span class="required">*</span></label>
               <select id="time" name="time" required>
                 <option value="" selected disabled>請選擇</option>
                 <option>平日白天</option>
@@ -500,10 +937,10 @@
             </div>
 
             <!-- ✅ 複選問題（最多 2 題） -->
-            <div style="grid-column: 1 / -1;">
-              <label style="display:flex; align-items:center; gap:8px;">
-                我這次最想要了解本案的 2 個問題（複選）
-                <span style="font-size:12px; color:rgba(255,255,255,.55);">（最多選 2 題）</span>
+            <div class="form-group">
+              <label style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span style="white-space:nowrap;">我這次最想要了解本案的 2 個問題（複選）</span>
+                <span style="font-size:14px; color:#6b7280; font-weight:400; white-space:nowrap;">（最多選 2 題）</span>
               </label>
 
               <div class="qwrap">
@@ -533,12 +970,12 @@
                 </label>
               </div>
 
-              <div id="qHint" style="margin-top:8px; font-size:12px; color:rgba(255,255,255,.55);">
+              <div id="qHint" style="margin-top:8px; font-size:14px; color:#6b7280;">
                 可複選最多 2 題
               </div>
             </div>
 
-            <div style="grid-column: 1 / -1;">
+            <div class="form-group">
               <label for="need">需求備註（可不填）</label>
               <textarea id="need" name="need" placeholder="例如：預算區間、想看幾房、是否需車位、想了解付款方式…"></textarea>
             </div>
@@ -546,7 +983,7 @@
 
           <div class="form-actions">
             <div class="note">提交即代表同意我們以聯絡資訊與你確認賞屋與專案內容（僅用於本案聯繫）。</div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <div class="form-buttons">
               <button class="btn" type="reset">清除</button>
               <button class="btn primary" id="submitBtn" type="submit">🚀 送出預約</button>
             </div>
@@ -559,29 +996,25 @@
           <div class="error" id="errBox">⚠️ 送出失敗，請稍後再試或改用電話/LINE 聯絡。</div>
         </form>
       </div>
-    </section>
 
-    <section class="section reveal" id="streetview">
-      <div class="card" style="grid-column: 1 / -1;">
+      <div class="card" id="streetview">
         <h2>📍 現場街景實拍</h2>
         <p class="sub">下方為本案周邊街景示意，實際環境請以現場狀況與政府／官方公告為準。</p>
-        <div style="margin-top:10px; border-radius: var(--r); overflow:hidden; border:1px solid var(--stroke); box-shadow: var(--shadow);">
+        <div style="margin-top:16px; border-radius: 16px; overflow:hidden; border:2px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
           <iframe src="https://www.google.com/maps/embed?pb=!4v1765794310763!6m8!1m7!1sdFmw1-HAU0kQzCR7qG3mQA!2m2!1d22.96102573440214!2d120.2189379335809!3f8.441176056778954!4f-11.14806855635527!5f0.7820865974627469"
                   width="100%" height="360" style="border:0;" allowfullscreen="" loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
-    </section>
 
-    <section class="section reveal" id="social">
-      <div class="card" style="grid-column: 1 / -1; text-align:center;">
+      <div class="card" id="social" style="text-align:center;">
         <h2>📲 官方社群聯絡方式</h2>
         <p class="sub">想先用 LINE 問細節，或加入社群看更多案場資訊，都可以透過下面方式找到我們。</p>
-        <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
-          <a href="https://lin.ee/28b2R6ez" target="_blank" rel="noopener noreferrer" class="btn primary">
+        <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+          <a href="https://lin.ee/28b2R6ez" target="_blank" rel="noopener noreferrer" class="btn primary" style="display:block;">
             加入 LINE 官方社群
           </a>
-          <a href="https://lin.ee/28b2R6ez" target="_blank" rel="noopener noreferrer" class="btn">
+          <a href="https://lin.ee/28b2R6ez" target="_blank" rel="noopener noreferrer" class="btn" style="display:block;">
             私訊：「我想了解台南研森」
           </a>
         </div>
@@ -593,18 +1026,26 @@
     </footer>
   </div>
 
-  <!-- 手機版底部浮動 CTA -->
-  <div class="mobile-cta">
-    <div class="mobile-cta-inner">
-      <div class="mobile-cta-text">
-        <b>想看研森現場？</b>
-        填單預約賞屋，保留限量優惠席次
-      </div>
-      <a href="#booking" class="btn primary">📩 立即填單</a>
+  <!-- 圖片放大模態框 -->
+  <div class="image-modal" id="imageModal">
+    <div class="image-modal-content">
+      <button class="image-modal-close" id="closeModal">×</button>
+      <img id="modalImage" src="" alt="建案資訊（放大）">
     </div>
   </div>
 
   <script>
+    // Loading Screen 控制
+    const loadingScreen = document.getElementById("loadingScreen");
+    
+    // 2秒後隱藏 loading screen
+    setTimeout(() => {
+      loadingScreen.classList.add("hide");
+      setTimeout(() => {
+        loadingScreen.style.display = "none";
+      }, 500);
+    }, 2000);
+
     // ✅ Webhook / Google Apps Script：把這裡換成你的網址
     const API_ENDPOINT = "https://script.google.com/macros/s/AKfycby7kTJhy5WAsb7peILAPrcu-RzeYzOAW45J_8xQX_sg6d9CjKzwX2xvsf2p2gds_m0VkA/exec";
 
@@ -765,18 +1206,54 @@
       }
     });
 
-    // Landing page 滾動 reveal 效果
-    const revealEls = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          observer.unobserve(entry.target);
+    // 圖片放大功能
+    const heroImageCard = document.getElementById("heroImageCard");
+    const heroCoverImage = document.getElementById("heroCoverImage");
+    const coverImage = document.getElementById("coverImage");
+    const imageModal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    const closeModal = document.getElementById("closeModal");
+    const heroInfoImage = document.getElementById("heroInfoImage");
+
+    // 封面圖片點擊放大
+    if (heroCoverImage && coverImage && coverImage.src) {
+      heroCoverImage.addEventListener("click", () => {
+        modalImage.src = coverImage.src;
+        imageModal.classList.add("show");
+      });
+    }
+
+    // 建案資訊圖片點擊放大
+    if (heroImageCard && heroInfoImage && heroInfoImage.src) {
+      heroImageCard.style.cursor = "pointer";
+      heroImageCard.addEventListener("click", () => {
+        modalImage.src = heroInfoImage.src;
+        imageModal.classList.add("show");
+      });
+    }
+
+    // 關閉按鈕
+    if (closeModal) {
+      closeModal.addEventListener("click", () => {
+        imageModal.classList.remove("show");
+      });
+    }
+
+    // 點擊背景關閉
+    if (imageModal) {
+      imageModal.addEventListener("click", (e) => {
+        if (e.target === imageModal) {
+          imageModal.classList.remove("show");
         }
       });
-    }, {threshold: 0.15});
+    }
 
-    revealEls.forEach(el => observer.observe(el));
+    // ESC 鍵關閉
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && imageModal.classList.contains("show")) {
+        imageModal.classList.remove("show");
+      }
+    });
   </script>
 </body>
 </html>
