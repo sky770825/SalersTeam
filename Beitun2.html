@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <meta name="description" content="🔥限量早鳥保留戶｜台中北屯機捷特區「43萬起」！區域行情單坪直接降10萬，降價何必開合跳？1分鐘帶你直接跳回3年前的價格！立即報名登記保留戶！" />
+  <meta name="keywords" content="台中北屯,預售屋,43萬起,蔣哥,機捷特區,房地產,早鳥保留戶,碧柳段" />
+  <meta property="og:title" content="🔥限量早鳥保留戶｜台中北屯機捷特區「43萬起」- 蔣哥報名網頁" />
+  <meta property="og:description" content="區域行情單坪直接降10萬！降價何必開合跳？1分鐘帶你直接跳回3年前的價格！立即報名登記保留戶！" />
+  <meta property="og:type" content="website" />
+  <title>🔥限量早鳥保留戶｜台中北屯機捷特區「43萬起」- 蔣哥報名網頁</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #f3f4f6;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.5s ease-in;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // ============================================
+    // 配置區：請在這裡設置您的 Google Apps Script URL
+    // ============================================
+    // 如何獲取 URL：
+    // 1. 打開 Google Sheets > 擴展程序 > Apps Script
+    // 2. 部署為網頁應用程式
+    // 3. 複製 Web 應用程式 URL 並貼到下面
+    // ============================================
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwT4MIuzanc4lrIzc2Z8TJdHLfcjGkTGW3Ifh7bs-aVBG8gcxNQklApzE3nkVu_MtmH/exec';
+
+    // 格式化數據函數
+    function formatFormDataForSheets(data) {
+      return [
+        new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
+        data.name,
+        data.lineId,
+        data.phone,
+        data.location,
+        data.q1_price_perception === 'yes' ? '是' : '否',
+        data.q2_large_base === 'consider' ? '會考慮' : '沒興趣',
+        data.q3_safety_value === 'yes' ? '是' : '不是',
+        data.q4_costco_value === 'yes' ? '一定是' : '還好',
+        data.q5_ac_preference === 'full_install' ? '冷氣全部裝到好' : '只送室外機',
+        data.q6_meet_event === 'high_speed_rail' ? '我要搭高鐵' : data.q6_meet_event === 'self_drive' ? '我要自行開車' : '',
+        data.q7_self_visit ? '我想在直播間拿到 43萬起保留席地址' : '',
+      ];
+    }
+
+    // 提交到 Google Sheets
+    async function submitToGoogleSheets(data) {
+      if (!GOOGLE_SCRIPT_URL) {
+        console.error('Google Script URL 未设置');
+        return { success: false, error: 'Google Script URL 未配置' };
+      }
+
+      try {
+        const rowData = formatFormDataForSheets(data);
+        console.log('准备提交数据到 Google Sheets:', { url: GOOGLE_SCRIPT_URL, data: rowData });
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: rowData }),
+        });
+
+        console.log('请求已发送');
+        return { success: true };
+      } catch (error) {
+        console.error('提交失败:', error);
+        return { success: false, error: error.message || '提交失败，请稍后重试' };
+      }
+    }
+
+    // Loading Screen
+    function LoadingScreen() {
+      return (
+        <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center text-white">
+          <div className="relative">
+            <div className="absolute inset-0 bg-red-600 blur-2xl opacity-30 animate-pulse rounded-full"></div>
+            <div className="w-16 h-16 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin relative z-10"></div>
+          </div>
+          <div className="mt-8 text-center space-y-2">
+            <h2 className="text-2xl font-black tracking-widest text-white drop-shadow-lg">
+              房產擺渡人<span className="text-red-600">蔣哥</span>
+            </h2>
+            <p className="text-xl font-black tracking-wide text-yellow-400 drop-shadow-lg">
+              建案嚴選
+            </p>
+          </div>
+          <p className="text-gray-400 text-sm mt-6 tracking-widest uppercase animate-pulse">
+            LOADING...
+          </p>
+        </div>
+      );
+    }
+
+    // Hero Component
+    function Hero() {
+      const [isImageExpanded, setIsImageExpanded] = useState(false);
+
+      return (
+        <>
+          <div className="w-full bg-black">
+            <div className="max-w-md mx-auto relative group overflow-hidden shadow-2xl">
+
+              {/* 主視覺 */}
+              <div className="aspect-[4/5] w-full bg-gray-900 relative">
+                <img 
+                  src="https://i.postimg.cc/Xvp1ZYrH/line-oa-chat-251209-105114.jpg" 
+                  alt="房產擺渡人蔣哥" 
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* 價格與標語 */}
+              <div className="bg-gray-900 px-6 pt-10 pb-8 relative rounded-t-[2rem] -mt-10 z-10 border-t border-gray-800">
+                <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-red-600 text-white text-base font-bold px-6 py-2 rounded-full border-4 border-gray-900 shadow animate-pulse">
+                    🔥 限量早鳥保留戶
+                  </span>
+                </div>
+
+                <h1 className="text-center mb-6">
+                  <span className="block text-white text-lg font-bold tracking-widest opacity-80">
+                    台中北屯機捷特區
+                  </span>
+                  <span className="block text-4xl font-black text-yellow-400">
+                    43 萬起
+                  </span>
+                </h1>
+
+                <p className="text-gray-300 text-center text-base font-medium mb-6">
+                  降價何必開合跳？<br />
+                  <span className="text-red-400 font-bold">
+                    1 分鐘，直接跳回 3 年前的價格
+                  </span>
+                </p>
+
+                {/* 📺 YouTube 影片（可直接播放） */}
+                <div className="mt-6">
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl border border-gray-700 bg-black">
+                    <iframe
+                      src="https://www.youtube.com/embed/GmtsrffFQg8"
+                      title="《法拉利的好市多建案傳奇》從洗車小弟到機捷霸氣建商，蔣哥逆襲登場。重逢落魄時期的初戀 Yuri，卻被她與投資客男友帥過頭當眾嘲諷。戰火一觸即發，蔣總不靠嘴砲，只用硬實力回擊 #房產擺渡人蔣哥 #帥過頭"
+                      className="absolute inset-0 w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  </div>
+                  <p className="text-gray-400 text-sm text-center mt-2">
+                    ▶ 點擊直接播放｜真實故事不是嘴砲
+                  </p>
+                </div>
+
+                {/* 📺 YouTube 影片 2 */}
+                <div className="mt-6">
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl border border-gray-700 bg-black">
+                    <iframe
+                      src="https://www.youtube.com/embed/zTx6v4csmRk"
+                      title="台中房價壓壓驚！北屯機捷核心「43萬起」，單坪直接少 10 萬不用開合跳，價格直接跳回 3 年前！🚇 三捷運＋松竹雙鐵🛣 台74 兩匝道🛡 罕見雙制震結構🏫 雙語學區＋中醫BOT醫院！#熱門"
+                      className="absolute inset-0 w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+
+                {/* 原本可點擊放大的圖片（保留） */}
+                <div
+                  className="w-full mt-6 rounded-xl overflow-hidden border-2 border-gray-700 shadow-lg cursor-pointer hover:opacity-90 transition"
+                  onClick={() => setIsImageExpanded(true)}
+                >
+                  <img
+                    src="https://i.postimg.cc/kGnpgFKf/line-oa-chat-251209-105158.jpg"
+                    alt="建案資訊（點擊放大）"
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 圖片放大 Modal */}
+          {isImageExpanded && (
+            <div
+              className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+              onClick={() => setIsImageExpanded(false)}
+            >
+              <img
+                src="https://i.postimg.cc/kGnpgFKf/line-oa-chat-251209-105158.jpg"
+                alt="建案資訊（放大）"
+                className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              />
+            </div>
+          )}
+        </>
+      );
+    }
+
+    // Questionnaire Component
+    function Questionnaire({ onComplete }) {
+      // 從 localStorage 恢復表單數據
+      const getInitialFormData = () => {
+        try {
+          const saved = localStorage.getItem('beitun_form_data');
+          if (saved) {
+            return JSON.parse(saved);
+          }
+        } catch (e) {
+          console.warn('無法讀取保存的表單數據:', e);
+        }
+        return {
+          q1_price_perception: '',
+          q2_large_base: '',
+          q3_safety_value: '',
+          q4_costco_value: '',
+          q5_ac_preference: '',
+          q6_meet_event: '',
+          q7_self_visit: false,
+          name: '',
+          lineId: '',
+          phone: '',
+          location: ''
+        };
+      };
+
+      const [formData, setFormData] = useState(getInitialFormData);
+      const [errors, setErrors] = useState({});
+      const [isSubmitting, setIsSubmitting] = useState(false);
+      const [submitError, setSubmitError] = useState(null);
+      const [hasSubmitted, setHasSubmitted] = useState(false);
+
+      const handleInputChange = (e) => {
+        const { name, value, type } = e.target;
+        let newValue;
+        if (type === 'checkbox') {
+          newValue = e.target.checked;
+        } else {
+          newValue = value;
+        }
+        
+        const updatedData = { ...formData, [name]: newValue };
+        setFormData(updatedData);
+        
+        // 保存到 localStorage
+        try {
+          localStorage.setItem('beitun_form_data', JSON.stringify(updatedData));
+        } catch (e) {
+          console.warn('無法保存表單數據:', e);
+        }
+        
+        if (errors[name]) {
+          setErrors(prev => ({ ...prev, [name]: undefined }));
+        }
+      };
+
+      const validate = () => {
+        const newErrors = {};
+        if (!formData.q1_price_perception) newErrors.q1_price_perception = "請回答此問題";
+        if (!formData.q2_large_base) newErrors.q2_large_base = "請回答此問題";
+        if (!formData.q3_safety_value) newErrors.q3_safety_value = "請回答此問題";
+        if (!formData.q4_costco_value) newErrors.q4_costco_value = "請回答此問題";
+        if (!formData.q5_ac_preference) newErrors.q5_ac_preference = "請選擇冷氣方案";
+        if (!formData.name.trim()) newErrors.name = "請輸入真實姓名";
+        if (!formData.lineId.trim()) newErrors.lineId = "請輸入Line ID";
+        
+        // 增強手機號碼驗證（台灣手機號碼格式）
+        const phoneRegex = /^09\d{8}$/;
+        if (!formData.phone.trim()) {
+          newErrors.phone = "請輸入手機號碼";
+        } else if (!phoneRegex.test(formData.phone.trim())) {
+          newErrors.phone = "請輸入正確的手機號碼格式（例：0912345678）";
+        }
+        
+        if (!formData.location.trim()) newErrors.location = "請輸入居住地區";
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        // 防重複提交
+        if (hasSubmitted || isSubmitting) {
+          return;
+        }
+        
+        if (!validate()) {
+          const firstError = document.querySelector('.error-message');
+          firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitError(null);
+        setHasSubmitted(true);
+
+        try {
+          const result = await submitToGoogleSheets(formData);
+          if (result.success) {
+            console.log('表單已成功提交到 Google Sheets');
+            // 清除保存的表單數據
+            try {
+              localStorage.removeItem('beitun_form_data');
+            } catch (e) {
+              console.warn('無法清除保存的表單數據:', e);
+            }
+            onComplete();
+          } else {
+            setSubmitError(result.error || '提交失敗，請稍後重試');
+            setHasSubmitted(false); // 允許重試
+            setIsSubmitting(false);
+          }
+        } catch (error) {
+          console.error('提交時發生錯誤:', error);
+          setSubmitError('提交時發生錯誤，請稍後重試');
+          setHasSubmitted(false); // 允許重試
+          setIsSubmitting(false);
+        }
+      };
+
+      return (
+        <div className="max-w-md mx-auto bg-white -mt-4 rounded-t-3xl relative z-10 px-6 py-8 shadow-inner">
+          <div className="mb-8">
+            <div className="bg-gradient-to-r from-red-50 to-yellow-50 p-4 rounded-xl mb-6 border-2 border-red-200">
+              <p className="text-gray-800 text-base font-bold leading-relaxed text-center">
+                買房不能只比便宜，更要比「有沒有漲價實力」！<br/>
+                <span className="text-red-600">我們有地點更好的漲價實力！</span>
+              </p>
+            </div>
+            
+            <h2 className="text-xl font-black text-gray-800 mb-4 border-l-4 border-red-700 pl-3">
+              ✅ 交通條件＝漲價底氣
+            </h2>
+            <div className="bg-gray-50 p-5 rounded-xl space-y-3 text-base font-medium text-gray-700 shadow-sm border border-gray-100 mb-6">
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>三個捷運站環繞</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>台 74 快速道路 兩個匝道口</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>直達台中所有核心建設</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>捷運＋火車「雙鐵松竹站」 一站轉乘</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>全線捷運 直達台中高鐵</span>
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg mt-3 border border-blue-200">
+                <p className="text-blue-800 font-bold text-sm">
+                  🚝 距離綠線捷運 舊社站僅 250 公尺<br/>
+                  <span className="text-gray-600 font-normal">這不是郊區型機捷，這是商業最密集的「碧柳段」核心軸線！</span>
+                </p>
+              </div>
+            </div>
+
+            <h2 className="text-xl font-black text-gray-800 mb-4 border-l-4 border-red-700 pl-3">
+              ✅ 商業機能＝已經成熟
+            </h2>
+            <div className="bg-gray-50 p-5 rounded-xl space-y-3 text-base font-medium text-gray-700 shadow-sm border border-gray-100 mb-6">
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>Costco 北屯店</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>總站夜市（北屯最新夜市）</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>大地廣場</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>寶雅、統一體系商場在側</span>
+              </div>
+              <p className="text-red-600 font-bold text-sm mt-3 text-center">👉 你不是在等機能，你是直接買在機能裡！</p>
+            </div>
+
+            <h2 className="text-xl font-black text-gray-800 mb-4 border-l-4 border-red-700 pl-3">
+              ✅ 建築安全＝這個價位罕見的雙制震
+            </h2>
+            <div className="bg-gray-50 p-5 rounded-xl space-y-3 text-base font-medium text-gray-700 shadow-sm border border-gray-100 mb-6">
+              <div className="flex items-start gap-2">
+                <span className="text-blue-600 mt-0.5">🛡</span>
+                <span>Alfa Safe 柱中柱制震系統</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-blue-600 mt-0.5">🛡</span>
+                <span>KVM Well Link 制震壁（經台大、交大研究室檢測）</span>
+              </div>
+              <p className="text-gray-600 text-sm mt-3">👉 是結構等級直接拉高一個世代的安全設計</p>
+              <p className="text-gray-600 text-sm">👉 同級產品「很少給、甚至不給」</p>
+            </div>
+
+            <h2 className="text-xl font-black text-gray-800 mb-4 border-l-4 border-red-700 pl-3">
+              ✅ 學區＋醫療＝長線撐盤力
+            </h2>
+            <div className="bg-gray-50 p-5 rounded-xl space-y-3 text-base font-medium text-gray-700 shadow-sm border border-gray-100 mb-6">
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>三間雙語貴族學校（台中家長跨區接送）</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span>中國醫藥大學BOT 醫院題材</span>
+              </div>
+              <p className="text-gray-600 text-sm mt-3">少子化下「醫療＋學區」反而成為撐價雙護城河</p>
+            </div>
+
+            <div className="bg-yellow-50 p-4 rounded-xl border-2 border-yellow-300 mb-6">
+              <h3 className="text-lg font-black text-gray-800 mb-3">✅ 現在報名還有這些：</h3>
+              <div className="space-y-2 text-base">
+                <div className="flex items-start gap-2">
+                  <span className="text-yellow-600">🎁</span>
+                  <span className="font-bold">簽約送：全室 HITACHI 冷氣（配管安裝到好）</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-yellow-600">🎁</span>
+                  <span className="font-bold">早鳥專屬「加碼好禮」</span>
+                </div>
+                <div className="flex items-start gap-2 mt-3">
+                  <span className="text-red-600">🚨</span>
+                  <span className="font-black text-red-600">限量 30 戶，額滿直接收！</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-center text-base font-bold text-red-600 mt-4 animate-pulse">🗳 來！下面這 7 題你一定要選：</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Question 1 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                1. 你覺得 <span className="text-red-600">北屯機捷特區 43 萬起</span> 貴嗎？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q1_price_perception" value="yes" checked={formData.q1_price_perception === 'yes'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">是</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q1_price_perception" value="no" checked={formData.q1_price_perception === 'no'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">否</span>
+                </label>
+              </div>
+              {errors.q1_price_perception && <p className="text-red-500 text-sm error-message flex items-center">⚠ {errors.q1_price_perception}</p>}
+            </div>
+
+            {/* Question 2 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                2. 如果還是 <span className="text-red-600">1700坪捷運 250 公尺的大基地</span> 呢？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex flex-col gap-3">
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q2_large_base" value="consider" checked={formData.q2_large_base === 'consider'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">會考慮</span>
+                </label>
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q2_large_base" value="not_interested" checked={formData.q2_large_base === 'not_interested'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">沒興趣</span>
+                </label>
+              </div>
+              {errors.q2_large_base && <p className="text-red-500 text-sm error-message flex items-center">⚠ {errors.q2_large_base}</p>}
+            </div>
+
+            {/* Question 3 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                3. <span className="text-red-600">雙制震＋雙鐵捷運</span>，對你投資是加分嗎？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q3_safety_value" value="yes" checked={formData.q3_safety_value === 'yes'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">是</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q3_safety_value" value="no" checked={formData.q3_safety_value === 'no'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">不是</span>
+                </label>
+              </div>
+              {errors.q3_safety_value && <p className="text-red-500 text-sm error-message flex items-center">⚠ {errors.q3_safety_value}</p>}
+            </div>
+
+            {/* Question 4 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                4. 離 <span className="text-red-600">Costco 超近</span>，是不是房地產絕對加分項？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q4_costco_value" value="yes" checked={formData.q4_costco_value === 'yes'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">一定是</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q4_costco_value" value="no" checked={formData.q4_costco_value === 'no'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">還好</span>
+                </label>
+              </div>
+              {errors.q4_costco_value && <p className="text-red-500 text-sm error-message flex items-center">⚠ {errors.q4_costco_value}</p>}
+            </div>
+
+            {/* Question 5 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                5. 建商簽約送 <span className="text-red-600">全室 HITACHI 冷氣（配管安裝到好）</span>，你想要哪一個？ <span className="text-red-500">*</span>
+              </label>
+              <div className="flex flex-col gap-3">
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q5_ac_preference" value="full_install" checked={formData.q5_ac_preference === 'full_install'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">冷氣全部裝到好（配管安裝到好）</span>
+                </label>
+                <label className="flex items-center space-x-3 border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition">
+                  <input type="radio" name="q5_ac_preference" value="outdoor_only" checked={formData.q5_ac_preference === 'outdoor_only'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">只送室外機</span>
+                </label>
+              </div>
+              {errors.q5_ac_preference && <p className="text-red-500 text-sm error-message flex items-center">⚠ {errors.q5_ac_preference}</p>}
+            </div>
+
+            {/* Question 6 */}
+            <div className="bg-yellow-50 p-4 rounded-xl border-2 border-yellow-300">
+              <label className="font-bold text-gray-900 block text-lg mb-3">
+                6. <span className="inline-flex items-center gap-1 bg-yellow-400 text-black px-2 py-1 rounded">📅 12/27（六）下午 13:00 賞屋動線二選一</span>
+              </label>
+              <div className="space-y-3 mb-4">
+                <div className="bg-white p-3 rounded-lg border border-yellow-200">
+                  <p className="text-gray-800 font-bold text-base mb-2">☑️ 我要搭高鐵</p>
+                  <p className="text-gray-700 text-sm">👉 11:00 台中高鐵站</p>
+                  <p className="text-gray-700 text-sm">👉 跟蔣哥＋帥過頭</p>
+                  <p className="text-gray-700 text-sm">👉 一起搭捷運「實戰巡禮機捷特區」</p>
+                </div>
+                <div className="bg-white p-3 rounded-lg border border-yellow-200">
+                  <p className="text-gray-800 font-bold text-base mb-2">☑️ 我要自行開車</p>
+                  <p className="text-gray-700 text-sm">👉 直接到建案銷售中心</p>
+                  <p className="text-gray-700 text-sm">👉 活動 13:00 準時開始</p>
+                  <p className="text-gray-700 text-sm">👉 附近多個停車場，請提早到！</p>
+                </div>
+              </div>
+              <p className="text-gray-800 font-medium mb-3 text-center">請選擇您的賞屋動線：</p>
+              <div className="flex gap-3">
+                <label className="flex items-center justify-center space-x-2 bg-white border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition shadow-sm">
+                  <input type="radio" name="q6_meet_event" value="high_speed_rail" checked={formData.q6_meet_event === 'high_speed_rail'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">我要搭高鐵</span>
+                </label>
+                <label className="flex items-center justify-center space-x-2 bg-white border-2 border-gray-200 p-3 rounded-lg flex-1 cursor-pointer hover:border-red-500 hover:bg-red-50 has-[:checked]:border-red-600 has-[:checked]:bg-red-50 transition shadow-sm">
+                  <input type="radio" name="q6_meet_event" value="self_drive" checked={formData.q6_meet_event === 'self_drive'} onChange={handleInputChange} className="accent-red-600 w-5 h-5" />
+                  <span className="font-bold">我要自行開車</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Question 7 */}
+            <div className="space-y-2">
+              <label className="font-bold text-gray-900 block text-lg">
+                7. 如果你想 <span className="text-red-600">自己先去看現場</span>
+              </label>
+              <label className="flex items-start space-x-3 p-4 rounded-xl border-2 border-dashed border-red-300 bg-red-50 cursor-pointer hover:bg-red-100 transition">
+                <input type="checkbox" name="q7_self_visit" checked={formData.q7_self_visit} onChange={handleInputChange} className="mt-1 w-6 h-6 accent-red-600 shrink-0" />
+                <span className="text-base font-bold text-gray-800">
+                  我想在直播間拿到 <span className="text-red-600 text-lg">43萬起保留席地址</span>
+                </span>
+              </label>
+            </div>
+
+            {/* Personal Data */}
+            <div className="pt-8 border-t-2 border-gray-100 space-y-4">
+              <h3 className="text-xl font-black text-gray-800 flex items-center mb-6">
+                <span className="w-2 h-8 bg-red-600 mr-3 rounded-full"></span>
+                登記 43 萬起早鳥保留戶 (必填)
+              </h3>
+              
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">👤</span>
+                <input type="text" name="name" placeholder="真實姓名" value={formData.name} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.name ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.name && <p className="text-red-500 text-sm mt-1 ml-2 font-bold">{errors.name}</p>}
+              </div>
+
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">💬</span>
+                <input type="text" name="lineId" placeholder="Line ID" value={formData.lineId} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.lineId ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.lineId && <p className="text-red-500 text-sm mt-1 ml-2 font-bold">{errors.lineId}</p>}
+              </div>
+
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">📱</span>
+                <input type="tel" name="phone" placeholder="手機電話（例：0912345678）" value={formData.phone} onChange={handleInputChange} maxLength="10" pattern="[0-9]*" inputMode="numeric" className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.phone && <p className="text-red-500 text-sm mt-1 ml-2 font-bold">{errors.phone}</p>}
+              </div>
+
+              <div className="relative">
+                <span className="absolute top-3.5 left-3 text-gray-400">📍</span>
+                <input type="text" name="location" placeholder="從哪裡來 (例：台中、台北)" value={formData.location} onChange={handleInputChange} className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 ${errors.location ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition`} />
+                {errors.location && <p className="text-red-500 text-sm mt-1 ml-2 font-bold">{errors.location}</p>}
+              </div>
+            </div>
+
+            {submitError && (
+              <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4 mb-4">
+                <p className="text-red-700 text-base font-bold flex items-center gap-2">
+                  ⚠ {submitError}
+                </p>
+              </div>
+            )}
+
+            <button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-black text-xl py-4 rounded-xl shadow-xl transform active:scale-95 transition-all flex items-center justify-center gap-2 border border-white/20">
+              {isSubmitting ? (
+                <>
+                  <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                  提交中...
+                </>
+              ) : (
+                <>
+                  📤 立即送出問券
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+      );
+    }
+
+    // Success Screen
+    function SuccessScreen({ onClose }) {
+      const lineUrl = "https://lin.ee/28b2R6ez";
+      const message = "蔣哥，我已報名 12/27(六) 下午13:00 北屯活動，請給我最新活動地址（實名制抽大獎＋簽約大禮）";
+      const [copied, setCopied] = useState(false);
+
+      const handleCopy = async () => {
+        try {
+          await navigator.clipboard.writeText(message);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+          console.error('複製失敗:', err);
+          const textArea = document.createElement('textarea');
+          textArea.value = message;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-9999px';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          } catch (e) {
+            console.error('傳統複製也失敗:', e);
+          }
+          document.body.removeChild(textArea);
+        }
+      };
+
+      return (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 text-center animate-fade-in relative">
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 transition-colors p-2 rounded-full hover:bg-gray-100"
+                aria-label="關閉"
+              >
+                ✕
+              </button>
+            )}
+
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+              ✅
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900">報名成功！</h2>
+            <p className="text-gray-600 mt-2 leading-relaxed">
+              我們已收到你的資料，活動地址如下：
+            </p>
+
+            <div className="mt-5 text-left bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="text-xl">📅</div>
+                <div>
+                  <div className="text-sm text-gray-500 font-semibold">活動時間</div>
+                  <div className="text-lg font-extrabold text-gray-900">12/27（六）13:00</div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="text-xl">📍</div>
+                <div className="flex-1">
+                  <div className="text-sm text-gray-500 font-semibold mb-1">12/27 活動地址</div>
+                  <div className="text-lg font-black text-gray-900 leading-relaxed bg-yellow-50 p-3 rounded-lg border-2 border-yellow-300">
+                    臺中市北屯區南興路567號
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-xl bg-red-50 border-2 border-red-300 p-3">
+                <div className="text-sm text-red-700 font-bold leading-relaxed">
+                  ⚠️ 再次溫馨的提醒您～只有「實名制報名」才能參加抽獎以及當天購屋限量好禮喔！
+                </div>
+              </div>
+
+              <div className="rounded-xl bg-blue-50 border border-blue-200 p-4">
+                <div className="font-black text-blue-900 mb-3 text-base">🚗 交通資訊：</div>
+                <div className="space-y-3 text-sm text-gray-800">
+                  <div>
+                    <div className="font-bold text-blue-800 mb-1">一、你可以乘坐高鐵到台中站</div>
+                    <div className="ml-2">{'>>>'} 搭乘綠線捷運到 G03 舊社站（走路過來銷售中心約 5 分鐘）。</div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-blue-800 mb-1">二、或是直接開車到附近的許多停車場喔！</div>
+                    <div className="ml-2">（現場不好停車，因為一定會被停滿）。</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-xl bg-red-50 border border-red-200 p-3">
+                <div className="font-black text-red-700">🎁 現場限定好禮</div>
+                <ul className="mt-1 text-base text-red-700 font-semibold space-y-1">
+                  <li>✔ 實名制才能現場抽大獎</li>
+                  <li>✔ 報到即可領專屬簽約大禮</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              <a
+                href={lineUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-[#06C755] hover:bg-[#05B84C] text-white font-black py-4 rounded-2xl shadow-lg transform active:scale-95 transition-all text-lg"
+              >
+                💬 加入 LINE 官方社群
+              </a>
+
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=臺中市北屯區南興路567號`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-white border-2 border-gray-200 hover:border-gray-300 text-gray-800 font-bold py-4 rounded-2xl shadow-sm transform active:scale-95 transition-all"
+              >
+                🗺️ 開啟 Google 地圖
+              </a>
+            </div>
+
+            <p className="text-sm text-gray-400 mt-4">提示：點擊按鈕將開啟相關應用</p>
+
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="w-full mt-4 bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 rounded-2xl shadow-md transform active:scale-95 transition-all flex items-center justify-center gap-2"
+              >
+                🏠 返回首頁
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // Main App
+
+    function App() {
+      const [loading, setLoading] = useState(true);
+      const [isSubmitted, setIsSubmitted] = useState(false);
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+      }, []);
+
+      if (loading) {
+        return <LoadingScreen />;
+      }
+
+      if (isSubmitted) {
+        return <SuccessScreen onClose={() => setIsSubmitted(false)} />;
+      }
+
+      return (
+        <div className="min-h-screen bg-gray-100 flex flex-col font-sans">
+          <div className="w-full max-w-[480px] mx-auto bg-white min-h-screen shadow-2xl overflow-hidden flex flex-col animate-fade-in">
+            <Hero />
+            <Questionnaire onComplete={() => setIsSubmitted(true)} />
+            <footer className="bg-gray-900 text-gray-500 text-sm text-center py-6 mt-auto">
+              <p>&copy; {new Date().getFullYear()} 蔣哥房地產. All rights reserved.</p>
+            </footer>
+          </div>
+        </div>
+      );
+    }
+
+    // Render
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
+
+
