@@ -134,94 +134,101 @@
         <>
           <div className="w-full bg-black">
             <div className="max-w-md mx-auto relative group overflow-hidden shadow-2xl">
+
+              {/* 主視覺 */}
               <div className="aspect-[4/5] w-full bg-gray-900 relative">
                 <img 
                   src="https://i.postimg.cc/Xvp1ZYrH/line-oa-chat-251209-105114.jpg" 
                   alt="房產擺渡人蔣哥" 
                   className="w-full h-full object-cover"
                   loading="lazy"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
                 />
               </div>
-              <div className="bg-gray-900 px-6 pt-10 pb-10 relative rounded-t-[2rem] -mt-10 z-10 border-t border-gray-800">
-                <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-max">
-                  <span className="bg-red-600 text-white text-base font-bold px-6 py-2 rounded-full border-4 border-gray-900 shadow-[0_0_20px_rgba(220,38,38,0.5)] animate-pulse flex items-center gap-2">
+
+              {/* 價格與標語 */}
+              <div className="bg-gray-900 px-6 pt-10 pb-8 relative rounded-t-[2rem] -mt-10 z-10 border-t border-gray-800">
+                <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-red-600 text-white text-base font-bold px-6 py-2 rounded-full border-4 border-gray-900 shadow animate-pulse">
                     🔥 限量早鳥保留戶
                   </span>
                 </div>
+
                 <h1 className="text-center mb-6">
-                  <span className="block text-white text-lg font-bold tracking-widest opacity-80 mb-1">
+                  <span className="block text-white text-lg font-bold tracking-widest opacity-80">
                     台中北屯機捷特區
                   </span>
-                  <span className="block text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 drop-shadow-sm">
+                  <span className="block text-4xl font-black text-yellow-400">
                     43 萬起
                   </span>
                 </h1>
-                <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 mb-6 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-red-600/10 rounded-bl-full -mr-8 -mt-8"></div>
-                  <div className="flex items-center justify-between mb-3 border-b border-gray-700 pb-3">
-                    <span className="text-gray-400 font-bold">目前行情</span>
-                    <span className="text-gray-400 font-medium line-through decoration-red-500 decoration-2">53-60 萬/坪</span>
+
+                <p className="text-gray-300 text-center text-base font-medium mb-6">
+                  降價何必開合跳？<br />
+                  <span className="text-red-400 font-bold">
+                    1 分鐘，直接跳回 3 年前的價格
+                  </span>
+                </p>
+
+                {/* 📺 YouTube 影片（可直接播放） */}
+                <div className="mt-6">
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl border border-gray-700 bg-black">
+                    <iframe
+                      src="https://www.youtube.com/embed/GmtsrffFQg8"
+                      title="《法拉利的好市多建案傳奇》從洗車小弟到機捷霸氣建商，蔣哥逆襲登場。重逢落魄時期的初戀 Yuri，卻被她與投資客男友帥過頭當眾嘲諷。戰火一觸即發，蔣總不靠嘴砲，只用硬實力回擊 #房產擺渡人蔣哥 #帥過頭"
+                      className="absolute inset-0 w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-white font-bold flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
-                      蔣哥早鳥保留價
-                    </span>
-                    <span className="text-2xl font-black text-yellow-400">43 萬起</span>
-                  </div>
-                  <div className="mt-3 pt-3 border-t border-gray-700">
-                    <p className="text-red-400 text-sm font-bold text-center">區域行情 單坪直接降 10 萬</p>
+                  <p className="text-gray-400 text-sm text-center mt-2">
+                    ▶ 點擊直接播放｜真實故事不是嘴砲
+                  </p>
+                </div>
+
+                {/* 📺 YouTube 影片 2 */}
+                <div className="mt-6">
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl border border-gray-700 bg-black">
+                    <iframe
+                      src="https://www.youtube.com/embed/zTx6v4csmRk"
+                      title="台中房價壓壓驚！北屯機捷核心「43萬起」，單坪直接少 10 萬不用開合跳，價格直接跳回 3 年前！🚇 三捷運＋松竹雙鐵🛣 台74 兩匝道🛡 罕見雙制震結構🏫 雙語學區＋中醫BOT醫院！#熱門"
+                      className="absolute inset-0 w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
                   </div>
                 </div>
-                <p className="text-gray-300 text-center text-base leading-relaxed font-medium mb-6">
-                  降價，何必開合跳！？<br/>
-                  <span className="text-red-400 font-bold">1 分鐘，帶你直接跳回 3 年前的價格！</span>
-                </p>
-                <div 
-                  className="w-full rounded-xl overflow-hidden border-2 border-gray-700 shadow-lg cursor-pointer hover:opacity-90 hover:scale-[1.02] transition-all relative group"
+
+                {/* 原本可點擊放大的圖片（保留） */}
+                <div
+                  className="w-full mt-6 rounded-xl overflow-hidden border-2 border-gray-700 shadow-lg cursor-pointer hover:opacity-90 transition"
                   onClick={() => setIsImageExpanded(true)}
                 >
-                  <img 
-                    src="https://i.postimg.cc/kGnpgFKf/line-oa-chat-251209-105158.jpg" 
-                    alt="建案資訊（點擊放大）" 
+                  <img
+                    src="https://i.postimg.cc/kGnpgFKf/line-oa-chat-251209-105158.jpg"
+                    alt="建案資訊（點擊放大）"
                     className="w-full h-auto object-cover"
                     loading="lazy"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all flex items-center justify-center">
-                    <span className="text-white text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">🔍 點擊放大</span>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* 圖片放大模態框 */}
+          {/* 圖片放大 Modal */}
           {isImageExpanded && (
-            <div 
-              className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4 animate-fade-in"
+            <div
+              className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
               onClick={() => setIsImageExpanded(false)}
             >
-              <button
-                onClick={() => setIsImageExpanded(false)}
-                className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 rounded-full hover:bg-white/10 z-10"
-                aria-label="關閉"
-              >
-                <span className="text-3xl font-bold">×</span>
-              </button>
-              <div className="max-w-4xl w-full max-h-[90vh] flex items-center justify-center">
-                <img 
-                  src="https://i.postimg.cc/kGnpgFKf/line-oa-chat-251209-105158.jpg" 
-                  alt="建案資訊（放大）" 
-                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                  onClick={(e) => e.stopPropagation()}
-                />
-              </div>
+              <img
+                src="https://i.postimg.cc/kGnpgFKf/line-oa-chat-251209-105158.jpg"
+                alt="建案資訊（放大）"
+                className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              />
             </div>
           )}
         </>
@@ -836,4 +843,5 @@
   </script>
 </body>
 </html>
+
 
